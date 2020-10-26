@@ -38,14 +38,5 @@ LinkedHashMap 为HashMap的子类，内部还有一个双向链表维护键值�
   集合初始化、大小和扩容 建议在集合初始化时指定集合容量大小 如果没有设置，元素增加，resize表会重建hash，影响性能</description>
     </item>
     
-    <item>
-      <title>CctoctoFX Personal Homepage</title>
-      <link>http://example.org/posts/my-first-post/</link>
-      <pubDate>Tue, 20 Oct 2020 20:38:38 +0800</pubDate>
-      
-      <guid>http://example.org/posts/my-first-post/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
