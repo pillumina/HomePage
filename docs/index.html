@@ -36,7 +36,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="http://example.org/" />
-<meta property="og:updated_time" content="2020-10-20T20:38:38+08:00" />
+<meta property="og:updated_time" content="2020-10-22T12:40:29+08:00" />
 <meta itemprop="name" content="CctoctoFX">
 <meta itemprop="description" content="">
 <meta name="twitter:card" content="summary"/>
@@ -120,6 +120,52 @@
 
       <section class="w-100 mw8">
         
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="http://example.org/posts/java-fundamentals/" class="color-inherit dim link">
+            Java Fundamentals
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          JAVA对象的equals方法和hashCode方法是这样规定的   相等（相同）的对象必须有相等的哈希码
+  如果两个对象的哈希吗相同，它们不一定相同
+  Java集合判断两个对象是否相等的规则：   判断两个对象的哈希码是否相等
+  判断两个对象用equals是否相等
+  所以重写其中一个方法，必须重写另一个方法
+让对象可拷贝：
+ 实现java.lang.Cloneable 2. 重写Object的clone()方法  由于GC的自动回收机制，并不能保证finalize方法被及时的执行，因为对象的回收时机具有不确定性，或者要么没有触发垃圾回收。这个方法被禁止调用，应该用显式的close()方法。 Collection类的选择 Set:
+排序吗？
+是： TreeSet / LinkedHashSet
+否： HashSet
+List
+要安全吗？
+是： Vector
+否： ArrayList或者LinkedList &mdash; 查询多ArrayList，增删多LinkedList
+Map常用子类：HashMap, HashTable, TreeMap, ConcurrentHashMap HashMap: 非线程安全，性能高，基于数组和链表实现。
+TreeMap：有序键值对，按key排序
+HashTable: 线程安全, 性能低
+ConcurrentHashMap: 线程安全且性能较好。Java1.7采取分段锁，1.8采用CAS+synchronized保证并发安全。
+LinkedHashMap 为HashMap的子类，内部还有一个双向链表维护键值对的顺序。支持插入顺序、访问顺序
+  插入顺序：先添加在前，后添加在后
+  访问顺序：即get/put操作，对一个键执行get/put操作后，对应的键值被移动到链表的末尾，所以最末尾的是最近访问的，最开始的是最久没有被访问的。
+  有5种构造方法，4个是插入顺序，只有一个按照指定访问顺序，可以用于实现LRUCache
+  集合初始化、大小和扩容 建议在集合初始化时指定集合容量大小 如果没有设置，元素增加，resize表会重建hash，影响性能
+        </div>
+          <a href="http://example.org/posts/java-fundamentals/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
         
           <div class="relative w-100 mb4">
             
