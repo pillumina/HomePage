@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Java on CctoctoFx</title>
+    <title>Java on CctoctoFX</title>
     <link>https://pillumina.github.io/posts/java/</link>
-    <description>Recent content in Java on CctoctoFx</description>
+    <description>Recent content in Java on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 27 Oct 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/java/index.xml" rel="self" type="application/rss+xml" />
