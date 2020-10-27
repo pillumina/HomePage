@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Java Fundamentals</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Java Fundamentals" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFx</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="http://example.org/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/">Java Odyssey</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/">Notes</a></li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(http://example.org/assets/images/default-hero.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/avatar.png'/>
+          <h5 class="author-name"></h5>
+          <p>October 22, 2020</p>
+        </div>
+
+        <div class="title">
+          <h1>Java Fundamentals</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h3 id="java对象的equals方法和hashcode方法是这样规定的">JAVA对象的equals方法和hashCode方法是这样规定的</h3>
+<ol>
+<li>
+<p>相等（相同）的对象必须有相等的哈希码</p>
+</li>
+<li>
+<p>如果两个对象的哈希吗相同，它们不一定相同</p>
+</li>
+</ol>
+<h3 id="java集合判断两个对象是否相等的规则">Java集合判断两个对象是否相等的规则：</h3>
+<ol>
+<li>
+<p>判断两个对象的哈希码是否相等</p>
+</li>
+<li>
+<p>判断两个对象用equals是否相等</p>
+</li>
+</ol>
+<p>所以重写其中一个方法，必须重写另一个方法</p>
+<p>让对象可拷贝：</p>
+<ol>
+<li>实现java.lang.Cloneable 2. 重写Object的clone()方法</li>
+</ol>
+<h3 id="由于gc的自动回收机制并不能保证finalize方法被及时的执行因为对象的回收时机具有不确定性或者要么没有触发垃圾回收这个方法被禁止调用应该用显式的close方法">由于GC的自动回收机制，并不能保证finalize方法被及时的执行，因为对象的回收时机具有不确定性，或者要么没有触发垃圾回收。这个方法被禁止调用，应该用显式的close()方法。</h3>
+<h3 id="collection类的选择">Collection类的选择</h3>
+<p>Set:</p>
+<p>排序吗？</p>
+<p>是： TreeSet / LinkedHashSet</p>
+<p>否： HashSet</p>
+<p>List</p>
+<p>要安全吗？</p>
+<p>是： Vector</p>
+<p>否： ArrayList或者LinkedList &mdash; 查询多ArrayList，增删多LinkedList</p>
+<h3 id="map常用子类hashmap-hashtable-treemap-concurrenthashmap">Map常用子类：HashMap, HashTable, TreeMap, ConcurrentHashMap</h3>
+<p>HashMap: 非线程安全，性能高，基于数组和链表实现。</p>
+<p>TreeMap：有序键值对，按key排序</p>
+<p>HashTable: 线程安全, 性能低</p>
+<p>ConcurrentHashMap: 线程安全且性能较好。Java1.7采取分段锁，1.8采用CAS+synchronized保证并发安全。</p>
+<h3 id="linkedhashmap">LinkedHashMap</h3>
+<p>为HashMap的子类，内部还有一个双向链表维护键值对的顺序。支持插入顺序、访问顺序</p>
+<ul>
+<li>
+<p>插入顺序：先添加在前，后添加在后</p>
+</li>
+<li>
+<p>访问顺序：即get/put操作，对一个键执行get/put操作后，对应的键值被移动到链表的末尾，所以最末尾的是最近访问的，最开始的是最久没有被访问的。</p>
+</li>
+<li>
+<p>有5种构造方法，4个是插入顺序，只有一个按照指定访问顺序，可以用于实现LRUCache</p>
+</li>
+</ul>
+<h3 id="集合初始化大小和扩容">集合初始化、大小和扩容</h3>
+<h4 id="建议在集合初始化时指定集合容量大小">建议在集合初始化时指定集合容量大小</h4>
+<p>如果没有设置，元素增加，resize表会重建hash，影响性能</p>
+<p>InitialCapacity = （count / loader_factor (0.75)）+ 1 ，暂时无法确定初始值，可以设置为16</p>
+<h4 id="java集合的默认大小和扩容">Java集合的默认大小和扩容</h4>
+<p>ArrayList、Vector: 初始为10</p>
+<p>HashSet、HashMap: 初始为16</p>
+<p>Vector：加载因子为1，扩容增量为原来容量的1倍</p>
+<p>ArrayList: 扩容增量为原容量的0.5倍+1</p>
+<p>HashSet：加载因子为0.75，扩容增量为原来容量的一倍</p>
+<p>HashMap: 加载因子为0.75，扩容增量为原来容量的一倍</p>
+<h4 id="初始化方法">初始化方法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// asList得到的是长度和内容都固定的列表，无法修改
+</span><span style="color:#75715e"></span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> numbers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;(</span>Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;2&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;3&#34;</span><span style="color:#f92672">));</span>
+<span style="color:#75715e">// 一维数组
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> a2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]{</span>1<span style="color:#f92672">,</span> 2<span style="color:#f92672">,</span> 3<span style="color:#f92672">}</span>
+<span style="color:#75715e">// 二维数组
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> a4 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>4<span style="color:#f92672">][</span>4<span style="color:#f92672">]</span>
+</code></pre></div><h3 id="weakreference弱引用">WeakReference弱引用</h3>
+<h3 id="for-each循环优于传统for循环">for-each循环优于传统for循环</h3>
+<p>for-each更简洁，也没有性能损失，在数组和list上均可使用（实现iterable的对象）</p>
+<p>有三种情况不能用：</p>
+<ul>
+<li>过滤删除指定元素</li>
+<li>修改指定元素值</li>
+<li>并行遍历多个集合</li>
+</ul>
+<h3 id="异常处理">异常处理</h3>
+<p>Throwable、Error、Exception</p>
+<p>Exception分为 Runtime Exception以及Checked Exception</p>
+<ul>
+<li>
+<p>运行时异常：编译能通过，程序不会处理运行时异常，程序会中止。 ArithmaticException, IllegalArgumentException，NullPointerException， IndexOutOfBoundsException&hellip;</p>
+</li>
+<li>
+<p>受检查的异常：要么用try catch捕获，要么用throws声明抛出，交给父类处理，否则编译不会通过。 IOException，SQLException&hellip;</p>
+</li>
+</ul>
+<h4 id="try-catch-finally-中的return">try catch finally 中的return</h4>
+<ul>
+<li>不管有没有异常，finally都会执行</li>
+<li>try catch有return时，finally仍然会执行</li>
+<li>finally是在return后面的表达式运算后执行的，没有返回运算的值，而是先把要返回的值保存起来，不管finally中的代码怎么样，返回的值都不会改变、所以函数的return值是在finally执行前确定的。</li>
+<li>finally中最好不要包含return，否则程序会提前退出，返回值不是try活着catch中保存的返回值。</li>
+</ul>
+<h4 id="try-with-resources语句">try-with-resources语句</h4>
+<p>任何实现java.lang.AutoCloseable接口的对象，和实现java.io.Closeable接口的对象，都可以当做资源使用。</p>
+<p>在此语句中，也可以加catch和finally，但是任何catch和finally代码块都在所有被声明的资源被关闭后才会执行。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">try</span> <span style="color:#f92672">(</span>Statement stmt <span style="color:#f92672">=</span> con<span style="color:#f92672">.</span><span style="color:#a6e22e">createStatement</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+  <span style="color:#f92672">.....</span>
+<span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>SQLException e<span style="color:#f92672">){</span>
+  JDBCTutorialUtilities<span style="color:#f92672">.</span><span style="color:#a6e22e">printSQLExcepion</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="线程和线程池的异常处理">线程和线程池的异常处理</h4>
+<p>并发情况下，如果在父线程中启动了子线程，那么try catch finally不好捕获。</p>
+<h5 id="线程的异常处理">线程的异常处理</h5>
+<ul>
+<li>子线程中try catch</li>
+<li>为线程设置UncaughtExceptionHandler，具体可以用Thread.setUncaughtExceptionHandler设置当前线程的异常处理器（默认没有），Thread.setDefaultUncaughtExceptionHandler为整个程序设置默认的异常处理器。 <strong>注意</strong>：子线程中发生了异常，如果没有任何类来接手处理的话，是会直接退出的，不会记录任何日志。</li>
+</ul>
+<h5 id="线程池的异常处理">线程池的异常处理</h5>
+<ul>
+<li>通过Future的get方法捕获异常（推荐）</li>
+<li>通过execute提交的任务，才能把它抛出的异常给UncaughtExceptionHandler</li>
+<li>通过submit提交的任务，无论是抛出的未检测异常还是已经检查异常，都将被认为是任务返回状态的一部分，这个异常被Future.get封装在ExecutionException中重新抛出。</li>
+</ul>
+<h4 id="异常泄漏敏感信息">异常泄漏敏感信息</h4>
+<p>敏感异常包装在非敏感异常抛出，不能防止敏感信息泄漏。比如FileNotFoundException被IOException包装，并没什么用。</p>
+<h3 id="反射">反射</h3>
+<h4 id="如何获得class对象">如何获得Class对象</h4>
+<ul>
+<li>Class.forName(&ldquo;类的全限定名&rdquo;)</li>
+<li>实例对象.getClass()</li>
+<li>类名.class (类字面常量) &ndash; 此方法创建对Class对象的引用时，不会自动地初始化该Class对象，和forName方法不同</li>
+<li>如果一个字段被static final修饰，称为编译时常量，所以不会对类进行初始化，在编译器把结果放入常量池。</li>
+<li>一旦类被加载到了内存里，那么无论哪种方式获取该类的Class对象，返回的都是指向同一个java堆地址的引用。JVM不会创建两个相同类型的Class对象。</li>
+<li>对于任意一个Class对象，都需要它的类加载器和这个类本身一同确定其在JVM中的唯一性。所以即使两个Class对象来源于同一个Class文件，只要类加载器不同，两个Class对象就不同</li>
+</ul>
+<h4 id="基本数据类型的class对象和包装类的class对象不一样">基本数据类型的Class对象和包装类的Class对象不一样</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Class c1 <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+Class c2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
+<span style="color:#75715e">// not equals!
+</span></code></pre></div><h3 id="输入输出流">输入输出流</h3>
+<h4 id="字节流">字节流</h4>
+<ul>
+<li>InputStream
+<ul>
+<li>FileInputStream 文件流，能处理二进制文件也能处理文本</li>
+<li>BufferedInputStream 缓冲流，能处理二进制也能处理文本</li>
+</ul>
+</li>
+<li>OutputStream
+<ul>
+<li>FileOutputStream 文件流， 能处理二进制文件也能处理文本</li>
+<li>&hellip;..</li>
+</ul>
+</li>
+</ul>
+<h4 id="字符流">字符流</h4>
+<ul>
+<li>Reader
+<ul>
+<li>FileReader 文件流，只能出来文本文件</li>
+<li>BufferedReader 缓冲流，只能处理文本文件</li>
+</ul>
+</li>
+<li>Writer
+<ul>
+<li>FileWriter</li>
+<li>BufferedWriter</li>
+</ul>
+</li>
+</ul>
+<h4 id="nio">NIO</h4>
+<p>核心是Channel、Buffer、Selectors</p>
+<ul>
+<li>Channel，Java NIO数据的源头，Buffer的唯一接口，向缓冲区提供数据或者读取数据，双向读写，异步读写，FileChannel, DataChannel, SocketChannel, ServerSocketChannel等根据数据来源分类。比如文件IO，UDP，TCP网络的IO</li>
+<li>Buffer，Java NIO数据读写中转，数据缓存，适用于除了bool类型的所有数据类型，因为bool类型不能通过IO发送</li>
+<li>Selectors, 异步IO核心类，实现异步非阻塞IO操作，允许1个Selector线程管理&amp;处理多个通道 Channel。不需要为每个channel去分配一个线程，也就是事件驱动而不是同步监视事件。</li>
+</ul>
+<p>注意：Java普通的IO写操作不是线程安全的，java.nio.channels.FileChannel提供线程安全的写操作。</p>
+<p>用NIO多线程往同一文件写入数据：</p>
+<ul>
+<li>利用RandomAccessFile访问文件部分内容</li>
+<li>利用FileChannel 对线程独占的文件块需要加锁</li>
+<li>利用MappedByteBuffer对文件进行并发写入</li>
+</ul>
+<h3 id="线程">线程</h3>
+<p>线程状态：New, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED</p>
+<h4 id="thread类方法">Thread类方法</h4>
+<p>run()中放逻辑，start()开始线程，直接吊run只会在本进程中执行</p>
+<p>sleep()和wait()最大区别：</p>
+<ul>
+<li>Sleep()睡眠时，保持对象锁，仍然占有该锁</li>
+<li>wait()睡眠时，会释放对象锁，wait必须放在synchronized block中，否则会抛出IllegalMonitorStateException异常</li>
+</ul>
+<p>interrupted()方法，本质只是设置该线程的中断标志，设置为true，并根据线程状态决定是否抛出异常，比如线程阻塞时就是抛出中断阻塞异常，标志位同时被清除。</p>
+<p>join()等待该方法的线程执行完毕后再继续执行</p>
+<p>wait(), notify(), notifyAll()都要在synchronized代码块中使用，因为会对对象的锁标志进行操作。</p>
+<h4 id="线程的创建方式">线程的创建方式</h4>
+<ol>
+<li>继承Thread，实现run方法，start调用</li>
+<li>实现Runnable接口， Thread(Runnable target, String name)</li>
+<li>实现Callable接口，和FutureTask共用</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Callable callable  <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MyCallable<span style="color:#f92672">();</span>
+FutureTask<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> task <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FutureTask<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;(</span>callable<span style="color:#f92672">);</span>
+Thread thread1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span>task<span style="color:#f92672">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>thread1<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
+</code></pre></div><h4 id="runnable和callable的区别">Runnable和Callable的区别</h4>
+<ol>
+<li>Callable的任务执行后可以返回值，而Runnable为void</li>
+<li>call方法可以抛出异常而run不可以</li>
+<li>call任务可以拿到future对象，表示异步计算的结果。</li>
+<li>加入线程池运行，run使用ExecutorService的execute方法，call使用submit方法</li>
+</ol>
+<h4 id="线程退出方式">线程退出方式</h4>
+<ol>
+<li>执行完run</li>
+<li>用interrupt中断</li>
+</ol>
+<h4 id="共享数据和synchronized">共享数据和synchronized</h4>
+<p>Runnable中默认是共享数据，需要增加synchronized关键字来设置互斥区，保护共享数据：</p>
+<h4 id="atomicinteger">AtomicInteger</h4>
+<p>AtomicInteger，AtomicLong，AtomicLongArray，AtomicReference等原子类的类，主要用于高并发环境下的高效程序处理，帮助简化同步处理。++i和i++不是线程安全的，使用的时候不可避免要用synchronized，而AtomicInteger为线程安全的加减操作。</p>
+<h4 id="线程同步机制">线程同步机制</h4>
+<ul>
+<li>
+<p>共享内存</p>
+<p>Java的实例域，静态域，和数组元素都是放在堆内存中的，是线程都可以访问到的，即共享。局部变量，方法定义参数，异常处理参数线程间不共享。出现线程安全问题的都是前者。Java内存模型（JMM）决定了一个线程对共享变量的写入何时对其他线程是可见的。</p>
+</li>
+<li>
+<p>消息传递</p>
+<p>Exchanger可以在两个线程内交换数据，也只能是2个线程。A线程调用exchange方法，会进入阻塞，知道B线程也调用了exchange方法，而后以线程安全的方式交换数据，之后两个线程继续运行。Semaphore，可以控制同时访问的线程个数，用acquire获取许可，release释放许可。</p>
+</li>
+</ul>
+<h4 id="java线程池体系结构">Java线程池体系结构</h4>
+<h3 id="jdbc">JDBC</h3>
+<h4 id="dbcp连接池配置">DBCP连接池配置</h4>
+<ol>
+<li>
+<p>手动配置</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">BasicDataSource dataSource <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BasicDataSource<span style="color:#f92672">();</span>
+<span style="color:#75715e">// 调用配置
+</span><span style="color:#75715e"></span>dataSource<span style="color:#f92672">.</span><span style="color:#a6e22e">setDriverClassName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#75715e">// 得到连接
+</span><span style="color:#75715e"></span>Connection conn <span style="color:#f92672">=</span> ds<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">();</span>
+</code></pre></div></li>
+<li>
+<p>读取配置文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">BasicDataSourceFactory factory <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BasicDataSourceFactory<span style="color:#f92672">;</span>
+<span style="color:#75715e">// 读取配置
+</span><span style="color:#75715e"></span>DataSource dataSource <span style="color:#f92672">=</span> factory<span style="color:#f92672">.</span><span style="color:#a6e22e">createDataSource</span><span style="color:#f92672">(</span>properties<span style="color:#f92672">);</span>
+<span style="color:#75715e">// 得到连接
+</span><span style="color:#75715e"></span>Connection conn <span style="color:#f92672">=</span> ds<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">();</span>
+</code></pre></div></li>
+</ol>
+<h4 id="fetchsize设置每次缓存读取大小">FetchSize设置每次缓存读取大小</h4>
+<p>oracle中每次默认读取10行，mysql驱动则是把整个结果全部读取到内存中才开始允许应用读取结果，所以mysql可能有OOM问题。 &mdash;&ndash;&gt; 在每次执行SQL语句之前，设置ps.executeQuery()之前使用setFetchSize()函数设置大小。</p>
+<h3 id="java8">JAVA8</h3>
+<h4 id="lambda">lambda</h4>
+<p>lambda表达式对值封闭，不对变量封闭。也就是局部变量在lambda表达式中如果要使用，必须声明final类型或者是隐式的final</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> 123<span style="color:#f92672">;</span>
+Consumer<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> print <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>num<span style="color:#f92672">);</span>
+<span style="color:#75715e">// 上述是可以的，因为num虽然没声明final，但是和final的变量表现一致
+</span><span style="color:#75715e">// 但是如果中间加个num ++;就不行了
+</span></code></pre></div><h4 id="stream">Stream</h4>
+<p>处理集合的操作，可以执行非常复杂的查找，过滤和映射数据等操作。</p>
+<ol>
+<li>不是数据结构，不会保存数据</li>
+<li>不会修改原来数据源，只会把操作后的数据保存到另外一个对象（peek方法？）</li>
+<li>惰性求值，流在中间处理过程中，只是对操作进行了记录，不会立刻执行，等到执行终止操作的时候才会进行实际的计算。</li>
+</ol>
+<ul>
+<li>中间操作
+<ul>
+<li>无状态：元素的处理不受之前元素的影响  &ndash; filter, map, peek</li>
+<li>有状态：该操作只有拿到所有元素之后才能进行下去 &ndash; distinct, sorted, limit, skip</li>
+</ul>
+</li>
+<li>结束操作
+<ul>
+<li>非短路操作： 必须处理所有元素才能得到最终结果 &ndash; forEach, reduce, collect, max, min, coint</li>
+<li>短路操作：遇到某些符合条件的元素就可以得到最终结果，比如A or B &ndash; anyMatch, allMatch, findAny, noneMatch</li>
+</ul>
+</li>
+</ul>
+<h4 id="optional">Optional</h4>
+<p>主要解决空指针异常</p>
+<h4 id="metaspace">MetaSpace</h4>
+<h3 id="泛型">泛型</h3>
+<h4 id="泛型类接口方法">泛型类，接口，方法</h4>
+<p>泛型的类型参数只能是类类型，不能是简单类型</p>
+<p>不能对确切的泛型类型使用instanceof操作, 下面是非法的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>ex_num <span style="color:#66d9ef">instanceof</span> Generic<span style="color:#f92672">&lt;</span>Number<span style="color:#f92672">&gt;){}</span>
+</code></pre></div><h4 id="只在编译期有效">只在编译期有效</h4>
+<h4 id="泛型容器之间没有继承关系">泛型容器之间没有继承关系</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Plate<span style="color:#f92672">&lt;</span>Fruit<span style="color:#f92672">&gt;</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Plate<span style="color:#f92672">&lt;</span>Apple<span style="color:#f92672">&gt;(</span><span style="color:#66d9ef">new</span> Apple<span style="color:#f92672">());</span>
+<span style="color:#75715e">// Type mismatch: cannot convert from Plate&lt;Apple&gt; to Plate&lt;Fruit&gt;
+</span><span style="color:#75715e">// apple is-a fruit
+</span><span style="color:#75715e">// plate with apple not-is-a plate with fruit
+</span></code></pre></div><p>就算容器装的东西有继承关系，容器之间没有继承关系，需要泛型通配符</p>
+<h4 id="泛型通配符">泛型通配符</h4>
+<ul>
+<li>
+<p>上界通配符 Plate&lt;? extends Fruit&gt;</p>
+<p>为泛型添加上边界，传入的类型实参必须是指定类型的子类型</p>
+<p>这个会使得往盘子里放东西的set()失效，get()还是有效的</p>
+</li>
+<li>
+<p>下界通配符 Plate&lt;? super Fruit&gt;</p>
+<p>传入的类型实参必须是指定类型的父类型</p>
+<p>会使得get()方法部分失效，只能存放到Object对象里，而set()方法正常</p>
+</li>
+<li>
+<p>?与T的区别</p>
+<ul>
+<li>
+<p>对于编译器来说所有的T都代表同一个类型 比如</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> List<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">fill</span><span style="color:#f92672">(</span>T<span style="color:#f92672">...</span> t<span style="color:#f92672">)</span> 
+</code></pre></div><p>代表要么是String要么是Integer</p>
+</li>
+<li>
+<p>通配符只能用于填充泛型变量T，不能用于定义变量</p>
+</li>
+</ul>
+</li>
+<li>
+<p>频繁往外读取的，用上界extends，经常往里面插入的，用下界super</p>
+</li>
+</ul>
+<h3 id="类的初始化过程">类的初始化过程</h3>
+<p>继承的子类： 静态 &ndash; 父类 &ndash; 子类</p>
+<p>interface中可以有静态方法，不能有普通方法，普通方法需要用defult加默认实现</p>
+<p>interface中的变量必须实例化</p>
+<h3 id="gc">GC</h3>
+<p>GC roots:</p>
+<ul>
+<li>本地变量表中引用的对象</li>
+<li>方法区中静态变量引用的对象</li>
+<li>方法去中常量引用的对象</li>
+<li>Native方法引用的对象</li>
+</ul>
+<p>年轻代的GC是必须的，但老年代和永久代的GC并不是必须的，可以通过设置参数决定是否对类进行回收。</p>
+<h3 id="jdk工具">JDK工具</h3>
+<h3 id="正则表达式">正则表达式</h3>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/hossainemruz/toha-example-site/edit/master/content/posts/java/java-fundamentals.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "does-not-exist";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#java对象的equals方法和hashcode方法是这样规定的">JAVA对象的equals方法和hashCode方法是这样规定的</a></li>
+        <li><a href="#java集合判断两个对象是否相等的规则">Java集合判断两个对象是否相等的规则：</a></li>
+        <li><a href="#由于gc的自动回收机制并不能保证finalize方法被及时的执行因为对象的回收时机具有不确定性或者要么没有触发垃圾回收这个方法被禁止调用应该用显式的close方法">由于GC的自动回收机制，并不能保证finalize方法被及时的执行，因为对象的回收时机具有不确定性，或者要么没有触发垃圾回收。这个方法被禁止调用，应该用显式的close()方法。</a></li>
+        <li><a href="#collection类的选择">Collection类的选择</a></li>
+        <li><a href="#map常用子类hashmap-hashtable-treemap-concurrenthashmap">Map常用子类：HashMap, HashTable, TreeMap, ConcurrentHashMap</a></li>
+        <li><a href="#linkedhashmap">LinkedHashMap</a></li>
+        <li><a href="#集合初始化大小和扩容">集合初始化、大小和扩容</a>
+          <ul>
+            <li><a href="#建议在集合初始化时指定集合容量大小">建议在集合初始化时指定集合容量大小</a></li>
+            <li><a href="#java集合的默认大小和扩容">Java集合的默认大小和扩容</a></li>
+            <li><a href="#初始化方法">初始化方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#weakreference弱引用">WeakReference弱引用</a></li>
+        <li><a href="#for-each循环优于传统for循环">for-each循环优于传统for循环</a></li>
+        <li><a href="#异常处理">异常处理</a>
+          <ul>
+            <li><a href="#try-catch-finally-中的return">try catch finally 中的return</a></li>
+            <li><a href="#try-with-resources语句">try-with-resources语句</a></li>
+            <li><a href="#线程和线程池的异常处理">线程和线程池的异常处理</a>
+              <ul>
+                <li><a href="#线程的异常处理">线程的异常处理</a></li>
+                <li><a href="#线程池的异常处理">线程池的异常处理</a></li>
+              </ul>
+            </li>
+            <li><a href="#异常泄漏敏感信息">异常泄漏敏感信息</a></li>
+          </ul>
+        </li>
+        <li><a href="#反射">反射</a>
+          <ul>
+            <li><a href="#如何获得class对象">如何获得Class对象</a></li>
+            <li><a href="#基本数据类型的class对象和包装类的class对象不一样">基本数据类型的Class对象和包装类的Class对象不一样</a></li>
+          </ul>
+        </li>
+        <li><a href="#输入输出流">输入输出流</a>
+          <ul>
+            <li><a href="#字节流">字节流</a></li>
+            <li><a href="#字符流">字符流</a></li>
+            <li><a href="#nio">NIO</a></li>
+          </ul>
+        </li>
+        <li><a href="#线程">线程</a>
+          <ul>
+            <li><a href="#thread类方法">Thread类方法</a></li>
+            <li><a href="#线程的创建方式">线程的创建方式</a></li>
+            <li><a href="#runnable和callable的区别">Runnable和Callable的区别</a></li>
+            <li><a href="#线程退出方式">线程退出方式</a></li>
+            <li><a href="#共享数据和synchronized">共享数据和synchronized</a></li>
+            <li><a href="#atomicinteger">AtomicInteger</a></li>
+            <li><a href="#线程同步机制">线程同步机制</a></li>
+            <li><a href="#java线程池体系结构">Java线程池体系结构</a></li>
+          </ul>
+        </li>
+        <li><a href="#jdbc">JDBC</a>
+          <ul>
+            <li><a href="#dbcp连接池配置">DBCP连接池配置</a></li>
+            <li><a href="#fetchsize设置每次缓存读取大小">FetchSize设置每次缓存读取大小</a></li>
+          </ul>
+        </li>
+        <li><a href="#java8">JAVA8</a>
+          <ul>
+            <li><a href="#lambda">lambda</a></li>
+            <li><a href="#stream">Stream</a></li>
+            <li><a href="#optional">Optional</a></li>
+            <li><a href="#metaspace">MetaSpace</a></li>
+          </ul>
+        </li>
+        <li><a href="#泛型">泛型</a>
+          <ul>
+            <li><a href="#泛型类接口方法">泛型类，接口，方法</a></li>
+            <li><a href="#只在编译期有效">只在编译期有效</a></li>
+            <li><a href="#泛型容器之间没有继承关系">泛型容器之间没有继承关系</a></li>
+            <li><a href="#泛型通配符">泛型通配符</a></li>
+          </ul>
+        </li>
+        <li><a href="#类的初始化过程">类的初始化过程</a></li>
+        <li><a href="#gc">GC</a></li>
+        <li><a href="#jdk工具">JDK工具</a></li>
+        <li><a href="#正则表达式">正则表达式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

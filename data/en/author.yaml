@@ -1,0 +1,17 @@
+# some information about you
+name: "CctoctoFx"
+nickname: "Calvin"
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "Hi, I am"
+image: "images/photo.jpeg"
+# give your some contact information. they will be used in the footer
+contactInfo:
+  email: "yxhuang@g.ucla.edu"
+  phone: "+86-18657825298"
+
+# some summary about what you do
+summary:
+  - I am a Developer
+  - I am a Devops
+  - I love artificial intelligence
+  - I love to work with some fun projects

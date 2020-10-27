@@ -1,0 +1,46 @@
+# section information
+section:
+  name: About
+  id: about
+  enable: true
+  weight: 1
+  showOnNavbar: true
+  template: sections/about.html
+
+# your designation
+designation: Software Engineer
+
+company:
+  name: Huawei Co.
+  url: "https://www.huawei.com/en/"
+
+summary: 'I am a passionate software engineer with 1 year of working experience. I worked with a great team to build cloud based database management system using C++/Go/python. Our platform helps people to have an access to various storage backends with high availbility and high reliability. I am also interested in areas of artifical intelligence such as machine learning, deep neural networks, reinforcement learning, etc. '
+
+socialLinks:
+- name: Email
+  icon: "fas fa-envelope"
+  url: "yxhuang@g.ucla.edu"
+
+- name: Github
+  icon: "fab fa-github"
+  url: "https://github.com/pillumina"
+
+softSkills:
+- name: LeaderShip
+  percentage: 80
+  color: blue
+- name: Team Work
+  percentage: 90
+  color: yellow
+- name: Communication
+  percentage: 85
+  color: pink
+- name: Hard Working
+  percentage: 95
+  color: green
+- name: Fast Learner
+  percentage: 90
+  color: sky
+- name: Problem Solving
+  percentage: 90
+  color: orange
