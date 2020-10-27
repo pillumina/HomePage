@@ -39,5 +39,9 @@
   <url>
     <loc>https://example.org/tags/</loc>
   </url>
+
+  <url>
+    <loc>https://example.org/images/</loc>
+  </url>
   
 </urlset>
