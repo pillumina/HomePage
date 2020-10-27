@@ -1,0 +1,62 @@
+# section information
+section:
+  name: Experiences
+  id: experiences
+  enable: true
+  weight: 3
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+experiences:
+- company:
+    name: Huawei Co.
+    url: "https://www.huawei.com/en/"
+    location: Hangzhou
+    overview: Huawei Co. is a widely recognized company in IT/IoT industry. It's also known for public/private cloud serving.
+  positions:
+  - designation: Software Engineer
+    start: Sep 2019
+    responsibilities:
+    - Design and develop robust and scalable modules for micro services of cloud based database mangement system.
+    - Cooperate with backend team to develop intelligent database maintenance system (trace/alarm monitor, metrics watch).
+    
+- company:
+    name: University of California, Los Angeles
+    url: "https://www.ucla.edu/"
+    location: Los Angeles
+    overview: The University of California, Los Angeles (UCLA)is a public research university in Los Angeles, California. UCLA traces its early origins back to 1882 as the southern branch of the California State Normal School (now San Jose State University). 
+  positions:
+  - designation: Master Student
+    start: Oct 2017
+    end: Mar 2019
+    responsibilities:
+    - Complete M.S degree (Electrical & Computer Engineering).
+    - Completed courses include Deep Neural Networks, Large-scale Data Mining, Advance Data Structure, Intelligent Robotic System, etc. 
+
+- company:
+    name: Zhejiang University
+    url: "https://www.zju.edu.cn/english/"
+    location: Hangzhou
+    overview: Zhejiang University is an elite C9 League university located in Hangzhou, the capital of Zhejiang province. Founded in 1897, Zhejiang University is one of China's oldest, most selective, and most prestigious institutions of higher education.
+  positions:
+  - designation: Undergraduate Student
+    start: Sep 2013
+    end: Jun 2017
+    responsibilities:
+    - Complete B.S degree (Electrical Engineering)
+    - Completed cources include Data Structure and Algorithms, Intelligent Control Algorithms, Control Theory, etc.
+
+- company:
+    name: Honeywell International Inc.
+    url: "https://www.honeywell.com/en-us"
+    location: Shanghai
+    overview: Honeywell International Inc. is an American publicly traded, multinational conglomerate headquartered in Charlotte, North Carolina. It primarily operates in four areas of business including aerospace, building technologies, performance materials and technologies (PMT), and safety and productivity solutions (SPS).
+  positions:
+  - designation: Algorithm Engineer Intern
+    start: Jun 2018
+    end: Sep 2018
+    responsibilities:
+    - Investigate advance machine learning algorithms for intelligent sensor controllers in complex scenarios.
+    - Paper Research.
+    
