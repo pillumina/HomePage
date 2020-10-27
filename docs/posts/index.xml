@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on CctoctoFx</title>
-    <link>https://example.org/posts/</link>
+    <link>https://pillumina.github.io/posts/</link>
     <description>Recent content in Posts on CctoctoFx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Oct 2020 10:50:41 +0800</lastBuildDate><atom:link href="https://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Oct 2020 10:50:41 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
