@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CctoctoFx</title>
-    <link>http://example.org/</link>
+    <link>https://example.org/</link>
     <description>Recent content on CctoctoFx</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Oct 2020 10:52:50 +0800</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Oct 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MIT distributed system</title>
-      <link>http://example.org/notes/my-first-note/</link>
+      <link>https://example.org/notes/my-first-note/</link>
       <pubDate>Tue, 27 Oct 2020 10:40:12 +0800</pubDate>
       
-      <guid>http://example.org/notes/my-first-note/</guid>
+      <guid>https://example.org/notes/my-first-note/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Java Fundamentals</title>
-      <link>http://example.org/posts/java/java-fundamentals/</link>
+      <link>https://example.org/posts/java/java-fundamentals/</link>
       <pubDate>Thu, 22 Oct 2020 12:40:29 +0800</pubDate>
       
-      <guid>http://example.org/posts/java/java-fundamentals/</guid>
+      <guid>https://example.org/posts/java/java-fundamentals/</guid>
       <description>JAVA对象的equals方法和hashCode方法是这样规定的   相等（相同）的对象必须有相等的哈希码
   如果两个对象的哈希吗相同，它们不一定相同
   Java集合判断两个对象是否相等的规则：   判断两个对象的哈希码是否相等
