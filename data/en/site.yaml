@@ -11,3 +11,7 @@ customMenus:
   url: https://hossainemruz.gitbook.io/
 - name: Golang
   url: https://mojotv.cn
+- name: Graham's Essay
+  url: http://www.paulgraham.com/articles.html
+- name: SICP
+  url: https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html
