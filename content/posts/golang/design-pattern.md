@@ -105,7 +105,7 @@ func TestMessageBuilder(t *testing.T) {
 
 常规的工厂模式，如果新增一个对象，需要修改原来的工厂对象代码，违反单一职责原则，最好增加一个抽象层。
 
-
+### interfaces definitions
 
 ```go
 package plugin
@@ -132,6 +132,8 @@ type Output interface{
 }
 ```
 
+### pipeline composition
+
 管道由上述三种插件定义
 
 ```go
@@ -150,6 +152,8 @@ func (p *Pipeline) Exec() {
 	p.output.Send(msg)
 }
 ```
+
+### plugins implementation
 
 定义三种插件的具体实现
 
@@ -204,6 +208,8 @@ func init() {
 }
 ```
 
+### abstract factory interface definition & implementation
+
 定义抽象工厂接口，和对应插件的工厂实现
 
 ```go
@@ -233,6 +239,8 @@ func (o *OutputFactory) Create(conf Config) Plugin {
 }
 
 ```
+
+### pipeline factory definition 
 
 最后定义pipeline工厂方法，调用plugin.Factory 抽象工厂完成pipeline对象的实例化
 
@@ -288,3 +296,154 @@ func (m *Message) clone() Prototype {
 ```
 
 
+
+## Adapter Pattern
+
+![adaptor pattern](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghzyia5t19j315w0k0kjl.jpg)
+
+最常用的模式之一，典型场景是系统中老的接口过时或者即将废弃，可以新增一个适配器，把老的接口适配成新的接口使用，践行了开闭原则。该模式即把一个接口adaptee，通过适配器adapter转换成client锁期望的另一个接口target，也就是adapter通过实现target接口，并在对应的方法里调用adaptee的接口实现。
+
+
+
+继续消息处理系统的例子，目前系统的输入都来自HelloInput, 假设需要新增一个kafka消息队列中接收数据的功能，其中kafka消费者的接口如下：
+
+```go
+package kafka 
+
+type Records struct{
+  Items []string
+}
+
+type Comsumer interface{
+  Poll() Records
+}
+```
+
+而Pipeline的设计是通过plugin.Input接口进行消息接收，所以这个kafka的接口无法直接集成。因此需要用适配器
+
+```go
+package plugin
+...
+type KafkaInput struct {
+	status Status
+	consumer kafka.Consumer
+}
+
+func (k *KafkaInput) Receive() *msg.Message {
+	records := k.consumer.Poll()
+	if k.status != Started {
+		fmt.Println("Kafka input plugin is not running, input nothing.")
+		return nil
+	}
+	return msg.Builder().
+		WithHeaderItem("content", "kafka").
+		WithBodyItems(records.Items).
+		Build()
+}
+
+// 在输入插件映射关系中加入kafka，用于通过反射创建input对象
+func init() {
+	inputNames["hello"] = reflect.TypeOf(HelloInput{})
+	inputNames["kafka"] = reflect.TypeOf(KafkaInput{})
+}
+```
+
+这里有个问题就是KafkaInput这个对象的成员构造问题，需要特别的init函数去初始化，可以考虑在Plugin接口新增一个Init方法，用于定义插件的一些初始化操作，并在工厂返回实例前调用。
+
+```go
+package plugin
+...
+type Plugin interface {
+	Start()
+	Stop()
+	Status() Status
+	// 新增初始化方法，在插件工厂返回实例前调用
+	Init()
+}
+
+// 修改后的插件工厂实现如下
+func (i *InputFactory) Create(conf Config) Plugin {
+	t, _ := inputNames[conf.Name]
+	p := reflect.New(t).Interface().(Plugin)
+  // 返回插件实例前调用Init函数，完成相关初始化方法
+	p.Init()
+	return p
+}
+
+// KakkaInput的Init函数实现
+func (k *KafkaInput) Init() {
+	k.consumer = &kafka.MockConsumer{}
+}
+```
+
+上述的MockConsumer的实现如下：
+
+```go
+package kafka
+...
+type MockConsumer struct {}
+
+func (m *MockConsumer) Poll() *Records {
+	records := &Records{}
+	records.Items = append(records.Items, "i am mock consumer.")
+	return records
+}
+```
+
+### Test code
+
+测试代码如下：
+
+```go
+package test
+...
+func TestKafkaInputPipeline(t *testing.T) {
+	config := pipeline.Config{
+		Name: "pipeline2",
+		Input: plugin.Config{
+			PluginType: plugin.InputType,
+			Name:       "kafka",
+		},
+		Filter: plugin.Config{
+			PluginType: plugin.FilterType,
+			Name:       "upper",
+		},
+		Output: plugin.Config{
+			PluginType: plugin.OutputType,
+			Name:       "console",
+		},
+	}
+	p := pipeline.Of(config)
+	p.Start()
+	p.Exec()
+	p.Stop()
+}
+// 运行结果
+=== RUN   TestKafkaInputPipeline
+Console output plugin started.
+Upper filter plugin started.
+Kafka input plugin started.
+Pipeline started.
+Output:
+	Header:map[content:kafka], Body:[I AM MOCK CONSUMER.]
+Kafka input plugin stopped.
+Upper filter plugin stopped.
+Console output plugin stopped.
+Pipeline stopped.
+--- PASS: TestKafkaInputPipeline (0.00s)
+PASS
+```
+
+
+
+## Bridge Pattern
+
+![bridge pattern](https://tva1.sinaimg.cn/large/007S8ZIlgy1gi00awfcxcj31f20l01ky.jpg)
+
+![bridge example](https://tva1.sinaimg.cn/large/007S8ZIlgy1gi01kwmua8j31hs0s47wj.jpg)
+
+场景： 如果一个对象存在多个变化的方向，而且每个变化方向都需要扩展，桥接是好的选择。
+
+实际上上述的消息处理系统就是这样，一个pipeline有三个特征，且pipeline只依赖这三个接口而非具体的实现细节。
+
+![bridge example2](https://tva1.sinaimg.cn/large/007S8ZIlgy1gi0i6xpj9sj318a0nk4qq.jpg)
