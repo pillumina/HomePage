@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Categories</title>
+    <title>Golang</title>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -99,12 +99,15 @@ if (!doNotTrack) {
   
   
   
+    
+    
+  
   
     
     <li>
-      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
       
-      <ul class="">
+      <ul class="active">
         
   
   
@@ -185,6 +188,29 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/golang/design-pattern/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Design Pattern</h5>
+        <p class="card-text post-summary">Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;builder{ once: &amp;sync.Once{}, msg: &amp;Message{Header: &amp;Header{}, Body: &amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">November 11, 2020</span>
+        <a
+        href="/posts/golang/design-pattern/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
     </div>
     <div class="paginator">

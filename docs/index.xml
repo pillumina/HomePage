@@ -6,7 +6,16 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Oct 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Nov 2020 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Design Pattern</title>
+      <link>https://pillumina.github.io/posts/golang/design-pattern/</link>
+      <pubDate>Wed, 11 Nov 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/design-pattern/</guid>
+      <description>Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;amp;builder{ once: &amp;amp;sync.Once{}, msg: &amp;amp;Message{Header: &amp;amp;Header{}, Body: &amp;amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</description>
+    </item>
+    
     <item>
       <title>MIT distributed system</title>
       <link>https://pillumina.github.io/notes/my-first-note/</link>
