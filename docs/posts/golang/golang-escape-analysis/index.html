@@ -305,7 +305,7 @@ if (!doNotTrack) {
 # command-line-arguments
 ./main.go:19:12: Call1 u does not escape
 ./main.go:14:23 main &amp;User literal does not escape
-</code></pre><p>并没有发生逃逸。其实如果只是对u进行读写，不管调用几次函数，传了几次指针，都不会逃逸。所以我们可以换衣fmt.Printf的源码，可以发现传入的u被赋值给了pp指针的一个成员变量</p>
+</code></pre><p>并没有发生逃逸。其实如果只是对u进行读写，不管调用几次函数，传了几次指针，都不会逃逸。所以我们可以怀疑fmt.Printf的源码有问题，可以发现传入的u被赋值给了pp指针的一个成员变量</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Printf formats according to a format specifier and writes to standard output.
 </span><span style="color:#75715e">// It returns the number of bytes written and any write error encountered.
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Printf</span>(<span style="color:#a6e22e">format</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {

@@ -145,7 +145,7 @@ func Call1(u *User) int{
 ./main.go:14:23 main &User literal does not escape
 ```
 
-并没有发生逃逸。其实如果只是对u进行读写，不管调用几次函数，传了几次指针，都不会逃逸。所以我们可以换衣fmt.Printf的源码，可以发现传入的u被赋值给了pp指针的一个成员变量
+并没有发生逃逸。其实如果只是对u进行读写，不管调用几次函数，传了几次指针，都不会逃逸。所以我们可以怀疑fmt.Printf的源码有问题，可以发现传入的u被赋值给了pp指针的一个成员变量
 
 ```go
 // Printf formats according to a format specifier and writes to standard output.
