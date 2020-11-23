@@ -447,3 +447,11 @@ PASS
 实际上上述的消息处理系统就是这样，一个pipeline有三个特征，且pipeline只依赖这三个接口而非具体的实现细节。
 
 ![bridge example2](https://tva1.sinaimg.cn/large/007S8ZIlgy1gi0i6xpj9sj318a0nk4qq.jpg)
+
+
+
+
+
+## Proxy Pattern
+
+代理模式为一个对象提供一种代理以控制对该对象的访问，使用率非常高。

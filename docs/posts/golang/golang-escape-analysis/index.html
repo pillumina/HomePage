@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Golang逃逸分析</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Golang逃逸分析" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang_banner.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>November 23, 2020</p>
+        </div>
+
+        <div class="title">
+          <h1>Golang逃逸分析</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <p><em><strong>问题： golang函数传参是不是应该和c一样，尽量不要直接传结构体，而是要传结构体指针？</strong></em></p>
+<h2 id="逃逸分析">逃逸分析</h2>
+<p>逃逸分析指的是，在计算机语言编译器优化原理中，分析指针动态范围的方法，和编译器优化原理的指针分析和外形分析相关联。当变量（或者对象）在方法中被分配后，其指针有可能被返回或者被全局引用，这种现象就是指针（或引用）的逃逸（Escape）。</p>
+<p>其实在java概念中有一个误解 &mdash; new出来的东西都在堆上，栈上存的是它的引用。 这句话在现代JVM上有问题，就是因为逃逸分析机制。简单来说，就是JVM的逃逸分析会在运行时(runtime)检测当前方法栈帧(frame)内new出来的对象的引用，是否被传出当前的栈帧。如果传出，就会发生逃逸，没有传出则不会。对于未发生逃逸的变量，则会直接在栈上分配内存。因为栈上内存由在函数返回时自动回收，而堆上的的内存需要gc去回收，如果程序中有大量逃逸的对象，那么势必会增加gc的压力。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">test</span><span style="color:#f92672">(){</span>
+  List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+  a<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span> <span style="color:#75715e">// a 未逃逸，在栈上分配
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">test1</span><span style="color:#f92672">(){</span>
+  List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+  a<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+  <span style="color:#66d9ef">return</span> a <span style="color:#75715e">// 发生逃逸，因此分配在堆上
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><h2 id="区别">区别</h2>
+<ul>
+<li>不同于JVM运行时的逃逸分析，Golang的逃逸分析是在编译期完成。</li>
+<li>golang的逃逸分析只针对指针。一个值引用变量如果没有被取址，那么它永远不可能逃逸。</li>
+</ul>
+<pre><code>go version go1.13.4 darwin/amd64
+</code></pre><p>验证某个函数的变量是否发生逃逸的方法：</p>
+<ul>
+<li>
+<p>go run -gcflags &ldquo;-m -l&rdquo; (-m打印逃逸分析信息，-l禁止内联编译)</p>
+</li>
+<li>
+<p>go tool compile -S xxxx.go | grep runtime.newobject（汇编代码中搜newobject指令，这个指令用于生成堆对象）</p>
+</li>
+</ul>
+<p>备注： 关于-gcflags &ldquo;-m -l&quot;的输出，有两种情况：</p>
+<ul>
+<li>Moved to heap: xxx</li>
+<li>xxx escapes to heap</li>
+</ul>
+<p>二者都表示发生了逃逸，当xxx变量为指针的时候，出现第二种；当xxx变量为值类型时，为上一种，测试代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">S</span> <span style="color:#66d9ef">int</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>(){
+  <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">S</span>(<span style="color:#ae81ff">0</span>)
+  <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">S</span>, <span style="color:#ae81ff">2</span>)
+  <span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>
+  <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">S</span>)
+  <span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">c</span>
+}
+</code></pre></div><h2 id="golang逃逸分析">Golang逃逸分析</h2>
+<p>本文探究什么时候，什么情况下会发生逃逸</p>
+<h3 id="case-1">case 1</h3>
+<p>最基本的情况</p>
+<pre><code>在某个函数中new或者字面量创建出的变量，将其指针作为函数返回值，则该变量一定发生逃逸
+</code></pre><p>下面是例子:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">test</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">User</span>{
+  <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">User</span>{}
+  <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>
+}
+</code></pre></div><h3 id="case-2">case 2</h3>
+<p>需要验证文章开头情况的正确性，也就是当某个值取指针并传给另一个函数的时候，是否有逃逸：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span>{
+  <span style="color:#a6e22e">Username</span> <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">Password</span> <span style="color:#66d9ef">string</span>
+  <span style="color:#a6e22e">Age</span>	<span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>(){
+  <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;aaa&#34;</span>
+  <span style="color:#a6e22e">u</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">User</span>{<span style="color:#a6e22e">a</span>, <span style="color:#e6db74">&#34;123&#34;</span>, <span style="color:#ae81ff">12</span>}
+  <span style="color:#a6e22e">Call1</span>(<span style="color:#a6e22e">u</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Call1</span>(<span style="color:#a6e22e">u</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">User</span>){
+  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%v&#34;</span>, <span style="color:#a6e22e">u</span>)
+}
+</code></pre></div><p>逃逸情况:</p>
+<pre><code>-&gt; go run -gcflags &quot;-m -l&quot; main.go
+# command-line-arguments
+./main.go:18:12: leaking param: u
+./main.go:19:12: Call1... argument does bnot escape
+./main.go:19:13 u escapes to heap
+./main.go:14:23 &amp;User literal escapes to heap
+</code></pre><p>可见发生了逃逸，这里将指针传给一个函数并打印，如果不打印，只对u进行读写：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Call1</span>(<span style="color:#a6e22e">u</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">User</span>) <span style="color:#66d9ef">int</span>{
+  <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">Username</span> = <span style="color:#e6db74">&#34;bbb&#34;</span>
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">u</span>.<span style="color:#a6e22e">Age</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">20</span>
+}
+</code></pre></div><p>结果:</p>
+<pre><code>-&gt; go run -gcflags &quot;-m -l&quot; main.go
+# command-line-arguments
+./main.go:19:12: Call1 u does not escape
+./main.go:14:23 main &amp;User literal does not escape
+</code></pre><p>并没有发生逃逸。其实如果只是对u进行读写，不管调用几次函数，传了几次指针，都不会逃逸。所以我们可以换衣fmt.Printf的源码，可以发现传入的u被赋值给了pp指针的一个成员变量</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Printf formats according to a format specifier and writes to standard output.
+</span><span style="color:#75715e">// It returns the number of bytes written and any write error encountered.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Printf</span>(<span style="color:#a6e22e">format</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Stdout</span>, <span style="color:#a6e22e">format</span>, <span style="color:#a6e22e">a</span><span style="color:#f92672">...</span>)
+}
+
+<span style="color:#75715e">// Fprintf formats according to a format specifier and writes to w.
+</span><span style="color:#75715e">// It returns the number of bytes written and any write error encountered.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Writer</span>, <span style="color:#a6e22e">format</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">a</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) (<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">newPrinter</span>()
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">doPrintf</span>(<span style="color:#a6e22e">format</span>, <span style="color:#a6e22e">a</span>)
+	<span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">Write</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">buf</span>)
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">free</span>()
+	<span style="color:#66d9ef">return</span>
+}
+
+<span style="color:#75715e">// doPrintf里有
+</span><span style="color:#75715e">// ....
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">printArg</span>(<span style="color:#a6e22e">a</span>[<span style="color:#a6e22e">argNum</span>], rune(<span style="color:#a6e22e">c</span>))
+<span style="color:#75715e">// ....
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pp</span>) <span style="color:#a6e22e">printArg</span>(<span style="color:#a6e22e">arg</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">verb</span> <span style="color:#66d9ef">rune</span>) {
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">arg</span> = <span style="color:#a6e22e">arg</span>
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">value</span> = <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Value</span>{}
+  <span style="color:#75715e">// ....
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>这个pp类型的指针p是由构造函数newPrinter返回，根据case1，p一定会发生逃逸，而p引用了传入指针，所以我们可以总结：</p>
+<pre><code>被已经逃逸的变量引用的指针，一定发生逃逸。
+</code></pre><h3 id="case3">case3</h3>
+<p>上述备注代码的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>(){
+  <span style="color:#a6e22e">a</span>  <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1</span>)
+  <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">12</span>
+  <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>
+}
+</code></pre></div><p>实际上这个代码中, slice a不会逃逸，而被a引用的b会逃逸。类似的情况会发生在map和chan之中</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>(){
+  <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1</span>)
+  <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">12</span>
+  <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">b</span>
+  
+  <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>)
+  <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">14</span>
+  <span style="color:#a6e22e">c</span>[<span style="color:#e6db74">&#34;aaa&#34;</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">d</span>
+  
+  <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1</span>)
+  <span style="color:#a6e22e">f</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">15</span>
+  <span style="color:#a6e22e">e</span> <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">f</span>
+}
+</code></pre></div><p>结果可以发现, b, d, f都逃逸了。所以我们可以得出结论：</p>
+<pre><code>被指针类型的slice, map和chan引用的指针一定会发生逃逸。
+备注： stack overflow上有人提问为何使用指针的chan比使用值得chan慢%30， 答案就在这里。使用指针的chan发生逃逸，gc拖慢了速度。
+</code></pre><h2 id="总结">总结</h2>
+<p>我们得出指针<strong>必然逃逸</strong>的情况：</p>
+<ul>
+<li>在某个函数中new或者字面量创建出的变量，将其指针作为函数返回，则该变量一定发生逃逸（构造函数返回的指针变量一定逃逸）</li>
+<li>被已经逃逸的变量引用的指针，一定发生逃逸</li>
+<li>被指针类型slice, map和chan引用的指针，一定发生逃逸</li>
+</ul>
+<p>同时我们也得出一些<strong>必然不会逃逸</strong>的情况：</p>
+<ul>
+<li>指针被未发生逃逸的变量引用</li>
+<li>仅仅在函数内对变量做取址操作，而未将指针传出</li>
+</ul>
+<p>有些情况<strong>可能发生逃逸，也可能不会发生逃逸</strong> ：</p>
+<ul>
+<li>将指针作为入参传给别的函数，这里还是要看指针在被传入的函数中的处理过程，如果发生了上述三种情况，则会逃逸；否则不会发生逃逸。</li>
+</ul>
+<p><em><strong>因此，对于文章开头的问题，我们不能仅仅依据使用值引用作为函数入参可能因为copy导致额外内存开销而放弃这种值引用类型入参的写法。因为如果函数内有造成变量逃逸的操作情形，gc可能会称为程序效率不高的瓶颈。</strong></em></p>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/golang-escape-analysis.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/golang/design-pattern/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Design Pattern</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "does-not-exist";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#逃逸分析">逃逸分析</a></li>
+    <li><a href="#区别">区别</a></li>
+    <li><a href="#golang逃逸分析">Golang逃逸分析</a>
+      <ul>
+        <li><a href="#case-1">case 1</a></li>
+        <li><a href="#case-2">case 2</a></li>
+        <li><a href="#case3">case3</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>
