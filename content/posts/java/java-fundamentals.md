@@ -139,6 +139,9 @@ Exception分为 Runtime Exception以及Checked Exception
 * finally是在return后面的表达式运算后执行的，没有返回运算的值，而是先把要返回的值保存起来，不管finally中的代码怎么样，返回的值都不会改变、所以函数的return值是在finally执行前确定的。
 * finally中最好不要包含return，否则程序会提前退出，返回值不是try活着catch中保存的返回值。
 
+- 核心: finally语句在try catch中的控制转移语句执行前执行(return, break, continue, throw)。不过也有点区别，return和throw把程序控制权转交给调用者，break和continue是在当前方法内转移。
+- 由上述可知，finally语句如果里面有控制转移语句，有可能把try-catch里的return或者异常捕获给"吃了"，那么一些未处理的异常可能无法被抛出！
+
 
 
 #### try-with-resources语句
@@ -201,6 +204,21 @@ Class c2 = int.class;
 
 
 
+### 类私有变量的反射访问
+
+需要注意的是，需要设置属性可达，否则会抛出IllegalAccessException
+
+```java
+Field[] fs = clazz.getDeclaredFields();
+for (Field field: fs){
+  // 设置属性可达
+  field.setAccessible(true);
+  // ...后续的打印访问
+}
+```
+
+
+
 ### 输入输出流
 
 #### 字节流
@@ -255,6 +273,11 @@ sleep()和wait()最大区别：
 interrupted()方法，本质只是设置该线程的中断标志，设置为true，并根据线程状态决定是否抛出异常，比如线程阻塞时就是抛出中断阻塞异常，标志位同时被清除。
 
 join()等待该方法的线程执行完毕后再继续执行
+
+调用一个线程的interrupt方法，分具体情况
+
+- 如果线程处于被阻塞(sleep, wait, join)，那么线程立即退出被阻塞状态，抛出InterruptedException
+- 如果线程处于正常活动状态，那么将这个线程的中断标志设置为true，仅此而已。被设置的线程依然继续正常运行。所以这个方法并不能真正中断线程。
 
 wait(), notify(), notifyAll()都要在synchronized代码块中使用，因为会对对象的锁标志进行操作。
 
@@ -370,10 +393,10 @@ Consumer<Integer> print = (s) -> System.out.println(num);
 3. 惰性求值，流在中间处理过程中，只是对操作进行了记录，不会立刻执行，等到执行终止操作的时候才会进行实际的计算。
 
 * 中间操作
-  * 无状态：元素的处理不受之前元素的影响  -- filter, map, peek
-  * 有状态：该操作只有拿到所有元素之后才能进行下去 -- distinct, sorted, limit, skip
+  * 无状态：元素的处理不受之前元素的影响  -- filter, map, peek, parallel
+  * 有状态：该操作只有拿到所有元素之后才能进行下去 -- distinct, sorted, limit, skip, unordered
 * 结束操作
-  * 非短路操作： 必须处理所有元素才能得到最终结果 -- forEach, reduce, collect, max, min, coint
+  * 非短路操作： 必须处理所有元素才能得到最终结果 -- forEach, reduce, collect, max, min, coint，iterator
   * 短路操作：遇到某些符合条件的元素就可以得到最终结果，比如A or B -- anyMatch, allMatch, findAny, noneMatch
 
 
@@ -477,4 +500,179 @@ GC roots:
 
 
 ### 正则表达式
+
+
+
+### JAVA安全
+
+#### java沙箱
+
+java沙箱负责保护一些系统资源，保护的级别不同
+
+- 内部资源，如本地内存
+- 外部资源，如访问文件系统或者同一个局域网的其他机器
+- 对于运行的组件applet，可以访问其web服务器
+- 主机通过网络传输到磁盘的数据流
+
+当前最新的安全机制实现，引入了domain概念，理解为将沙箱细分为对个具体的小沙箱。jvm把所有代码加载到不同的系统域和应用域。jvm中不同的受保护域，对应不一样的权限。存在于不同域中的类文件就具有当前域的全部权限。
+
+
+
+沙箱的实现取决于三个方面：
+
+- SecurityManager
+- AccessController
+- ClassLoader
+
+
+
+#### SecurityManager
+
+SecurityManager类是java API中的关键类，为其他java api提供相应的接口，是之可以检查某项操作能否执行。比如对文件访问的校验，SecurityManager最终是由AccessController实现的，如果权限检查不通过，则抛出AccessControlException，其继承于SecurityException，又向上继承于RuntimeException，所以这个异常是运行时异常。
+
+
+
+对于不可信类，需要有一些方法避免它们绕过SecurityManger和Java API：
+
+- checkCreateClassLoader
+- checkExec
+- checkLink
+- checkExit
+- checkPermission
+
+
+
+#### AccessController
+
+核心Java API由SecurityManager提供安全策略，但是大多数SecurityManager是基于AccessController。
+
+AccessController类构造器是私有的，因此不能进行实例化。它向外部提供了一些静态方法，最关键的是checkPermission(Permission p)，该方法基于当前安装的Policy对象，判定当前保护域是否拥有指定权限。SecurityManger提供的额一系列checkxxxxx方法，最后基本通过这个checkPermission完成。
+
+
+
+## 分散的知识
+
+### switch支持的6种数据类型
+
+只能是byte, short, char, int四种整形类型，enum和String类型。不能是boolean类型！
+
+注意： 后面能能Integer只是因为JDK1.5以后的auto-unboxing
+
+
+
+### Java整数缓存
+
+Integer类为内部整数维护了IntgerCache, 范围是-128~127
+
+
+
+### Thread.Sleep()和wait()的区别
+
+- sleep方法执行时，线程主动让出cpu，后续指定时间以后cpu再回来执行。所以这里sleep只是让出了cpu，而并不会释放同步资源锁；wait方法指的是当前线程让自己暂时退让出同步资源锁，以便其他正在等待该资源的线程得到该资源从而运行，只有调用notify方法，调用了wait的线程才会解除wait状态，去竞争同步资源锁。
+- 因此，sleep可以在任何地方使用，而wait只能在同步方法或者同步块中使用
+- sleep是线程的方法，调用只会暂停该线程指定的时间，但是监控依然保持，不会释放对象锁，到时间自动回复。wait是对象的方法，调用会放弃对象锁，进入waitqueue，只有notify/notifyAll让唤醒指定的线程，进入锁池，再次获得对象锁才会进入运行态。
+
+
+
+### Join方法让调用这个方法的线程执行完
+
+A调用B的join，A会让出资源锁，B执行完了才会继续执行A
+
+
+
+### JVM 吞吐量和暂停时间trade-off
+
+吞吐量指的是应用程序线程用时占用程序用时的比例；暂停时间指的是一段时间内，应用程序线程让与GC线程执行而完全暂停，比如GC期间100ms的暂停时间意味着这个时间内没有应用程序线程是活动的。
+
+这两者是矛盾的，如果要追求高吞吐量，就不能频繁调用GC，意味着GC启动的时候有很多事情要做，因为在此期间积累需要GC的对象比较多，所以应用程序暂停时间肯定长。
+
+
+
+### JAVA接口成员变量和方法默认修饰符
+
+成员变量的默认修饰符：public status final
+
+- 也就是外面访问的时候不能修改这个变量的值，所以接口中定义成员变量的，一般都是常量
+
+方法的默认修饰符：public abstract
+
+- 公共抽象的，用来被实现这个接口的类去实现该方法
+
+接口对修改关闭，对扩展开放，符合开闭原则。
+
+**java8的接口方法可以被如下修饰**
+
+- public, abstract, default, static, strictfp(只能修饰接口而不能修饰接口中的方法)
+
+
+
+### 并发原子类
+
+AtomicInteger类的常用
+
+```java
+// 获取当前值
+public static void getCurrentValue(){}
+// 设置value值
+... setValue(){}
+// 先获取旧值，再设置新值
+... getAndSet(){}
+// 先获取旧值，再进行自增
+... getAndIncrement(){}
+// 同理
+... getAndDecrement(){}
+// 先获取旧值，再加10
+... getAndAdd(){}
+// 先加1，再获取新值
+... incrementAmdGet(){}
+// 先减1，再获取新值
+... decrementAndGet(){}
+// 先增加，再获取新值
+... addAndGet(){}
+```
+
+concurrent包还有其他:
+
+- AtomicBoolean
+- AtomicInteger
+- AtomicIntegerArray
+- AtomicIntegerFieldUpdater
+- AtomicLong
+- AtomicLongArray
+- AtomicIongFieldUpdater
+- AtomicReference
+- AtomicReferenceArray
+- AtomicReferenceFieldUpdater
+
+....
+
+### Java CountDownLatch方法并发编程
+
+
+
+### Java 类执行顺序
+
+- 执行static代码块
+- 执行构造代码块
+- 执行构造函数
+
+静态变量、初始化块 > 变量、初始化块 > 构造器
+
+涉及到继承的时候：
+
+- 执行父类的静态代码块，初始化父类静态成员变量
+- 执行子类静态代码块，初始化子类静态成员变量
+- 执行父类的构造代码块，执行父类的构造函数，并初始化父类普通成员变量
+- 执行子类的构造代码块，执行子类构造函数，初始化子类普通成员变量
+
+总结：涉及到继承，静态的优先，其他的先父类执行完了再子类
+
+
+
+### 线程安全的数据结构
+
+- V （Vector）
+- S   (Stack)
+- H   (HashTable)
+- E   (Enumeration)
 

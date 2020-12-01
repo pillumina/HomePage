@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CctoctoFX</title>
+    <link>https://pillumina.github.io/</link>
+    <description>Recent content on CctoctoFX</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Nov 2020 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang逃逸分析</title>
+      <link>https://pillumina.github.io/posts/golang/golang-escape-analysis/</link>
+      <pubDate>Mon, 23 Nov 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/golang-escape-analysis/</guid>
+      <description>问题： golang函数传参是不是应该和c一样，尽量不要直接传结构体，而是要传结构体指针？
+逃逸分析 逃逸分析指的是，在计算机语言编译器优化原理中，分析指针动态范围的方法，和编译器优化原理的指针分析和外形分析相关联。当变量（或者对象）在方法中被分配后，其指针有可能被返回或者被全局引用，这种现象就是指针（或引用）的逃逸（Escape）。
+其实在java概念中有一个误解 &amp;mdash; new出来的东西都在堆上，栈上存的是它的引用。 这句话在现代JVM上有问题，就是因为逃逸分析机制。简单来说，就是JVM的逃逸分析会在运行时(runtime)检测当前方法栈帧(frame)内new出来的对象的引用，是否被传出当前的栈帧。如果传出，就会发生逃逸，没有传出则不会。对于未发生逃逸的变量，则会直接在栈上分配内存。因为栈上内存由在函数返回时自动回收，而堆上的的内存需要gc去回收，如果程序中有大量逃逸的对象，那么势必会增加gc的压力。
+public void test(){ List&amp;lt;Integer&amp;gt; a = new ArrayList&amp;lt;&amp;gt;(); a.add(1); // a 未逃逸，在栈上分配 } public List&amp;lt;Integer&amp;gt; test1(){ List&amp;lt;Integer&amp;gt; a = new ArrayList&amp;lt;&amp;gt;(); a.add(1); return a // 发生逃逸，因此分配在堆上 } 区别  不同于JVM运行时的逃逸分析，Golang的逃逸分析是在编译期完成。 golang的逃逸分析只针对指针。一个值引用变量如果没有被取址，那么它永远不可能逃逸。  go version go1.13.4 darwin/amd64 验证某个函数的变量是否发生逃逸的方法：
+  go run -gcflags &amp;ldquo;-m -l&amp;rdquo; (-m打印逃逸分析信息，-l禁止内联编译)
+  go tool compile -S xxxx.go | grep runtime.newobject（汇编代码中搜newobject指令，这个指令用于生成堆对象）
+  备注： 关于-gcflags &amp;ldquo;-m -l&amp;quot;的输出，有两种情况：
+ Moved to heap: xxx xxx escapes to heap  二者都表示发生了逃逸，当xxx变量为指针的时候，出现第二种；当xxx变量为值类型时，为上一种，测试代码：</description>
+    </item>
+    
+    <item>
+      <title>Design Pattern</title>
+      <link>https://pillumina.github.io/posts/golang/design-pattern/</link>
+      <pubDate>Wed, 11 Nov 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/design-pattern/</guid>
+      <description>Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;amp;builder{ once: &amp;amp;sync.Once{}, msg: &amp;amp;Message{Header: &amp;amp;Header{}, Body: &amp;amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</description>
+    </item>
+    
+    <item>
+      <title>MIT distributed system</title>
+      <link>https://pillumina.github.io/notes/my-first-note/</link>
+      <pubDate>Tue, 27 Oct 2020 10:40:12 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/notes/my-first-note/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java Fundamentals</title>
+      <link>https://pillumina.github.io/posts/java/java-fundamentals/</link>
+      <pubDate>Mon, 26 Oct 2020 12:40:29 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/java/java-fundamentals/</guid>
+      <description>JAVA对象的equals方法和hashCode方法是这样规定的   相等（相同）的对象必须有相等的哈希码
+  如果两个对象的哈希吗相同，它们不一定相同
+  Java集合判断两个对象是否相等的规则：   判断两个对象的哈希码是否相等
+  判断两个对象用equals是否相等
+  所以重写其中一个方法，必须重写另一个方法
+让对象可拷贝：
+ 实现java.lang.Cloneable 2. 重写Object的clone()方法  由于GC的自动回收机制，并不能保证finalize方法被及时的执行，因为对象的回收时机具有不确定性，或者要么没有触发垃圾回收。这个方法被禁止调用，应该用显式的close()方法。 Collection类的选择 Set:
+排序吗？
+是： TreeSet / LinkedHashSet
+否： HashSet
+List
+要安全吗？
+是： Vector
+否： ArrayList或者LinkedList &amp;mdash; 查询多ArrayList，增删多LinkedList
+Map常用子类：HashMap, HashTable, TreeMap, ConcurrentHashMap HashMap: 非线程安全，性能高，基于数组和链表实现。
+TreeMap：有序键值对，按key排序
+HashTable: 线程安全, 性能低
+ConcurrentHashMap: 线程安全且性能较好。Java1.7采取分段锁，1.8采用CAS+synchronized保证并发安全。
+LinkedHashMap 为HashMap的子类，内部还有一个双向链表维护键值对的顺序。支持插入顺序、访问顺序
+  插入顺序：先添加在前，后添加在后
+  访问顺序：即get/put操作，对一个键执行get/put操作后，对应的键值被移动到链表的末尾，所以最末尾的是最近访问的，最开始的是最久没有被访问的。
+  有5种构造方法，4个是插入顺序，只有一个按照指定访问顺序，可以用于实现LRUCache
+  集合初始化、大小和扩容 建议在集合初始化时指定集合容量大小 如果没有设置，元素增加，resize表会重建hash，影响性能</description>
+    </item>
+    
+  </channel>
+</rss>

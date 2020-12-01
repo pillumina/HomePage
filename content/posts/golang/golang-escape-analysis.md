@@ -223,7 +223,7 @@ func main(){
 
 
 
-## 总结
+## 案例总结
 
 我们得出指针**必然逃逸**的情况：
 
@@ -241,3 +241,86 @@ func main(){
 - 将指针作为入参传给别的函数，这里还是要看指针在被传入的函数中的处理过程，如果发生了上述三种情况，则会逃逸；否则不会发生逃逸。
 
 ***因此，对于文章开头的问题，我们不能仅仅依据使用值引用作为函数入参可能因为copy导致额外内存开销而放弃这种值引用类型入参的写法。因为如果函数内有造成变量逃逸的操作情形，gc可能会成为程序效率不高的瓶颈。***
+
+
+
+## 深入逃逸和内联
+
+### 逃逸的深入解释
+
+​    前面尝试了几个例子去分析逃逸的场景，实际上我们还是需要理解其内部机制，才能把收益最大化（开发效率v.s.运行效率）。逃逸分析的本质是当compiler发现函数变量将脱离函数栈的有效域或被函数栈域外的变量所引用时，把变量分配在堆上而不是栈上，分析一些典型的场景：
+
+- 上述讨论过的，函数返回变量地址，或者返回包含变量地址的结构体。
+- 把变量地址写入channel或者sync.Pool，compiler无法获取goroutine如何使用这个变量，也就无法在编译的时候决定变量的生命周期。
+- 闭包可能导致闭包上下文逃逸，
+- slice变量超过cap重新分配时，将在堆上进行，栈的大小毕竟是固定和有限的。
+- 上述讨论过的把变量地址赋值给可扩容容器（map, slice）时。
+- 把变量赋给可扩容interface容器（k或v为interface的map，或[]interface）的时候。
+- 几乎涉及到interface的地方都有可能导致对象逃逸，MyInterface(x).Foo(a)会导致a逃逸，如果a是引用语义(pointer, slice, map etc.)，那么a也会分配到堆上。涉及到interface的很多逃逸优化都很保守，比如reflect.ValueOf(x)会显式调用escapes(x)导致x逃逸。
+
+   我们分析一下slice重分配的场景。这个场景是在堆上发生的，因为slice重分配时，会发生数据迁移，此时会把原本slice len内的元素**浅拷贝**到新的space。这个浅拷贝会导致新的slice(堆内存)引用了p(栈内存)的内容，而栈内存和堆内存的生命周期不一样，导致了可能出现函数return了以后，堆内存引用无效的栈内存的情形，这无疑会影响到运行的稳定。所以即使slice变量本身没有显式得逃逸，由于隐式的数据迁移，compiler会保守把slice或者map的指针元素逃逸到堆上。
+
+  对于interface相关的，interface{}把值语义变为引用语义，其本质是type+pointer，这个pointer指向实际的data (源码分析开坑)。如果把值语义的变量赋值给interface容器，那么容器会持有变量的引用，所以这个变量会逃逸到堆上分配。
+
+  案例里也分析了，fmt.Printf会导致逃逸，其实fmt.Sprintf或者logrus.Debugf都会导致所有传入参数逃逸，因为不定参数实际上是slice语法糖，编译器无法确定这些函数不会对参数slice进行append操作导致重分配，所以基于保守策略，都会把这些传入的参数分配到堆上以保证浅拷贝是准确的。
+
+  这里我评价golang编译器的逃逸策略为保守应该是比较合适的，好的逃逸分析需要在编译期更深入地理解程序，这无疑非常困难，特别是涉及到interface{}，指针，可扩展容器的时候。
+
+
+
+### 内联
+
+  关于内联我需要在另一篇post中深入讨论，这里简单地说些感受。逃逸分析+GC很好用但是如果没有内联就会显得很昂贵，所有函数返回的地方会有一道“墙”，任何想要从墙逃逸到墙外的变量都会分配到堆上，比如：
+
+```go
+func NewCoord() *Coord{
+  return &Coord{
+    x : 1,
+    z : 2,
+  }
+}
+
+func foo(){
+  c := NewCoord()
+  return c.x
+}
+```
+
+  像NewCoord这样简单的构造函数都会导致返回值分配在堆上，抽离函数的代价也会更大。所以Go的内联，逃逸分析，GC像是三剑客，共同把其他语言避之不及的指针变得cheap。
+
+  Go1.9开始对内联做了比较大的runtime优化，开始支持[mid-stack inline](https://go.googlesource.com/proposal/+/master/design/19348-midstack-inlining.md) ，并且通过`-l`编译参数指定内联等级([参数定义](https://golang.org/src/cmd/compile/internal/gc/inl.go))。并且只在`-l=4`中提供了mid-stack inline，Go官方统计，这大概可以提升9%的性能，不过也增加了11%左右的二进制大小。
+
+  Go1.10做一些interface相关的优化，比如[devirtualization](https://github.com/golang/go/issues/19361) , compiler能够知道interface具体对象的情况下(如`var i Iface = &myStruct{}`)可以直接生成对象相关代码调用(而非内联)，无需走interface方法查找。不过目前这个优化还不完善，还不能应用于逃逸分析优化。
+
+  Go1.12开始默认支持了mid-stack inline
+
+  在目前的项目中，似乎还不需要去调整内联参数，因为这个操作是个trade-off，过于激进的内联会导致生成的二进制文件更大你，CPU intstruction cache miss也可能会增加。默认等级的内联大部分时候都工作得很好并且保持稳定，到Go1.13为止，对interface方法的调用还不能被内联（哪怕compiler知道其具体的类型）。
+
+  ```go
+type I interface {
+	F() int
+}
+type A struct{
+	x int
+	y int
+}
+func (a *A) F() int {
+	z := a.x + a.y
+	return z
+}
+func BenchmarkX(b *testing.B) {
+	b.ReportAllocs()
+	for i:=0; i<b.N; i++ {
+		// F() 会被内联 0.36 ns/op
+		// var a = &A{}
+		// a.F()
+		// 对Interface的方法调用不能被内联 18.4 ns/op
+		var i I = &A{}
+		i.F()
+	}
+}
+  ```
+
+  对于一些偏底层基础的结构体，像上述的外层抽象了接口interface用于提供简单的对字段的访问设置，按照目前的分析和测试，内联会把字段访问速度提升一个数量级。
+
+  **PS： 个人的感受是目前Go interfaced的内联做的不够好，或许可以用公共API返回具体类型而不是interface，比如etcdclient.New, grpc.NewServer这些都是这样实践的，它们通过private fields加public methods让外部用起来像interface一样，但是数据逻辑层可能实践起来比较麻烦，因为Go的访问控制太差。**

@@ -358,7 +358,7 @@ if (!doNotTrack) {
 </code></pre></div><p>结果可以发现, b, d, f都逃逸了。所以我们可以得出结论：</p>
 <pre><code>被指针类型的slice, map和chan引用的指针一定会发生逃逸。
 备注： stack overflow上有人提问为何使用指针的chan比使用值得chan慢%30， 答案就在这里。使用指针的chan发生逃逸，gc拖慢了速度。
-</code></pre><h2 id="案例总结">案例总结</h2>
+</code></pre><h2 id="总结">总结</h2>
 <p>我们得出指针<strong>必然逃逸</strong>的情况：</p>
 <ul>
 <li>在某个函数中new或者字面量创建出的变量，将其指针作为函数返回，则该变量一定发生逃逸（构造函数返回的指针变量一定逃逸）</li>
@@ -375,78 +375,6 @@ if (!doNotTrack) {
 <li>将指针作为入参传给别的函数，这里还是要看指针在被传入的函数中的处理过程，如果发生了上述三种情况，则会逃逸；否则不会发生逃逸。</li>
 </ul>
 <p><em><strong>因此，对于文章开头的问题，我们不能仅仅依据使用值引用作为函数入参可能因为copy导致额外内存开销而放弃这种值引用类型入参的写法。因为如果函数内有造成变量逃逸的操作情形，gc可能会成为程序效率不高的瓶颈。</strong></em></p>
-<h2 id="深入逃逸和内联">深入逃逸和内联</h2>
-<h3 id="逃逸的深入解释">逃逸的深入解释</h3>
-<p>​    前面尝试了几个例子去分析逃逸的场景，实际上我们还是需要理解其内部机制，才能把收益最大化（开发效率v.s.运行效率）。逃逸分析的本质是当compiler发现函数变量将脱离函数栈的有效域或被函数栈域外的变量所引用时，把变量分配在堆上而不是栈上，分析一些典型的场景：</p>
-<ul>
-<li>
-<p>上述讨论过的，函数返回变量地址，或者返回包含变量地址的结构体。</p>
-</li>
-<li>
-<p>把变量地址写入channel或者sync.Pool，compiler无法获取goroutine如何使用这个变量，也就无法在编译的时候决定变量的生命周期。</p>
-</li>
-<li>
-<p>闭包可能导致闭包上下文逃逸，</p>
-</li>
-<li>
-<p>slice变量超过cap重新分配时，将在堆上进行，栈的大小毕竟是固定和有限的。</p>
-</li>
-<li>
-<p>上述讨论过的把变量地址赋值给可扩容容器（map, slice）时。</p>
-</li>
-<li>
-<p>把变量赋给可扩容interface容器（k或v为interface的map，或[]interface）的时候。</p>
-</li>
-<li>
-<p>几乎涉及到interface的地方都有可能导致对象逃逸，MyInterface(x).Foo(a)会导致a逃逸，如果a是引用语义(pointer, slice, map etc.)，那么a也会分配到堆上。涉及到interface的很多逃逸优化都很保守，比如reflect.ValueOf(x)会显式调用escapes(x)导致x逃逸。</p>
-<p>我们分析一下slice重分配的场景。这个场景是在堆上发生的，因为slice重分配时，会发生数据迁移，此时会把原本slice len内的元素<strong>浅拷贝</strong>到新的space。这个浅拷贝会导致新的slice(堆内存)引用了p(栈内存)的内容，而栈内存和堆内存的生命周期不一样，导致了可能出现函数return了以后，堆内存引用无效的栈内存的情形，这无疑会影响到运行的稳定。所以即使slice变量本身没有显式得逃逸，由于隐式的数据迁移，compiler会保守把slice或者map的指针元素逃逸到堆上。</p>
-<p>对于interface相关的，interface{}把值语义变为引用语义，其本质是type+pointer，这个pointer指向实际的data (源码分析开坑)。如果把值语义的变量赋值给interface容器，那么容器会持有变量的引用，所以这个变量会逃逸到堆上分配。</p>
-<p>案例里也分析了，fmt.Printf会导致逃逸，其实fmt.Sprintf或者logrus.Debugf都会导致所有传入参数逃逸，因为不定参数实际上是slice语法糖，编译器无法确定这些函数不会对参数slice进行append操作导致重分配，所以基于保守策略，都会把这些传入的参数分配到堆上以保证浅拷贝是准确的。</p>
-<p>这里我评价golang编译器的逃逸策略为保守应该是比较合适的，好的逃逸分析需要在编译期更深入地理解程序，这无疑非常困难，特别是涉及到interface{}，指针，可扩展容器的时候。</p>
-</li>
-</ul>
-<h3 id="内联">内联</h3>
-<p>关于内联我需要在另一篇post中深入讨论，这里简单地说些感受。逃逸分析+GC很好用但是如果没有内联就会显得很昂贵，所有函数返回的地方会有一道“墙”，任何想要从墙逃逸到墙外的变量都会分配到堆上，比如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewCoord</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Coord</span>{
-  <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Coord</span>{
-    <span style="color:#a6e22e">x</span> : <span style="color:#ae81ff">1</span>,
-    <span style="color:#a6e22e">z</span> : <span style="color:#ae81ff">2</span>,
-  }
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">foo</span>(){
-  <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewCoord</span>()
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">x</span>
-}
-</code></pre></div><p>像NewCoord这样简单的构造函数都会导致返回值分配在堆上，抽离函数的代价也会更大。所以Go的内联，逃逸分析，GC像是三剑客，共同把其他语言避之不及的指针变得cheap。</p>
-<p>Go1.9开始对内联做了比较大的runtime优化，开始支持<a href="https://go.googlesource.com/proposal/+/master/design/19348-midstack-inlining.md">mid-stack inline</a> ，并且通过<code>-l</code>编译参数指定内联等级(<a href="https://golang.org/src/cmd/compile/internal/gc/inl.go">参数定义</a>)。并且只在<code>-l=4</code>中提供了mid-stack inline，Go官方统计，这大概可以提升9%的性能，不过也增加了11%左右的二进制大小。</p>
-<p>Go1.10做一些interface相关的优化，比如<a href="https://github.com/golang/go/issues/19361">devirtualization</a> , compiler能够知道interface具体对象的情况下(如<code>var i Iface = &amp;myStruct{}</code>)可以直接生成对象相关代码调用(而非内联)，无需走interface方法查找。不过目前这个优化还不完善，还不能应用于逃逸分析优化。</p>
-<p>Go1.12开始默认支持了mid-stack inline</p>
-<p>在目前的项目中，似乎还不需要去调整内联参数，因为这个操作是个trade-off，过于激进的内联会导致生成的二进制文件更大你，CPU intstruction cache miss也可能会增加。默认等级的内联大部分时候都工作得很好并且保持稳定，到Go1.13为止，对interface方法的调用还不能被内联（哪怕compiler知道其具体的类型）。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">I</span> <span style="color:#66d9ef">interface</span> {
-  <span style="color:#a6e22e">F</span>() <span style="color:#66d9ef">int</span>
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">A</span> <span style="color:#66d9ef">struct</span>{
-  <span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>
-  <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">A</span>) <span style="color:#a6e22e">F</span>() <span style="color:#66d9ef">int</span> {
-  <span style="color:#a6e22e">z</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">y</span>
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">z</span>
-}
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkX</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
-  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ReportAllocs</span>()
-  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">:=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-      <span style="color:#75715e">// F() 会被内联 0.36 ns/op
-</span><span style="color:#75715e"></span>      <span style="color:#75715e">// var a = &amp;A{}
-</span><span style="color:#75715e"></span>      <span style="color:#75715e">// a.F()
-</span><span style="color:#75715e"></span>      <span style="color:#75715e">// 对Interface的方法调用不能被内联 18.4 ns/op
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#a6e22e">I</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">A</span>{}
-      <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">F</span>()
-  }
-}
-</code></pre></div><p>对于一些偏底层基础的结构体，像上述的外层抽象了接口interface用于提供简单的对字段的访问设置，按照目前的分析和测试，内联会把字段访问速度提升一个数量级。</p>
-<p><strong>PS： 个人的感受是目前Go interfaced的内联做的不够好，或许可以用公共API返回具体类型而不是interface，比如etcdclient.New, grpc.NewServer这些都是这样实践的，它们通过private fields加public methods让外部用起来像interface一样，但是数据逻辑层可能实践起来比较麻烦，因为Go的访问控制太差。</strong></p>
 
         </div>
 
@@ -546,13 +474,7 @@ if (!doNotTrack) {
         <li><a href="#case3">case3</a></li>
       </ul>
     </li>
-    <li><a href="#案例总结">案例总结</a></li>
-    <li><a href="#深入逃逸和内联">深入逃逸和内联</a>
-      <ul>
-        <li><a href="#逃逸的深入解释">逃逸的深入解释</a></li>
-        <li><a href="#内联">内联</a></li>
-      </ul>
-    </li>
+    <li><a href="#总结">总结</a></li>
   </ul>
 </nav>
       </div>
