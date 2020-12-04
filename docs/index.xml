@@ -6,7 +6,36 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Nov 2020 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 04 Dec 2020 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BDD: Ginkgo测试框架</title>
+      <link>https://pillumina.github.io/posts/golang/bdd-testing-framework/</link>
+      <pubDate>Fri, 04 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/bdd-testing-framework/</guid>
+      <description>Preface BDD和TDD都是test case first的实现，无非是把后者的test改成前者的behavior。在TDD中，关注的核心点是function，即认为程序最基本单元是function，其test case可以认为是unit test，TDD和unit test的区别是TDD强调测试和开发结合而成的工作流: 写test case -&amp;gt; 写代码 -&amp;gt; 通过测试，继续写更多测试，写一次循环。
+而BDD比TDD更关注高层的行为，而不是函数级别的行为，也就是在BDD中，不会强调函数的功能正确，这是unit test应该做的事。BDD更关注user story，即用户在特定场景，与软件交互发生的行为，这个behavior指的就是高层模块的行为。
+如何区分BDD和TDD，简单理解，TDD是给programmer的，用来验证开发者的最基本模块的功能：在什么输入，应该产生什么输出，保证实现的边界，健全性。而BDD，其test case描述的是更高级的模块行为，脱离了具体的实现，容易用自然语言去描述，也就是BDD是给product manager的，告诉其系统的行为。
+BDD in golang ​	实现的时候，我们需要把Given-When-Then这种story格式组织test case翻译为测试代码，通过一系列的assertion来检查实现是否符合test case的预期，我们完全可以直接通过golang自带的testing模块来实现，不过testing的功能有时候比较简陋，本文记录了用Ginkgo+Gomega来组织test case，让我们的测试语言更加接近自然语言。
+二者结合的目的是，ginkgo实现了test case的组织，并加入了其他方便的功能: 初始化，后续处理，异步等等。而gomega设计的目的是与ginkgo一起工作，实现易读的assertion(ginkgo中称为match)功能。
+Gomega is ginkgo&#39;s preferred matcher library 初始化 ginkgo依托golang原生testing框架，即可以用go test ./.. 执行，也可以通过ginkgo binrary安装go install github.com/onsi/ginkgo，封装了ginkgo测试框架的各种feature。
+初始化首先进入待测试的package:
+cd /path/to/package 执行初始化:
+ginkgo bootstrap 生成以suite_test.go文件，接下来向suite添加测试specs，生成比如ginkgo_cart package测试文件。
+ginkgo generate ginkgo_cart 运行 生成ginkgo_cart_test.go，注意测试文件在ginkgo_cart_testpackage， 需要import package ginkgo_cart，即BDD层级高于unit test, 不应该了解package内部的具体实现，测试package的外部接口即可。编写测试代码，运行go test ./..即可。
+Ginkgo Keyword Ginkgo测试代码骨架由一系列keyword关联的闭包组成，常用的有：
+ Describe/Context/When: 测试逻辑块 BeforeEach/AfterEach/JustBeforeEach/JustAfterEach: 初始化测试用例块 It: 单一Spec，测试case  keyword的声明均为传入Body参数，比如Describe:</description>
+    </item>
+    
+    <item>
+      <title>Golang内存管理</title>
+      <link>https://pillumina.github.io/posts/golang/memory-management/</link>
+      <pubDate>Wed, 02 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/memory-management/</guid>
+      <description> </description>
+    </item>
+    
     <item>
       <title>Golang逃逸分析</title>
       <link>https://pillumina.github.io/posts/golang/golang-escape-analysis/</link>
