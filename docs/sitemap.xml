@@ -23,6 +23,11 @@
   </url>
   
   <url>
+    <loc>https://pillumina.github.io/posts/golang/memory-management/</loc>
+    <lastmod>2020-12-02T11:22:18+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pillumina.github.io/posts/golang/golang-escape-analysis/</loc>
     <lastmod>2020-11-23T11:22:18+08:00</lastmod>
   </url>
