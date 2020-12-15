@@ -41,15 +41,6 @@ Ginkgo Keyword Ginkgo测试代码骨架由一系列keyword关联的闭包组成�
     </item>
     
     <item>
-      <title>Golang内存管理</title>
-      <link>https://pillumina.github.io/posts/golang/memory-management/</link>
-      <pubDate>Wed, 02 Dec 2020 11:22:18 +0800</pubDate>
-      
-      <guid>https://pillumina.github.io/posts/golang/memory-management/</guid>
-      <description> </description>
-    </item>
-    
-    <item>
       <title>Golang逃逸分析</title>
       <link>https://pillumina.github.io/posts/golang/golang-escape-analysis/</link>
       <pubDate>Mon, 23 Nov 2020 11:22:18 +0800</pubDate>
