@@ -3,12 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://pillumina.github.io/posts/golang/bdd-testing-framework/</loc>
-    <lastmod>2020-12-04T11:22:18+08:00</lastmod>
+    <loc>https://pillumina.github.io/</loc>
+    <lastmod>2020-12-14T16:20:29+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pillumina.github.io/</loc>
+    <loc>https://pillumina.github.io/posts/python/python-functionality/</loc>
+    <lastmod>2020-12-14T16:20:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pillumina.github.io/posts/python/</loc>
+    <lastmod>2020-12-14T10:52:50+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pillumina.github.io/posts/golang/bdd-testing-framework/</loc>
     <lastmod>2020-12-04T11:22:18+08:00</lastmod>
   </url>
   

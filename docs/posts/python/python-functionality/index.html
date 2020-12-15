@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Python类自定义</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Python类自定义" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Behavior Driven Testing</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/python-coder.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>December 14, 2020</p>
+        </div>
+
+        <div class="title">
+          <h1>Python类自定义</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h2 id="python类关键字">python类关键字</h2>
+<h3 id="__init__-vs-__new__"><code>__init__</code> vs <code>__new__</code></h3>
+<p><code>__init__</code>为初始化方法，<code>__new__</code>为真正的构造函数。</p>
+<h3 id="描述符descriptor">描述符Descriptor</h3>
+<h3 id="__contains__"><code>__contains__</code></h3>
+<h3 id="__slots__"><code>__slots__</code></h3>
+<h3 id="定制类">定制类</h3>
+<h3 id="type">type()</h3>
+<p>python作为动态语言，和静态语言最大的不同，即函数和类的定义，不是编译的时候创建的而是动态创建的。我们常见的对类的定义:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Hello</span>(object):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hello</span>(self, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;world&#39;</span>):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Hello, </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">.&#39;</span> <span style="color:#f92672">%</span> name)
+</code></pre></div><pre><code>&gt;&gt;&gt; from hello import Hello
+&gt;&gt;&gt; h = Hello()
+&gt;&gt;&gt; h.hello()
+Hello, world.
+&gt;&gt;&gt; print(type(Hello))
+&lt;class 'type'&gt;
+&gt;&gt;&gt; print(type(h))
+&lt;class 'hello.Hello'&gt;
+</code></pre><p>type()函数可以查看一类类型或者变量的类型，<code>Hello</code>是一个class， 它的类型是个<code>type</code>，而<code>h</code>是一个instance, 它的类型就是class <code>Hello</code>。</p>
+<p>同时有一个概念，就是type()不仅可以返回对象的类型，还可以创建出新的类型。我们可以不用定义<code>class Hello() ...</code>而动态创建出Hello类。</p>
+<pre><code>&gt;&gt;&gt; def fn(self, name='world'): # 先定义函数
+...     print('Hello, %s.' % name)
+...
+&gt;&gt;&gt; Hello = type('Hello', (object,), dict(hello=fn)) # 创建Hello class
+&gt;&gt;&gt; h = Hello()
+&gt;&gt;&gt; h.hello()
+Hello, world.
+&gt;&gt;&gt; print(type(Hello))
+&lt;class 'type'&gt;
+&gt;&gt;&gt; print(type(h))
+&lt;class '__main__.Hello'&gt;
+</code></pre><p>创建一个class对象，<code>type()</code>函数传入3个参数：</p>
+<ol>
+<li>class名称</li>
+<li>继承的父类集合，python支持多重继承，只有一个父类的话需要加上tuple的单元素写法</li>
+<li>class的方法名称与参数绑定，上面的例子里就把函数<code>fn</code>绑定到方法名<code>hello</code>上</li>
+</ol>
+<p>通过<code>type()</code>函数创建的类和直接写class是一样的，python解释器遇到class定义时，也仅仅是扫描class定义的语法，然后调用type()函数创建出class。</p>
+<h3 id="metaclass">MetaClass</h3>
+<p>除了使用<code>type()</code>进行动态类创建，如果要控制类的创建行为，还可以使用metaclass。对其简单的解释就是：当我们定义了class以后，就可以根据这个class创建出实例，也就是先定义class，再创建实例；但是，如果我们希望创建class该怎么办？这里就必须用到metaclass创建class，所以先定义metaclass，然后创建class。</p>
+<p>因此，metaclass允许创建类或者修改类，也就是我们可以把类看成metaclass创建出来的“实例”。metaclass在python中相对比较难理解，而且很多场景不需要用，毕竟它能够改变类创建时的行为(behaviour)，不熟容易导致一些问题。</p>
+<p>下面是一个简单的为自定义的MyList类增加一个<code>add</code>方法的例子：</p>
+<p>先定义<code>ListMetaClass</code>, 一般来说metaclass的类以Metaclass结尾。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># metaclass是类的模板，所以必须从`type`类型派生：</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ListMetaclass</span>(type):
+    <span style="color:#66d9ef">def</span> __new__(cls, name, bases, attrs):
+        attrs[<span style="color:#e6db74">&#39;add&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> self, value: self<span style="color:#f92672">.</span>append(value)
+        <span style="color:#66d9ef">return</span> type<span style="color:#f92672">.</span>__new__(cls, name, bases, attrs)
+</code></pre></div><p>有了这个定义，在定义MyList的时候传入关键字<code>metaclass</code>即可：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyList</span>(list, metaclass<span style="color:#f92672">=</span>ListMetaclass):
+    <span style="color:#66d9ef">pass</span>
+</code></pre></div><p>使用关键字后，python解释器在创建<code>MyList</code>的时候，要通过<code>ListMetaclass.__new__()</code>来创建。</p>
+<p><code>__new__()</code>方法接受到的参数为：</p>
+<ol>
+<li>当前准备创建的类的对象</li>
+<li>类的名字</li>
+<li>类继承的父类集合</li>
+<li>类的方法集合</li>
+</ol>
+<p>测试一下是否正确加上方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> L <span style="color:#f92672">=</span> MyList()
+<span style="color:#f92672">&gt;&gt;&gt;</span> L<span style="color:#f92672">.</span>add(<span style="color:#ae81ff">1</span>)
+<span style="color:#f92672">&gt;&gt;</span> L
+[<span style="color:#ae81ff">1</span>]
+</code></pre></div><p>而普通的<code>liat</code>是没有<code>add</code>方法的。那么动态修改的意义何在？直接在<code>MyList</code>里新增<code>add</code>方法不是更简单？正常情况下的确不需要用metaclass，不过还是有一些场景需要用到，比如ORM(Object Relational Mapping) &mdash; 把关系型数据库的一行映射成一个对象，即一个类对应一个表，这样写代码更简单而不需要SQL语句。如果要编写这样一个ORM框架，所有的类都只能动态定义了，因为只有使用者才能根据表的结构定义对应的类。</p>
+<p>下面写一个简单的ORM框架，比如使用者想定义一个<code>User</code>类来操作对应的数据库表<code>user</code>，我们期待使用者写出如下的代码:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>(Model):
+    <span style="color:#75715e"># 定义类的属性到列的映射：</span>
+    id <span style="color:#f92672">=</span> IntegerField(<span style="color:#e6db74">&#39;id&#39;</span>)
+    name <span style="color:#f92672">=</span> StringField(<span style="color:#e6db74">&#39;username&#39;</span>)
+    email <span style="color:#f92672">=</span> StringField(<span style="color:#e6db74">&#39;email&#39;</span>)
+    password <span style="color:#f92672">=</span> StringField(<span style="color:#e6db74">&#39;password&#39;</span>)
+
+<span style="color:#75715e"># 创建一个实例：</span>
+u <span style="color:#f92672">=</span> User(id<span style="color:#f92672">=</span><span style="color:#ae81ff">12345</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Michael&#39;</span>, email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test@orm.org&#39;</span>, password<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;my-pwd&#39;</span>)
+<span style="color:#75715e"># 保存到数据库：</span>
+u<span style="color:#f92672">.</span>save()
+</code></pre></div><p>其中父类<code>Model</code>和属性类型<code>StringField</code>，<code>IntegerField</code>由ORM框架提供，剩下的<code>save()</code>全部由metaclass自动完成。</p>
+<p>先定定义<code>Field</code>类，用于负责保存数据库表的字段名和字段类型：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Field</span>(object):
+
+    <span style="color:#66d9ef">def</span> __init__(self, name, column_type):
+        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
+        self<span style="color:#f92672">.</span>column_type <span style="color:#f92672">=</span> column_type
+
+    <span style="color:#66d9ef">def</span> __str__(self):
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&lt;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">:</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&gt;&#39;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>__class__<span style="color:#f92672">.</span>__name__, self<span style="color:#f92672">.</span>name)
+</code></pre></div><p>基于此类，定义其他Field子类：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">StringField</span>(Field):
+
+    <span style="color:#66d9ef">def</span> __init__(self, name):
+        super(StringField, self)<span style="color:#f92672">.</span>__init__(name, <span style="color:#e6db74">&#39;varchar(100)&#39;</span>)
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">IntegerField</span>(Field):
+
+    <span style="color:#66d9ef">def</span> __init__(self, name):
+        super(IntegerField, self)<span style="color:#f92672">.</span>__init__(name, <span style="color:#e6db74">&#39;bigint&#39;</span>)
+</code></pre></div><p>编写<code>Model</code>和<code>ModelMetaclass</code>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ModelMetaclass</span>(type):
+
+    <span style="color:#66d9ef">def</span> __new__(cls, name, bases, attrs):
+        <span style="color:#66d9ef">if</span> name<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;Model&#39;</span>:
+            <span style="color:#66d9ef">return</span> type<span style="color:#f92672">.</span>__new__(cls, name, bases, attrs)
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Found model: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> name)
+        mappings <span style="color:#f92672">=</span> dict()
+        <span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> attrs<span style="color:#f92672">.</span>items():
+            <span style="color:#66d9ef">if</span> isinstance(v, Field):
+                <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Found mapping: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> ==&gt; </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (k, v))
+                mappings[k] <span style="color:#f92672">=</span> v
+        <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> mappings<span style="color:#f92672">.</span>keys():
+            attrs<span style="color:#f92672">.</span>pop(k)
+        attrs[<span style="color:#e6db74">&#39;__mappings__&#39;</span>] <span style="color:#f92672">=</span> mappings <span style="color:#75715e"># 保存属性和列的映射关系</span>
+        attrs[<span style="color:#e6db74">&#39;__table__&#39;</span>] <span style="color:#f92672">=</span> name <span style="color:#75715e"># 假设表名和类名一致</span>
+        <span style="color:#66d9ef">return</span> type<span style="color:#f92672">.</span>__new__(cls, name, bases, attrs)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Model</span>(dict, metaclass<span style="color:#f92672">=</span>ModelMetaclass):
+
+    <span style="color:#66d9ef">def</span> __init__(self, <span style="color:#f92672">**</span>kw):
+        super(Model, self)<span style="color:#f92672">.</span>__init__(<span style="color:#f92672">**</span>kw)
+
+    <span style="color:#66d9ef">def</span> __getattr__(self, key):
+        <span style="color:#66d9ef">try</span>:
+            <span style="color:#66d9ef">return</span> self[key]
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">KeyError</span>:
+            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">AttributeError</span>(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;&#39;Model&#39; object has no attribute &#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;&#34;</span> <span style="color:#f92672">%</span> key)
+
+    <span style="color:#66d9ef">def</span> __setattr__(self, key, value):
+        self[key] <span style="color:#f92672">=</span> value
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">save</span>(self):
+        fields <span style="color:#f92672">=</span> []
+        params <span style="color:#f92672">=</span> []
+        args <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">for</span> k, v <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>__mappings__<span style="color:#f92672">.</span>items():
+            fields<span style="color:#f92672">.</span>append(v<span style="color:#f92672">.</span>name)
+            params<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;?&#39;</span>)
+            args<span style="color:#f92672">.</span>append(getattr(self, k, None))
+        sql <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;insert into </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">) values (</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">)&#39;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>__table__, <span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">.</span>join(fields), <span style="color:#e6db74">&#39;,&#39;</span><span style="color:#f92672">.</span>join(params))
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;SQL: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> sql)
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;ARGS: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> str(args))
+</code></pre></div><p><strong>注意: 当用户定义一个<code>class User(Model)</code>的时候，python解释器首先在当前类<code>User</code>定义中查找<code>metaclass</code>，如果没找到，继续在父类<code>Model</code>中找，找到了就使用<code>Model</code>中定义的<code>metaclass</code>的<code>ModelMetaclass</code>来创建<code>User</code>类，所以metaclass可以隐式得继承到子类</strong></p>
+<p><code>ModelMetaclass</code>中的逻辑：</p>
+<ol>
+<li>排除掉对<code>Model</code>类的修改</li>
+<li>在当前类（如<code>User</code>）中查找定义的类的所有属性，如果找到一个<code>Field</code>类，则将其保存到一个<code>__mapping__</code>的dict中，同时从类属性中删除该Field属性，防止runtime错误。（实例同名属性对类同名属性的覆盖）</li>
+<li>把表名保存到<code>__table__</code>中</li>
+</ol>
+<p><code>Model</code>类中，就可以定义各种操作数据库的方法，比如<code>save</code>, <code>delete</code>, <code>update</code>等等。</p>
+<p>用上述的模块，可以编写出如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">u <span style="color:#f92672">=</span> User(id<span style="color:#f92672">=</span><span style="color:#ae81ff">12345</span>, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Michael&#39;</span>, email<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;test@orm.org&#39;</span>, password<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;my-pwd&#39;</span>)
+u<span style="color:#f92672">.</span>save()
+</code></pre></div><p>获得的结果:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Found model: User
+Found mapping: email <span style="color:#f92672">==&gt;</span> <span style="color:#f92672">&lt;</span>StringField:email<span style="color:#f92672">&gt;</span>
+Found mapping: password <span style="color:#f92672">==&gt;</span> <span style="color:#f92672">&lt;</span>StringField:password<span style="color:#f92672">&gt;</span>
+Found mapping: id <span style="color:#f92672">==&gt;</span> <span style="color:#f92672">&lt;</span>IntegerField:uid<span style="color:#f92672">&gt;</span>
+Found mapping: name <span style="color:#f92672">==&gt;</span> <span style="color:#f92672">&lt;</span>StringField:username<span style="color:#f92672">&gt;</span>
+SQL: insert into User (password,email,username,id) values (<span style="color:#960050;background-color:#1e0010">?</span>,<span style="color:#960050;background-color:#1e0010">?</span>,<span style="color:#960050;background-color:#1e0010">?</span>,<span style="color:#960050;background-color:#1e0010">?</span>)
+ARGS: [<span style="color:#e6db74">&#39;my-pwd&#39;</span>, <span style="color:#e6db74">&#39;test@orm.org&#39;</span>, <span style="color:#e6db74">&#39;Michael&#39;</span>, <span style="color:#ae81ff">12345</span>]
+</code></pre></div><p>这里只是简单打出参数列表，对backend连接没有进行真正的处理。</p>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/python/python-functionality.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/golang/bdd-testing-framework/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>BDD: Ginkgo测试框架</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "does-not-exist";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#python类关键字">python类关键字</a>
+      <ul>
+        <li><a href="#__init__-vs-__new__"><code>__init__</code> vs <code>__new__</code></a></li>
+        <li><a href="#描述符descriptor">描述符Descriptor</a></li>
+        <li><a href="#__contains__"><code>__contains__</code></a></li>
+        <li><a href="#__slots__"><code>__slots__</code></a></li>
+        <li><a href="#定制类">定制类</a></li>
+        <li><a href="#type">type()</a></li>
+        <li><a href="#metaclass">MetaClass</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

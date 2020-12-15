@@ -6,7 +6,20 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Dec 2020 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Dec 2020 16:20:29 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python类自定义</title>
+      <link>https://pillumina.github.io/posts/python/python-functionality/</link>
+      <pubDate>Mon, 14 Dec 2020 16:20:29 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/python/python-functionality/</guid>
+      <description>python类关键字 __init__ vs __new__ __init__为初始化方法，__new__为真正的构造函数。
+描述符Descriptor __contains__ __slots__ 定制类 type() python作为动态语言，和静态语言最大的不同，即函数和类的定义，不是编译的时候创建的而是动态创建的。我们常见的对类的定义:
+class Hello(object): def hello(self, name=&amp;#39;world&amp;#39;): print(&amp;#39;Hello, %s.&amp;#39; % name) &amp;gt;&amp;gt;&amp;gt; from hello import Hello &amp;gt;&amp;gt;&amp;gt; h = Hello() &amp;gt;&amp;gt;&amp;gt; h.hello() Hello, world. &amp;gt;&amp;gt;&amp;gt; print(type(Hello)) &amp;lt;class &#39;type&#39;&amp;gt; &amp;gt;&amp;gt;&amp;gt; print(type(h)) &amp;lt;class &#39;hello.Hello&#39;&amp;gt; type()函数可以查看一类类型或者变量的类型，Hello是一个class， 它的类型是个type，而h是一个instance, 它的类型就是class Hello。
+同时有一个概念，就是type()不仅可以返回对象的类型，还可以创建出新的类型。我们可以不用定义class Hello() ...而动态创建出Hello类。
+&amp;gt;&amp;gt;&amp;gt; def fn(self, name=&#39;world&#39;): # 先定义函数 ... print(&#39;Hello, %s.&#39; % name) ... &amp;gt;&amp;gt;&amp;gt; Hello = type(&#39;Hello&#39;, (object,), dict(hello=fn)) # 创建Hello class &amp;gt;&amp;gt;&amp;gt; h = Hello() &amp;gt;&amp;gt;&amp;gt; h.</description>
+    </item>
+    
     <item>
       <title>BDD: Ginkgo测试框架</title>
       <link>https://pillumina.github.io/posts/golang/bdd-testing-framework/</link>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Categories</title>
+    <title>Python</title>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -201,12 +201,15 @@ if (!doNotTrack) {
   
   
   
+    
+    
+  
   
     
     <li>
-      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/python/">Python Odyssey</a>
       
-      <ul class="">
+      <ul class="active">
         
   
   
@@ -237,6 +240,33 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/python/python-functionality/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/python-coder.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Python类自定义</h5>
+        <p class="card-text post-summary">python类关键字 __init__ vs __new__ __init__为初始化方法，__new__为真正的构造函数。
+描述符Descriptor __contains__ __slots__ 定制类 type() python作为动态语言，和静态语言最大的不同，即函数和类的定义，不是编译的时候创建的而是动态创建的。我们常见的对类的定义:
+class Hello(object): def hello(self, name=&#39;world&#39;): print(&#39;Hello, %s.&#39; % name) &gt;&gt;&gt; from hello import Hello &gt;&gt;&gt; h = Hello() &gt;&gt;&gt; h.hello() Hello, world. &gt;&gt;&gt; print(type(Hello)) &lt;class 'type'&gt; &gt;&gt;&gt; print(type(h)) &lt;class 'hello.Hello'&gt; type()函数可以查看一类类型或者变量的类型，Hello是一个class， 它的类型是个type，而h是一个instance, 它的类型就是class Hello。
+同时有一个概念，就是type()不仅可以返回对象的类型，还可以创建出新的类型。我们可以不用定义class Hello() ...而动态创建出Hello类。
+&gt;&gt;&gt; def fn(self, name='world'): # 先定义函数 ... print('Hello, %s.' % name) ... &gt;&gt;&gt; Hello = type('Hello', (object,), dict(hello=fn)) # 创建Hello class &gt;&gt;&gt; h = Hello() &gt;&gt;&gt; h.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 14, 2020</span>
+        <a
+        href="/posts/python/python-functionality/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
     </div>
     <div class="paginator">
