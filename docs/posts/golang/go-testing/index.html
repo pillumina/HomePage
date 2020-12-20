@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Golang TDD</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Golang TDD" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Behavior Driven Testing</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang_banner.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>December 19, 2020</p>
+        </div>
+
+        <div class="title">
+          <h1>Golang TDD</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h2 id="preface">Preface</h2>
+<p>本文整理golang编码的单元测试常用示例，以及TDD的简要流程。</p>
+<h2 id="单元测试基础">单元测试基础</h2>
+<p>单元测试文件以<code>_test.go</code>结尾，需要记住以下原则：</p>
+<ul>
+<li>文件名必须是<code>_test.go</code>结尾的，这样在执行<code>go test</code>的时候才会执行到相应的代码</li>
+<li>你必须import <code>testing</code>这个包</li>
+<li>所有的测试用例函数必须是<code>Test</code>开头</li>
+<li>测试用例会按照源代码中写的顺序依次执行</li>
+<li>测试函数<code>TestXxx()</code>的参数是<code>testing.T</code>，我们可以使用该类型来记录错误或者是测试状态</li>
+<li>测试格式：<code>func TestXxx (t *testing.T)</code>,<code>Xxx</code>部分可以为任意的字母数字的组合，但是首字母不能是小写字母[a-z]，例如<code>Testintdiv</code>是错误的函数名。</li>
+<li>函数中通过调用<code>testing.T</code>的<code>Error</code>, <code>Errorf</code>, <code>FailNow</code>, <code>Fatal</code>, <code>FatalIf</code>方法，说明测试不通过，调用<code>Log</code>方法用来记录测试的信息。</li>
+</ul>
+<h3 id="table-driven-testing">Table-Driven-Testing</h3>
+<p>测试讲究 case 覆盖，当我们要覆盖更多 case 时，显然通过修改代码的方式很笨拙。这时我们可以采用 Table-Driven 的方式写测试，标准库中有很多测试是使用这种方式写的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFib</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">fibTests</span> = []<span style="color:#66d9ef">struct</span> {
+        <span style="color:#a6e22e">in</span>       <span style="color:#66d9ef">int</span> <span style="color:#75715e">// input
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">expected</span> <span style="color:#66d9ef">int</span> <span style="color:#75715e">// expected result
+</span><span style="color:#75715e"></span>    }{
+        {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>},
+        {<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>},
+        {<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>},
+        {<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>},
+        {<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>},
+        {<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>},
+        {<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">13</span>},
+    }
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">tt</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">fibTests</span> {
+        <span style="color:#a6e22e">actual</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Fib</span>(<span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">in</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">actual</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">expected</span> {
+            <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;Fib(%d) = %d; expected %d&#34;</span>, <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">in</span>, <span style="color:#a6e22e">actual</span>, <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">expected</span>)
+        }
+    }
+}
+</code></pre></div><p>由于我们使用的是 <code>t.Errorf</code>，即使其中某个 case 失败，也不会终止测试执行。</p>
+<h3 id="t类型">T类型</h3>
+<p>单元测试中，传递给测试函数的参数是 <code>*testing.T</code> 类型。它用于管理测试状态并支持格式化测试日志。测试日志会在执行测试的过程中不断累积，并在测试完成时转储至标准输出。</p>
+<p>当测试函数返回时，或者当测试函数调用 <code>FailNow</code>、 <code>Fatal</code>、<code>Fatalf</code>、<code>SkipNow</code>、<code>Skip</code>、<code>Skipf</code> 中的任意一个时，则宣告该测试函数结束。跟 <code>Parallel</code> 方法一样，以上提到的这些方法只能在运行测试函数的 goroutine 中调用。</p>
+<p>至于其他报告方法，比如 <code>Log</code> 以及 <code>Error</code> 的变种， 则可以在多个 goroutine 中同时进行调用。</p>
+<h3 id="报告方式">报告方式</h3>
+<p>上面提到的系列包括方法，带 <code>f</code> 的是格式化的，格式化语法参考 <code>fmt</code> 包。</p>
+<p>T 类型内嵌了 common 类型，common 提供这一系列方法，我们经常会用到的（注意，这里说的测试中断，都是指当前测试函数）：</p>
+<p>1）当我们遇到一个断言错误的时候，标识这个测试失败，会使用到：</p>
+<pre><code>Fail : 测试失败，测试继续，也就是之后的代码依然会执行
+FailNow : 测试失败，测试中断
+</code></pre><p>在 <code>FailNow</code> 方法实现的内部，是通过调用 <code>runtime.Goexit()</code> 来中断测试的。</p>
+<p>2）当我们遇到一个断言错误，只希望跳过这个错误，但是不希望标识测试失败，会使用到：</p>
+<pre><code>SkipNow : 跳过测试，测试中断
+</code></pre><p>在 <code>SkipNow</code> 方法实现的内部，是通过调用 <code>runtime.Goexit()</code> 来中断测试的。</p>
+<p>3）当我们只希望打印信息，会用到 :</p>
+<pre><code>Log : 输出信息
+Logf : 输出格式化的信息
+</code></pre><p>注意：默认情况下，单元测试成功时，它们打印的信息不会输出，可以通过加上 <code>-v</code> 选项，输出这些信息。但对于基准测试，它们总是会被输出。</p>
+<p>4）当我们希望跳过这个测试，并且打印出信息，会用到：</p>
+<pre><code>Skip : 相当于 Log + SkipNow
+Skipf : 相当于 Logf + SkipNow
+</code></pre><p>5）当我们希望断言失败的时候，标识测试失败，并打印出必要的信息，但是测试继续，会用到：</p>
+<pre><code>Error : 相当于 Log + Fail
+Errorf : 相当于 Logf + Fail
+</code></pre><p>6）当我们希望断言失败的时候，标识测试失败，打印出必要的信息，但中断测试，会用到：</p>
+<pre><code>Fatal : 相当于 Log + FailNow
+Fatalf : 相当于 Logf + FailNow
+</code></pre><h3 id="parallel并行测试">Parallel并行测试</h3>
+<p>这里简单测试一个对Map的读写并行测试。<strong>注意：Parallel方法表示只与其他带有Parallel方法的测试并行进行测试。</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> (
+    <span style="color:#a6e22e">data</span>   = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>)
+    <span style="color:#a6e22e">locker</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WriteToMap</span>(<span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">string</span>) {
+    <span style="color:#a6e22e">locker</span>.<span style="color:#a6e22e">Lock</span>()
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">locker</span>.<span style="color:#a6e22e">Unlock</span>()
+    <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">v</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ReadFromMap</span>(<span style="color:#a6e22e">k</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+    <span style="color:#a6e22e">locker</span>.<span style="color:#a6e22e">RLock</span>()
+    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">locker</span>.<span style="color:#a6e22e">RUnlock</span>()
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">k</span>]
+}
+</code></pre></div><p>测试用例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pairs</span> = []<span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">v</span> <span style="color:#66d9ef">string</span>
+}{
+    {<span style="color:#e6db74">&#34;polaris&#34;</span>, <span style="color:#e6db74">&#34; 徐新华 &#34;</span>},
+    {<span style="color:#e6db74">&#34;studygolang&#34;</span>, <span style="color:#e6db74">&#34;Go 语言中文网 &#34;</span>},
+    {<span style="color:#e6db74">&#34;stdlib&#34;</span>, <span style="color:#e6db74">&#34;Go 语言标准库 &#34;</span>},
+    {<span style="color:#e6db74">&#34;polaris1&#34;</span>, <span style="color:#e6db74">&#34; 徐新华 1&#34;</span>},
+    {<span style="color:#e6db74">&#34;studygolang1&#34;</span>, <span style="color:#e6db74">&#34;Go 语言中文网 1&#34;</span>},
+    {<span style="color:#e6db74">&#34;stdlib1&#34;</span>, <span style="color:#e6db74">&#34;Go 语言标准库 1&#34;</span>},
+    {<span style="color:#e6db74">&#34;polaris2&#34;</span>, <span style="color:#e6db74">&#34; 徐新华 2&#34;</span>},
+    {<span style="color:#e6db74">&#34;studygolang2&#34;</span>, <span style="color:#e6db74">&#34;Go 语言中文网 2&#34;</span>},
+    {<span style="color:#e6db74">&#34;stdlib2&#34;</span>, <span style="color:#e6db74">&#34;Go 语言标准库 2&#34;</span>},
+    {<span style="color:#e6db74">&#34;polaris3&#34;</span>, <span style="color:#e6db74">&#34; 徐新华 3&#34;</span>},
+    {<span style="color:#e6db74">&#34;studygolang3&#34;</span>, <span style="color:#e6db74">&#34;Go 语言中文网 3&#34;</span>},
+    {<span style="color:#e6db74">&#34;stdlib3&#34;</span>, <span style="color:#e6db74">&#34;Go 语言标准库 3&#34;</span>},
+    {<span style="color:#e6db74">&#34;polaris4&#34;</span>, <span style="color:#e6db74">&#34; 徐新华 4&#34;</span>},
+    {<span style="color:#e6db74">&#34;studygolang4&#34;</span>, <span style="color:#e6db74">&#34;Go 语言中文网 4&#34;</span>},
+    {<span style="color:#e6db74">&#34;stdlib4&#34;</span>, <span style="color:#e6db74">&#34;Go 语言标准库 4&#34;</span>},
+}
+
+<span style="color:#75715e">// 注意 TestWriteToMap 需要在 TestReadFromMap 之前
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestWriteToMap</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Parallel</span>()
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">tt</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">pairs</span> {
+        <span style="color:#a6e22e">WriteToMap</span>(<span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">v</span>)
+    }
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestReadFromMap</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Parallel</span>()
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">tt</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">pairs</span> {
+        <span style="color:#a6e22e">actual</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ReadFromMap</span>(<span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">k</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">actual</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">v</span> {
+            <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;the value of key(%s) is %s, expected: %s&#34;</span>, <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">actual</span>, <span style="color:#a6e22e">tt</span>.<span style="color:#a6e22e">v</span>)
+        }
+    }
+}
+</code></pre></div><p>试验步骤：</p>
+<ol>
+<li>注释掉 WriteToMap 和 ReadFromMap 中 locker 保护的代码，同时注释掉测试代码中的 t.Parallel，执行测试，测试通过，即使加上 <code>-race</code>，测试依然通过；</li>
+<li>只注释掉 WriteToMap 和 ReadFromMap 中 locker 保护的代码，执行测试，测试失败（如果未失败，加上 <code>-race</code> 一定会失败）；</li>
+</ol>
+<p>如果代码能够进行并行测试，在写测试时，尽量加上 Parallel，这样可以测试出一些可能的问题。</p>
+<h3 id="子测试与子基准测试run">子测试与子基准测试(Run)</h3>
+<p>Go1.7开始引入的特性，即能够执行嵌套测试，对于过滤执行特性测试用例非常有用。</p>
+<p>T 和 B 的 <code>Run</code> 方法允许定义子单元测试和子基准测试，而不必为它们单独定义函数。这便于创建基于 Table-Driven 的基准测试和层级测试。它还提供了一种共享通用 <code>setup</code> 和 <code>tear-down</code> 代码的方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestFoo</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#75715e">// &lt;setup code&gt;
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;A=1&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) { <span style="color:#f92672">...</span> })
+    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;A=2&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) { <span style="color:#f92672">...</span> })
+    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;B=1&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) { <span style="color:#f92672">...</span> })
+    <span style="color:#75715e">// &lt;tear-down code&gt;
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>每个子测试和子基准测试都有一个唯一的名称：由顶层测试的名称与传递给 <code>Run</code> 的名称组成，以斜杠分隔，并具有可选的尾随序列号，用于消除歧义。</p>
+<p>命令行标志 <code>-run</code> 和 <code>-bench</code> 的参数是非固定的正则表达式，用于匹配测试名称。对于由斜杠分隔的测试名称，例如子测试的名称，它名称本身即可作为参数，依次匹配由斜杠分隔的每部分名称。因为参数是非固定的，一个空的表达式匹配任何字符串，所以下述例子中的 “匹配” 意味着 “顶层/子测试名称包含有”：</p>
+<pre><code>go test -run ''      # 执行所有测试。
+go test -run Foo     # 执行匹配 &quot;Foo&quot; 的顶层测试，例如 &quot;TestFooBar&quot;。
+go test -run Foo/A=  # 对于匹配 &quot;Foo&quot; 的顶层测试，执行其匹配 &quot;A=&quot; 的子测试。
+go test -run /A=1    # 执行所有匹配 &quot;A=1&quot; 的子测试。
+</code></pre><p>子测试也可用于程序<strong>并行控制</strong>。只有子测试全部执行完毕后，父测试才会完成。在下述例子中，所有子测试之间并行运行，此处的 “并行” 只限于这些子测试之间，并不影响定义在其他顶层测试中的子测试：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestGroupedParallel</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">tc</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">tests</span> {
+        <span style="color:#a6e22e">tc</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tc</span> <span style="color:#75715e">// capture range variable
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">tc</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+            <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Parallel</span>()
+            <span style="color:#f92672">...</span>
+        })
+    }
+}
+</code></pre></div><p>在所有子测试并行运行完毕之前，<code>Run</code> 方法不会返回。下述例子提供了一种方法，用于在子测试并行运行完毕后清理资源：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestTeardownParallel</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#75715e">// This Run will not return until the parallel tests finish.
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;group&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;Test1&#34;</span>, <span style="color:#a6e22e">parallelTest1</span>)
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;Test2&#34;</span>, <span style="color:#a6e22e">parallelTest2</span>)
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Run</span>(<span style="color:#e6db74">&#34;Test3&#34;</span>, <span style="color:#a6e22e">parallelTest3</span>)
+    })
+    <span style="color:#75715e">// &lt;tear-down code&gt;
+</span><span style="color:#75715e"></span>}
+</code></pre></div><h3 id="test-coverage">Test Coverage</h3>
+<p>测试覆盖率，这里讨论的是基于代码的测试覆盖率。</p>
+<p>Go 从 1.2 开始，引入了对测试覆盖率的支持，使用的是与 cover 相关的工具（<code>go test -cover</code>、<code>go tool cover</code>）。虽然 <code>testing</code> 包提供了 cover 相关函数，不过它们是给 cover 的工具使用的。</p>
+<p>关于测试覆盖率的更多信息，可以参考官方的博文：<a href="https://blog.golang.org/cover">The cover story</a></p>
+<h3 id="gotest变量参考">gotest变量(参考)</h3>
+<p>gotest 的变量有这些：</p>
+<ul>
+<li>test.short : 一个快速测试的标记，在测试用例中可以使用 testing.Short() 来绕开一些测试</li>
+<li>test.outputdir : 输出目录</li>
+<li>test.coverprofile : 测试覆盖率参数，指定输出文件</li>
+<li>test.run : 指定正则来运行某个 / 某些测试用例</li>
+<li>test.memprofile : 内存分析参数，指定输出文件</li>
+<li>test.memprofilerate : 内存分析参数，内存分析的抽样率</li>
+<li>test.cpuprofile : cpu 分析输出参数，为空则不做 cpu 分析</li>
+<li>test.blockprofile : 阻塞事件的分析参数，指定输出文件</li>
+<li>test.blockprofilerate : 阻塞事件的分析参数，指定抽样频率</li>
+<li>test.timeout : 超时时间</li>
+<li>test.cpu : 指定 cpu 数量</li>
+<li>test.parallel : 指定运行测试用例的并行数</li>
+</ul>
+<h3 id="gotest结构体参考">gotest结构体(参考)</h3>
+<ul>
+<li>B : 压力测试</li>
+<li>BenchmarkResult : 压力测试结果</li>
+<li>Cover : 代码覆盖率相关结构体</li>
+<li>CoverBlock : 代码覆盖率相关结构体</li>
+<li>InternalBenchmark : 内部使用的结构体</li>
+<li>InternalExample : 内部使用的结构体</li>
+<li>InternalTest : 内部使用的结构体</li>
+<li>M : main 测试使用的结构体</li>
+<li>PB : Parallel benchmarks 并行测试使用的结构体</li>
+<li>T : 普通测试用例</li>
+<li>TB : 测试用例的接口</li>
+</ul>
+<h2 id="压力测试基础">压力测试基础</h2>
+<p>压测检测函数(方法)的性能，和编写UT类似，所以不再赘述，但需要注意以下几点：</p>
+<ul>
+<li>压力测试用例必须遵循如下格式，其中XXX可以是任意字母数字的组合，但是首字母不能是小写字母</li>
+</ul>
+<pre><code>	func BenchmarkXXX(b *testing.B) { ... }
+</code></pre><ul>
+<li><code>go test</code>不会默认执行压力测试的函数，如果要执行压力测试需要带上参数<code>-test.bench</code>，语法:<code>-test.bench=&quot;test_name_regex&quot;</code>,例如<code>go test -test.bench=&quot;.*&quot;</code>表示测试全部的压力测试函数</li>
+<li>在压力测试用例中,请记得在循环体内使用<code>testing.B.N</code>,以使测试可以正常的运行</li>
+<li>文件名也必须以<code>_test.go</code>结尾</li>
+</ul>
+<p>下面是一个压测的例子，测试除法函数的性能：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">gotest</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;testing&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark_Division</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> { <span style="color:#75715e">//use b.N for looping 
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">Division</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>)
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Benchmark_TimeConsumingFunction</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">StopTimer</span>() <span style="color:#75715e">//调用该函数停止压力测试的时间计数
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">//做一些初始化的工作,例如读取文件数据,数据库连接之类的,
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//这样这些时间不影响我们测试函数本身的性能
+</span><span style="color:#75715e"></span>
+	<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">StartTimer</span>() <span style="color:#75715e">//重新开始时间
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#a6e22e">Division</span>(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>)
+	}
+}
+</code></pre></div><p>我们执行命令<code>go test webbench_test.go -test.bench=&quot;.*&quot;</code>，可以看到如下结果：</p>
+<pre><code>Benchmark_Division-4   	                     500000000	      7.76 ns/op	     456 B/op	      14 allocs/op
+Benchmark_TimeConsumingFunction-4            500000000	      7.80 ns/op	     224 B/op	       4 allocs/op
+PASS
+ok  	gotest	9.364s
+</code></pre><p>上面的结果显示我们没有执行任何<code>TestXXX</code>的单元测试函数，显示的结果只执行了压力测试函数，第一条显示了<code>Benchmark_Division</code>执行了500000000次，每次的执行平均时间是7.76纳秒，第二条显示了<code>Benchmark_TimeConsumingFunction</code>执行了500000000，每次的平均执行时间是7.80纳秒。最后一条显示总共的执行时间。</p>
+<h2 id="mocking">Mocking</h2>
+<h2 id="依赖注入">依赖注入</h2>
+<h2 id="test-driven-development">Test Driven Development</h2>
+<p><a href="https://studygolang.gitbook.io/learn-go-with-tests/go-ji-chu/maps">TDD Reference</a></p>
+<h3 id="channel-tdd-过程">channel TDD 过程</h3>
+<h4 id="目标">目标</h4>
+<p>目标： 写一个 <code>CheckWebsites</code> 的函数检查 URL 列表的状态。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">concurrency</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">WebsiteChecker</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CheckWebsites</span>(<span style="color:#a6e22e">wc</span> <span style="color:#a6e22e">WebsiteChecker</span>, <span style="color:#a6e22e">urls</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">results</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">urls</span> {
+        <span style="color:#a6e22e">results</span>[<span style="color:#a6e22e">url</span>] = <span style="color:#a6e22e">wc</span>(<span style="color:#a6e22e">url</span>)
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>
+}
+</code></pre></div><p>它返回一个 map，由每个 url 检查后的得到的布尔值组成，成功响应的值为 <code>true</code>，错误响应的值为 <code>false</code>。</p>
+<p>你还必须传入一个 <code>WebsiteChecker</code> 处理单个 URL 并返回一个布尔值。它会被函数调用以检查所有的网站。</p>
+<p>使用 <a href="https://github.com/studygolang/learn-go-with-tests/tree/d8b18269a68c1cf4b8e8b0900f2815dc9d66d87e/zh-CN/zh-CN/dependency-injection.md">依赖注入</a>，允许在不发起真实 HTTP 请求的情况下测试函数，这使测试变得可靠和快速。</p>
+<p>下面是简单的测试：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">concurrency</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;reflect&#34;</span>
+    <span style="color:#e6db74">&#34;testing&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">mockWebsiteChecker</span>(<span style="color:#a6e22e">url</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;waat://furhurterwe.geds&#34;</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestCheckWebsites</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+    <span style="color:#a6e22e">websites</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">string</span>{
+        <span style="color:#e6db74">&#34;http://google.com&#34;</span>,
+        <span style="color:#e6db74">&#34;http://blog.gypsydave5.com&#34;</span>,
+        <span style="color:#e6db74">&#34;waat://furhurterwe.geds&#34;</span>,
+    }
+
+    <span style="color:#a6e22e">actualResults</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">CheckWebsites</span>(<span style="color:#a6e22e">mockWebsiteChecker</span>, <span style="color:#a6e22e">websites</span>)
+
+    <span style="color:#a6e22e">want</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">websites</span>)
+    <span style="color:#a6e22e">got</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">actualResults</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">want</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">got</span> {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Wanted %v, got %v&#34;</span>, <span style="color:#a6e22e">want</span>, <span style="color:#a6e22e">got</span>)
+    }
+
+    <span style="color:#a6e22e">expectedResults</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>{
+        <span style="color:#e6db74">&#34;http://google.com&#34;</span>:          <span style="color:#66d9ef">true</span>,
+        <span style="color:#e6db74">&#34;http://blog.gypsydave5.com&#34;</span>: <span style="color:#66d9ef">true</span>,
+        <span style="color:#e6db74">&#34;waat://furhurterwe.geds&#34;</span>:    <span style="color:#66d9ef">false</span>,
+    }
+
+    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">DeepEqual</span>(<span style="color:#a6e22e">expectedResults</span>, <span style="color:#a6e22e">actualResults</span>) {
+        <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Wanted %v, got %v&#34;</span>, <span style="color:#a6e22e">expectedResults</span>, <span style="color:#a6e22e">actualResults</span>)
+    }
+}
+</code></pre></div><p>该功能在生产环境中被用于检查数百个网站。但是它速度很慢，所以需要为程序提速。</p>
+<h4 id="写一个测试">写一个测试</h4>
+<p>首先我们对 <code>CheckWebsites</code> 做一个基准测试，这样就能看到我们修改的影响。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">concurrency</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;testing&#34;</span>
+    <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">slowStubWebsiteChecker</span>(<span style="color:#a6e22e">_</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">20</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkCheckWebsites</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+    <span style="color:#a6e22e">urls</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">100</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">urls</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">urls</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#e6db74">&#34;a url&#34;</span>
+    }
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">CheckWebsites</span>(<span style="color:#a6e22e">slowStubWebsiteChecker</span>, <span style="color:#a6e22e">urls</span>)
+    }
+}
+</code></pre></div><p>基准测试使用一百个网址的 slice 对 <code>CheckWebsites</code> 进行测试，并使用 <code>WebsiteChecker</code> 的伪造实现。<code>slowStubWebsiteChecker</code> 故意放慢速度。它使用 <code>time.Sleep</code> 明确等待 20 毫秒，然后返回 true。</p>
+<p>当我们运行基准测试时使用 <code>go test -bench=.</code> 命令 (如果在 Windows Powershell 环境下使用 <code>go test -bench=&quot;.&quot;</code>)：</p>
+<pre><code>pkg: github.com/gypsydave5/learn-go-with-tests/concurrency/v0
+BenchmarkCheckWebsites-4               1        2249228637 ns/op
+PASS
+ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v0        2.268s
+</code></pre><p><code>CheckWebsite</code> 经过基准测试的时间为 2249228637 纳秒，大约 2.25 秒。</p>
+<p>让我们尝试去让它运行得更快。</p>
+<h4 id="编写足够的代码让它通过">编写足够的代码让它通过</h4>
+<p>现在我们终于可以谈论并发了，以下内容是为了说明「不止一件事情正在进行中」。这是我们每天很自然在做的事情。</p>
+<p>比如，今天早上我泡了一杯茶。我放上水壶，然后在等待它煮沸时，从冰箱里取出了牛奶，把茶从柜子里拿出来，找到我最喜欢的杯子，把茶袋放进杯子里，然后等水壶沸了，把水倒进杯子里。</p>
+<p>我 <em>没有</em> 做的事情是放上水壶，然后呆呆地盯着水壶等水煮沸，然后在煮沸后再做其他事情。</p>
+<p>如果你能理解为什么第一种方式泡茶更快，那你就可以理解我们如何让 <code>CheckWebsites</code> 变得更快。与其等待网站响应之后再发送下一个网站的请求，不如告诉计算机在等待时就发起下一个请求。</p>
+<p>通常在 Go 中，当调用函数 <code>doSomething()</code> 时，我们等待它返回（即使它没有值返回，我们仍然等待它完成）。我们说这个操作是 <em>阻塞</em> 的 —— 它让我们等待它完成。Go 中不会阻塞的操作将在称为 <em>goroutine</em> 的单独 <em>进程</em> 中运行。将程序想象成从上到下读 Go 的 代码，当函数被调用执行读取操作时，进入每个函数「内部」。当一个单独的进程开始时，就像开启另一个 reader（阅读程序）在函数内部执行读取操作，原来的 reader 继续向下读取 Go 代码。</p>
+<p>要告诉 Go 开始一个新的 goroutine，我们把一个函数调用变成 <code>go</code> 声明，通过把关键字 <code>go</code> 放在它前面：<code>go doSomething()</code>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">concurrency</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">WebsiteChecker</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CheckWebsites</span>(<span style="color:#a6e22e">wc</span> <span style="color:#a6e22e">WebsiteChecker</span>, <span style="color:#a6e22e">urls</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">results</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">urls</span> {
+        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+            <span style="color:#a6e22e">results</span>[<span style="color:#a6e22e">url</span>] = <span style="color:#a6e22e">wc</span>(<span style="color:#a6e22e">url</span>)
+        }()
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>
+}
+</code></pre></div><p>因为开启 goroutine 的唯一方法就是将 <code>go</code> 放在函数调用前面，所以当我们想要启动 goroutine 时，我们经常使用 <em>匿名函数（anonymous functions）</em>。一个匿名函数文字看起来和正常函数声明一样，但没有名字（意料之中）。你可以在 上面的 <code>for</code> 循环体中看到一个。</p>
+<p>匿名函数有许多有用的特性，其中两个上面正在使用。首先，它们可以在声明的同时执行 —— 这就是匿名函数末尾的 <code>()</code> 实现的。其次，它们维护对其所定义的词汇作用域的访问权 —— 在声明匿名函数时所有可用的变量也可在函数体内使用。</p>
+<p>上面匿名函数的主体和之前循环体中的完全一样。唯一的区别是循环的每次迭代都会启动一个新的 goroutine，与当前进程（<code>WebsiteChecker</code> 函数）同时发生，每个循环都会将结果添加到 <code>results</code> map 中。</p>
+<p>但是当我们执行 <code>go test</code>：</p>
+<pre><code>-------- FAIL: TestCheckWebsites (0.00s)
+        CheckWebsites_test.go:31: Wanted map[http://google.com:true http://blog.gypsydave5.com:true waat://furhurterwe.geds:false], got map[]
+FAIL
+exit status 1
+FAIL    github.com/gypsydave5/learn-go-with-tests/concurrency/v1        0.010s
+</code></pre><h4 id="不可预知的问题">不可预知的问题</h4>
+<p>你可能不会得到这个结果。你可能会得到一个 panic 信息，这个稍后再谈。如果你得到的是那些结果，不要担心，只要继续运行测试，直到你得到上述结果。或假装你得到了，这取决于你。欢迎来到并发编程的世界：如果处理不正确，很难预测会发生什么。别担心 —— 这就是我们编写测试的原因，当处理并发时，测试帮助我们预测可能发生的情况。</p>
+<p>让我们困惑的是，原来的测试 <code>WebsiteChecker</code> 现在返回空的 map。哪里出问题了？</p>
+<p>我们 <code>for</code> 循环开始的 <code>goroutines</code> 没有足够的时间将结果添加结果到 <code>results</code> map 中；<code>WebsiteChecker</code> 函数对于它们来说太快了，以至于它返回时仍为空的 map。</p>
+<p>为了解决这个问题，我们可以等待所有的 goroutine 完成他们的工作，然后返回。两秒钟应该能完成了，对吧？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">concurrency</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;time&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">WebsiteChecker</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CheckWebsites</span>(<span style="color:#a6e22e">wc</span> <span style="color:#a6e22e">WebsiteChecker</span>, <span style="color:#a6e22e">urls</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">results</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">urls</span> {
+        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+            <span style="color:#a6e22e">results</span>[<span style="color:#a6e22e">url</span>] = <span style="color:#a6e22e">wc</span>(<span style="color:#a6e22e">url</span>)
+        }()
+    }
+
+    <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>
+}
+</code></pre></div><p>现在当我们运行测试时获得的结果（如果没有得到 —— 参考上面的做法）：</p>
+<pre><code>-------- FAIL: TestCheckWebsites (0.00s)
+        CheckWebsites_test.go:31: Wanted map[http://google.com:true http://blog.gypsydave5.com:true waat://furhurterwe.geds:false], got map[waat://furhurterwe.geds:false]
+FAIL
+exit status 1
+FAIL    github.com/gypsydave5/learn-go-with-tests/concurrency/v1        0.010s
+</code></pre><p>这不是很好 - 为什么只有一个结果？我们可以尝试通过增加等待的时间来解决这个问题 —— 如果你愿意，可以试试。但没什么作用。这里的问题是变量 <code>url</code> 被重复用于 <code>for</code> 循环的每次迭代 —— 每次都会从 <code>urls</code> 获取新值。但是我们的每个 goroutine 都是 <code>url</code> 变量的引用 —— 它们没有自己的独立副本。所以他们 <em>都</em> 会写入在迭代结束时的 <code>url</code> —— 最后一个 url。这就是为什么我们得到的结果是最后一个 url &mdash;- <strong>注意：闭包情况下的引用关系一直是需要注意的</strong></p>
+<p>解决这个问题:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">WebsiteChecker</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CheckWebsites</span>(<span style="color:#a6e22e">wc</span> <span style="color:#a6e22e">WebsiteChecker</span>, <span style="color:#a6e22e">urls</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">results</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">urls</span> {
+        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">u</span> <span style="color:#66d9ef">string</span>) {
+            <span style="color:#a6e22e">results</span>[<span style="color:#a6e22e">u</span>] = <span style="color:#a6e22e">wc</span>(<span style="color:#a6e22e">u</span>)
+        }(<span style="color:#a6e22e">url</span>)
+    }
+
+    <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>
+}
+</code></pre></div><p>通过给每个匿名函数一个参数 url(<code>u</code>)，然后用 <code>url</code> 作为参数调用匿名函数，我们确保 <code>u</code> 的值固定为循环迭代的 <code>url</code> 值，重新启动 <code>goroutine</code>。<code>u</code> 是 <code>url</code> 值的副本，因此无法更改。</p>
+<p>现在，如果你幸运的话，你会得到：</p>
+<pre><code>PASS
+ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v1        2.012s
+</code></pre><p>但是，如果你不走运（如果你运行基准测试，这很可能会发生，因为你将发起多次的尝试）。</p>
+<pre><code>fatal error: concurrent map writes
+
+goroutine 8 [running]:
+runtime.throw(0x12c5895, 0x15)
+        /usr/local/Cellar/go/1.9.3/libexec/src/runtime/panic.go:605 +0x95 fp=0xc420037700 sp=0xc4200376e0 pc=0x102d395
+runtime.mapassign_faststr(0x1271d80, 0xc42007acf0, 0x12c6634, 0x17, 0x0)
+        /usr/local/Cellar/go/1.9.3/libexec/src/runtime/hashmap_fast.go:783 +0x4f5 fp=0xc420037780 sp=0xc420037700 pc=0x100eb65
+github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker.func1(0xc42007acf0, 0x12d3938, 0x12c6634, 0x17)
+        /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:12 +0x71 fp=0xc4200377c0 sp=0xc420037780 pc=0x12308f1
+runtime.goexit()
+        /usr/local/Cellar/go/1.9.3/libexec/src/runtime/asm_amd64.s:2337 +0x1 fp=0xc4200377c8 sp=0xc4200377c0 pc=0x105cf01
+created by github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker
+        /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:11 +0xa1
+
+        ... many more scary lines of text ...
+</code></pre><p>这看上去冗长、可怕，我们需要深呼吸并阅读错误：<code>fatal error: concurrent map writes</code>。有时候，当我们运行我们的测试时，两个 goroutines 完全同时写入 <code>results</code> map。Go 的 Maps 不喜欢多个事物试图一次性写入，所以就导致了 <code>fatal error</code>。</p>
+<p>这是一种 <em>race condition（竞争条件）</em>，当软件的输出取决于事件发生的时间和顺序时，因为我们无法控制，bug 就会出现。因为我们无法准确控制每个 goroutine 写入结果 map 的时间，两个 goroutines 同一时间写入时程序将非常脆弱。</p>
+<p>Go 可以帮助我们通过其内置的 <a href="https://blog.golang.org/race-detector">race detector</a> 来发现竞争条件。要启用此功能，请使用 <code>race</code> 标志运行测试：<code>go test -race</code>。</p>
+<p>你应该得到一些如下所示的输出：</p>
+<pre><code>==================
+WARNING: DATA RACE
+Write at 0x00c420084d20 by goroutine 8:
+  runtime.mapassign_faststr()
+      /usr/local/Cellar/go/1.9.3/libexec/src/runtime/hashmap_fast.go:774 +0x0
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker.func1()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:12 +0x82
+
+Previous write at 0x00c420084d20 by goroutine 7:
+  runtime.mapassign_faststr()
+      /usr/local/Cellar/go/1.9.3/libexec/src/runtime/hashmap_fast.go:774 +0x0
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker.func1()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:12 +0x82
+
+Goroutine 8 (running) created at:
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:11 +0xc4
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.TestWebsiteChecker()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker_test.go:27 +0xad
+  testing.tRunner()
+      /usr/local/Cellar/go/1.9.3/libexec/src/testing/testing.go:746 +0x16c
+
+Goroutine 7 (finished) created at:
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:11 +0xc4
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.TestWebsiteChecker()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker_test.go:27 +0xad
+  testing.tRunner()
+      /usr/local/Cellar/go/1.9.3/libexec/src/testing/testing.go:746 +0x16c
+==================
+</code></pre><p>细节还是难以阅读 - 但 <code>WARNING: DATA RACE</code> 相当明确。阅读错误的内容，我们可以看到两个不同的 goroutines 在 map 上执行写入操作：</p>
+<pre><code>Write at 0x00c420084d20 by goroutine 8:
+</code></pre><p>正在写入相同的内存块</p>
+<pre><code>Previous write at 0x00c420084d20 by goroutine 7:
+</code></pre><p>最重要的是，我们可以看到发生写入的代码行：</p>
+<pre><code>/Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:12
+</code></pre><p>和 goroutines 7 和 8 开始的代码行号：</p>
+<pre><code>/Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:11
+</code></pre><p>你需要知道的所有内容都会打印到你的终端上 - 你只需耐心阅读就可以了。</p>
+<h4 id="使用channels处理race-condition">使用channels处理race condition</h4>
+<p>我们可以通过使用 <em>channels</em> 协调我们的 goroutines 来解决这个数据竞争。channels 是一个 Go 数据结构，可以同时接收和发送值。这些操作以及细节允许不同进程之间的通信。</p>
+<p>在这种情况下，我们想要考虑父进程和每个 goroutine 之间的通信，goroutine 使用 url 来执行 <code>WebsiteChecker</code> 函数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">concurrency</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">WebsiteChecker</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">result</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#66d9ef">string</span>
+    <span style="color:#66d9ef">bool</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CheckWebsites</span>(<span style="color:#a6e22e">wc</span> <span style="color:#a6e22e">WebsiteChecker</span>, <span style="color:#a6e22e">urls</span> []<span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span> {
+    <span style="color:#a6e22e">results</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>)
+    <span style="color:#a6e22e">resultChannel</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">result</span>)
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">urls</span> {
+        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">u</span> <span style="color:#66d9ef">string</span>) {
+            <span style="color:#a6e22e">resultChannel</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">result</span>{<span style="color:#a6e22e">u</span>, <span style="color:#a6e22e">wc</span>(<span style="color:#a6e22e">u</span>)}
+        }(<span style="color:#a6e22e">url</span>)
+    }
+
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">urls</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+        <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">resultChannel</span>
+        <span style="color:#a6e22e">results</span>[<span style="color:#a6e22e">result</span>.<span style="color:#66d9ef">string</span>] = <span style="color:#a6e22e">result</span>.<span style="color:#66d9ef">bool</span>
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>
+}
+</code></pre></div><p>除了 <code>results</code> map 之外，我们现在还有一个 <code>resultChannel</code> 的变量，同样使用 <code>make</code> 方法创建。<code>chan result</code> 是 channel 类型的 —— <code>result</code> 的 channel。新类型的 <code>result</code> 是将 <code>WebsiteChecker</code> 的返回值与正在检查的 url 相关联 —— 它是一个 <code>string</code> 和 <code>bool</code> 的结构。因为我们不需要任何一个要命名的值，它们中的每一个在结构中都是匿名的；这在很难知道用什么命名值的时候可能很有用。</p>
+<p>现在，当我们迭代 urls 时，不是直接写入 <code>map</code>，而是使用 <em>send statement</em> 将每个调用 <code>wc</code> 的 <code>result</code> 结构体发送到 <code>resultChannel</code>。这使用 <code>&lt;-</code> 操作符，channel 放在左边，值放在右边：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// send statement
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">resultChannel</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">result</span>{<span style="color:#a6e22e">u</span>, <span style="color:#a6e22e">wc</span>(<span style="color:#a6e22e">u</span>)
+</code></pre></div><p>下一个 <code>for</code> 循环为每个 url 迭代一次。 我们在内部使用 <em>receive expression</em>，它将从通道接收到的值分配给变量。这也使用 <code>&lt;-</code> 操作符，但现在两个操作数颠倒过来：现在 channel 在右边，我们指定的变量在左边：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// receive expression
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">resultChannel</span>
+</code></pre></div><p>然后我们使用接收到的 <code>result</code> 更新 map。</p>
+<p>通过将结果发送到通道，我们可以控制每次写入 <code>results</code> map 的时间，确保每次写入一个结果。虽然 <code>wc</code> 的每个调用都发送给结果通道，但是它们在其自己的进程内并行发生，因为我们将结果通道中的值与接收表达式一起逐个处理一个结果。</p>
+<p>我们已经将想要加快速度的那部分代码并行化，同时确保不能并发的部分仍然是线性处理。我们使用 channel 在多个进程间通信。</p>
+<p>当我们运行基准时：</p>
+<pre><code>pkg: github.com/gypsydave5/learn-go-with-tests/concurrency/v2
+BenchmarkCheckWebsites-8             100          23406615 ns/op
+PASS
+ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v2        2.377s
+</code></pre><p>23406615 纳秒 —— 0.023 秒，速度大约是最初函数的一百倍，这是非常成功的。</p>
+<h4 id="总结">总结</h4>
+<p>某种程度说，我们已经参与了 <code>CheckWebsites</code> 函数的一个长期重构；输入和输出从未改变，它只是变得更快了。但是我们所做的测试以及我们编写的基准测试允许我们重构 <code>CheckWebsites</code>，让我们有信心保证软件仍然可以工作，同时也证明它确实变得更快了。</p>
+<p>在使它更快的过程中，我们明白了</p>
+<ul>
+<li><em>goroutines</em> 是 Go 的基本并发单元，它让我们可以同时检查多个网站。</li>
+<li><em>anonymous functions（匿名函数）</em>，我们用它来启动每个检查网站的并发进程。</li>
+<li><em>channels</em>，用来组织和控制不同进程之间的交流，使我们能够避免 <em>race condition（竞争条件）</em> 的问题。</li>
+<li><em>the race detector（竞争探测器）</em> 帮助我们调试并发代码的问题。</li>
+</ul>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/go-testing.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/golang/schedualing/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Golang并发调度</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "does-not-exist";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#preface">Preface</a></li>
+    <li><a href="#单元测试基础">单元测试基础</a>
+      <ul>
+        <li><a href="#table-driven-testing">Table-Driven-Testing</a></li>
+        <li><a href="#t类型">T类型</a></li>
+        <li><a href="#报告方式">报告方式</a></li>
+        <li><a href="#parallel并行测试">Parallel并行测试</a></li>
+        <li><a href="#子测试与子基准测试run">子测试与子基准测试(Run)</a></li>
+        <li><a href="#test-coverage">Test Coverage</a></li>
+        <li><a href="#gotest变量参考">gotest变量(参考)</a></li>
+        <li><a href="#gotest结构体参考">gotest结构体(参考)</a></li>
+      </ul>
+    </li>
+    <li><a href="#压力测试基础">压力测试基础</a></li>
+    <li><a href="#mocking">Mocking</a></li>
+    <li><a href="#依赖注入">依赖注入</a></li>
+    <li><a href="#test-driven-development">Test Driven Development</a>
+      <ul>
+        <li><a href="#channel-tdd-过程">channel TDD 过程</a>
+          <ul>
+            <li><a href="#目标">目标</a></li>
+            <li><a href="#写一个测试">写一个测试</a></li>
+            <li><a href="#编写足够的代码让它通过">编写足够的代码让它通过</a></li>
+            <li><a href="#不可预知的问题">不可预知的问题</a></li>
+            <li><a href="#使用channels处理race-condition">使用channels处理race condition</a></li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

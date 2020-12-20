@@ -101,6 +101,15 @@ if (!doNotTrack) {
   
   
   
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
     
     
   
@@ -133,12 +142,30 @@ if (!doNotTrack) {
   
   
   
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
     
     
   
   
     
     <li><a class="active" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
   
 
   
@@ -262,7 +289,7 @@ if (!doNotTrack) {
 
         <div class="post-content" id="post-content">
           <h1 id="设计原则">设计原则</h1>
-<p>到目前为止，我们已经分析了 Go 程序如何启动、初始化需要进行的关键步骤、初始化结束后， 主 goroutine 如何被调度器进行调度。现在我们来看 Go 中另一重要的关键组件：内存分配器。</p>
+<p>现在我们来看 Go 中另一重要的关键组件：内存分配器。</p>
 <p>Go 的内存分配器基于 Thread-Cache Malloc (tcmalloc) ，tcmalloc 为每个线程实现了一个本地缓存， 区分了小对象（小于 32kb）和大对象分配两种分配类型，其管理的内存单元称为 span。</p>
 <p>我们不再介绍更多 tcmalloc 的具体细节，因为 Go 的内存分配器与 tcmalloc 存在一定差异。 这个差异来源于 Go 语言被设计为没有显式的内存分配与释放， 完全依靠编译器与运行时的配合来自动处理，因此也就造就了内存分配器、垃圾回收器两大组件。</p>
 <p>我们知道，在计算机领域中，无外乎时间换空间、空间换时间。统一管理内存会提前分配或一次性释放一大块内存， 进而减少与操作系统沟通造成的开销，进而提高程序的运行性能。 支持内存管理另一个优势就是能够更好的支持垃圾回收，这一点我们留到垃圾回收器的章节中进行讨论。</p>
@@ -568,6 +595,10 @@ TEXT main.f3(SB) /Users/changkun/dev/go-under-the-hood/demo/4-mem/alloc/alloc.go
         </div>
       
     
+  
+
+  
+
   
 
   

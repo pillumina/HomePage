@@ -1,0 +1,788 @@
+---
+title: "Golang TDD"
+date: 2020-12-19T11:22:18+08:00
+hero: /images/posts/golang_banner.jpg
+menu:
+  sidebar:
+    name: Golang Testing Kits
+    identifier: golang-tdd
+    parent: golang odyssey
+    weight: 10
+draft: false
+---
+
+## Preface
+
+本文整理golang编码的单元测试常用示例，以及TDD的简要流程。
+
+
+
+## 单元测试基础
+
+单元测试文件以`_test.go`结尾，需要记住以下原则：
+
+- 文件名必须是`_test.go`结尾的，这样在执行`go test`的时候才会执行到相应的代码
+- 你必须import `testing`这个包
+- 所有的测试用例函数必须是`Test`开头
+- 测试用例会按照源代码中写的顺序依次执行
+- 测试函数`TestXxx()`的参数是`testing.T`，我们可以使用该类型来记录错误或者是测试状态
+- 测试格式：`func TestXxx (t *testing.T)`,`Xxx`部分可以为任意的字母数字的组合，但是首字母不能是小写字母[a-z]，例如`Testintdiv`是错误的函数名。
+- 函数中通过调用`testing.T`的`Error`, `Errorf`, `FailNow`, `Fatal`, `FatalIf`方法，说明测试不通过，调用`Log`方法用来记录测试的信息。
+
+
+
+### Table-Driven-Testing
+
+测试讲究 case 覆盖，当我们要覆盖更多 case 时，显然通过修改代码的方式很笨拙。这时我们可以采用 Table-Driven 的方式写测试，标准库中有很多测试是使用这种方式写的。
+
+```go
+func TestFib(t *testing.T) {
+    var fibTests = []struct {
+        in       int // input
+        expected int // expected result
+    }{
+        {1, 1},
+        {2, 1},
+        {3, 2},
+        {4, 3},
+        {5, 5},
+        {6, 8},
+        {7, 13},
+    }
+
+    for _, tt := range fibTests {
+        actual := Fib(tt.in)
+        if actual != tt.expected {
+            t.Errorf("Fib(%d) = %d; expected %d", tt.in, actual, tt.expected)
+        }
+    }
+}
+```
+
+由于我们使用的是 `t.Errorf`，即使其中某个 case 失败，也不会终止测试执行。
+
+### T类型
+
+单元测试中，传递给测试函数的参数是 `*testing.T` 类型。它用于管理测试状态并支持格式化测试日志。测试日志会在执行测试的过程中不断累积，并在测试完成时转储至标准输出。
+
+当测试函数返回时，或者当测试函数调用 `FailNow`、 `Fatal`、`Fatalf`、`SkipNow`、`Skip`、`Skipf` 中的任意一个时，则宣告该测试函数结束。跟 `Parallel` 方法一样，以上提到的这些方法只能在运行测试函数的 goroutine 中调用。
+
+至于其他报告方法，比如 `Log` 以及 `Error` 的变种， 则可以在多个 goroutine 中同时进行调用。
+
+
+
+### 报告方式
+
+上面提到的系列包括方法，带 `f` 的是格式化的，格式化语法参考 `fmt` 包。
+
+T 类型内嵌了 common 类型，common 提供这一系列方法，我们经常会用到的（注意，这里说的测试中断，都是指当前测试函数）：
+
+1）当我们遇到一个断言错误的时候，标识这个测试失败，会使用到：
+
+```
+Fail : 测试失败，测试继续，也就是之后的代码依然会执行
+FailNow : 测试失败，测试中断
+```
+
+在 `FailNow` 方法实现的内部，是通过调用 `runtime.Goexit()` 来中断测试的。
+
+2）当我们遇到一个断言错误，只希望跳过这个错误，但是不希望标识测试失败，会使用到：
+
+```
+SkipNow : 跳过测试，测试中断
+```
+
+在 `SkipNow` 方法实现的内部，是通过调用 `runtime.Goexit()` 来中断测试的。
+
+3）当我们只希望打印信息，会用到 :
+
+```
+Log : 输出信息
+Logf : 输出格式化的信息
+```
+
+注意：默认情况下，单元测试成功时，它们打印的信息不会输出，可以通过加上 `-v` 选项，输出这些信息。但对于基准测试，它们总是会被输出。
+
+4）当我们希望跳过这个测试，并且打印出信息，会用到：
+
+```
+Skip : 相当于 Log + SkipNow
+Skipf : 相当于 Logf + SkipNow
+```
+
+5）当我们希望断言失败的时候，标识测试失败，并打印出必要的信息，但是测试继续，会用到：
+
+```
+Error : 相当于 Log + Fail
+Errorf : 相当于 Logf + Fail
+```
+
+6）当我们希望断言失败的时候，标识测试失败，打印出必要的信息，但中断测试，会用到：
+
+```
+Fatal : 相当于 Log + FailNow
+Fatalf : 相当于 Logf + FailNow
+```
+
+
+
+### Parallel并行测试
+
+这里简单测试一个对Map的读写并行测试。**注意：Parallel方法表示只与其他带有Parallel方法的测试并行进行测试。**
+
+```go
+var (
+    data   = make(map[string]string)
+    locker sync.RWMutex
+)
+
+func WriteToMap(k, v string) {
+    locker.Lock()
+    defer locker.Unlock()
+    data[k] = v
+}
+
+func ReadFromMap(k string) string {
+    locker.RLock()
+    defer locker.RUnlock()
+    return data[k]
+}
+```
+
+测试用例：
+
+```go
+var pairs = []struct {
+    k string
+    v string
+}{
+    {"polaris", " 徐新华 "},
+    {"studygolang", "Go 语言中文网 "},
+    {"stdlib", "Go 语言标准库 "},
+    {"polaris1", " 徐新华 1"},
+    {"studygolang1", "Go 语言中文网 1"},
+    {"stdlib1", "Go 语言标准库 1"},
+    {"polaris2", " 徐新华 2"},
+    {"studygolang2", "Go 语言中文网 2"},
+    {"stdlib2", "Go 语言标准库 2"},
+    {"polaris3", " 徐新华 3"},
+    {"studygolang3", "Go 语言中文网 3"},
+    {"stdlib3", "Go 语言标准库 3"},
+    {"polaris4", " 徐新华 4"},
+    {"studygolang4", "Go 语言中文网 4"},
+    {"stdlib4", "Go 语言标准库 4"},
+}
+
+// 注意 TestWriteToMap 需要在 TestReadFromMap 之前
+func TestWriteToMap(t *testing.T) {
+    t.Parallel()
+    for _, tt := range pairs {
+        WriteToMap(tt.k, tt.v)
+    }
+}
+
+func TestReadFromMap(t *testing.T) {
+    t.Parallel()
+    for _, tt := range pairs {
+        actual := ReadFromMap(tt.k)
+        if actual != tt.v {
+            t.Errorf("the value of key(%s) is %s, expected: %s", tt.k, actual, tt.v)
+        }
+    }
+}
+```
+
+试验步骤：
+
+1. 注释掉 WriteToMap 和 ReadFromMap 中 locker 保护的代码，同时注释掉测试代码中的 t.Parallel，执行测试，测试通过，即使加上 `-race`，测试依然通过；
+2. 只注释掉 WriteToMap 和 ReadFromMap 中 locker 保护的代码，执行测试，测试失败（如果未失败，加上 `-race` 一定会失败）；
+
+如果代码能够进行并行测试，在写测试时，尽量加上 Parallel，这样可以测试出一些可能的问题。
+
+
+
+### 子测试与子基准测试(Run)
+
+Go1.7开始引入的特性，即能够执行嵌套测试，对于过滤执行特性测试用例非常有用。
+
+T 和 B 的 `Run` 方法允许定义子单元测试和子基准测试，而不必为它们单独定义函数。这便于创建基于 Table-Driven 的基准测试和层级测试。它还提供了一种共享通用 `setup` 和 `tear-down` 代码的方法：
+
+```go
+func TestFoo(t *testing.T) {
+    // <setup code>
+    t.Run("A=1", func(t *testing.T) { ... })
+    t.Run("A=2", func(t *testing.T) { ... })
+    t.Run("B=1", func(t *testing.T) { ... })
+    // <tear-down code>
+}
+```
+
+每个子测试和子基准测试都有一个唯一的名称：由顶层测试的名称与传递给 `Run` 的名称组成，以斜杠分隔，并具有可选的尾随序列号，用于消除歧义。
+
+命令行标志 `-run` 和 `-bench` 的参数是非固定的正则表达式，用于匹配测试名称。对于由斜杠分隔的测试名称，例如子测试的名称，它名称本身即可作为参数，依次匹配由斜杠分隔的每部分名称。因为参数是非固定的，一个空的表达式匹配任何字符串，所以下述例子中的 “匹配” 意味着 “顶层/子测试名称包含有”：
+
+```
+go test -run ''      # 执行所有测试。
+go test -run Foo     # 执行匹配 "Foo" 的顶层测试，例如 "TestFooBar"。
+go test -run Foo/A=  # 对于匹配 "Foo" 的顶层测试，执行其匹配 "A=" 的子测试。
+go test -run /A=1    # 执行所有匹配 "A=1" 的子测试。
+```
+
+子测试也可用于程序**并行控制**。只有子测试全部执行完毕后，父测试才会完成。在下述例子中，所有子测试之间并行运行，此处的 “并行” 只限于这些子测试之间，并不影响定义在其他顶层测试中的子测试：
+
+```go
+func TestGroupedParallel(t *testing.T) {
+    for _, tc := range tests {
+        tc := tc // capture range variable
+        t.Run(tc.Name, func(t *testing.T) {
+            t.Parallel()
+            ...
+        })
+    }
+}
+```
+
+在所有子测试并行运行完毕之前，`Run` 方法不会返回。下述例子提供了一种方法，用于在子测试并行运行完毕后清理资源：
+
+```go
+func TestTeardownParallel(t *testing.T) {
+    // This Run will not return until the parallel tests finish.
+    t.Run("group", func(t *testing.T) {
+        t.Run("Test1", parallelTest1)
+        t.Run("Test2", parallelTest2)
+        t.Run("Test3", parallelTest3)
+    })
+    // <tear-down code>
+}
+```
+
+
+
+### Test Coverage
+
+测试覆盖率，这里讨论的是基于代码的测试覆盖率。
+
+Go 从 1.2 开始，引入了对测试覆盖率的支持，使用的是与 cover 相关的工具（`go test -cover`、`go tool cover`）。虽然 `testing` 包提供了 cover 相关函数，不过它们是给 cover 的工具使用的。
+
+关于测试覆盖率的更多信息，可以参考官方的博文：[The cover story](https://blog.golang.org/cover)
+
+
+
+### gotest变量(参考)
+
+gotest 的变量有这些：
+
+- test.short : 一个快速测试的标记，在测试用例中可以使用 testing.Short() 来绕开一些测试
+- test.outputdir : 输出目录
+- test.coverprofile : 测试覆盖率参数，指定输出文件
+- test.run : 指定正则来运行某个 / 某些测试用例
+- test.memprofile : 内存分析参数，指定输出文件
+- test.memprofilerate : 内存分析参数，内存分析的抽样率
+- test.cpuprofile : cpu 分析输出参数，为空则不做 cpu 分析
+- test.blockprofile : 阻塞事件的分析参数，指定输出文件
+- test.blockprofilerate : 阻塞事件的分析参数，指定抽样频率
+- test.timeout : 超时时间
+- test.cpu : 指定 cpu 数量
+- test.parallel : 指定运行测试用例的并行数
+
+
+
+### gotest结构体(参考)
+
+- B : 压力测试
+- BenchmarkResult : 压力测试结果
+- Cover : 代码覆盖率相关结构体
+- CoverBlock : 代码覆盖率相关结构体
+- InternalBenchmark : 内部使用的结构体
+- InternalExample : 内部使用的结构体
+- InternalTest : 内部使用的结构体
+- M : main 测试使用的结构体
+- PB : Parallel benchmarks 并行测试使用的结构体
+- T : 普通测试用例
+- TB : 测试用例的接口
+
+
+
+## 压力测试基础
+
+压测检测函数(方法)的性能，和编写UT类似，所以不再赘述，但需要注意以下几点：
+
+- 压力测试用例必须遵循如下格式，其中XXX可以是任意字母数字的组合，但是首字母不能是小写字母
+
+```
+	func BenchmarkXXX(b *testing.B) { ... }
+```
+
+- `go test`不会默认执行压力测试的函数，如果要执行压力测试需要带上参数`-test.bench`，语法:`-test.bench="test_name_regex"`,例如`go test -test.bench=".*"`表示测试全部的压力测试函数
+- 在压力测试用例中,请记得在循环体内使用`testing.B.N`,以使测试可以正常的运行
+- 文件名也必须以`_test.go`结尾
+
+下面是一个压测的例子，测试除法函数的性能：
+
+```go
+package gotest
+
+import (
+	"testing"
+)
+
+func Benchmark_Division(b *testing.B) {
+	for i := 0; i < b.N; i++ { //use b.N for looping 
+		Division(4, 5)
+	}
+}
+
+func Benchmark_TimeConsumingFunction(b *testing.B) {
+	b.StopTimer() //调用该函数停止压力测试的时间计数
+
+	//做一些初始化的工作,例如读取文件数据,数据库连接之类的,
+	//这样这些时间不影响我们测试函数本身的性能
+
+	b.StartTimer() //重新开始时间
+	for i := 0; i < b.N; i++ {
+		Division(4, 5)
+	}
+}
+```
+
+我们执行命令`go test webbench_test.go -test.bench=".*"`，可以看到如下结果：
+
+```
+Benchmark_Division-4   	                     500000000	      7.76 ns/op	     456 B/op	      14 allocs/op
+Benchmark_TimeConsumingFunction-4            500000000	      7.80 ns/op	     224 B/op	       4 allocs/op
+PASS
+ok  	gotest	9.364s
+```
+
+上面的结果显示我们没有执行任何`TestXXX`的单元测试函数，显示的结果只执行了压力测试函数，第一条显示了`Benchmark_Division`执行了500000000次，每次的执行平均时间是7.76纳秒，第二条显示了`Benchmark_TimeConsumingFunction`执行了500000000，每次的平均执行时间是7.80纳秒。最后一条显示总共的执行时间。
+
+
+
+
+
+## Mocking
+
+## 依赖注入
+
+## Test Driven Development
+
+[TDD Reference](https://studygolang.gitbook.io/learn-go-with-tests/go-ji-chu/maps)
+
+### channel TDD 过程
+
+#### 目标
+
+目标： 写一个 `CheckWebsites` 的函数检查 URL 列表的状态。
+
+```go
+package concurrency
+
+type WebsiteChecker func(string) bool
+
+func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
+    results := make(map[string]bool)
+
+    for _, url := range urls {
+        results[url] = wc(url)
+    }
+
+    return results
+}
+```
+
+它返回一个 map，由每个 url 检查后的得到的布尔值组成，成功响应的值为 `true`，错误响应的值为 `false`。
+
+你还必须传入一个 `WebsiteChecker` 处理单个 URL 并返回一个布尔值。它会被函数调用以检查所有的网站。
+
+使用 [依赖注入](https://github.com/studygolang/learn-go-with-tests/tree/d8b18269a68c1cf4b8e8b0900f2815dc9d66d87e/zh-CN/zh-CN/dependency-injection.md)，允许在不发起真实 HTTP 请求的情况下测试函数，这使测试变得可靠和快速。
+
+下面是简单的测试：
+
+```go
+package concurrency
+
+import (
+    "reflect"
+    "testing"
+)
+
+func mockWebsiteChecker(url string) bool {
+    if url == "waat://furhurterwe.geds" {
+        return false
+    }
+    return true
+}
+
+func TestCheckWebsites(t *testing.T) {
+    websites := []string{
+        "http://google.com",
+        "http://blog.gypsydave5.com",
+        "waat://furhurterwe.geds",
+    }
+
+    actualResults := CheckWebsites(mockWebsiteChecker, websites)
+
+    want := len(websites)
+    got := len(actualResults)
+    if want != got {
+        t.Fatalf("Wanted %v, got %v", want, got)
+    }
+
+    expectedResults := map[string]bool{
+        "http://google.com":          true,
+        "http://blog.gypsydave5.com": true,
+        "waat://furhurterwe.geds":    false,
+    }
+
+    if !reflect.DeepEqual(expectedResults, actualResults) {
+        t.Fatalf("Wanted %v, got %v", expectedResults, actualResults)
+    }
+}
+```
+
+该功能在生产环境中被用于检查数百个网站。但是它速度很慢，所以需要为程序提速。
+
+
+
+#### 写一个测试
+
+首先我们对 `CheckWebsites` 做一个基准测试，这样就能看到我们修改的影响。
+
+```go
+package concurrency
+
+import (
+    "testing"
+    "time"
+)
+
+func slowStubWebsiteChecker(_ string) bool {
+    time.Sleep(20 * time.Millisecond)
+    return true
+}
+
+func BenchmarkCheckWebsites(b *testing.B) {
+    urls := make([]string, 100)
+    for i := 0; i < len(urls); i++ {
+        urls[i] = "a url"
+    }
+
+    for i := 0; i < b.N; i++ {
+        CheckWebsites(slowStubWebsiteChecker, urls)
+    }
+}
+```
+
+基准测试使用一百个网址的 slice 对 `CheckWebsites` 进行测试，并使用 `WebsiteChecker` 的伪造实现。`slowStubWebsiteChecker` 故意放慢速度。它使用 `time.Sleep` 明确等待 20 毫秒，然后返回 true。
+
+当我们运行基准测试时使用 `go test -bench=.` 命令 (如果在 Windows Powershell 环境下使用 `go test -bench="."`)：
+
+```
+pkg: github.com/gypsydave5/learn-go-with-tests/concurrency/v0
+BenchmarkCheckWebsites-4               1        2249228637 ns/op
+PASS
+ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v0        2.268s
+```
+
+`CheckWebsite` 经过基准测试的时间为 2249228637 纳秒，大约 2.25 秒。
+
+让我们尝试去让它运行得更快。
+
+
+
+#### 编写足够的代码让它通过
+
+现在我们终于可以谈论并发了，以下内容是为了说明「不止一件事情正在进行中」。这是我们每天很自然在做的事情。
+
+比如，今天早上我泡了一杯茶。我放上水壶，然后在等待它煮沸时，从冰箱里取出了牛奶，把茶从柜子里拿出来，找到我最喜欢的杯子，把茶袋放进杯子里，然后等水壶沸了，把水倒进杯子里。
+
+我 *没有* 做的事情是放上水壶，然后呆呆地盯着水壶等水煮沸，然后在煮沸后再做其他事情。
+
+如果你能理解为什么第一种方式泡茶更快，那你就可以理解我们如何让 `CheckWebsites` 变得更快。与其等待网站响应之后再发送下一个网站的请求，不如告诉计算机在等待时就发起下一个请求。
+
+通常在 Go 中，当调用函数 `doSomething()` 时，我们等待它返回（即使它没有值返回，我们仍然等待它完成）。我们说这个操作是 *阻塞* 的 —— 它让我们等待它完成。Go 中不会阻塞的操作将在称为 *goroutine* 的单独 *进程* 中运行。将程序想象成从上到下读 Go 的 代码，当函数被调用执行读取操作时，进入每个函数「内部」。当一个单独的进程开始时，就像开启另一个 reader（阅读程序）在函数内部执行读取操作，原来的 reader 继续向下读取 Go 代码。
+
+要告诉 Go 开始一个新的 goroutine，我们把一个函数调用变成 `go` 声明，通过把关键字 `go` 放在它前面：`go doSomething()`。
+
+```go
+package concurrency
+
+type WebsiteChecker func(string) bool
+
+func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
+    results := make(map[string]bool)
+
+    for _, url := range urls {
+        go func() {
+            results[url] = wc(url)
+        }()
+    }
+
+    return results
+}
+```
+
+因为开启 goroutine 的唯一方法就是将 `go` 放在函数调用前面，所以当我们想要启动 goroutine 时，我们经常使用 *匿名函数（anonymous functions）*。一个匿名函数文字看起来和正常函数声明一样，但没有名字（意料之中）。你可以在 上面的 `for` 循环体中看到一个。
+
+匿名函数有许多有用的特性，其中两个上面正在使用。首先，它们可以在声明的同时执行 —— 这就是匿名函数末尾的 `()` 实现的。其次，它们维护对其所定义的词汇作用域的访问权 —— 在声明匿名函数时所有可用的变量也可在函数体内使用。
+
+上面匿名函数的主体和之前循环体中的完全一样。唯一的区别是循环的每次迭代都会启动一个新的 goroutine，与当前进程（`WebsiteChecker` 函数）同时发生，每个循环都会将结果添加到 `results` map 中。
+
+但是当我们执行 `go test`：
+
+```
+-------- FAIL: TestCheckWebsites (0.00s)
+        CheckWebsites_test.go:31: Wanted map[http://google.com:true http://blog.gypsydave5.com:true waat://furhurterwe.geds:false], got map[]
+FAIL
+exit status 1
+FAIL    github.com/gypsydave5/learn-go-with-tests/concurrency/v1        0.010s
+```
+
+#### 不可预知的问题
+
+你可能不会得到这个结果。你可能会得到一个 panic 信息，这个稍后再谈。如果你得到的是那些结果，不要担心，只要继续运行测试，直到你得到上述结果。或假装你得到了，这取决于你。欢迎来到并发编程的世界：如果处理不正确，很难预测会发生什么。别担心 —— 这就是我们编写测试的原因，当处理并发时，测试帮助我们预测可能发生的情况。
+
+让我们困惑的是，原来的测试 `WebsiteChecker` 现在返回空的 map。哪里出问题了？
+
+我们 `for` 循环开始的 `goroutines` 没有足够的时间将结果添加结果到 `results` map 中；`WebsiteChecker` 函数对于它们来说太快了，以至于它返回时仍为空的 map。
+
+为了解决这个问题，我们可以等待所有的 goroutine 完成他们的工作，然后返回。两秒钟应该能完成了，对吧？
+
+```go
+package concurrency
+
+import "time"
+
+type WebsiteChecker func(string) bool
+
+func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
+    results := make(map[string]bool)
+
+    for _, url := range urls {
+        go func() {
+            results[url] = wc(url)
+        }()
+    }
+
+    time.Sleep(2 * time.Second)
+
+    return results
+}
+```
+
+现在当我们运行测试时获得的结果（如果没有得到 —— 参考上面的做法）：
+
+```
+-------- FAIL: TestCheckWebsites (0.00s)
+        CheckWebsites_test.go:31: Wanted map[http://google.com:true http://blog.gypsydave5.com:true waat://furhurterwe.geds:false], got map[waat://furhurterwe.geds:false]
+FAIL
+exit status 1
+FAIL    github.com/gypsydave5/learn-go-with-tests/concurrency/v1        0.010s
+```
+
+这不是很好 - 为什么只有一个结果？我们可以尝试通过增加等待的时间来解决这个问题 —— 如果你愿意，可以试试。但没什么作用。这里的问题是变量 `url` 被重复用于 `for` 循环的每次迭代 —— 每次都会从 `urls` 获取新值。但是我们的每个 goroutine 都是 `url` 变量的引用 —— 它们没有自己的独立副本。所以他们 *都* 会写入在迭代结束时的 `url` —— 最后一个 url。这就是为什么我们得到的结果是最后一个 url ---- **注意：闭包情况下的引用关系一直是需要注意的**
+
+解决这个问题:
+
+```go
+import (
+    "time"
+)
+
+type WebsiteChecker func(string) bool
+
+func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
+    results := make(map[string]bool)
+
+    for _, url := range urls {
+        go func(u string) {
+            results[u] = wc(u)
+        }(url)
+    }
+
+    time.Sleep(2 * time.Second)
+
+    return results
+}
+```
+
+通过给每个匿名函数一个参数 url(`u`)，然后用 `url` 作为参数调用匿名函数，我们确保 `u` 的值固定为循环迭代的 `url` 值，重新启动 `goroutine`。`u` 是 `url` 值的副本，因此无法更改。
+
+现在，如果你幸运的话，你会得到：
+
+```
+PASS
+ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v1        2.012s
+```
+
+但是，如果你不走运（如果你运行基准测试，这很可能会发生，因为你将发起多次的尝试）。
+
+```
+fatal error: concurrent map writes
+
+goroutine 8 [running]:
+runtime.throw(0x12c5895, 0x15)
+        /usr/local/Cellar/go/1.9.3/libexec/src/runtime/panic.go:605 +0x95 fp=0xc420037700 sp=0xc4200376e0 pc=0x102d395
+runtime.mapassign_faststr(0x1271d80, 0xc42007acf0, 0x12c6634, 0x17, 0x0)
+        /usr/local/Cellar/go/1.9.3/libexec/src/runtime/hashmap_fast.go:783 +0x4f5 fp=0xc420037780 sp=0xc420037700 pc=0x100eb65
+github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker.func1(0xc42007acf0, 0x12d3938, 0x12c6634, 0x17)
+        /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:12 +0x71 fp=0xc4200377c0 sp=0xc420037780 pc=0x12308f1
+runtime.goexit()
+        /usr/local/Cellar/go/1.9.3/libexec/src/runtime/asm_amd64.s:2337 +0x1 fp=0xc4200377c8 sp=0xc4200377c0 pc=0x105cf01
+created by github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker
+        /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:11 +0xa1
+
+        ... many more scary lines of text ...
+```
+
+这看上去冗长、可怕，我们需要深呼吸并阅读错误：`fatal error: concurrent map writes`。有时候，当我们运行我们的测试时，两个 goroutines 完全同时写入 `results` map。Go 的 Maps 不喜欢多个事物试图一次性写入，所以就导致了 `fatal error`。
+
+这是一种 *race condition（竞争条件）*，当软件的输出取决于事件发生的时间和顺序时，因为我们无法控制，bug 就会出现。因为我们无法准确控制每个 goroutine 写入结果 map 的时间，两个 goroutines 同一时间写入时程序将非常脆弱。
+
+Go 可以帮助我们通过其内置的 [race detector](https://blog.golang.org/race-detector) 来发现竞争条件。要启用此功能，请使用 `race` 标志运行测试：`go test -race`。
+
+你应该得到一些如下所示的输出：
+
+```
+==================
+WARNING: DATA RACE
+Write at 0x00c420084d20 by goroutine 8:
+  runtime.mapassign_faststr()
+      /usr/local/Cellar/go/1.9.3/libexec/src/runtime/hashmap_fast.go:774 +0x0
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker.func1()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:12 +0x82
+
+Previous write at 0x00c420084d20 by goroutine 7:
+  runtime.mapassign_faststr()
+      /usr/local/Cellar/go/1.9.3/libexec/src/runtime/hashmap_fast.go:774 +0x0
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker.func1()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:12 +0x82
+
+Goroutine 8 (running) created at:
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:11 +0xc4
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.TestWebsiteChecker()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker_test.go:27 +0xad
+  testing.tRunner()
+      /usr/local/Cellar/go/1.9.3/libexec/src/testing/testing.go:746 +0x16c
+
+Goroutine 7 (finished) created at:
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.WebsiteChecker()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:11 +0xc4
+  github.com/gypsydave5/learn-go-with-tests/concurrency/v3.TestWebsiteChecker()
+      /Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker_test.go:27 +0xad
+  testing.tRunner()
+      /usr/local/Cellar/go/1.9.3/libexec/src/testing/testing.go:746 +0x16c
+==================
+```
+
+细节还是难以阅读 - 但 `WARNING: DATA RACE` 相当明确。阅读错误的内容，我们可以看到两个不同的 goroutines 在 map 上执行写入操作：
+
+```
+Write at 0x00c420084d20 by goroutine 8:
+```
+
+正在写入相同的内存块
+
+```
+Previous write at 0x00c420084d20 by goroutine 7:
+```
+
+最重要的是，我们可以看到发生写入的代码行：
+
+```
+/Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:12
+```
+
+和 goroutines 7 和 8 开始的代码行号：
+
+```
+/Users/gypsydave5/go/src/github.com/gypsydave5/learn-go-with-tests/concurrency/v3/websiteChecker.go:11
+```
+
+你需要知道的所有内容都会打印到你的终端上 - 你只需耐心阅读就可以了。
+
+
+
+#### 使用channels处理race condition
+
+我们可以通过使用 *channels* 协调我们的 goroutines 来解决这个数据竞争。channels 是一个 Go 数据结构，可以同时接收和发送值。这些操作以及细节允许不同进程之间的通信。
+
+在这种情况下，我们想要考虑父进程和每个 goroutine 之间的通信，goroutine 使用 url 来执行 `WebsiteChecker` 函数。
+
+```go
+package concurrency
+
+type WebsiteChecker func(string) bool
+type result struct {
+    string
+    bool
+}
+
+func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
+    results := make(map[string]bool)
+    resultChannel := make(chan result)
+
+    for _, url := range urls {
+        go func(u string) {
+            resultChannel <- result{u, wc(u)}
+        }(url)
+    }
+
+    for i := 0; i < len(urls); i++ {
+        result := <-resultChannel
+        results[result.string] = result.bool
+    }
+
+    return results
+}
+```
+
+除了 `results` map 之外，我们现在还有一个 `resultChannel` 的变量，同样使用 `make` 方法创建。`chan result` 是 channel 类型的 —— `result` 的 channel。新类型的 `result` 是将 `WebsiteChecker` 的返回值与正在检查的 url 相关联 —— 它是一个 `string` 和 `bool` 的结构。因为我们不需要任何一个要命名的值，它们中的每一个在结构中都是匿名的；这在很难知道用什么命名值的时候可能很有用。
+
+现在，当我们迭代 urls 时，不是直接写入 `map`，而是使用 *send statement* 将每个调用 `wc` 的 `result` 结构体发送到 `resultChannel`。这使用 `<-` 操作符，channel 放在左边，值放在右边：
+
+```go
+// send statement
+resultChannel <- result{u, wc(u)
+```
+
+下一个 `for` 循环为每个 url 迭代一次。 我们在内部使用 *receive expression*，它将从通道接收到的值分配给变量。这也使用 `<-` 操作符，但现在两个操作数颠倒过来：现在 channel 在右边，我们指定的变量在左边：
+
+```go
+// receive expression
+result := <-resultChannel
+```
+
+然后我们使用接收到的 `result` 更新 map。
+
+通过将结果发送到通道，我们可以控制每次写入 `results` map 的时间，确保每次写入一个结果。虽然 `wc` 的每个调用都发送给结果通道，但是它们在其自己的进程内并行发生，因为我们将结果通道中的值与接收表达式一起逐个处理一个结果。
+
+我们已经将想要加快速度的那部分代码并行化，同时确保不能并发的部分仍然是线性处理。我们使用 channel 在多个进程间通信。
+
+当我们运行基准时：
+
+```
+pkg: github.com/gypsydave5/learn-go-with-tests/concurrency/v2
+BenchmarkCheckWebsites-8             100          23406615 ns/op
+PASS
+ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v2        2.377s
+```
+
+23406615 纳秒 —— 0.023 秒，速度大约是最初函数的一百倍，这是非常成功的。
+
+
+
+#### 总结
+
+某种程度说，我们已经参与了 `CheckWebsites` 函数的一个长期重构；输入和输出从未改变，它只是变得更快了。但是我们所做的测试以及我们编写的基准测试允许我们重构 `CheckWebsites`，让我们有信心保证软件仍然可以工作，同时也证明它确实变得更快了。
+
+在使它更快的过程中，我们明白了
+
+- *goroutines* 是 Go 的基本并发单元，它让我们可以同时检查多个网站。
+- *anonymous functions（匿名函数）*，我们用它来启动每个检查网站的并发进程。
+- *channels*，用来组织和控制不同进程之间的交流，使我们能够避免 *race condition（竞争条件）* 的问题。
+- *the race detector（竞争探测器）* 帮助我们调试并发代码的问题。
+
+
+
