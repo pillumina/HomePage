@@ -822,6 +822,38 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/black-magic/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/hero-google.svg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Black Magic</h5>
+        <p class="card-text post-summary"> 阅读到的一些方便、有趣的技巧或者ideas的随手记录，后续考虑对相关话题专门开坑
+一行代码画出专业的论文图 SciencePlots
+计算机专业向来不缺少专业的绘图软件，从Excel到PPT，从最近沸沸扬扬的Matlab到Matplotlib、pyplot、ggplot，乃至其他更为专业的软件，着实丰富了我们的画图生活。
+但是，这些软件或工具的背后，常常需要我们付出更多的努力：调色、统一格式、展示要高大上，等等。
+现在，一款开源的软件工具包问世了：SciencePlots。它让你用一行代码画出天然高端且美观的论文图。
+SciencePlots是一个依附于Matplotlib的扩展包，可以通过pip一键安装：
+pip install SciencePlots 然后我们在画图时，只需要一句with.plt.style.context(['science']):，就可以画出非常美观且专业的图：
+你还可以加一个选项with.plt.style.context(['science','ieee']):，就能画出IEEE格式的图：
+甚至是超美的散点图：
+还有很多自定义的图像风格，保证节约我们的画图时间
+ 这个包默认会调用latex来画图，如果不想用latex（也不是完全需要），可以在context里写一个属性&rsquo;nolatex&rsquo;即可。不然如果没有安装latex或latex路径配置有问题，则会报错。
+ </p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 20, 2020</span>
+        <a href="/posts/black-magic/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/links/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -834,7 +866,9 @@ if (!doNotTrack) {
         <p class="card-text post-summary"> 这个post为记录目前正在阅读与研究的section
 Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &ndash; Rob Pike
 Regular Expression Matching Can Be Simple And Fast
-编译器词法分析:正则语言和正则表达式</p>
+编译器词法分析:正则语言和正则表达式
+Heilmeier问题系列 思考某篇paper的选题
+ What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice? Who cares? [Support other’s research?</p>
       </div>
       <div class="card-footer">
         <span class="float-left">December 19, 2020</span>
@@ -863,30 +897,6 @@ func TestFib(t *testing.T) { var fibTests = []struct { in int // input  expected
       <div class="card-footer">
         <span class="float-left">December 19, 2020</span>
         <a href="/posts/golang/go-testing/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/golang/schedualing/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Golang并发调度</h5>
-        <p class="card-text post-summary"> 性能提升不会凭空出现，它总是伴随着代码复杂度的上升。 The performance improvement does not materialize from the air, it comes with code complexity increase.
-&ndash; Dmitry Vyukov
-Go 语言的调度器我认为应该是整个运行时最有趣的组件了。对于Go本身，它的设计和实现直接牵动了Go运行时的其他组件，也是和用户态代码直接打交道的部分；对于Go用户而言，调度器将其极为复杂的运行机制隐藏在了简单的关键字go下。为了保证高性能，调度器必须有效得利用计算的并行性和局部性原理；为了保证用户态的简洁，调度器必须高效得对调度用户态不可见的网络轮训器、垃圾回收器进行调度；为了保证代码执行的正确性，必须严格实现用户态代码的内存顺序等。总而言之，调度器的设计直接决定了Go运行时源码的表现形式。
-设计原理 数据结构: MPG 调度器启动 创建Goroutine 调度循环 触发调度 线程管理 总结 </p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 17, 2020</span>
-        <a href="/posts/golang/schedualing/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>
