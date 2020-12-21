@@ -362,6 +362,280 @@ ok  	gotest	9.364s
 
 ## Mocking
 
+### GoMock
+
+### sql-mock
+
+  常规的`database/sql/driver`的接口mocking可以用GoMock，但是像`gorm`之类的ORM框架就很难用常规的mock方法，以为有其他很多额外的苦力活。sql-mock的介绍为`Sql mock driver for golang to test database interactions. `可以帮助解决这个问题。
+
+  下面用BDD框架`Ginkgo`写测试用例，展示一个如何使用`Sqlmock`去测试一个简单blog应用的例子，这个例子的后端为`pg`并且使用了`gorm`。
+
+#### 定义GORM数据模型与Repository
+
+```go
+// modle.go
+import "github.com/lib/pq"
+...
+type Blog struct {
+	ID        uint
+	Title     string
+	Content   string
+	Tags      pq.StringArray // string array for tags
+	CreatedAt time.Time
+}
+
+
+// repository.go
+import "github.com/jinzhu/gorm"
+...
+
+type Repository struct {
+	db *gorm.DB
+}
+
+func (p *Repository) ListAll() ([]*Blog, error) {
+	var l []*Blog
+	err := p.db.Find(&l).Error
+	return l, err
+}
+
+func (p *Repository) Load(id uint) (*Blog, error) {
+	blog := &Blog{}
+	err := p.db.Where(`id = ?`, id).First(blog).Error
+	return blog, err
+}
+
+...
+```
+
+  `Repository`结构非常简单，有着`*gorm.DB`字段，所有的DB操作依赖于此。这里为了简洁把一些多余的代码省略了。除了`Load`、`ListAll`当然还有类似`Save`、`Delete`、`SearchByTitle`等方法。
+
+ #### 单元测试
+
+```go
+import (
+	...
+  
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/jinzhu/gorm"
+)
+
+var _ = Describe("Repository", func() {
+	var repository *Repository
+	var mock sqlmock.Sqlmock
+
+	BeforeEach(func() {
+		var db *sql.DB
+		var err error
+
+		db, mock, err = sqlmock.New() // mock sql.DB
+		Expect(err).ShouldNot(HaveOccurred())
+
+		gdb, err := gorm.Open("postgres", db) // open gorm db
+		Expect(err).ShouldNot(HaveOccurred())
+
+		repository = &Repository{db: gdb}
+	})
+	AfterEach(func() {
+		err := mock.ExpectationsWereMet() // make sure all expectations were met
+		Expect(err).ShouldNot(HaveOccurred())
+	})
+  
+	It("test something", func(){
+	    ...
+	})
+})
+```
+
+  如果读者对`Ginkgo`的测试语法表示不熟悉的，可以去参阅posts里的`BDD`相关章节。在这里，`BeforeEach`中做一些测试初始化，例如`Repository`的实例化等。在`AfterEach`中加入各种断言。
+
+  `BeforeEach`中的初始化分为几个步骤：
+
+1. 创建`*sql.DB`的mock实例，利用`sqlmock.New()`创建mock控制器。
+2. `gorm.Open("postgres", db)`使用GORM。
+3. 创建`Repository`实例。
+
+  在`AfterEach`中，我们使用`mock.ExpectationsWereMet()`确保所有的期望都被满足。
+
+#### 测试ListAll方法
+
+```go
+// repository.go
+...
+func (p *Repository) ListAll() ([]*Blog, error) {
+	var l []*Blog
+	err := p.db.Find(&l).Error
+	return l, err
+}
+...
+
+
+
+// repository_test.go
+...
+Context("list all", func() {
+	It("empty", func() {
+		
+		const sqlSelectAll = `SELECT * FROM "blogs"`
+		
+		mock.ExpectQuery(sqlSelectAll).
+			WillReturnRows(sqlmock.NewRows(nil))
+
+		l, err := repository.ListAll()
+		Expect(err).ShouldNot(HaveOccurred())
+		Expect(l).Should(BeEmpty())
+	})
+})
+...
+```
+
+  上述snippet中，`ListAll`找到DB中的所有记录，并map到`*Blog`的切片中。测试语句非常直观，我们设置了该查询语句返回的是`nil`，也就是空集合。跑一下测试：
+
+```
+➜ ginkgo     
+Running Suite: Pg Suite
+=======================
+Random Seed: 1585542357
+Will run 8 of 8 specs
+
+
+(/Users/dche423/dbtest/pg/repository.go:24) 
+[2020-03-30 12:26:01]  Query: could not match actual sql: "SELECT * FROM "blogs"" with expected regexp "SELECT * FROM "blogs"" 
+• Failure [0.001 seconds]
+Repository
+/Users/dche423/dbtest/pg/repository_test.go:16
+  list all
+  /Users/dche423/dbtest/pg/repository_test.go:37
+    empty [It]
+    /Users/dche423/dbtest/pg/repository_test.go:38
+
+...
+Test Suite Failed
+➜  
+```
+
+  测试失败了...不过回显可以知道信息: `could not match actual sql with expected regexp.`。实际上Sqlmock使用`sqlmock.QueryMatcherRegex`为默认的SQL匹配器。在这个例子中，`sqlmock.ExpectQuery`输入一个正则表达式字符串而不是一个SQL的文本。所以我们有两种方式去解决这个问题:
+
+1. 使用`regexp.QuoteMeta`， 也就是`mock.ExpectQuery(regexp.QuoteMeta(sqlSelectAll))`
+2. 更改默认的SQL匹配器，当我们在创建mock实例的时候可以配置: `sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))`
+
+  其实一般来说，正则表达式匹配器能更灵活一些。
+
+#### 测试Load方法
+
+```go
+// repository.go
+func (p *Repository) Load(id uint) (*Blog, error) {
+	blog := &Blog{}
+	err := p.db.Where(`id = ?`, id).First(blog).Error
+	return blog, err
+}
+...
+
+
+// repository_test.go
+Context("load", func() {
+        It("found", func() {
+                blog := &Blog{
+                        ID:        1,
+                        Title:     "post",
+                        ...
+                }
+
+                rows := sqlmock.
+                        NewRows([]string{"id", "title", "content", "tags", "created_at"}).
+                        AddRow(blog.ID, blog.Title, blog.Content, blog.Tags, blog.CreatedAt)
+
+                const sqlSelectOne = `SELECT * FROM "blogs" WHERE (id = $1) ORDER BY "blogs"."id" ASC LIMIT 1`
+
+                mock.ExpectQuery(regexp.QuoteMeta(sqlSelectOne)).WithArgs(blog.ID).WillReturnRows(rows)
+
+                dbBlog, err := repository.Load(blog.ID)
+                Expect(err).ShouldNot(HaveOccurred())
+                Expect(dbBlog).Should(Equal(blog))
+        })
+
+        It("not found", func() {
+                // ignore sql match
+                mock.ExpectQuery(`.+`).WillReturnRows(sqlmock.NewRows(nil))
+                _, err := repository.Load(1)
+                Expect(err).Should(Equal(gorm.ErrRecordNotFound))
+        })
+})
+...
+```
+
+  `Load`方法输入一个blog id作为参数，找到这个id对应的第一条记录。
+
+  我们测试两种场景:
+
+- 名为`found`的场景，我们创建blog实例并将其转换为`sql.Row`。随后调用`ExpectQuery`定义期望，在语句的最后，我们断言loaded blog实例和原来的一样。  **注意：如果你不清楚GORM使用的是什么SQL，可以打开debug flag -- gorm.DB的Debug()**
+- 名为`not found`的场景，这里使用正则匹配来简化，表示不管什么sql都返回空。这里我们期望的是当找不到对应的blog时候，`gorm.ErrRecordNotFound`会被抛出。
+
+
+
+#### 测试Save方法
+
+  ```go
+// repository.go
+...
+func (p *Repository) Save(blog *Blog) error {
+	return p.db.Save(blog).Error
+}
+
+
+// repository_test.go
+...
+Context("save", func() {
+        var blog *Blog
+        BeforeEach(func() {
+                blog = &Blog{
+                        Title:     "post",
+                        Content:   "hello",
+                        Tags:      pq.StringArray{"a", "b"},
+                        CreatedAt: time.Now(),
+                }
+        })
+
+        It("insert", func() {
+                // gorm use query instead of exec
+                // https://github.com/DATA-DOG/go-sqlmock/issues/118
+                const sqlInsert = `
+                                INSERT INTO "blogs" ("title","content","tags","created_at") 
+                                        VALUES ($1,$2,$3,$4) RETURNING "blogs"."id"`
+                const newId = 1
+                mock.ExpectBegin() // begin transaction
+                mock.ExpectQuery(regexp.QuoteMeta(sqlInsert)).
+                        WithArgs(blog.Title, blog.Content, blog.Tags, blog.CreatedAt).
+                        WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(newId))
+                mock.ExpectCommit() // commit transaction
+
+                Expect(blog.ID).Should(BeZero())
+
+                err := repository.Save(blog)
+                Expect(err).ShouldNot(HaveOccurred())
+
+                Expect(blog.ID).Should(BeEquivalentTo(newId))
+        })
+	
+	It("update", func() {
+		...		
+	})
+		
+
+})
+  ```
+
+  当data模型有已有的主键，`Save`方法能够更新DB记录；反之则插入一条新的记录。上面的snippet表现的插入的测试。
+
+  创建一个新的blog实例，并且不给其设置主键。而后定义`mock.ExpectQuery`。在Query开始前begin一个事务，在之后commit。*一般情况下，非查询语句(`Insert/Update`)应该被`mock.ExepectExec`定义，但是这个是个特殊场景。因为某些原因，对于pg的语法，GORM使用`QueryRow`而非`Exec`。*
+
+  最后，使用`Expect(blog.ID).Should(BeEquivalentTo(newId))` 来断言`blog.ID`在`Save`方法调用之后被设置了。其实一般来说，不太需要去对简单的`Insert/Update`语句进行单元测试，但是这里只是对一些GORM会进行的一些特殊场景进行说明，像其他的后端场景不用太多关注。
+
+
+
 ## 依赖注入
 
 ## Test Driven Development

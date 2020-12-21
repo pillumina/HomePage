@@ -103,6 +103,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
   
 
@@ -527,6 +536,240 @@ PASS
 ok  	gotest	9.364s
 </code></pre><p>上面的结果显示我们没有执行任何<code>TestXXX</code>的单元测试函数，显示的结果只执行了压力测试函数，第一条显示了<code>Benchmark_Division</code>执行了500000000次，每次的执行平均时间是7.76纳秒，第二条显示了<code>Benchmark_TimeConsumingFunction</code>执行了500000000，每次的平均执行时间是7.80纳秒。最后一条显示总共的执行时间。</p>
 <h2 id="mocking">Mocking</h2>
+<h3 id="gomock">GoMock</h3>
+<h3 id="sql-mock">sql-mock</h3>
+<p>常规的<code>database/sql/driver</code>的接口mocking可以用GoMock，但是像<code>gorm</code>之类的ORM框架就很难用常规的mock方法，以为有其他很多额外的苦力活。sql-mock的介绍为<code>Sql mock driver for golang to test database interactions. </code>可以帮助解决这个问题。</p>
+<p>下面用BDD框架<code>Ginkgo</code>写测试用例，展示一个如何使用<code>Sqlmock</code>去测试一个简单blog应用的例子，这个例子的后端为<code>pg</code>并且使用了<code>gorm</code>。</p>
+<h4 id="定义gorm数据模型与repository">定义GORM数据模型与Repository</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// modle.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/lib/pq&#34;</span>
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Blog</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ID</span>        <span style="color:#66d9ef">uint</span>
+	<span style="color:#a6e22e">Title</span>     <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Content</span>   <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">Tags</span>      <span style="color:#a6e22e">pq</span>.<span style="color:#a6e22e">StringArray</span> <span style="color:#75715e">// string array for tags
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CreatedAt</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>
+}
+
+
+<span style="color:#75715e">// repository.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;github.com/jinzhu/gorm&#34;</span>
+<span style="color:#f92672">...</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Repository</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Repository</span>) <span style="color:#a6e22e">ListAll</span>() ([]<span style="color:#f92672">*</span><span style="color:#a6e22e">Blog</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">l</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Blog</span>
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Find</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">l</span>).<span style="color:#a6e22e">Error</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">err</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Repository</span>) <span style="color:#a6e22e">Load</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">uint</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Blog</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">blog</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Blog</span>{}
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Where</span>(<span style="color:#e6db74">`id = ?`</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">First</span>(<span style="color:#a6e22e">blog</span>).<span style="color:#a6e22e">Error</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">blog</span>, <span style="color:#a6e22e">err</span>
+}
+
+<span style="color:#f92672">...</span>
+</code></pre></div><p><code>Repository</code>结构非常简单，有着<code>*gorm.DB</code>字段，所有的DB操作依赖于此。这里为了简洁把一些多余的代码省略了。除了<code>Load</code>、<code>ListAll</code>当然还有类似<code>Save</code>、<code>Delete</code>、<code>SearchByTitle</code>等方法。</p>
+<h4 id="单元测试">单元测试</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">import</span> (
+	<span style="color:#f92672">...</span>
+  
+	. <span style="color:#e6db74">&#34;github.com/onsi/ginkgo&#34;</span>
+	. <span style="color:#e6db74">&#34;github.com/onsi/gomega&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/DATA-DOG/go-sqlmock&#34;</span>
+	<span style="color:#e6db74">&#34;github.com/jinzhu/gorm&#34;</span>
+)
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">Describe</span>(<span style="color:#e6db74">&#34;Repository&#34;</span>, <span style="color:#66d9ef">func</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">repository</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Repository</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mock</span> <span style="color:#a6e22e">sqlmock</span>.<span style="color:#a6e22e">Sqlmock</span>
+
+	<span style="color:#a6e22e">BeforeEach</span>(<span style="color:#66d9ef">func</span>() {
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sql</span>.<span style="color:#a6e22e">DB</span>
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>
+
+		<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">mock</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">sqlmock</span>.<span style="color:#a6e22e">New</span>() <span style="color:#75715e">// mock sql.DB
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">err</span>).<span style="color:#a6e22e">ShouldNot</span>(<span style="color:#a6e22e">HaveOccurred</span>())
+
+		<span style="color:#a6e22e">gdb</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;postgres&#34;</span>, <span style="color:#a6e22e">db</span>) <span style="color:#75715e">// open gorm db
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">err</span>).<span style="color:#a6e22e">ShouldNot</span>(<span style="color:#a6e22e">HaveOccurred</span>())
+
+		<span style="color:#a6e22e">repository</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Repository</span>{<span style="color:#a6e22e">db</span>: <span style="color:#a6e22e">gdb</span>}
+	})
+	<span style="color:#a6e22e">AfterEach</span>(<span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ExpectationsWereMet</span>() <span style="color:#75715e">// make sure all expectations were met
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">err</span>).<span style="color:#a6e22e">ShouldNot</span>(<span style="color:#a6e22e">HaveOccurred</span>())
+	})
+  
+	<span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;test something&#34;</span>, <span style="color:#66d9ef">func</span>(){
+	    <span style="color:#f92672">...</span>
+	})
+})
+</code></pre></div><p>如果读者对<code>Ginkgo</code>的测试语法表示不熟悉的，可以去参阅posts里的<code>BDD</code>相关章节。在这里，<code>BeforeEach</code>中做一些测试初始化，例如<code>Repository</code>的实例化等。在<code>AfterEach</code>中加入各种断言。</p>
+<p><code>BeforeEach</code>中的初始化分为几个步骤：</p>
+<ol>
+<li>创建<code>*sql.DB</code>的mock实例，利用<code>sqlmock.New()</code>创建mock控制器。</li>
+<li><code>gorm.Open(&quot;postgres&quot;, db)</code>使用GORM。</li>
+<li>创建<code>Repository</code>实例。</li>
+</ol>
+<p>在<code>AfterEach</code>中，我们使用<code>mock.ExpectationsWereMet()</code>确保所有的期望都被满足。</p>
+<h4 id="测试listall方法">测试ListAll方法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// repository.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span>
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Repository</span>) <span style="color:#a6e22e">ListAll</span>() ([]<span style="color:#f92672">*</span><span style="color:#a6e22e">Blog</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">l</span> []<span style="color:#f92672">*</span><span style="color:#a6e22e">Blog</span>
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Find</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">l</span>).<span style="color:#a6e22e">Error</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">err</span>
+}
+<span style="color:#f92672">...</span>
+
+
+
+<span style="color:#75715e">// repository_test.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span>
+<span style="color:#a6e22e">Context</span>(<span style="color:#e6db74">&#34;list all&#34;</span>, <span style="color:#66d9ef">func</span>() {
+	<span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;empty&#34;</span>, <span style="color:#66d9ef">func</span>() {
+		
+		<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sqlSelectAll</span> = <span style="color:#e6db74">`SELECT * FROM &#34;blogs&#34;`</span>
+		
+		<span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ExpectQuery</span>(<span style="color:#a6e22e">sqlSelectAll</span>).
+			<span style="color:#a6e22e">WillReturnRows</span>(<span style="color:#a6e22e">sqlmock</span>.<span style="color:#a6e22e">NewRows</span>(<span style="color:#66d9ef">nil</span>))
+
+		<span style="color:#a6e22e">l</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">repository</span>.<span style="color:#a6e22e">ListAll</span>()
+		<span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">err</span>).<span style="color:#a6e22e">ShouldNot</span>(<span style="color:#a6e22e">HaveOccurred</span>())
+		<span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">l</span>).<span style="color:#a6e22e">Should</span>(<span style="color:#a6e22e">BeEmpty</span>())
+	})
+})
+<span style="color:#f92672">...</span>
+</code></pre></div><p>上述snippet中，<code>ListAll</code>找到DB中的所有记录，并map到<code>*Blog</code>的切片中。测试语句非常直观，我们设置了该查询语句返回的是<code>nil</code>，也就是空集合。跑一下测试：</p>
+<pre><code>➜ ginkgo     
+Running Suite: Pg Suite
+=======================
+Random Seed: 1585542357
+Will run 8 of 8 specs
+
+
+(/Users/dche423/dbtest/pg/repository.go:24) 
+[2020-03-30 12:26:01]  Query: could not match actual sql: &quot;SELECT * FROM &quot;blogs&quot;&quot; with expected regexp &quot;SELECT * FROM &quot;blogs&quot;&quot; 
+• Failure [0.001 seconds]
+Repository
+/Users/dche423/dbtest/pg/repository_test.go:16
+  list all
+  /Users/dche423/dbtest/pg/repository_test.go:37
+    empty [It]
+    /Users/dche423/dbtest/pg/repository_test.go:38
+
+...
+Test Suite Failed
+➜  
+</code></pre><p>测试失败了&hellip;不过回显可以知道信息: <code>could not match actual sql with expected regexp.</code>。实际上Sqlmock使用<code>sqlmock.QueryMatcherRegex</code>为默认的SQL匹配器。在这个例子中，<code>sqlmock.ExpectQuery</code>输入一个正则表达式字符串而不是一个SQL的文本。所以我们有两种方式去解决这个问题:</p>
+<ol>
+<li>使用<code>regexp.QuoteMeta</code>， 也就是<code>mock.ExpectQuery(regexp.QuoteMeta(sqlSelectAll))</code></li>
+<li>更改默认的SQL匹配器，当我们在创建mock实例的时候可以配置: <code>sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))</code></li>
+</ol>
+<p>其实一般来说，正则表达式匹配器能更灵活一些。</p>
+<h4 id="测试load方法">测试Load方法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// repository.go
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Repository</span>) <span style="color:#a6e22e">Load</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">uint</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Blog</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">blog</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Blog</span>{}
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Where</span>(<span style="color:#e6db74">`id = ?`</span>, <span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">First</span>(<span style="color:#a6e22e">blog</span>).<span style="color:#a6e22e">Error</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">blog</span>, <span style="color:#a6e22e">err</span>
+}
+<span style="color:#f92672">...</span>
+
+
+<span style="color:#75715e">// repository_test.go
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">Context</span>(<span style="color:#e6db74">&#34;load&#34;</span>, <span style="color:#66d9ef">func</span>() {
+        <span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;found&#34;</span>, <span style="color:#66d9ef">func</span>() {
+                <span style="color:#a6e22e">blog</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Blog</span>{
+                        <span style="color:#a6e22e">ID</span>:        <span style="color:#ae81ff">1</span>,
+                        <span style="color:#a6e22e">Title</span>:     <span style="color:#e6db74">&#34;post&#34;</span>,
+                        <span style="color:#f92672">...</span>
+                }
+
+                <span style="color:#a6e22e">rows</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sqlmock</span>.
+                        <span style="color:#a6e22e">NewRows</span>([]<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>, <span style="color:#e6db74">&#34;content&#34;</span>, <span style="color:#e6db74">&#34;tags&#34;</span>, <span style="color:#e6db74">&#34;created_at&#34;</span>}).
+                        <span style="color:#a6e22e">AddRow</span>(<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Content</span>, <span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Tags</span>, <span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">CreatedAt</span>)
+
+                <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sqlSelectOne</span> = <span style="color:#e6db74">`SELECT * FROM &#34;blogs&#34; WHERE (id = $1) ORDER BY &#34;blogs&#34;.&#34;id&#34; ASC LIMIT 1`</span>
+
+                <span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ExpectQuery</span>(<span style="color:#a6e22e">regexp</span>.<span style="color:#a6e22e">QuoteMeta</span>(<span style="color:#a6e22e">sqlSelectOne</span>)).<span style="color:#a6e22e">WithArgs</span>(<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">ID</span>).<span style="color:#a6e22e">WillReturnRows</span>(<span style="color:#a6e22e">rows</span>)
+
+                <span style="color:#a6e22e">dbBlog</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">repository</span>.<span style="color:#a6e22e">Load</span>(<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">ID</span>)
+                <span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">err</span>).<span style="color:#a6e22e">ShouldNot</span>(<span style="color:#a6e22e">HaveOccurred</span>())
+                <span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">dbBlog</span>).<span style="color:#a6e22e">Should</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">blog</span>))
+        })
+
+        <span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;not found&#34;</span>, <span style="color:#66d9ef">func</span>() {
+                <span style="color:#75715e">// ignore sql match
+</span><span style="color:#75715e"></span>                <span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ExpectQuery</span>(<span style="color:#e6db74">`.+`</span>).<span style="color:#a6e22e">WillReturnRows</span>(<span style="color:#a6e22e">sqlmock</span>.<span style="color:#a6e22e">NewRows</span>(<span style="color:#66d9ef">nil</span>))
+                <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">repository</span>.<span style="color:#a6e22e">Load</span>(<span style="color:#ae81ff">1</span>)
+                <span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">err</span>).<span style="color:#a6e22e">Should</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">ErrRecordNotFound</span>))
+        })
+})
+<span style="color:#f92672">...</span>
+</code></pre></div><p><code>Load</code>方法输入一个blog id作为参数，找到这个id对应的第一条记录。</p>
+<p>我们测试两种场景:</p>
+<ul>
+<li>名为<code>found</code>的场景，我们创建blog实例并将其转换为<code>sql.Row</code>。随后调用<code>ExpectQuery</code>定义期望，在语句的最后，我们断言loaded blog实例和原来的一样。  <strong>注意：如果你不清楚GORM使用的是什么SQL，可以打开debug flag &ndash; gorm.DB的Debug()</strong></li>
+<li>名为<code>not found</code>的场景，这里使用正则匹配来简化，表示不管什么sql都返回空。这里我们期望的是当找不到对应的blog时候，<code>gorm.ErrRecordNotFound</code>会被抛出。</li>
+</ul>
+<h4 id="测试save方法">测试Save方法</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// repository.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span>
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Repository</span>) <span style="color:#a6e22e">Save</span>(<span style="color:#a6e22e">blog</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Blog</span>) <span style="color:#66d9ef">error</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Save</span>(<span style="color:#a6e22e">blog</span>).<span style="color:#a6e22e">Error</span>
+}
+
+
+<span style="color:#75715e">// repository_test.go
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span>
+<span style="color:#a6e22e">Context</span>(<span style="color:#e6db74">&#34;save&#34;</span>, <span style="color:#66d9ef">func</span>() {
+      <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">blog</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Blog</span>
+      <span style="color:#a6e22e">BeforeEach</span>(<span style="color:#66d9ef">func</span>() {
+              <span style="color:#a6e22e">blog</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Blog</span>{
+                      <span style="color:#a6e22e">Title</span>:     <span style="color:#e6db74">&#34;post&#34;</span>,
+                      <span style="color:#a6e22e">Content</span>:   <span style="color:#e6db74">&#34;hello&#34;</span>,
+                      <span style="color:#a6e22e">Tags</span>:      <span style="color:#a6e22e">pq</span>.<span style="color:#a6e22e">StringArray</span>{<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>},
+                      <span style="color:#a6e22e">CreatedAt</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>(),
+              }
+      })
+
+      <span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;insert&#34;</span>, <span style="color:#66d9ef">func</span>() {
+              <span style="color:#75715e">// gorm use query instead of exec
+</span><span style="color:#75715e"></span>              <span style="color:#75715e">// https://github.com/DATA-DOG/go-sqlmock/issues/118
+</span><span style="color:#75715e"></span>              <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sqlInsert</span> = <span style="color:#e6db74">`
+</span><span style="color:#e6db74">                              INSERT INTO &#34;blogs&#34; (&#34;title&#34;,&#34;content&#34;,&#34;tags&#34;,&#34;created_at&#34;) 
+</span><span style="color:#e6db74">                                      VALUES ($1,$2,$3,$4) RETURNING &#34;blogs&#34;.&#34;id&#34;`</span>
+              <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">newId</span> = <span style="color:#ae81ff">1</span>
+              <span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ExpectBegin</span>() <span style="color:#75715e">// begin transaction
+</span><span style="color:#75715e"></span>              <span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ExpectQuery</span>(<span style="color:#a6e22e">regexp</span>.<span style="color:#a6e22e">QuoteMeta</span>(<span style="color:#a6e22e">sqlInsert</span>)).
+                      <span style="color:#a6e22e">WithArgs</span>(<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Title</span>, <span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Content</span>, <span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">Tags</span>, <span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">CreatedAt</span>).
+                      <span style="color:#a6e22e">WillReturnRows</span>(<span style="color:#a6e22e">sqlmock</span>.<span style="color:#a6e22e">NewRows</span>([]<span style="color:#66d9ef">string</span>{<span style="color:#e6db74">&#34;id&#34;</span>}).<span style="color:#a6e22e">AddRow</span>(<span style="color:#a6e22e">newId</span>))
+              <span style="color:#a6e22e">mock</span>.<span style="color:#a6e22e">ExpectCommit</span>() <span style="color:#75715e">// commit transaction
+</span><span style="color:#75715e"></span>
+              <span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">ID</span>).<span style="color:#a6e22e">Should</span>(<span style="color:#a6e22e">BeZero</span>())
+
+              <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">repository</span>.<span style="color:#a6e22e">Save</span>(<span style="color:#a6e22e">blog</span>)
+              <span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">err</span>).<span style="color:#a6e22e">ShouldNot</span>(<span style="color:#a6e22e">HaveOccurred</span>())
+
+              <span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">blog</span>.<span style="color:#a6e22e">ID</span>).<span style="color:#a6e22e">Should</span>(<span style="color:#a6e22e">BeEquivalentTo</span>(<span style="color:#a6e22e">newId</span>))
+      })
+  
+  <span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;update&#34;</span>, <span style="color:#66d9ef">func</span>() {
+      <span style="color:#f92672">...</span>		
+  })
+      
+
+})
+</code></pre></div><p>当data模型有已有的主键，<code>Save</code>方法能够更新DB记录；反之则插入一条新的记录。上面的snippet表现的插入的测试。</p>
+<p>创建一个新的blog实例，并且不给其设置主键。而后定义<code>mock.ExpectQuery</code>。在Query开始前begin一个事务，在之后commit。<em>一般情况下，非查询语句(<code>Insert/Update</code>)应该被<code>mock.ExepectExec</code>定义，但是这个是个特殊场景。因为某些原因，对于pg的语法，GORM使用<code>QueryRow</code>而非<code>Exec</code>。</em></p>
+<p>最后，使用<code>Expect(blog.ID).Should(BeEquivalentTo(newId))</code> 来断言<code>blog.ID</code>在<code>Save</code>方法调用之后被设置了。其实一般来说，不太需要去对简单的<code>Insert/Update</code>语句进行单元测试，但是这里只是对一些GORM会进行的一些特殊场景进行说明，像其他的后端场景不用太多关注。</p>
 <h2 id="依赖注入">依赖注入</h2>
 <h2 id="test-driven-development">Test Driven Development</h2>
 <p><a href="https://studygolang.gitbook.io/learn-go-with-tests/go-ji-chu/maps">TDD Reference</a></p>
@@ -854,11 +1097,25 @@ ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v2        2.377s
 
   
     
+      
+      <div class="col-md-6 previous-article">
+        <a href="/posts/links/" class="btn btn-outline-info">
+          <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
+          <br />
+          <span>Tracking</span>
+        </a>
+      </div>
+      
+    
     
       
         
         
-        <div class="col-md-12 next-article">
+          
+              
+          
+        
+        <div class="col-md-6 next-article">
           <a href="/posts/golang/schedualing/" class="btn btn-outline-info">
             <span>Next <i class="fas fa-chevron-circle-right"></i></span>
             <br />
@@ -867,6 +1124,8 @@ ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v2        2.377s
         </div>
       
     
+  
+
   
 
 </div>
@@ -934,7 +1193,20 @@ ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v2        2.377s
       </ul>
     </li>
     <li><a href="#压力测试基础">压力测试基础</a></li>
-    <li><a href="#mocking">Mocking</a></li>
+    <li><a href="#mocking">Mocking</a>
+      <ul>
+        <li><a href="#gomock">GoMock</a></li>
+        <li><a href="#sql-mock">sql-mock</a>
+          <ul>
+            <li><a href="#定义gorm数据模型与repository">定义GORM数据模型与Repository</a></li>
+            <li><a href="#单元测试">单元测试</a></li>
+            <li><a href="#测试listall方法">测试ListAll方法</a></li>
+            <li><a href="#测试load方法">测试Load方法</a></li>
+            <li><a href="#测试save方法">测试Save方法</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
     <li><a href="#依赖注入">依赖注入</a></li>
     <li><a href="#test-driven-development">Test Driven Development</a>
       <ul>

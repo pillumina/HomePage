@@ -6,7 +6,19 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Dec 2020 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Dec 2020 12:40:29 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tracking</title>
+      <link>https://pillumina.github.io/posts/links/</link>
+      <pubDate>Sat, 19 Dec 2020 12:40:29 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/links/</guid>
+      <description>这个post为记录目前正在阅读与研究的section
+Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &amp;ndash; Rob Pike
+Regular Expression Matching Can Be Simple And Fast
+编译器词法分析:正则语言和正则表达式</description>
+    </item>
+    
     <item>
       <title>Golang TDD</title>
       <link>https://pillumina.github.io/posts/golang/go-testing/</link>

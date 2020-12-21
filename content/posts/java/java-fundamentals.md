@@ -1,7 +1,7 @@
 ---
 title: "Java Fundamentals"
 date: 2020-10-26T12:40:29+08:00
-hero: /images/posts/java-logo.svg
+hero: /images/posts/java-dev.png
 menu:
   sidebar:
     name: Java Fundamentals
