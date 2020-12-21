@@ -370,6 +370,8 @@ ok  	gotest	9.364s
 
   下面用BDD框架`Ginkgo`写测试用例，展示一个如何使用`Sqlmock`去测试一个简单blog应用的例子，这个例子的后端为`pg`并且使用了`gorm`。
 
+  [源码](https://github.com/dche423/dbtest)
+
 #### 定义GORM数据模型与Repository
 
 ```go
