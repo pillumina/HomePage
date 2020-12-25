@@ -4,7 +4,7 @@ date: 2020-11-11T11:22:18+08:00
 hero: /images/posts/golang_banner.jpg
 menu:
   sidebar:
-    name: Design Pattern
+    name: Design Pattern Golang
     identifier: design-pattern
     parent: golang odyssey
     weight: 10

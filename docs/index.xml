@@ -6,7 +6,22 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Dec 2020 12:40:29 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Dec 2020 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Channels Concurrency Work-Around</title>
+      <link>https://pillumina.github.io/posts/golang/channels/</link>
+      <pubDate>Tue, 22 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/channels/</guid>
+      <description>记录了一些channels常见的场景，以及自己的一些感受：
+  使用通道进行异步和并发编程是简单和惬意的；
+  通道同步技术比被很多其它语言采用的其它同步方案（比如角色模型和async/await模式）有着更多的应用场景和更多的使用变种。
+通道作为同步手段，并非在任何情况下都是最佳的同步技术，本文也会补充原子操作和sync包内其他的技术作为参考。
+  将通道用做future/promise 很多其它流行语言支持future/promise来实现异步（并发）编程。 Future/promise常常用在请求/回应场合。
+返回单向接收通道做为函数返回结果 在下面这个例子中，sumSquares函数调用的两个实参请求并发进行。 每个通道读取操作将阻塞到请求返回结果为止。 两个实参总共需要大约3秒钟（而不是6秒钟）准备完毕（以较慢的一个为准）。
+package main import ( &amp;#34;time&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;fmt&amp;#34; ) func longTimeRequest() &amp;lt;-chan int32 { r := make(chan int32) go func() { time.Sleep(time.Second * 3) // 模拟一个工作负载 	r &amp;lt;- rand.Int31n(100) }() return r } func sumSquares(a, b int32) int32 { return a*a + b*b } func main() { rand.Seed(time.Now().UnixNano()) a, b := longTimeRequest(), longTimeRequest() fmt.</description>
+    </item>
+    
     <item>
       <title>Black Magic</title>
       <link>https://pillumina.github.io/posts/black-magic/</link>
@@ -37,8 +52,12 @@ pip install SciencePlots 然后我们在画图时，只需要一句with.plt.styl
 Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &amp;ndash; Rob Pike
 Regular Expression Matching Can Be Simple And Fast
 编译器词法分析:正则语言和正则表达式
+Go内存原理与调度模型 正在整理专栏
+Crafting Interpreter 时常看PL和Compiler的基础
+crafting interpreters
+Kosaraju&amp;rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
 Heilmeier问题系列 思考某篇paper的选题
- What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice? Who cares? [Support other’s research?</description>
+ What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice?</description>
     </item>
     
     <item>

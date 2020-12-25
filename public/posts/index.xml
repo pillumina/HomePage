@@ -1,11 +1,49 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on CctoctoFx</title>
-    <link>http://example.org/posts/</link>
-    <description>Recent content in Posts on CctoctoFx</description>
+    <title>Posts on CctoctoFX</title>
+    <link>https://pillumina.github.io/posts/</link>
+    <description>Recent content in Posts on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Oct 2020 10:50:41 +0800</lastBuildDate><atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Oct 2020 10:50:41 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Black Magic</title>
+      <link>https://pillumina.github.io/posts/black-magic/</link>
+      <pubDate>Sun, 20 Dec 2020 12:40:29 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/black-magic/</guid>
+      <description>阅读到的一些方便、有趣的技巧或者ideas的随手记录，后续考虑对相关话题专门开坑
+一行代码画出专业的论文图 SciencePlots
+计算机专业向来不缺少专业的绘图软件，从Excel到PPT，从最近沸沸扬扬的Matlab到Matplotlib、pyplot、ggplot，乃至其他更为专业的软件，着实丰富了我们的画图生活。
+但是，这些软件或工具的背后，常常需要我们付出更多的努力：调色、统一格式、展示要高大上，等等。
+现在，一款开源的软件工具包问世了：SciencePlots。它让你用一行代码画出天然高端且美观的论文图。
+SciencePlots是一个依附于Matplotlib的扩展包，可以通过pip一键安装：
+pip install SciencePlots 然后我们在画图时，只需要一句with.plt.style.context([&#39;science&#39;]):，就可以画出非常美观且专业的图：
+你还可以加一个选项with.plt.style.context([&#39;science&#39;,&#39;ieee&#39;]):，就能画出IEEE格式的图：
+甚至是超美的散点图：
+还有很多自定义的图像风格，保证节约我们的画图时间
+ 这个包默认会调用latex来画图，如果不想用latex（也不是完全需要），可以在context里写一个属性&amp;rsquo;nolatex&amp;rsquo;即可。不然如果没有安装latex或latex路径配置有问题，则会报错。
+ </description>
+    </item>
+    
+    <item>
+      <title>Tracking</title>
+      <link>https://pillumina.github.io/posts/links/</link>
+      <pubDate>Sat, 19 Dec 2020 12:40:29 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/links/</guid>
+      <description>这个post为记录目前正在阅读与研究的section
+Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &amp;ndash; Rob Pike
+Regular Expression Matching Can Be Simple And Fast
+编译器词法分析:正则语言和正则表达式
+Go内存原理与调度模型 正在整理专栏
+Crafting Interpreter 时常看PL和Compiler的基础
+crafting interpreters
+Kosaraju&amp;rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
+Heilmeier问题系列 思考某篇paper的选题
+ What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice?</description>
+    </item>
+    
   </channel>
 </rss>

@@ -22,6 +22,26 @@ draft: false
 
 
 
+## Go内存原理与调度模型
+
+正在整理专栏
+
+
+
+## Crafting Interpreter
+
+时常看PL和Compiler的基础
+
+[crafting interpreters](https://craftinginterpreters.com/contents.html)
+
+
+
+## Kosaraju's Algorithm
+
+看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
+
+
+
 ## Heilmeier问题系列
 
 思考某篇paper的选题

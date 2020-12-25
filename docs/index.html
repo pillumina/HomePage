@@ -822,6 +822,33 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/golang/channels/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Channels Concurrency Work-Around</h5>
+        <p class="card-text post-summary"> 记录了一些channels常见的场景，以及自己的一些感受：
+  使用通道进行异步和并发编程是简单和惬意的；
+  通道同步技术比被很多其它语言采用的其它同步方案（比如角色模型和async/await模式）有着更多的应用场景和更多的使用变种。
+通道作为同步手段，并非在任何情况下都是最佳的同步技术，本文也会补充原子操作和sync包内其他的技术作为参考。
+  将通道用做future/promise 很多其它流行语言支持future/promise来实现异步（并发）编程。 Future/promise常常用在请求/回应场合。
+返回单向接收通道做为函数返回结果 在下面这个例子中，sumSquares函数调用的两个实参请求并发进行。 每个通道读取操作将阻塞到请求返回结果为止。 两个实参总共需要大约3秒钟（而不是6秒钟）准备完毕（以较慢的一个为准）。
+package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;fmt&#34; ) func longTimeRequest() &lt;-chan int32 { r := make(chan int32) go func() { time.Sleep(time.Second * 3) // 模拟一个工作负载 	r &lt;- rand.Int31n(100) }() return r } func sumSquares(a, b int32) int32 { return a*a + b*b } func main() { rand.Seed(time.Now().UnixNano()) a, b := longTimeRequest(), longTimeRequest() fmt.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 22, 2020</span>
+        <a href="/posts/golang/channels/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/black-magic/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -867,36 +894,16 @@ pip install SciencePlots 然后我们在画图时，只需要一句with.plt.styl
 Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &ndash; Rob Pike
 Regular Expression Matching Can Be Simple And Fast
 编译器词法分析:正则语言和正则表达式
+Go内存原理与调度模型 正在整理专栏
+Crafting Interpreter 时常看PL和Compiler的基础
+crafting interpreters
+Kosaraju&rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
 Heilmeier问题系列 思考某篇paper的选题
- What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice? Who cares? [Support other’s research?</p>
+ What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice?</p>
       </div>
       <div class="card-footer">
         <span class="float-left">December 19, 2020</span>
         <a href="/posts/links/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/golang/go-testing/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Golang TDD</h5>
-        <p class="card-text post-summary"> Preface 本文整理golang编码的单元测试常用示例，以及TDD的简要流程。
-单元测试基础 单元测试文件以_test.go结尾，需要记住以下原则：
- 文件名必须是_test.go结尾的，这样在执行go test的时候才会执行到相应的代码 你必须import testing这个包 所有的测试用例函数必须是Test开头 测试用例会按照源代码中写的顺序依次执行 测试函数TestXxx()的参数是testing.T，我们可以使用该类型来记录错误或者是测试状态 测试格式：func TestXxx (t *testing.T),Xxx部分可以为任意的字母数字的组合，但是首字母不能是小写字母[a-z]，例如Testintdiv是错误的函数名。 函数中通过调用testing.T的Error, Errorf, FailNow, Fatal, FatalIf方法，说明测试不通过，调用Log方法用来记录测试的信息。  Table-Driven-Testing 测试讲究 case 覆盖，当我们要覆盖更多 case 时，显然通过修改代码的方式很笨拙。这时我们可以采用 Table-Driven 的方式写测试，标准库中有很多测试是使用这种方式写的。
-func TestFib(t *testing.T) { var fibTests = []struct { in int // input  expected int // expected result  }{ {1, 1}, {2, 1}, {3, 2}, {4, 3}, {5, 5}, {6, 8}, {7, 13}, } for _, tt := range fibTests { actual := Fib(tt.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 19, 2020</span>
-        <a href="/posts/golang/go-testing/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>

@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Design Pattern</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Design Pattern" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Behavior Driven Testing</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency Work-Around</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/golang/design-pattern/">Design Pattern</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang_banner.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>November 11, 2020</p>
+        </div>
+
+        <div class="title">
+          <h1>Design Pattern</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h1 id="design-pattern">Design pattern</h1>
+<h2 id="builder-pattern">Builder Pattern</h2>
+<h3 id="scenariobuild-complicated-object">scenario：build complicated object</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">msg</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Message</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Header</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Header</span>
+	<span style="color:#a6e22e">Body</span>   <span style="color:#f92672">*</span><span style="color:#a6e22e">Body</span>
+}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Header</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">SrcAddr</span>  <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">SrcPort</span>  <span style="color:#66d9ef">uint64</span>
+	<span style="color:#a6e22e">DestAddr</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">DestPort</span> <span style="color:#66d9ef">uint64</span>
+	<span style="color:#a6e22e">Items</span>    <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>
+}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Body</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Items</span> []<span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#75715e">// Message对象的复杂对象
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">builder</span> <span style="color:#66d9ef">struct</span>{
+  <span style="color:#a6e22e">once</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Once</span>
+  <span style="color:#a6e22e">msg</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Message</span>
+}
+
+<span style="color:#75715e">// 返回Builder对象
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Builder</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">builder</span>{
+  <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">builder</span>{
+    <span style="color:#a6e22e">once</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">Once</span>{},
+    <span style="color:#a6e22e">msg</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Message</span>{<span style="color:#a6e22e">Header</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Header</span>{}, <span style="color:#a6e22e">Body</span>: <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Body</span>{}},
+  }
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">builder</span>) <span style="color:#a6e22e">WithSrcAddr</span>(<span style="color:#a6e22e">srcAddr</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">builder</span>{
+  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">SrcAddr</span> = <span style="color:#a6e22e">srcAddr</span>
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
+}
+
+<span style="color:#75715e">//......
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">builder</span>) <span style="color:#a6e22e">WithHeaderItem</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">builder</span>{
+  <span style="color:#75715e">//map只初始化一次
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">once</span>.<span style="color:#a6e22e">Do</span>(<span style="color:#66d9ef">func</span>(){
+    <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Items</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">string</span>)
+  })
+  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Items</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#a6e22e">value</span>
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">builder</span>) <span style="color:#a6e22e">WithBodyItem</span>(<span style="color:#a6e22e">record</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">builder</span>{
+  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Items</span> = append(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Items</span>, <span style="color:#a6e22e">record</span>)
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>
+} 
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">builder</span>) <span style="color:#a6e22e">Build</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Message</span>{
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">msg</span>
+}
+</code></pre></div><h3 id="test-code">Test code</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">test</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestMessageBuilder</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+  <span style="color:#75715e">// 使用消息建造者进行对象创建
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">message</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Builder</span>().
+		<span style="color:#a6e22e">WithSrcAddr</span>(<span style="color:#e6db74">&#34;192.168.0.1&#34;</span>).
+		<span style="color:#a6e22e">WithSrcPort</span>(<span style="color:#ae81ff">1234</span>).
+		<span style="color:#a6e22e">WithDestAddr</span>(<span style="color:#e6db74">&#34;192.168.0.2&#34;</span>).
+		<span style="color:#a6e22e">WithDestPort</span>(<span style="color:#ae81ff">8080</span>).
+		<span style="color:#a6e22e">WithHeaderItem</span>(<span style="color:#e6db74">&#34;contents&#34;</span>, <span style="color:#e6db74">&#34;application/json&#34;</span>).
+		<span style="color:#a6e22e">WithBodyItem</span>(<span style="color:#e6db74">&#34;record1&#34;</span>).
+		<span style="color:#a6e22e">WithBodyItem</span>(<span style="color:#e6db74">&#34;record2&#34;</span>).
+		<span style="color:#a6e22e">Build</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">message</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">SrcAddr</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;192.168.0.1&#34;</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;expect src address 192.168.0.1, but actual %s.&#34;</span>, <span style="color:#a6e22e">message</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">SrcAddr</span>)
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">message</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Items</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;record1&#34;</span> {
+		<span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;expect body item0 record1, but actual %s.&#34;</span>, <span style="color:#a6e22e">message</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Items</span>[<span style="color:#ae81ff">0</span>])
+	}
+}
+</code></pre></div><h2 id="abstract-factory-pattern">Abstract Factory Pattern</h2>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghkw23e4r3j31bs0nge82.jpg?imageslim" alt="abstract factory"></p>
+<p>常规的工厂模式，如果新增一个对象，需要修改原来的工厂对象代码，违反单一职责原则，最好增加一个抽象层。</p>
+<h3 id="interfaces-definitions">interfaces definitions</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">plugin</span>
+
+<span style="color:#75715e">//插件抽象接口定义
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Plugin</span> <span style="color:#66d9ef">interface</span>{}
+
+<span style="color:#75715e">// 输入插件，用于接收消息
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Input</span> <span style="color:#66d9ef">interface</span>{
+  <span style="color:#a6e22e">Plugin</span>
+  <span style="color:#a6e22e">Receive</span>() <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#75715e">// 过滤插件，用于处理消息
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Filter</span> <span style="color:#66d9ef">interface</span>{
+  <span style="color:#a6e22e">Plugin</span>
+  <span style="color:#a6e22e">Process</span>(<span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#75715e">// 输出插件，用于发送消息
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Output</span> <span style="color:#66d9ef">interface</span>{
+  <span style="color:#a6e22e">Plugin</span>
+  <span style="color:#a6e22e">Send</span>(<span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">string</span>)
+}
+</code></pre></div><h3 id="pipeline-composition">pipeline composition</h3>
+<p>管道由上述三种插件定义</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">pipeline</span>
+<span style="color:#f92672">...</span>
+<span style="color:#75715e">// 消息管道的定义
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Pipeline</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">input</span>  <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Input</span>
+	<span style="color:#a6e22e">filter</span> <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Filter</span>
+	<span style="color:#a6e22e">output</span> <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Output</span>
+}
+<span style="color:#75715e">// 一个消息的处理流程为 input -&gt; filter -&gt; output
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Pipeline</span>) <span style="color:#a6e22e">Exec</span>() {
+	<span style="color:#a6e22e">msg</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">Receive</span>()
+	<span style="color:#a6e22e">msg</span> = <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">filter</span>.<span style="color:#a6e22e">Process</span>(<span style="color:#a6e22e">msg</span>)
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">output</span>.<span style="color:#a6e22e">Send</span>(<span style="color:#a6e22e">msg</span>)
+}
+</code></pre></div><h3 id="plugins-implementation">plugins implementation</h3>
+<p>定义三种插件的具体实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">plugin</span>
+<span style="color:#f92672">...</span>
+<span style="color:#75715e">// input插件名称与类型的映射关系，主要用于通过反射创建input对象
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">inputNames</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Type</span>)
+<span style="color:#75715e">// Hello input插件，接收“Hello World”消息
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">HelloInput</span> <span style="color:#66d9ef">struct</span> {}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">HelloInput</span>) <span style="color:#a6e22e">Receive</span>() <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello World&#34;</span>
+}
+<span style="color:#75715e">// 初始化input插件映射关系表
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">inputNames</span>[<span style="color:#e6db74">&#34;hello&#34;</span>] = <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">HelloInput</span>{})
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">plugin</span>
+<span style="color:#f92672">...</span>
+<span style="color:#75715e">// filter插件名称与类型的映射关系，主要用于通过反射创建filter对象
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">filterNames</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Type</span>)
+<span style="color:#75715e">// Upper filter插件，将消息全部字母转成大写
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">UpperFilter</span> <span style="color:#66d9ef">struct</span> {}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">u</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">UpperFilter</span>) <span style="color:#a6e22e">Process</span>(<span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">ToUpper</span>(<span style="color:#a6e22e">msg</span>)
+}
+<span style="color:#75715e">// 初始化filter插件映射关系表
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">filterNames</span>[<span style="color:#e6db74">&#34;upper&#34;</span>] = <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">UpperFilter</span>{})
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">plugin</span>
+<span style="color:#f92672">...</span>
+<span style="color:#75715e">// output插件名称与类型的映射关系，主要用于通过反射创建output对象
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">outputNames</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">Type</span>)
+<span style="color:#75715e">// Console output插件，将消息输出到控制台上
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ConsoleOutput</span> <span style="color:#66d9ef">struct</span> {}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">ConsoleOutput</span>) <span style="color:#a6e22e">Send</span>(<span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">string</span>) {
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">msg</span>)
+}
+<span style="color:#75715e">// 初始化output插件映射关系表
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">outputNames</span>[<span style="color:#e6db74">&#34;console&#34;</span>] = <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">ConsoleOutput</span>{})
+}
+</code></pre></div><h3 id="abstract-factory-interface-definition--implementation">abstract factory interface definition &amp; implementation</h3>
+<p>定义抽象工厂接口，和对应插件的工厂实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">plugin</span>
+<span style="color:#f92672">...</span>
+<span style="color:#75715e">// 插件抽象工厂接口
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Factory</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">conf</span> <span style="color:#a6e22e">Config</span>) <span style="color:#a6e22e">Plugin</span>
+}
+<span style="color:#75715e">// input插件工厂对象，实现Factory接口
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">InputFactory</span> <span style="color:#66d9ef">struct</span>{}
+<span style="color:#75715e">// 读取配置，通过反射机制进行对象实例化
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">InputFactory</span>) <span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">conf</span> <span style="color:#a6e22e">Config</span>) <span style="color:#a6e22e">Plugin</span> {
+	<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">inputNames</span>[<span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">Name</span>]
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">t</span>).<span style="color:#a6e22e">Interface</span>().(<span style="color:#a6e22e">Plugin</span>)
+}
+<span style="color:#75715e">// filter和output插件工厂实现类似
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FilterFactory</span> <span style="color:#66d9ef">struct</span>{}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">FilterFactory</span>) <span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">conf</span> <span style="color:#a6e22e">Config</span>) <span style="color:#a6e22e">Plugin</span> {
+	<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">filterNames</span>[<span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">Name</span>]
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">t</span>).<span style="color:#a6e22e">Interface</span>().(<span style="color:#a6e22e">Plugin</span>)
+}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">OutputFactory</span> <span style="color:#66d9ef">struct</span>{}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">OutputFactory</span>) <span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">conf</span> <span style="color:#a6e22e">Config</span>) <span style="color:#a6e22e">Plugin</span> {
+	<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">outputNames</span>[<span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">Name</span>]
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">t</span>).<span style="color:#a6e22e">Interface</span>().(<span style="color:#a6e22e">Plugin</span>)
+}
+
+</code></pre></div><h3 id="pipeline-factory-definition">pipeline factory definition</h3>
+<p>最后定义pipeline工厂方法，调用plugin.Factory 抽象工厂完成pipeline对象的实例化</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">pipeline</span>
+<span style="color:#f92672">...</span>
+<span style="color:#75715e">// 保存用于创建Plugin的工厂实例，其中map的key为插件类型，value为抽象工厂接口
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pluginFactories</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Type</span>]<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Factory</span>)
+<span style="color:#75715e">// 根据plugin.Type返回对应Plugin类型的工厂实例
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">factoryOf</span>(<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Type</span>) <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Factory</span> {
+	<span style="color:#a6e22e">factory</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pluginFactories</span>[<span style="color:#a6e22e">t</span>]
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">factory</span>
+}
+<span style="color:#75715e">// pipeline工厂方法，根据配置创建一个Pipeline实例
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Of</span>(<span style="color:#a6e22e">conf</span> <span style="color:#a6e22e">Config</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">Pipeline</span> {
+	<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Pipeline</span>{}
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">input</span> = <span style="color:#a6e22e">factoryOf</span>(<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">InputType</span>).<span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">Input</span>).(<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Input</span>)
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">filter</span> = <span style="color:#a6e22e">factoryOf</span>(<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">FilterType</span>).<span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">Filter</span>).(<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Filter</span>)
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">output</span> = <span style="color:#a6e22e">factoryOf</span>(<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">OutputType</span>).<span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">Output</span>).(<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Output</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>
+}
+<span style="color:#75715e">// 初始化插件工厂对象
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">pluginFactories</span>[<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">InputType</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">InputFactory</span>{}
+	<span style="color:#a6e22e">pluginFactories</span>[<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">FilterType</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">FilterFactory</span>{}
+	<span style="color:#a6e22e">pluginFactories</span>[<span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">OutputType</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">OutputFactory</span>{}
+}
+</code></pre></div><h2 id="prototype-pattern">Prototype Pattern</h2>
+<p>场景：对象的复制，如果对象成员变量复杂，或者对象有不可见变量，即会有问题</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">prototype</span>
+<span style="color:#f92672">...</span>
+<span style="color:#75715e">// 原型复制抽象接口
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Prototype</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">clone</span>() <span style="color:#a6e22e">Prototype</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Message</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Header</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Header</span>
+	<span style="color:#a6e22e">Body</span>   <span style="color:#f92672">*</span><span style="color:#a6e22e">Body</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Message</span>) <span style="color:#a6e22e">clone</span>() <span style="color:#a6e22e">Prototype</span> {
+	<span style="color:#a6e22e">msg</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">m</span>
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">msg</span>
+}
+</code></pre></div><h2 id="adapter-pattern">Adapter Pattern</h2>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1ghzyia5t19j315w0k0kjl.jpg" alt="adaptor pattern"></p>
+<p>最常用的模式之一，典型场景是系统中老的接口过时或者即将废弃，可以新增一个适配器，把老的接口适配成新的接口使用，践行了开闭原则。该模式即把一个接口adaptee，通过适配器adapter转换成client锁期望的另一个接口target，也就是adapter通过实现target接口，并在对应的方法里调用adaptee的接口实现。</p>
+<p>继续消息处理系统的例子，目前系统的输入都来自HelloInput, 假设需要新增一个kafka消息队列中接收数据的功能，其中kafka消费者的接口如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">kafka</span> 
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Records</span> <span style="color:#66d9ef">struct</span>{
+  <span style="color:#a6e22e">Items</span> []<span style="color:#66d9ef">string</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Comsumer</span> <span style="color:#66d9ef">interface</span>{
+  <span style="color:#a6e22e">Poll</span>() <span style="color:#a6e22e">Records</span>
+}
+</code></pre></div><p>而Pipeline的设计是通过plugin.Input接口进行消息接收，所以这个kafka的接口无法直接集成。因此需要用适配器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">plugin</span>
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">KafkaInput</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">status</span> <span style="color:#a6e22e">Status</span>
+	<span style="color:#a6e22e">consumer</span> <span style="color:#a6e22e">kafka</span>.<span style="color:#a6e22e">Consumer</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">KafkaInput</span>) <span style="color:#a6e22e">Receive</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Message</span> {
+	<span style="color:#a6e22e">records</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">k</span>.<span style="color:#a6e22e">consumer</span>.<span style="color:#a6e22e">Poll</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">!=</span> <span style="color:#a6e22e">Started</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Kafka input plugin is not running, input nothing.&#34;</span>)
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">Builder</span>().
+		<span style="color:#a6e22e">WithHeaderItem</span>(<span style="color:#e6db74">&#34;content&#34;</span>, <span style="color:#e6db74">&#34;kafka&#34;</span>).
+		<span style="color:#a6e22e">WithBodyItems</span>(<span style="color:#a6e22e">records</span>.<span style="color:#a6e22e">Items</span>).
+		<span style="color:#a6e22e">Build</span>()
+}
+
+<span style="color:#75715e">// 在输入插件映射关系中加入kafka，用于通过反射创建input对象
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+	<span style="color:#a6e22e">inputNames</span>[<span style="color:#e6db74">&#34;hello&#34;</span>] = <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">HelloInput</span>{})
+	<span style="color:#a6e22e">inputNames</span>[<span style="color:#e6db74">&#34;kafka&#34;</span>] = <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">KafkaInput</span>{})
+}
+</code></pre></div><p>这里有个问题就是KafkaInput这个对象的成员构造问题，需要特别的init函数去初始化，可以考虑在Plugin接口新增一个Init方法，用于定义插件的一些初始化操作，并在工厂返回实例前调用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">plugin</span>
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Plugin</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Start</span>()
+	<span style="color:#a6e22e">Stop</span>()
+	<span style="color:#a6e22e">Status</span>() <span style="color:#a6e22e">Status</span>
+	<span style="color:#75715e">// 新增初始化方法，在插件工厂返回实例前调用
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Init</span>()
+}
+
+<span style="color:#75715e">// 修改后的插件工厂实现如下
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">InputFactory</span>) <span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">conf</span> <span style="color:#a6e22e">Config</span>) <span style="color:#a6e22e">Plugin</span> {
+	<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">inputNames</span>[<span style="color:#a6e22e">conf</span>.<span style="color:#a6e22e">Name</span>]
+	<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">t</span>).<span style="color:#a6e22e">Interface</span>().(<span style="color:#a6e22e">Plugin</span>)
+  <span style="color:#75715e">// 返回插件实例前调用Init函数，完成相关初始化方法
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Init</span>()
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>
+}
+
+<span style="color:#75715e">// KakkaInput的Init函数实现
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">KafkaInput</span>) <span style="color:#a6e22e">Init</span>() {
+	<span style="color:#a6e22e">k</span>.<span style="color:#a6e22e">consumer</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">kafka</span>.<span style="color:#a6e22e">MockConsumer</span>{}
+}
+</code></pre></div><p>上述的MockConsumer的实现如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">kafka</span>
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MockConsumer</span> <span style="color:#66d9ef">struct</span> {}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MockConsumer</span>) <span style="color:#a6e22e">Poll</span>() <span style="color:#f92672">*</span><span style="color:#a6e22e">Records</span> {
+	<span style="color:#a6e22e">records</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">Records</span>{}
+	<span style="color:#a6e22e">records</span>.<span style="color:#a6e22e">Items</span> = append(<span style="color:#a6e22e">records</span>.<span style="color:#a6e22e">Items</span>, <span style="color:#e6db74">&#34;i am mock consumer.&#34;</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">records</span>
+}
+</code></pre></div><h3 id="test-code-1">Test code</h3>
+<p>测试代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">test</span>
+<span style="color:#f92672">...</span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestKafkaInputPipeline</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+	<span style="color:#a6e22e">config</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pipeline</span>.<span style="color:#a6e22e">Config</span>{
+		<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;pipeline2&#34;</span>,
+		<span style="color:#a6e22e">Input</span>: <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Config</span>{
+			<span style="color:#a6e22e">PluginType</span>: <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">InputType</span>,
+			<span style="color:#a6e22e">Name</span>:       <span style="color:#e6db74">&#34;kafka&#34;</span>,
+		},
+		<span style="color:#a6e22e">Filter</span>: <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Config</span>{
+			<span style="color:#a6e22e">PluginType</span>: <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">FilterType</span>,
+			<span style="color:#a6e22e">Name</span>:       <span style="color:#e6db74">&#34;upper&#34;</span>,
+		},
+		<span style="color:#a6e22e">Output</span>: <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">Config</span>{
+			<span style="color:#a6e22e">PluginType</span>: <span style="color:#a6e22e">plugin</span>.<span style="color:#a6e22e">OutputType</span>,
+			<span style="color:#a6e22e">Name</span>:       <span style="color:#e6db74">&#34;console&#34;</span>,
+		},
+	}
+	<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">pipeline</span>.<span style="color:#a6e22e">Of</span>(<span style="color:#a6e22e">config</span>)
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Start</span>()
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Exec</span>()
+	<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Stop</span>()
+}
+<span style="color:#75715e">// 运行结果
+</span><span style="color:#75715e"></span><span style="color:#f92672">==</span>= <span style="color:#a6e22e">RUN</span>   <span style="color:#a6e22e">TestKafkaInputPipeline</span>
+<span style="color:#a6e22e">Console</span> <span style="color:#a6e22e">output</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">started</span>.
+<span style="color:#a6e22e">Upper</span> <span style="color:#a6e22e">filter</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">started</span>.
+<span style="color:#a6e22e">Kafka</span> <span style="color:#a6e22e">input</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">started</span>.
+<span style="color:#a6e22e">Pipeline</span> <span style="color:#a6e22e">started</span>.
+<span style="color:#a6e22e">Output</span>:
+	<span style="color:#a6e22e">Header</span>:<span style="color:#66d9ef">map</span>[<span style="color:#a6e22e">content</span>:<span style="color:#a6e22e">kafka</span>], <span style="color:#a6e22e">Body</span>:[<span style="color:#a6e22e">I</span> <span style="color:#a6e22e">AM</span> <span style="color:#a6e22e">MOCK</span> <span style="color:#a6e22e">CONSUMER</span>.]
+<span style="color:#a6e22e">Kafka</span> <span style="color:#a6e22e">input</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">stopped</span>.
+<span style="color:#a6e22e">Upper</span> <span style="color:#a6e22e">filter</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">stopped</span>.
+<span style="color:#a6e22e">Console</span> <span style="color:#a6e22e">output</span> <span style="color:#a6e22e">plugin</span> <span style="color:#a6e22e">stopped</span>.
+<span style="color:#a6e22e">Pipeline</span> <span style="color:#a6e22e">stopped</span>.
+<span style="color:#f92672">---</span> <span style="color:#a6e22e">PASS</span>: <span style="color:#a6e22e">TestKafkaInputPipeline</span> (<span style="color:#ae81ff">0.00</span><span style="color:#a6e22e">s</span>)
+<span style="color:#a6e22e">PASS</span>
+</code></pre></div><h2 id="bridge-pattern">Bridge Pattern</h2>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gi00awfcxcj31f20l01ky.jpg" alt="bridge pattern"></p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gi01kwmua8j31hs0s47wj.jpg" alt="bridge example"></p>
+<p>场景： 如果一个对象存在多个变化的方向，而且每个变化方向都需要扩展，桥接是好的选择。</p>
+<p>实际上上述的消息处理系统就是这样，一个pipeline有三个特征，且pipeline只依赖这三个接口而非具体的实现细节。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gi0i6xpj9sj318a0nk4qq.jpg" alt="bridge example2"></p>
+<h2 id="proxy-pattern">Proxy Pattern</h2>
+<p>代理模式为一个对象提供一种代理以控制对该对象的访问，使用率非常高。</p>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/design-pattern.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+    
+      
+      <div class="col-md-6 previous-article">
+        <a href="/posts/golang/golang-escape-analysis/" class="btn btn-outline-info">
+          <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
+          <br />
+          <span>Golang逃逸分析</span>
+        </a>
+      </div>
+      
+    
+    
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "does-not-exist";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#builder-pattern">Builder Pattern</a>
+      <ul>
+        <li><a href="#scenariobuild-complicated-object">scenario：build complicated object</a></li>
+        <li><a href="#test-code">Test code</a></li>
+      </ul>
+    </li>
+    <li><a href="#abstract-factory-pattern">Abstract Factory Pattern</a>
+      <ul>
+        <li><a href="#interfaces-definitions">interfaces definitions</a></li>
+        <li><a href="#pipeline-composition">pipeline composition</a></li>
+        <li><a href="#plugins-implementation">plugins implementation</a></li>
+        <li><a href="#abstract-factory-interface-definition--implementation">abstract factory interface definition &amp; implementation</a></li>
+        <li><a href="#pipeline-factory-definition">pipeline factory definition</a></li>
+      </ul>
+    </li>
+    <li><a href="#prototype-pattern">Prototype Pattern</a></li>
+    <li><a href="#adapter-pattern">Adapter Pattern</a>
+      <ul>
+        <li><a href="#test-code-1">Test code</a></li>
+      </ul>
+    </li>
+    <li><a href="#bridge-pattern">Bridge Pattern</a></li>
+    <li><a href="#proxy-pattern">Proxy Pattern</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

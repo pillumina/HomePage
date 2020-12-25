@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BDD: Ginkgo测试框架</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="BDD: Ginkgo测试框架" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/golang/bdd-testing-framework/">Behavior Driven Testing</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency Work-Around</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang_banner.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>December 4, 2020</p>
+        </div>
+
+        <div class="title">
+          <h1>BDD: Ginkgo测试框架</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h2 id="preface">Preface</h2>
+<p>BDD和TDD都是test case first的实现，无非是把后者的test改成前者的behavior。在TDD中，关注的核心点是function，即认为程序最基本单元是function，其test case可以认为是unit test，TDD和unit test的区别是TDD强调测试和开发结合而成的工作流: 写test case -&gt; 写代码 -&gt; 通过测试，继续写更多测试，写一次循环。</p>
+<p>而BDD比TDD更关注高层的行为，而不是函数级别的行为，也就是在BDD中，不会强调函数的功能正确，这是unit test应该做的事。BDD更关注user story，即用户在特定场景，与软件交互发生的行为，这个behavior指的就是高层模块的行为。</p>
+<p>如何区分BDD和TDD，简单理解，TDD是给programmer的，用来验证开发者的最基本模块的功能：在什么输入，应该产生什么输出，保证实现的边界，健全性。而BDD，其test case描述的是更高级的模块行为，脱离了具体的实现，容易用自然语言去描述，也就是BDD是给product manager的，告诉其系统的行为。</p>
+<h2 id="bdd-in-golang">BDD in golang</h2>
+<p>​	实现的时候，我们需要把Given-When-Then这种story格式组织test case翻译为测试代码，通过一系列的assertion来检查实现是否符合test case的预期，我们完全可以直接通过golang自带的testing模块来实现，不过testing的功能有时候比较简陋，本文记录了用Ginkgo+Gomega来组织test case，让我们的测试语言更加接近自然语言。</p>
+<p>二者结合的目的是，ginkgo实现了test case的组织，并加入了其他方便的功能: 初始化，后续处理，异步等等。而gomega设计的目的是与ginkgo一起工作，实现易读的assertion(ginkgo中称为match)功能。</p>
+<pre><code>Gomega is ginkgo's preferred matcher library
+</code></pre><h2 id="初始化">初始化</h2>
+<p>ginkgo依托golang原生testing框架，即可以用<code>go test ./..</code> 执行，也可以通过ginkgo binrary安装<code>go install github.com/onsi/ginkgo</code>，封装了ginkgo测试框架的各种feature。</p>
+<p>初始化首先进入待测试的package:</p>
+<pre><code>cd /path/to/package
+</code></pre><p>执行初始化:</p>
+<pre><code>ginkgo bootstrap
+</code></pre><p>生成以suite_test.go文件，接下来向suite添加测试specs，生成比如ginkgo_cart package测试文件。</p>
+<pre><code>ginkgo generate ginkgo_cart
+</code></pre><h2 id="运行">运行</h2>
+<p>生成<code>ginkgo_cart_test.go</code>，注意测试文件在<code>ginkgo_cart_test</code>package， 需要import package <code>ginkgo_cart</code>，即BDD层级高于unit test, 不应该了解package内部的具体实现，测试package的外部接口即可。编写测试代码，运行<code>go test ./..</code>即可。</p>
+<h2 id="ginkgo-keyword">Ginkgo Keyword</h2>
+<p>Ginkgo测试代码骨架由一系列keyword关联的闭包组成，常用的有：</p>
+<ol>
+<li>Describe/Context/When: 测试逻辑块</li>
+<li>BeforeEach/AfterEach/JustBeforeEach/JustAfterEach: 初始化测试用例块</li>
+<li>It: 单一Spec，测试case</li>
+</ol>
+<p>keyword的声明均为传入Body参数，比如Describe:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">Describe</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">body</span> <span style="color:#66d9ef">func</span>()) <span style="color:#66d9ef">bool</span>
+</code></pre></div><p>一个样例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#a6e22e">Describe</span>(<span style="color:#e6db74">&#34;Nest Test Demo&#34;</span>, <span style="color:#66d9ef">func</span>() {
+	<span style="color:#a6e22e">Context</span>(<span style="color:#e6db74">&#34;MyTest level1&#34;</span>, <span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">BeforeEach</span>(<span style="color:#66d9ef">func</span>() {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;beforeEach level 1&#34;</span>)
+		})
+		<span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;spec 3-1 in level1&#34;</span>, <span style="color:#66d9ef">func</span>(){
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;sepc on level 1&#34;</span>)
+		})
+		<span style="color:#a6e22e">Context</span>(<span style="color:#e6db74">&#34;MyTest level2&#34;</span>, <span style="color:#66d9ef">func</span>() {
+			<span style="color:#a6e22e">BeforeEach</span>(<span style="color:#66d9ef">func</span>() {
+				<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;beforeEach level 2&#34;</span>)
+			})
+			<span style="color:#a6e22e">Context</span>(<span style="color:#e6db74">&#34;MyTest level3&#34;</span>, <span style="color:#66d9ef">func</span>() {
+				<span style="color:#a6e22e">BeforeEach</span>(<span style="color:#66d9ef">func</span>() {
+					<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;beforeEach level 3&#34;</span>)
+				})
+				<span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;spec 3-1 in level3&#34;</span>, <span style="color:#66d9ef">func</span>() {
+					<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;A simple spec in level 3&#34;</span>)
+				})
+				<span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;3-2 in level3&#34;</span>, <span style="color:#66d9ef">func</span>() {
+					<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;A simple spec in level 3&#34;</span>)
+				})
+			})
+		})
+	})
+})
+</code></pre></div><h3 id="describe-context-when">Describe, Context, When</h3>
+<p>这三种都称为Container，对于ginkgo属于同一类，只是名称不同</p>
+<p>一般Describe用于最顶层：描述完整的测试场景，包含Context/When，而Context/When本身可以嵌套包含下级的Context/When。</p>
+<p>三者组织成Tree结构：Describe是root, Context和When是普通的TreeNode。</p>
+<p>三者包含的节点，除了自身，还包括其他keyword节点：BeforeEach, JustBeforeEach, It。</p>
+<p>测试代码逻辑应该包含在BeforeEach, It等类别中，而不应该在container类别中体现。</p>
+<h3 id="it">It</h3>
+<p>Ginkgo执行以It为基本单元，以定义的顺序执行，It一般包含Assertion逻辑: Expect(&hellip;)，即最终的测试结果和预期的比较，测试执行逻辑实现于BeforeEach, JustBeforeEach中</p>
+<h3 id="beforeeach-justbeforeeach">BeforeEach, JustBeforeEach</h3>
+<p>BeforeEach声明于Container节点内部，container node每个child执行前都会执行BeforeEach，一般用来Setup test env：声明测试用例变量，初始化。</p>
+<p>JustBeforeEach类似，区别是永远执行于BeforeEach之后：等从root到lt node所有BeforeEach执行完: 才再从root到lt node执行所有JustBeforeEach；一般实现测试执行逻辑：如request http，以便It node与expect比较。</p>
+<h3 id="demo-code-示意">Demo code 示意</h3>
+<p>示例中各种节点的内部组成为如下tree：</p>
+<p><img src="https://raw.githubusercontent.com/eliteGoblin/images/master/blog/img/picgo/20200412194916.png" alt="demo tree"></p>
+<p>运行示例可以得到:</p>
+<pre><code>beforeEach level 1
+sepc 1-1 on level 1
+•beforeEach level 1
+beforeEach level 2
+beforeEach level 3
+Spec 3-1 in level 3
+•beforeEach level 1
+beforeEach level 2
+beforeEach level 3
+Spec 3-2 in level 3
+
+</code></pre><p>我么可以得到一些结论:</p>
+<ol>
+<li>执行是以It node定义顺序执行</li>
+<li>每个It执行前，走了从root到It的path，顺序执行各context node的BeforeEach函数</li>
+</ol>
+<h2 id="it-与-matcher">It 与 Matcher</h2>
+<p>购物车demo中，其中一个lt:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">cart</span>.<span style="color:#a6e22e">TotalItems</span>()).<span style="color:#a6e22e">To</span>(<span style="color:#a6e22e">Equal</span>(<span style="color:#ae81ff">3</span>))
+</code></pre></div><p>这种自然语言风格的assertion是由Ginkgo配套的Gomega实现的: expect返回封装了测试输出值的Assertion:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Expect</span>(<span style="color:#a6e22e">actual</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">extra</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#a6e22e">Assertion</span>
+</code></pre></div><p>Assertion是interface, 简化版本(为语义通顺，还包含几个类似function):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Assertion</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">To</span>(<span style="color:#a6e22e">matcher</span> <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">GomegaMatcher</span>, <span style="color:#a6e22e">optionalDescription</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">bool</span>
+	<span style="color:#a6e22e">ToNot</span>(<span style="color:#a6e22e">matcher</span> <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">GomegaMatcher</span>, <span style="color:#a6e22e">optionalDescription</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">bool</span>
+}
+</code></pre></div><p><code>To</code>接收<code>GomegaMatcher</code>, 其封装了Expect value: Equal调用了Ginkgo的EqualMatcher.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Equal</span>(<span style="color:#a6e22e">expected</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">GomegaMatcher</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">matchers</span>.<span style="color:#a6e22e">EqualMatcher</span>{
+		<span style="color:#a6e22e">Expected</span>: <span style="color:#a6e22e">expected</span>,
+	}
+}
+</code></pre></div><p>加上Assertion封装了实际value, 两者的比较可得出结论.而<code>ToNot</code>是<code>To</code>的相反情况.</p>
+<p>如果想比较自定义的复杂类型: 可实现GomegaMatcher:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">加上Assertion封装了实际value</span>, <span style="color:#a6e22e">两者的比较可得出结论</span>.<span style="color:#a6e22e">而ToNot是To的相反情况</span>.
+
+<span style="color:#a6e22e">如果想比较自定义的复杂类型</span>: <span style="color:#a6e22e">可实现GomegaMatcher</span>:
+</code></pre></div><h2 id="其他features">其他features</h2>
+<p>Focus:</p>
+<p>仅执行特定Node及之下的It: 在keyword之前加<code>F</code>: <code>FContext</code>, <code>FIt</code>, 但会使<code>go test</code>fail(返回 1), CI集成Ginkgo需注意.</p>
+<p>Pending</p>
+<p>与Focus相反: 不执行特定Node及之下的It. 在keyword之前加<code>X</code>.但默认不会使<code>go test</code> fail(若想让其fail, 加 —failOnPending)</p>
+<p>Skip:</p>
+<p>根据代码runtime结果决定是否跳过某It(Pending是编译时):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">It</span>(<span style="color:#e6db74">&#34;spec 1-1 in level1&#34;</span>, <span style="color:#66d9ef">func</span>(){
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">somecondition</span> {
+        <span style="color:#a6e22e">Skip</span>(<span style="color:#e6db74">&#34;special condition wasn&#39;t met&#34;</span>)
+    }
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;sepc 1-1 on level 1&#34;</span>)
+})
+</code></pre></div><p>Skip仅能置于It之下，否则会Panic.</p>
+<p>Eventually</p>
+<p>测试异步逻辑: 如发送请求到队列, 需持续polling. 在Gomega实现:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">Eventually</span>(<span style="color:#66d9ef">func</span>() []<span style="color:#66d9ef">int</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">thing</span>.<span style="color:#a6e22e">SliceImMonitoring</span>
+}, <span style="color:#a6e22e">TIMEOUT</span>, <span style="color:#a6e22e">POLLING_INTERVAL</span>).<span style="color:#a6e22e">Should</span>(<span style="color:#a6e22e">HaveLen</span>(<span style="color:#ae81ff">2</span>))
+
+</code></pre></div><p>TIMTOUT为总超时时间, 默认１s;POLLING_INTERVAL为每次polling间隔, 默认10ms.</p>
+<p>Ginkgo还支持benchmark及run in parallel, 可参考<a href="https://onsi.github.io/ginkgo/#parallel-specs">Ginkgo doc</a></p>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/BDD-testing-framework.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+      <div class="col-md-6 previous-article">
+        <a href="/posts/python/python-functionality/" class="btn btn-outline-info">
+          <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
+          <br />
+          <span>Python类自定义</span>
+        </a>
+      </div>
+      
+    
+    
+      
+        
+        
+          
+              
+          
+        
+        <div class="col-md-6 next-article">
+          <a href="/posts/golang/memory-management/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Golang内存管理</span>
+          </a>
+        </div>
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "does-not-exist";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#preface">Preface</a></li>
+    <li><a href="#bdd-in-golang">BDD in golang</a></li>
+    <li><a href="#初始化">初始化</a></li>
+    <li><a href="#运行">运行</a></li>
+    <li><a href="#ginkgo-keyword">Ginkgo Keyword</a>
+      <ul>
+        <li><a href="#describe-context-when">Describe, Context, When</a></li>
+        <li><a href="#it">It</a></li>
+        <li><a href="#beforeeach-justbeforeeach">BeforeEach, JustBeforeEach</a></li>
+        <li><a href="#demo-code-示意">Demo code 示意</a></li>
+      </ul>
+    </li>
+    <li><a href="#it-与-matcher">It 与 Matcher</a></li>
+    <li><a href="#其他features">其他features</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

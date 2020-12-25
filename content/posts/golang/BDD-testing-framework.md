@@ -4,7 +4,7 @@ date: 2020-12-04T11:22:18+08:00
 hero: /images/posts/golang_banner.jpg
 menu:
   sidebar:
-    name: Behavior Driven Testing
+    name: Ginkgo 测试框架
     identifier: golang-behavior-driven-testing
     parent: golang odyssey
     weight: 10

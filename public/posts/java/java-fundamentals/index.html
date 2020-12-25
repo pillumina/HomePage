@@ -68,7 +68,7 @@ if (!doNotTrack) {
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/">
-      <img src="/assets/images/main-logo.png">CctoctoFx</a>
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
     <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -94,7 +94,7 @@ if (!doNotTrack) {
         <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
         <div class="sidebar-tree">
           <ul class="tree" id="tree">
-            <li id="list-heading"><a href="http://example.org/posts" data-filter="all">Posts</a></li>
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
             <div class="subtree">
                 
   
@@ -103,7 +103,7 @@ if (!doNotTrack) {
   
   
     
-    <li><a class="" href="/posts/java/">Java Odyssey</a></li>
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
   
 
   
@@ -112,7 +112,176 @@ if (!doNotTrack) {
   
   
     
-    <li><a class="" href="/notes/">Notes</a></li>
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Behavior Driven Testing</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency Work-Around</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
   
 
 
@@ -130,15 +299,15 @@ if (!doNotTrack) {
   <div class="content">
     <div class="container p-0 read-area">
       
-      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(http://example.org/assets/images/default-hero.jpg);'>
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/java-dev.png);'>
       </div>
 
       
       <div class="page-content">
         <div class="author-profile ml-auto align-self-lg-center">
-          <img class="rounded-circle" src='/images/avatar.png'/>
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
           <h5 class="author-name"></h5>
-          <p>October 22, 2020</p>
+          <p>October 26, 2020</p>
         </div>
 
         <div class="title">
@@ -242,6 +411,10 @@ if (!doNotTrack) {
 <li>finally是在return后面的表达式运算后执行的，没有返回运算的值，而是先把要返回的值保存起来，不管finally中的代码怎么样，返回的值都不会改变、所以函数的return值是在finally执行前确定的。</li>
 <li>finally中最好不要包含return，否则程序会提前退出，返回值不是try活着catch中保存的返回值。</li>
 </ul>
+<ul>
+<li>核心: finally语句在try catch中的控制转移语句执行前执行(return, break, continue, throw)。不过也有点区别，return和throw把程序控制权转交给调用者，break和continue是在当前方法内转移。</li>
+<li>由上述可知，finally语句如果里面有控制转移语句，有可能把try-catch里的return或者异常捕获给&quot;吃了&quot;，那么一些未处理的异常可能无法被抛出！</li>
+</ul>
 <h4 id="try-with-resources语句">try-with-resources语句</h4>
 <p>任何实现java.lang.AutoCloseable接口的对象，和实现java.io.Closeable接口的对象，都可以当做资源使用。</p>
 <p>在此语句中，也可以加catch和finally，但是任何catch和finally代码块都在所有被声明的资源被关闭后才会执行。</p>
@@ -279,7 +452,15 @@ if (!doNotTrack) {
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Class c1 <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
 Class c2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">;</span>
 <span style="color:#75715e">// not equals!
-</span></code></pre></div><h3 id="输入输出流">输入输出流</h3>
+</span></code></pre></div><h3 id="类私有变量的反射访问">类私有变量的反射访问</h3>
+<p>需要注意的是，需要设置属性可达，否则会抛出IllegalAccessException</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Field<span style="color:#f92672">[]</span> fs <span style="color:#f92672">=</span> clazz<span style="color:#f92672">.</span><span style="color:#a6e22e">getDeclaredFields</span><span style="color:#f92672">();</span>
+<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Field field<span style="color:#f92672">:</span> fs<span style="color:#f92672">){</span>
+  <span style="color:#75715e">// 设置属性可达
+</span><span style="color:#75715e"></span>  field<span style="color:#f92672">.</span><span style="color:#a6e22e">setAccessible</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">);</span>
+  <span style="color:#75715e">// ...后续的打印访问
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><h3 id="输入输出流">输入输出流</h3>
 <h4 id="字节流">字节流</h4>
 <ul>
 <li>InputStream
@@ -335,6 +516,11 @@ Class c2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</s
 </ul>
 <p>interrupted()方法，本质只是设置该线程的中断标志，设置为true，并根据线程状态决定是否抛出异常，比如线程阻塞时就是抛出中断阻塞异常，标志位同时被清除。</p>
 <p>join()等待该方法的线程执行完毕后再继续执行</p>
+<p>调用一个线程的interrupt方法，分具体情况</p>
+<ul>
+<li>如果线程处于被阻塞(sleep, wait, join)，那么线程立即退出被阻塞状态，抛出InterruptedException</li>
+<li>如果线程处于正常活动状态，那么将这个线程的中断标志设置为true，仅此而已。被设置的线程依然继续正常运行。所以这个方法并不能真正中断线程。</li>
+</ul>
 <p>wait(), notify(), notifyAll()都要在synchronized代码块中使用，因为会对对象的锁标志进行操作。</p>
 <h4 id="线程的创建方式">线程的创建方式</h4>
 <ol>
@@ -412,13 +598,13 @@ Consumer<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672
 <ul>
 <li>中间操作
 <ul>
-<li>无状态：元素的处理不受之前元素的影响  &ndash; filter, map, peek</li>
-<li>有状态：该操作只有拿到所有元素之后才能进行下去 &ndash; distinct, sorted, limit, skip</li>
+<li>无状态：元素的处理不受之前元素的影响  &ndash; filter, map, peek, parallel</li>
+<li>有状态：该操作只有拿到所有元素之后才能进行下去 &ndash; distinct, sorted, limit, skip, unordered</li>
 </ul>
 </li>
 <li>结束操作
 <ul>
-<li>非短路操作： 必须处理所有元素才能得到最终结果 &ndash; forEach, reduce, collect, max, min, coint</li>
+<li>非短路操作： 必须处理所有元素才能得到最终结果 &ndash; forEach, reduce, collect, max, min, coint，iterator</li>
 <li>短路操作：遇到某些符合条件的元素就可以得到最终结果，比如A or B &ndash; anyMatch, allMatch, findAny, noneMatch</li>
 </ul>
 </li>
@@ -482,13 +668,130 @@ Consumer<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672
 <p>年轻代的GC是必须的，但老年代和永久代的GC并不是必须的，可以通过设置参数决定是否对类进行回收。</p>
 <h3 id="jdk工具">JDK工具</h3>
 <h3 id="正则表达式">正则表达式</h3>
+<h3 id="java安全">JAVA安全</h3>
+<h4 id="java沙箱">java沙箱</h4>
+<p>java沙箱负责保护一些系统资源，保护的级别不同</p>
+<ul>
+<li>内部资源，如本地内存</li>
+<li>外部资源，如访问文件系统或者同一个局域网的其他机器</li>
+<li>对于运行的组件applet，可以访问其web服务器</li>
+<li>主机通过网络传输到磁盘的数据流</li>
+</ul>
+<p>当前最新的安全机制实现，引入了domain概念，理解为将沙箱细分为对个具体的小沙箱。jvm把所有代码加载到不同的系统域和应用域。jvm中不同的受保护域，对应不一样的权限。存在于不同域中的类文件就具有当前域的全部权限。</p>
+<p>沙箱的实现取决于三个方面：</p>
+<ul>
+<li>SecurityManager</li>
+<li>AccessController</li>
+<li>ClassLoader</li>
+</ul>
+<h4 id="securitymanager">SecurityManager</h4>
+<p>SecurityManager类是java API中的关键类，为其他java api提供相应的接口，是之可以检查某项操作能否执行。比如对文件访问的校验，SecurityManager最终是由AccessController实现的，如果权限检查不通过，则抛出AccessControlException，其继承于SecurityException，又向上继承于RuntimeException，所以这个异常是运行时异常。</p>
+<p>对于不可信类，需要有一些方法避免它们绕过SecurityManger和Java API：</p>
+<ul>
+<li>checkCreateClassLoader</li>
+<li>checkExec</li>
+<li>checkLink</li>
+<li>checkExit</li>
+<li>checkPermission</li>
+</ul>
+<h4 id="accesscontroller">AccessController</h4>
+<p>核心Java API由SecurityManager提供安全策略，但是大多数SecurityManager是基于AccessController。</p>
+<p>AccessController类构造器是私有的，因此不能进行实例化。它向外部提供了一些静态方法，最关键的是checkPermission(Permission p)，该方法基于当前安装的Policy对象，判定当前保护域是否拥有指定权限。SecurityManger提供的额一系列checkxxxxx方法，最后基本通过这个checkPermission完成。</p>
+<h2 id="分散的知识">分散的知识</h2>
+<h3 id="switch支持的6种数据类型">switch支持的6种数据类型</h3>
+<p>只能是byte, short, char, int四种整形类型，enum和String类型。不能是boolean类型！</p>
+<p>注意： 后面能能Integer只是因为JDK1.5以后的auto-unboxing</p>
+<h3 id="java整数缓存">Java整数缓存</h3>
+<p>Integer类为内部整数维护了IntgerCache, 范围是-128~127</p>
+<h3 id="threadsleep和wait的区别">Thread.Sleep()和wait()的区别</h3>
+<ul>
+<li>sleep方法执行时，线程主动让出cpu，后续指定时间以后cpu再回来执行。所以这里sleep只是让出了cpu，而并不会释放同步资源锁；wait方法指的是当前线程让自己暂时退让出同步资源锁，以便其他正在等待该资源的线程得到该资源从而运行，只有调用notify方法，调用了wait的线程才会解除wait状态，去竞争同步资源锁。</li>
+<li>因此，sleep可以在任何地方使用，而wait只能在同步方法或者同步块中使用</li>
+<li>sleep是线程的方法，调用只会暂停该线程指定的时间，但是监控依然保持，不会释放对象锁，到时间自动回复。wait是对象的方法，调用会放弃对象锁，进入waitqueue，只有notify/notifyAll让唤醒指定的线程，进入锁池，再次获得对象锁才会进入运行态。</li>
+</ul>
+<h3 id="join方法让调用这个方法的线程执行完">Join方法让调用这个方法的线程执行完</h3>
+<p>A调用B的join，A会让出资源锁，B执行完了才会继续执行A</p>
+<h3 id="jvm-吞吐量和暂停时间trade-off">JVM 吞吐量和暂停时间trade-off</h3>
+<p>吞吐量指的是应用程序线程用时占用程序用时的比例；暂停时间指的是一段时间内，应用程序线程让与GC线程执行而完全暂停，比如GC期间100ms的暂停时间意味着这个时间内没有应用程序线程是活动的。</p>
+<p>这两者是矛盾的，如果要追求高吞吐量，就不能频繁调用GC，意味着GC启动的时候有很多事情要做，因为在此期间积累需要GC的对象比较多，所以应用程序暂停时间肯定长。</p>
+<h3 id="java接口成员变量和方法默认修饰符">JAVA接口成员变量和方法默认修饰符</h3>
+<p>成员变量的默认修饰符：public status final</p>
+<ul>
+<li>也就是外面访问的时候不能修改这个变量的值，所以接口中定义成员变量的，一般都是常量</li>
+</ul>
+<p>方法的默认修饰符：public abstract</p>
+<ul>
+<li>公共抽象的，用来被实现这个接口的类去实现该方法</li>
+</ul>
+<p>接口对修改关闭，对扩展开放，符合开闭原则。</p>
+<p><strong>java8的接口方法可以被如下修饰</strong></p>
+<ul>
+<li>public, abstract, default, static, strictfp(只能修饰接口而不能修饰接口中的方法)</li>
+</ul>
+<h3 id="并发原子类">并发原子类</h3>
+<p>AtomicInteger类的常用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 获取当前值
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getCurrentValue</span><span style="color:#f92672">(){}</span>
+<span style="color:#75715e">// 设置value值
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span> setValue<span style="color:#f92672">(){}</span>
+<span style="color:#75715e">// 先获取旧值，再设置新值
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span> getAndSet<span style="color:#f92672">(){}</span>
+<span style="color:#75715e">// 先获取旧值，再进行自增
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span> getAndIncrement<span style="color:#f92672">(){}</span>
+<span style="color:#75715e">// 同理
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span> getAndDecrement<span style="color:#f92672">(){}</span>
+<span style="color:#75715e">// 先获取旧值，再加10
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span> getAndAdd<span style="color:#f92672">(){}</span>
+<span style="color:#75715e">// 先加1，再获取新值
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span> incrementAmdGet<span style="color:#f92672">(){}</span>
+<span style="color:#75715e">// 先减1，再获取新值
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span> decrementAndGet<span style="color:#f92672">(){}</span>
+<span style="color:#75715e">// 先增加，再获取新值
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span> addAndGet<span style="color:#f92672">(){}</span>
+</code></pre></div><p>concurrent包还有其他:</p>
+<ul>
+<li>AtomicBoolean</li>
+<li>AtomicInteger</li>
+<li>AtomicIntegerArray</li>
+<li>AtomicIntegerFieldUpdater</li>
+<li>AtomicLong</li>
+<li>AtomicLongArray</li>
+<li>AtomicIongFieldUpdater</li>
+<li>AtomicReference</li>
+<li>AtomicReferenceArray</li>
+<li>AtomicReferenceFieldUpdater</li>
+</ul>
+<p>&hellip;.</p>
+<h3 id="java-countdownlatch方法并发编程">Java CountDownLatch方法并发编程</h3>
+<h3 id="java-类执行顺序">Java 类执行顺序</h3>
+<ul>
+<li>执行static代码块</li>
+<li>执行构造代码块</li>
+<li>执行构造函数</li>
+</ul>
+<p>静态变量、初始化块 &gt; 变量、初始化块 &gt; 构造器</p>
+<p>涉及到继承的时候：</p>
+<ul>
+<li>执行父类的静态代码块，初始化父类静态成员变量</li>
+<li>执行子类静态代码块，初始化子类静态成员变量</li>
+<li>执行父类的构造代码块，执行父类的构造函数，并初始化父类普通成员变量</li>
+<li>执行子类的构造代码块，执行子类构造函数，初始化子类普通成员变量</li>
+</ul>
+<p>总结：涉及到继承，静态的优先，其他的先父类执行完了再子类</p>
+<h3 id="线程安全的数据结构">线程安全的数据结构</h3>
+<ul>
+<li>V （Vector）</li>
+<li>S   (Stack)</li>
+<li>H   (HashTable)</li>
+<li>E   (Enumeration)</li>
+</ul>
 
         </div>
 
         
         
           <div class="btn-improve-page">
-              <a href="https://github.com/hossainemruz/toha-example-site/edit/master/content/posts/java/java-fundamentals.md">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/java/java-fundamentals.md">
                 <i class="fas fa-code-branch"></i>
                 Improve This Page
               </a>
@@ -499,6 +802,31 @@ Consumer<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672
       <hr />
         <div class="row next-prev-navigator">
 
+
+  
+    
+      
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -589,6 +917,7 @@ Consumer<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672
             <li><a href="#基本数据类型的class对象和包装类的class对象不一样">基本数据类型的Class对象和包装类的Class对象不一样</a></li>
           </ul>
         </li>
+        <li><a href="#类私有变量的反射访问">类私有变量的反射访问</a></li>
         <li><a href="#输入输出流">输入输出流</a>
           <ul>
             <li><a href="#字节流">字节流</a></li>
@@ -634,6 +963,27 @@ Consumer<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672
         <li><a href="#gc">GC</a></li>
         <li><a href="#jdk工具">JDK工具</a></li>
         <li><a href="#正则表达式">正则表达式</a></li>
+        <li><a href="#java安全">JAVA安全</a>
+          <ul>
+            <li><a href="#java沙箱">java沙箱</a></li>
+            <li><a href="#securitymanager">SecurityManager</a></li>
+            <li><a href="#accesscontroller">AccessController</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#分散的知识">分散的知识</a>
+      <ul>
+        <li><a href="#switch支持的6种数据类型">switch支持的6种数据类型</a></li>
+        <li><a href="#java整数缓存">Java整数缓存</a></li>
+        <li><a href="#threadsleep和wait的区别">Thread.Sleep()和wait()的区别</a></li>
+        <li><a href="#join方法让调用这个方法的线程执行完">Join方法让调用这个方法的线程执行完</a></li>
+        <li><a href="#jvm-吞吐量和暂停时间trade-off">JVM 吞吐量和暂停时间trade-off</a></li>
+        <li><a href="#java接口成员变量和方法默认修饰符">JAVA接口成员变量和方法默认修饰符</a></li>
+        <li><a href="#并发原子类">并发原子类</a></li>
+        <li><a href="#java-countdownlatch方法并发编程">Java CountDownLatch方法并发编程</a></li>
+        <li><a href="#java-类执行顺序">Java 类执行顺序</a></li>
+        <li><a href="#线程安全的数据结构">线程安全的数据结构</a></li>
       </ul>
     </li>
   </ul>
@@ -686,6 +1036,15 @@ Consumer<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672
               
               <li class="nav-item">
                 <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
               </li>
             
             

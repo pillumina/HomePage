@@ -8,6 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Nov 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Channels Concurrency Work-Around</title>
+      <link>https://pillumina.github.io/posts/golang/channels/</link>
+      <pubDate>Tue, 22 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/channels/</guid>
+      <description>记录了一些channels常见的场景，以及自己的一些感受：
+  使用通道进行异步和并发编程是简单和惬意的；
+  通道同步技术比被很多其它语言采用的其它同步方案（比如角色模型和async/await模式）有着更多的应用场景和更多的使用变种。
+通道作为同步手段，并非在任何情况下都是最佳的同步技术，本文也会补充原子操作和sync包内其他的技术作为参考。
+  将通道用做future/promise 很多其它流行语言支持future/promise来实现异步（并发）编程。 Future/promise常常用在请求/回应场合。
+返回单向接收通道做为函数返回结果 在下面这个例子中，sumSquares函数调用的两个实参请求并发进行。 每个通道读取操作将阻塞到请求返回结果为止。 两个实参总共需要大约3秒钟（而不是6秒钟）准备完毕（以较慢的一个为准）。
+package main import ( &amp;#34;time&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;fmt&amp;#34; ) func longTimeRequest() &amp;lt;-chan int32 { r := make(chan int32) go func() { time.Sleep(time.Second * 3) // 模拟一个工作负载 	r &amp;lt;- rand.Int31n(100) }() return r } func sumSquares(a, b int32) int32 { return a*a + b*b } func main() { rand.Seed(time.Now().UnixNano()) a, b := longTimeRequest(), longTimeRequest() fmt.</description>
+    </item>
+    
+    <item>
       <title>Golang TDD</title>
       <link>https://pillumina.github.io/posts/golang/go-testing/</link>
       <pubDate>Sat, 19 Dec 2020 11:22:18 +0800</pubDate>

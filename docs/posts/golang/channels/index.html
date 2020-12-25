@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Channels Concurrency Work-Around</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Channels Concurrency Work-Around" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/golang/channels/">Channels Concurrency</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern Golang</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang_banner.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>December 22, 2020</p>
+        </div>
+
+        <div class="title">
+          <h1>Channels Concurrency Work-Around</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <p>记录了一些channels常见的场景，以及自己的一些感受：</p>
+<ul>
+<li>
+<p>使用通道进行异步和并发编程是简单和惬意的；</p>
+</li>
+<li>
+<p>通道同步技术比被很多其它语言采用的其它同步方案（比如<a href="https://en.wikipedia.org/wiki/Actor_model">角色模型</a>和<a href="https://en.wikipedia.org/wiki/Async/await">async/await模式</a>）有着更多的应用场景和更多的使用变种。</p>
+<p>通道作为同步手段，并非在任何情况下都是最佳的同步技术，本文也会补充原子操作和sync包内其他的技术作为参考。</p>
+</li>
+</ul>
+<h3 id="将通道用做futurepromise">将通道用做future/promise</h3>
+<p>很多其它流行语言支持future/promise来实现异步（并发）编程。 Future/promise常常用在请求/回应场合。</p>
+<h4 id="返回单向接收通道做为函数返回结果">返回单向接收通道做为函数返回结果</h4>
+<p>在下面这个例子中，<code>sumSquares</code>函数调用的两个实参请求并发进行。 每个通道读取操作将阻塞到请求返回结果为止。 两个实参总共需要大约3秒钟（而不是6秒钟）准备完毕（以较慢的一个为准）。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longTimeRequest</span>() <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int32</span> {
+	<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int32</span>)
+
+	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// 模拟一个工作负载
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">r</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Int31n</span>(<span style="color:#ae81ff">100</span>)
+	}()
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sumSquares</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int32</span>) <span style="color:#66d9ef">int32</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+
+	<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longTimeRequest</span>(), <span style="color:#a6e22e">longTimeRequest</span>()
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sumSquares</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">a</span>, <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">b</span>))
+}
+</code></pre></div><h4 id="将单向发送通道类型用做函数实参">将单向发送通道类型用做函数实参</h4>
+<p>和上例一样，在下面这个例子中，<code>sumSquares</code>函数调用的两个实参的请求也是并发进行的。 和上例不同的是<code>longTimeRequest</code>函数接收一个单向发送通道类型参数而不是返回一个单向接收通道结果。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longTimeRequest</span>(<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">int32</span>)  {
+	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// 模拟一个工作负载
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">r</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Int31n</span>(<span style="color:#ae81ff">100</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sumSquares</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int32</span>) <span style="color:#66d9ef">int32</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span><span style="color:#f92672">*</span><span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span><span style="color:#f92672">*</span><span style="color:#a6e22e">b</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+
+	<span style="color:#a6e22e">ra</span>, <span style="color:#a6e22e">rb</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int32</span>), make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int32</span>)
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">longTimeRequest</span>(<span style="color:#a6e22e">ra</span>)
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">longTimeRequest</span>(<span style="color:#a6e22e">rb</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sumSquares</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ra</span>, <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">rb</span>))
+}
+</code></pre></div><p>对于上面这个特定的例子，我们可以只使用一个通道来接收回应结果，因为两个参数的作用是对等的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">...</span>
+
+	<span style="color:#a6e22e">results</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int32</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e">// 缓冲与否不重要
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">longTimeRequest</span>(<span style="color:#a6e22e">results</span>)
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">longTimeRequest</span>(<span style="color:#a6e22e">results</span>)
+
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sumSquares</span>(<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">results</span>, <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">results</span>))
+}
+</code></pre></div><p>这可以看作是后面将要提到的数据聚合的一个应用。</p>
+<h4 id="采用最快回应">采用最快回应</h4>
+<p>本用例可以看作是上例中只使用一个通道变种的增强。</p>
+<p>有时候，一份数据可能同时从多个数据源获取。这些数据源将返回相同的数据。 因为各种因素，这些数据源的回应速度参差不一，甚至某个特定数据源的多次回应速度之间也可能相差很大。 同时从多个数据源获取一份相同的数据可以有效保障低延迟。我们只需采用最快的回应并舍弃其它较慢回应。</p>
+<p>注意：如果有<em>N</em>个数据源，为了防止被舍弃的回应对应的协程永久阻塞，则传输数据用的通道必须为一个容量至少为<em>N-1</em>的缓冲通道。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">source</span>(<span style="color:#a6e22e">c</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">int32</span>) {
+	<span style="color:#a6e22e">ra</span>, <span style="color:#a6e22e">rb</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Int31</span>(), <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">3</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+	<span style="color:#75715e">// 睡眠1秒/2秒/3秒
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#a6e22e">rb</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+	<span style="color:#a6e22e">c</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ra</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+
+	<span style="color:#a6e22e">startTime</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int32</span>, <span style="color:#ae81ff">5</span>) <span style="color:#75715e">// 必须用一个缓冲通道
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; cap(<span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">source</span>(<span style="color:#a6e22e">c</span>)
+	}
+	<span style="color:#a6e22e">rnd</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span> <span style="color:#75715e">// 只有第一个回应被使用了
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">startTime</span>))
+	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">rnd</span>)
+}
+</code></pre></div><p>“采用最快回应”用例还有一些其它实现方式，本文后面将会谈及。</p>
+<h4 id="更多请求回应用例变种">更多“请求/回应”用例变种</h4>
+<p>做为函数参数和返回结果使用的通道可以是缓冲的，从而使得请求协程不需阻塞到它所发送的数据被接收为止。</p>
+<p>有时，一个请求可能并不保证返回一份有效的数据。对于这种情形，我们可以使用一个形如<code>struct{v T; err error}</code>的结构体类型或者一个空接口类型做为通道的元素类型以用来区分回应的值是否有效。</p>
+<p>有时，一个请求可能需要比预期更长的用时才能回应，甚至永远都得不到回应。 我们可以使用本文后面将要介绍的超时机制来应对这样的情况。</p>
+<p>有时，回应方可能会不断地返回一系列值，这也同时属于后面将要介绍的数据流的一个用例。</p>
+<h3 id="使用通道实现通知">使用通道实现通知</h3>
+<p>通知可以被看作是特殊的请求/回应用例。在一个通知用例中，我们并不关心回应的值，我们只关心回应是否已发生。 所以我们常常使用空结构体类型<code>struct{}</code>来做为通道的元素类型，因为空结构体类型的尺寸为零，能够节省一些内存（虽然常常很少量）。</p>
+<h4 id="向一个通道发送一个值来实现单对单通知">向一个通道发送一个值来实现单对单通知</h4>
+<p>我们已知道，如果一个通道中无值可接收，则此通道上的下一个接收操作将阻塞到另一个协程发送一个值到此通道为止。 所以一个协程可以向此通道发送一个值来通知另一个等待着从此通道接收数据的协程。</p>
+<p>在下面这个例子中，通道<code>done</code>被用来做为一个信号通道来实现单对单通知。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;crypto/rand&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;sort&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">values</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">32</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">values</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+	}
+
+	<span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}) <span style="color:#75715e">// 也可以是缓冲的
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// 排序协程
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Slice</span>(<span style="color:#a6e22e">values</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">values</span>[<span style="color:#a6e22e">i</span>] &lt; <span style="color:#a6e22e">values</span>[<span style="color:#a6e22e">j</span>]
+		})
+		<span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">struct</span>{}{} <span style="color:#75715e">// 通知排序已完成
+</span><span style="color:#75715e"></span>	}()
+
+	<span style="color:#75715e">// 并发地做一些其它事情...
+</span><span style="color:#75715e"></span>
+	<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span> <span style="color:#75715e">// 等待通知
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">values</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">values</span>[len(<span style="color:#a6e22e">values</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+}
+</code></pre></div><h4 id="从一个通道接收一个值来实现单对单通知">从一个通道接收一个值来实现单对单通知</h4>
+<p>如果一个通道的数据缓冲队列已满（非缓冲的通道的数据缓冲队列总是满的）但它的发送协程队列为空，则向此通道发送一个值将阻塞，直到另外一个协程从此通道接收一个值为止。 所以我们可以通过从一个通道接收数据来实现单对单通知。一般我们使用非缓冲通道来实现这样的通知。</p>
+<p><strong>这种通知方式不如上例中介绍的方式使用得广泛，基本很少用</strong>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})
+		<span style="color:#75715e">// 此信号通道也可以缓冲为1。如果这样，则在下面
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 这个协程创建之前，我们必须向其中写入一个值。
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#e6db74">&#34;Hello&#34;</span>)
+		<span style="color:#75715e">// 模拟一个工作负载。
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
+
+		<span style="color:#75715e">// 使用一个接收操作来通知主协程。
+</span><span style="color:#75715e"></span>		<span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">done</span>
+	}()
+
+	<span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">struct</span>{}{} <span style="color:#75715e">// 阻塞在此，等待通知
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34; world!&#34;</span>)
+}
+</code></pre></div><p>另一个事实是，上面的两种单对单通知方式其实并没有本质的区别。 它们都可以被概括为较快者等待较慢者发出通知。</p>
+<h4 id="多对单和单对多通知">多对单和单对多通知</h4>
+<p>略微扩展一下上面两个用例，我们可以很轻松地实现多对单和单对多通知。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;log&#34;</span>
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;time&#34;</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T</span> = <span style="color:#66d9ef">struct</span>{}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">worker</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">ready</span> <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">T</span>, <span style="color:#a6e22e">done</span> <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">T</span>) {
+	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ready</span> <span style="color:#75715e">// 阻塞在此，等待通知
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#e6db74">&#34;Worker#&#34;</span>, <span style="color:#a6e22e">id</span>, <span style="color:#e6db74">&#34;开始工作&#34;</span>)
+	<span style="color:#75715e">// 模拟一个工作负载。
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#a6e22e">id</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Print</span>(<span style="color:#e6db74">&#34;Worker#&#34;</span>, <span style="color:#a6e22e">id</span>, <span style="color:#e6db74">&#34;工作完成&#34;</span>)
+	<span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">T</span>{} <span style="color:#75715e">// 通知主协程（N-to-1）
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetFlags</span>(<span style="color:#ae81ff">0</span>)
+
+	<span style="color:#a6e22e">ready</span>, <span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">T</span>), make(<span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">T</span>)
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">worker</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">ready</span>, <span style="color:#a6e22e">done</span>)
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">worker</span>(<span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">ready</span>, <span style="color:#a6e22e">done</span>)
+	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">worker</span>(<span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">ready</span>, <span style="color:#a6e22e">done</span>)
+
+	<span style="color:#75715e">// 模拟一个初始化过程
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>)
+	<span style="color:#75715e">// 单对多通知
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ready</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">T</span>{}; <span style="color:#a6e22e">ready</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">T</span>{}; <span style="color:#a6e22e">ready</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">T</span>{}
+	<span style="color:#75715e">// 等待被多对单通知
+</span><span style="color:#75715e"></span>	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span>; <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span>; <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span>
+}
+</code></pre></div><p>这种写法是比较少见的，因为not clean enough，一般用<code>sync.WaitGroup</code>实现多对单的通知，使用关闭一个通道方式实现单对多。</p>
+<h4 id="通过关闭一个通道来实现群发通知单对多模式优化">通过关闭一个通道来实现群发通知（单对多模式优化）</h4>
+<p>关闭一个通道进行对多通知更简单。用到的特性是<code>能够从一个已经关闭的通道接受到无穷多的值</code>。</p>
+<p>我们可以把上一个例子中的三个数据发送操作<code>ready &lt;- struct{}{}</code>替换为一个通道关闭操作<code>close(ready)</code>来达到同样的单对多通知效果。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">...</span>
+	close(<span style="color:#a6e22e">ready</span>) <span style="color:#75715e">// 群发通知Let&#39;s go!
+</span><span style="color:#75715e"></span><span style="color:#f92672">...</span>
+</code></pre></div><p>其实，单对单通知一般也是用关闭通道的方式，这也是实践中用到最多的通知实现方式。<code>context</code>库中用这种特性实现了传达<code>操作取消</code>消息，后续会介绍具体的cases。</p>
+<h4 id="定时通知timer">定时通知（timer）</h4>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/channels.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/black-magic/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Black Magic</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "does-not-exist";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#将通道用做futurepromise">将通道用做future/promise</a>
+          <ul>
+            <li><a href="#返回单向接收通道做为函数返回结果">返回单向接收通道做为函数返回结果</a></li>
+            <li><a href="#将单向发送通道类型用做函数实参">将单向发送通道类型用做函数实参</a></li>
+            <li><a href="#采用最快回应">采用最快回应</a></li>
+            <li><a href="#更多请求回应用例变种">更多“请求/回应”用例变种</a></li>
+          </ul>
+        </li>
+        <li><a href="#使用通道实现通知">使用通道实现通知</a>
+          <ul>
+            <li><a href="#向一个通道发送一个值来实现单对单通知">向一个通道发送一个值来实现单对单通知</a></li>
+            <li><a href="#从一个通道接收一个值来实现单对单通知">从一个通道接收一个值来实现单对单通知</a></li>
+            <li><a href="#多对单和单对多通知">多对单和单对多通知</a></li>
+            <li><a href="#通过关闭一个通道来实现群发通知单对多模式优化">通过关闭一个通道来实现群发通知（单对多模式优化）</a></li>
+            <li><a href="#定时通知timer">定时通知（timer）</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>
