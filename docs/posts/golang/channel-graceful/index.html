@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Close Channels Gracefully</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Close Channels Gracefully" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern Golang</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang_banner.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>December 24, 2020</p>
+        </div>
+
+        <div class="title">
+          <h1>Close Channels Gracefully</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h2 id="优雅地关闭通道">优雅地关闭通道</h2>
+<h3 id="场景一m个接收者和一个发送者发送者通过关闭用来传输数据的通道来传递发送结束信号">场景一：M个接收者和一个发送者。发送者通过关闭用来传输数据的通道来传递发送结束信号</h3>
+<p>这是最简单的一种情形。当发送者欲结束发送，让它关闭用来传输数据的通道即可。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+	<span style="color:#e6db74">&#34;sync&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetFlags</span>(<span style="color:#ae81ff">0</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Max</span> = <span style="color:#ae81ff">100000</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumReceivers</span> = <span style="color:#ae81ff">100</span>
+
+	<span style="color:#a6e22e">wgReceivers</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">NumReceivers</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+
+	<span style="color:#75715e">// 发送者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#66d9ef">for</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">Max</span>); <span style="color:#a6e22e">value</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+				<span style="color:#75715e">// 此唯一的发送者可以安全地关闭此数据通道。
+</span><span style="color:#75715e"></span>				close(<span style="color:#a6e22e">dataCh</span>)
+				<span style="color:#66d9ef">return</span>
+			} <span style="color:#66d9ef">else</span> {
+				<span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">value</span>
+			}
+		}
+	}()
+
+	<span style="color:#75715e">// 接收者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">NumReceivers</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Done</span>()
+
+			<span style="color:#75715e">// 接收数据直到通道dataCh已关闭
+</span><span style="color:#75715e"></span>			<span style="color:#75715e">// 并且dataCh的缓冲队列已空。
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dataCh</span> {
+				<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value</span>)
+			}
+		}()
+	}
+
+	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Wait</span>()
+}
+</code></pre></div><h3 id="场景二-一个接收者和n个发送者此唯一接收者通过关闭一个额外的信号通道来通知发送者不要在发送数据了">场景二： 一个接收者和N个发送者，此唯一接收者通过关闭一个额外的信号通道来通知发送者不要在发送数据了</h3>
+<p>此情形比上一种情形复杂一些。我们不能让接收者关闭用来传输数据的通道来停止数据传输，因为这样做违反了<strong>通道关闭原则</strong>。 但是我们可以让接收者关闭一个额外的信号通道来通知发送者不要在发送数据了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+	<span style="color:#e6db74">&#34;sync&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetFlags</span>(<span style="color:#ae81ff">0</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Max</span> = <span style="color:#ae81ff">100000</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumSenders</span> = <span style="color:#ae81ff">1000</span>
+
+	<span style="color:#a6e22e">wgReceivers</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+	<span style="color:#a6e22e">stopCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})
+		<span style="color:#75715e">// stopCh是一个额外的信号通道。它的
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 发送者为dataCh数据通道的接收者。
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 它的接收者为dataCh数据通道的发送者。
+</span><span style="color:#75715e"></span>
+	<span style="color:#75715e">// 发送者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">NumSenders</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+			<span style="color:#66d9ef">for</span> {
+				<span style="color:#75715e">// 这里的第一个尝试接收用来让此发送者
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 协程尽早地退出。对于这个特定的例子，
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 此select代码块并非必需。
+</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">stopCh</span>:
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">default</span>:
+				}
+
+				<span style="color:#75715e">// 即使stopCh已经关闭，此第二个select
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 代码块中的第一个分支仍很有可能在若干个
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 循环步内依然不会被选中。如果这是不可接受
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 的，则上面的第一个select代码块是必需的。
+</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">stopCh</span>:
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">Max</span>):
+				}
+			}
+		}()
+	}
+
+	<span style="color:#75715e">// 接收者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Done</span>()
+
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dataCh</span> {
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">Max</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+				<span style="color:#75715e">// 此唯一的接收者同时也是stopCh通道的
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 唯一发送者。尽管它不能安全地关闭dataCh数
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 据通道，但它可以安全地关闭stopCh通道。
+</span><span style="color:#75715e"></span>				close(<span style="color:#a6e22e">stopCh</span>)
+				<span style="color:#66d9ef">return</span>
+			}
+
+			<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value</span>)
+		}
+	}()
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Wait</span>()
+}
+</code></pre></div><p>如此例中的注释所述，对于此额外的信号通道<code>stopCh</code>，它只有一个发送者，即<code>dataCh</code>数据通道的唯一接收者。 <code>dataCh</code>数据通道的接收者关闭了信号通道<code>stopCh</code>，这是不违反<strong>通道关闭原则</strong>的。</p>
+<p>在此例中，数据通道<code>dataCh</code>并没有被关闭。是的，我们不必关闭它。 <strong>当一个通道不再被任何协程所使用后，它将逐渐被垃圾回收掉</strong>，无论它是否已经被关闭。 所以这里的优雅性体现在通过<strong>不关闭一个通道</strong>来停止使用此通道。</p>
+<h3 id="场景三m个接收者和n个发送者它们中的任何协程都可以让一个中间调解协程帮忙发出停止数据传送的信号">场景三：M个接收者和N个发送者。它们中的任何协程都可以让一个中间调解协程帮忙发出停止数据传送的信号</h3>
+<p>这是最复杂的一种情形。我们不能让接收者和发送者中的任何一个关闭用来传输数据的通道，我们也不能让多个接收者之一关闭一个额外的信号通道。 这两种做法都违反了<strong>通道关闭原则</strong>。 然而，我们可以引入一个中间调解者角色并让其关闭额外的信号通道来通知所有的接收者和发送者结束工作。 具体实现见下例。注意其中使用了一个尝试发送操作来向中间调解者发送信号。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+	<span style="color:#e6db74">&#34;sync&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;strconv&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetFlags</span>(<span style="color:#ae81ff">0</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Max</span> = <span style="color:#ae81ff">100000</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumReceivers</span> = <span style="color:#ae81ff">10</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumSenders</span> = <span style="color:#ae81ff">1000</span>
+
+	<span style="color:#a6e22e">wgReceivers</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">NumReceivers</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+	<span style="color:#a6e22e">stopCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})
+		<span style="color:#75715e">// stopCh是一个额外的信号通道。它的发送
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 者为中间调解者。它的接收者为dataCh
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 数据通道的所有的发送者和接收者。
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">toStop</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">1</span>)
+		<span style="color:#75715e">// toStop是一个用来通知中间调解者让其
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 关闭信号通道stopCh的第二个信号通道。
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 此第二个信号通道的发送者为dataCh数据
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 通道的所有的发送者和接收者，它的接收者
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// 为中间调解者。它必须为一个缓冲通道。
+</span><span style="color:#75715e"></span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stoppedBy</span> <span style="color:#66d9ef">string</span>
+
+	<span style="color:#75715e">// 中间调解者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">stoppedBy</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">toStop</span>
+		close(<span style="color:#a6e22e">stopCh</span>)
+	}()
+
+	<span style="color:#75715e">// 发送者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">NumSenders</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">string</span>) {
+			<span style="color:#66d9ef">for</span> {
+				<span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">Max</span>)
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+					<span style="color:#75715e">// 为了防止阻塞，这里使用了一个尝试
+</span><span style="color:#75715e"></span>					<span style="color:#75715e">// 发送操作来向中间调解者发送信号。
+</span><span style="color:#75715e"></span>					<span style="color:#66d9ef">select</span> {
+					<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">toStop</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;发送者#&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span>:
+					<span style="color:#66d9ef">default</span>:
+					}
+					<span style="color:#66d9ef">return</span>
+				}
+
+				<span style="color:#75715e">// 此处的尝试接收操作是为了让此发送协程尽早
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 退出。标准编译器对尝试接收和尝试发送做了
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 特殊的优化，因而它们的速度很快。
+</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">stopCh</span>:
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">default</span>:
+				}
+
+				<span style="color:#75715e">// 即使stopCh已关闭，如果这个select代码块
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 中第二个分支的发送操作是非阻塞的，则第一个
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 分支仍很有可能在若干个循环步内依然不会被选
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 中。如果这是不可接受的，则上面的第一个尝试
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 接收操作代码块是必需的。
+</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">stopCh</span>:
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">value</span>:
+				}
+			}
+		}(<span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span>))
+	}
+
+	<span style="color:#75715e">// 接收者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">NumReceivers</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">string</span>) {
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Done</span>()
+
+			<span style="color:#66d9ef">for</span> {
+				<span style="color:#75715e">// 和发送者协程一样，此处的尝试接收操作是为了
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 让此接收协程尽早退出。
+</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">stopCh</span>:
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">default</span>:
+				}
+
+				<span style="color:#75715e">// 即使stopCh已关闭，如果这个select代码块
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 中第二个分支的接收操作是非阻塞的，则第一个
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 分支仍很有可能在若干个循环步内依然不会被选
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 中。如果这是不可接受的，则上面尝试接收操作
+</span><span style="color:#75715e"></span>				<span style="color:#75715e">// 代码块是必需的。
+</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">stopCh</span>:
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">dataCh</span>:
+					<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">Max</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+						<span style="color:#75715e">// 为了防止阻塞，这里使用了一个尝试
+</span><span style="color:#75715e"></span>						<span style="color:#75715e">// 发送操作来向中间调解者发送信号。
+</span><span style="color:#75715e"></span>						<span style="color:#66d9ef">select</span> {
+						<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">toStop</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;接收者#&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span>:
+						<span style="color:#66d9ef">default</span>:
+						}
+						<span style="color:#66d9ef">return</span>
+					}
+
+					<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value</span>)
+				}
+			}
+		}(<span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span>))
+	}
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Wait</span>()
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;被&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">stoppedBy</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;终止了&#34;</span>)
+}
+</code></pre></div><p>在此例中，<strong>通道关闭原则</strong>依旧得到了遵守。</p>
+<p>请注意，信号通道<code>toStop</code>的容量必须至少为1。 如果它的容量为0，则在<strong>中间调解者还未准备好的情况下就已经有某个协程向<code>toStop</code>发送信号时，此信号将被抛弃。因为停止信号是通过非阻塞的尝试发送传递的。</strong></p>
+<p>我们也可以不使用尝试发送操作向中间调解者发送信号，但信号通道<code>toStop</code>的容量必须至少为数据发送者和数据接收者的数量之和，以防止向其发送数据时（有一个极其微小的可能）导致某些发送者和接收者协程永久阻塞。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">...</span>
+<span style="color:#a6e22e">toStop</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">NumReceivers</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">NumSenders</span>)
+<span style="color:#f92672">...</span>
+			<span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">Max</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+				<span style="color:#a6e22e">toStop</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;sender#&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span>
+				<span style="color:#66d9ef">return</span>
+			}
+<span style="color:#f92672">...</span>
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">Max</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+					<span style="color:#a6e22e">toStop</span> <span style="color:#f92672">&lt;-</span> <span style="color:#e6db74">&#34;receiver#&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span>
+					<span style="color:#66d9ef">return</span>
+				}
+<span style="color:#f92672">...</span>
+</code></pre></div><h3 id="场景四-m个接收者和一个发送者情形的一个变种用来传输数据的通道的关闭请求由第三方发出">场景四： M个接收者和一个发送者”情形的一个变种：用来传输数据的通道的关闭请求由第三方发出</h3>
+<p>有时，数据通道（<code>dataCh</code>）的关闭请求需要由某个第三方协程发出。对于这种情形，我们可以使用一个额外的信号通道来通知唯一的发送者关闭数据通道（<code>dataCh</code>）。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+	<span style="color:#e6db74">&#34;sync&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetFlags</span>(<span style="color:#ae81ff">0</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Max</span> = <span style="color:#ae81ff">100000</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumReceivers</span> = <span style="color:#ae81ff">100</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumThirdParties</span> = <span style="color:#ae81ff">15</span>
+
+	<span style="color:#a6e22e">wgReceivers</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">NumReceivers</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+	<span style="color:#a6e22e">closing</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}) <span style="color:#75715e">// 信号通道
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">closed</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})
+	
+	<span style="color:#75715e">// 此stop函数可以被安全地多次调用。
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">stop</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#66d9ef">select</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">closing</span><span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">struct</span>{}{}:
+			<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">closed</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">closed</span>:
+		}
+	}
+	
+	<span style="color:#75715e">// 一些第三方协程
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">NumThirdParties</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+			<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">3</span>)
+			<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#a6e22e">r</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+			<span style="color:#a6e22e">stop</span>()
+		}()
+	}
+
+	<span style="color:#75715e">// 发送者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+			close(<span style="color:#a6e22e">closed</span>)
+			close(<span style="color:#a6e22e">dataCh</span>)
+		}()
+
+		<span style="color:#66d9ef">for</span> {
+			<span style="color:#66d9ef">select</span>{
+			<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">closing</span>: <span style="color:#66d9ef">return</span>
+			<span style="color:#66d9ef">default</span>:
+			}
+
+			<span style="color:#66d9ef">select</span>{
+			<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">closing</span>: <span style="color:#66d9ef">return</span>
+			<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">Max</span>):
+			}
+		}
+	}()
+
+	<span style="color:#75715e">// 接收者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">NumReceivers</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Done</span>()
+
+			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dataCh</span> {
+				<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value</span>)
+			}
+		}()
+	}
+
+	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Wait</span>()
+}
+</code></pre></div><p>上述代码中的<code>stop</code>函数中使用的技巧偷自Roger Peppe在<a href="https://groups.google.com/forum/#!msg/golang-nuts/lEKehHH7kZY/SRmCtXDZAAAJ">此贴</a>中的一个留言。</p>
+<h3 id="场景五n个发送者的一个变种用来传输数据的通道必须被关闭以通知各个接收者数据发送已经结束了">场景五：“N个发送者”的一个变种：用来传输数据的通道必须被关闭以通知各个接收者数据发送已经结束了</h3>
+<p>在上面的提到的“N个发送者”情形中，为了遵守<strong>通道关闭原则</strong>，我们避免了关闭数据通道（<code>dataCh</code>）。 但是有时候，数据通道（<code>dataCh</code>）必须被关闭以通知各个接收者数据发送已经结束。 对于这种“N个发送者”情形，我们可以使用一个中间通道将它们转化为“一个发送者”情形，然后继续使用上一节介绍的技巧来关闭此中间通道，从而避免了关闭原始的<code>dataCh</code>数据通道。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;time&#34;</span>
+	<span style="color:#e6db74">&#34;math/rand&#34;</span>
+	<span style="color:#e6db74">&#34;sync&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;strconv&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Seed</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">UnixNano</span>())
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">SetFlags</span>(<span style="color:#ae81ff">0</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Max</span> = <span style="color:#ae81ff">1000000</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumReceivers</span> = <span style="color:#ae81ff">10</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumSenders</span> = <span style="color:#ae81ff">1000</span>
+	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NumThirdParties</span> = <span style="color:#ae81ff">15</span>
+
+	<span style="color:#a6e22e">wgReceivers</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">NumReceivers</span>)
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)   <span style="color:#75715e">// 将被关闭
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">middleCh</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>) <span style="color:#75715e">// 不会被关闭
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">closing</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>)
+	<span style="color:#a6e22e">closed</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{})
+
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stoppedBy</span> <span style="color:#66d9ef">string</span>
+
+	<span style="color:#a6e22e">stop</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">by</span> <span style="color:#66d9ef">string</span>) {
+		<span style="color:#66d9ef">select</span> {
+		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">closing</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">by</span>:
+			<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">closed</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">closed</span>:
+		}
+	}
+	
+	<span style="color:#75715e">// 中间层
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+		<span style="color:#a6e22e">exit</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">v</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">needSend</span> <span style="color:#66d9ef">bool</span>) {
+			close(<span style="color:#a6e22e">closed</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">needSend</span> {
+				<span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">v</span>
+			}
+			close(<span style="color:#a6e22e">dataCh</span>)
+		}
+
+		<span style="color:#66d9ef">for</span> {
+			<span style="color:#66d9ef">select</span> {
+			<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">stoppedBy</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">closing</span>:
+				<span style="color:#a6e22e">exit</span>(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">false</span>)
+				<span style="color:#66d9ef">return</span>
+			<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">middleCh</span>:
+				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">stoppedBy</span> = <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">closing</span>:
+					<span style="color:#a6e22e">exit</span>(<span style="color:#a6e22e">v</span>, <span style="color:#66d9ef">true</span>)
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">dataCh</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">v</span>:
+				}
+			}
+		}
+	}()
+	
+	<span style="color:#75715e">// 一些第三方协程
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">NumThirdParties</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">string</span>) {
+			<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">3</span>)
+			<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#a6e22e">r</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+			<span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;3rd-party#&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span>)
+		}(<span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span>))
+	}
+
+	<span style="color:#75715e">// 发送者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">NumSenders</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">id</span> <span style="color:#66d9ef">string</span>) {
+			<span style="color:#66d9ef">for</span> {
+				<span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#a6e22e">Max</span>)
+				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+					<span style="color:#a6e22e">stop</span>(<span style="color:#e6db74">&#34;sender#&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span>)
+					<span style="color:#66d9ef">return</span>
+				}
+
+				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">closed</span>:
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">default</span>:
+				}
+
+				<span style="color:#66d9ef">select</span> {
+				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">closed</span>:
+					<span style="color:#66d9ef">return</span>
+				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">middleCh</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">value</span>:
+				}
+			}
+		}(<span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span>))
+	}
+
+	<span style="color:#75715e">// 接收者
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#66d9ef">range</span> [<span style="color:#a6e22e">NumReceivers</span>]<span style="color:#66d9ef">struct</span>{}{} {
+		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Done</span>()
+
+			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">dataCh</span> {
+				<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">value</span>)
+			}
+		}()
+	}
+
+	<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">wgReceivers</span>.<span style="color:#a6e22e">Wait</span>()
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;stopped by&#34;</span>, <span style="color:#a6e22e">stoppedBy</span>)
+}
+</code></pre></div><h3 id="结论">结论</h3>
+<p>并没有什么情况非得逼得我们违反<strong>通道关闭原则</strong>。 如果你遇到了此情形，就请考虑修改你的代码流程和结构设计。</p>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/channel-graceful.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/golang/channels/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Channels Concurrency Work-Around</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "does-not-exist";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#优雅地关闭通道">优雅地关闭通道</a>
+      <ul>
+        <li><a href="#场景一m个接收者和一个发送者发送者通过关闭用来传输数据的通道来传递发送结束信号">场景一：M个接收者和一个发送者。发送者通过关闭用来传输数据的通道来传递发送结束信号</a></li>
+        <li><a href="#场景二-一个接收者和n个发送者此唯一接收者通过关闭一个额外的信号通道来通知发送者不要在发送数据了">场景二： 一个接收者和N个发送者，此唯一接收者通过关闭一个额外的信号通道来通知发送者不要在发送数据了</a></li>
+        <li><a href="#场景三m个接收者和n个发送者它们中的任何协程都可以让一个中间调解协程帮忙发出停止数据传送的信号">场景三：M个接收者和N个发送者。它们中的任何协程都可以让一个中间调解协程帮忙发出停止数据传送的信号</a></li>
+        <li><a href="#场景四-m个接收者和一个发送者情形的一个变种用来传输数据的通道的关闭请求由第三方发出">场景四： M个接收者和一个发送者”情形的一个变种：用来传输数据的通道的关闭请求由第三方发出</a></li>
+        <li><a href="#场景五n个发送者的一个变种用来传输数据的通道必须被关闭以通知各个接收者数据发送已经结束了">场景五：“N个发送者”的一个变种：用来传输数据的通道必须被关闭以通知各个接收者数据发送已经结束了</a></li>
+        <li><a href="#结论">结论</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

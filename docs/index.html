@@ -822,6 +822,28 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/golang/channel-graceful/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Close Channels Gracefully</h5>
+        <p class="card-text post-summary"> 优雅地关闭通道 场景一：M个接收者和一个发送者。发送者通过关闭用来传输数据的通道来传递发送结束信号 这是最简单的一种情形。当发送者欲结束发送，让它关闭用来传输数据的通道即可。
+package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;sync&#34; &#34;log&#34; ) func main() { rand.Seed(time.Now().UnixNano()) log.SetFlags(0) // ... 	const Max = 100000 const NumReceivers = 100 wgReceivers := sync.WaitGroup{} wgReceivers.Add(NumReceivers) // ... 	dataCh := make(chan int) // 发送者 	go func() { for { if value := rand.Intn(Max); value == 0 { // 此唯一的发送者可以安全地关闭此数据通道。 	close(dataCh) return } else { dataCh &lt;- value } } }() // 接收者 	for i := 0; i &lt; NumReceivers; i++ { go func() { defer wgReceivers.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 24, 2020</span>
+        <a href="/posts/golang/channel-graceful/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/golang/channels/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -874,36 +896,6 @@ pip install SciencePlots 然后我们在画图时，只需要一句with.plt.styl
       <div class="card-footer">
         <span class="float-left">December 20, 2020</span>
         <a href="/posts/black-magic/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/links/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/hero-google.svg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Tracking</h5>
-        <p class="card-text post-summary"> 这个post为记录目前正在阅读与研究的section
-Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &ndash; Rob Pike
-Regular Expression Matching Can Be Simple And Fast
-编译器词法分析:正则语言和正则表达式
-Go内存原理与调度模型 正在整理专栏
-Crafting Interpreter 时常看PL和Compiler的基础
-crafting interpreters
-Kosaraju&rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
-Heilmeier问题系列 思考某篇paper的选题
- What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice?</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 19, 2020</span>
-        <a href="/posts/links/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>

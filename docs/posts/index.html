@@ -196,6 +196,15 @@ if (!doNotTrack) {
     <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
   
 
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
 
       </ul>
     </li>
@@ -291,6 +300,30 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/golang/channel-graceful/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Close Channels Gracefully</h5>
+        <p class="card-text post-summary">优雅地关闭通道 场景一：M个接收者和一个发送者。发送者通过关闭用来传输数据的通道来传递发送结束信号 这是最简单的一种情形。当发送者欲结束发送，让它关闭用来传输数据的通道即可。
+package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;sync&#34; &#34;log&#34; ) func main() { rand.Seed(time.Now().UnixNano()) log.SetFlags(0) // ... 	const Max = 100000 const NumReceivers = 100 wgReceivers := sync.WaitGroup{} wgReceivers.Add(NumReceivers) // ... 	dataCh := make(chan int) // 发送者 	go func() { for { if value := rand.Intn(Max); value == 0 { // 此唯一的发送者可以安全地关闭此数据通道。 	close(dataCh) return } else { dataCh &lt;- value } } }() // 接收者 	for i := 0; i &lt; NumReceivers; i++ { go func() { defer wgReceivers.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 24, 2020</span>
+        <a
+        href="/posts/golang/channel-graceful/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/golang/channels/" class="post-card-link">
