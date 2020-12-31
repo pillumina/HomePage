@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Notes</title>
+    <title>Posts</title>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -257,15 +257,12 @@ if (!doNotTrack) {
   
   
   
-    
-    
-  
   
     
     <li>
-      <i class="fas fa-minus-circle"></i><a class="active" href="/notes/">Notes</a>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
       
-      <ul class="active">
+      <ul class="">
         
   
   
@@ -323,19 +320,64 @@ if (!doNotTrack) {
       
       
         <div class="post-card">
-  <a href="/notes/my-first-note/" class="post-card-link">
+  <a href="/posts/golang/design-pattern/" class="post-card-link">
     <div class="card">
       <div class="card-head">
-        <img class="card-img-top" src='/images/posts/mit-distributed-system.svg'/>
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
       </div>
       <div class="card-body">
-        <h5 class="card-title">MIT distributed system</h5>
-        <p class="card-text post-summary"></p>
+        <h5 class="card-title">Design Pattern</h5>
+        <p class="card-text post-summary">Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;builder{ once: &amp;sync.Once{}, msg: &amp;Message{Header: &amp;Header{}, Body: &amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</p>
       </div>
       <div class="card-footer">
-        <span class="float-left">October 27, 2020</span>
+        <span class="float-left">November 11, 2020</span>
         <a
-        href="/notes/my-first-note/"
+        href="/posts/golang/design-pattern/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/java/java-fundamentals/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/java-dev.png'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Java Fundamentals</h5>
+        <p class="card-text post-summary">JAVA对象的equals方法和hashCode方法是这样规定的   相等（相同）的对象必须有相等的哈希码
+  如果两个对象的哈希吗相同，它们不一定相同
+  Java集合判断两个对象是否相等的规则：   判断两个对象的哈希码是否相等
+  判断两个对象用equals是否相等
+  所以重写其中一个方法，必须重写另一个方法
+让对象可拷贝：
+ 实现java.lang.Cloneable 2. 重写Object的clone()方法  由于GC的自动回收机制，并不能保证finalize方法被及时的执行，因为对象的回收时机具有不确定性，或者要么没有触发垃圾回收。这个方法被禁止调用，应该用显式的close()方法。 Collection类的选择 Set:
+排序吗？
+是： TreeSet / LinkedHashSet
+否： HashSet
+List
+要安全吗？
+是： Vector
+否： ArrayList或者LinkedList &mdash; 查询多ArrayList，增删多LinkedList
+Map常用子类：HashMap, HashTable, TreeMap, ConcurrentHashMap HashMap: 非线程安全，性能高，基于数组和链表实现。
+TreeMap：有序键值对，按key排序
+HashTable: 线程安全, 性能低
+ConcurrentHashMap: 线程安全且性能较好。Java1.7采取分段锁，1.8采用CAS+synchronized保证并发安全。
+LinkedHashMap 为HashMap的子类，内部还有一个双向链表维护键值对的顺序。支持插入顺序、访问顺序
+  插入顺序：先添加在前，后添加在后
+  访问顺序：即get/put操作，对一个键执行get/put操作后，对应的键值被移动到链表的末尾，所以最末尾的是最近访问的，最开始的是最久没有被访问的。
+  有5种构造方法，4个是插入顺序，只有一个按照指定访问顺序，可以用于实现LRUCache
+  集合初始化、大小和扩容 建议在集合初始化时指定集合容量大小 如果没有设置，元素增加，resize表会重建hash，影响性能</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">October 26, 2020</span>
+        <a
+        href="/posts/java/java-fundamentals/"
         class="float-right btn btn-outline-info btn-sm"
         >Read</a
         >
@@ -348,6 +390,26 @@ if (!doNotTrack) {
     </div>
     <div class="paginator">
       
+<ul class="pagination">
+  <li class="page-item">
+    <a href="/posts/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/posts/">1</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/posts/page/2/">2</a>
+  </li>
+  <li class="page-item disabled">
+    <a  class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
+</ul>
 
 
     </div>

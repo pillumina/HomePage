@@ -822,6 +822,51 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/golang/goroutine-pool/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">[自建轮]高性能Goroutine Pool</h5>
+        <p class="card-text post-summary"> 高性能Goroutine Pool go调度器没有限制对goroutine的数量，在goroutine瞬时大规模爆发的场景下来不及复用goroutine从而导致大量goroutine被创建，会导致大量的系统资源占用，尝试池化。
+go调度器本身不应该对goroutine数量有限制，因为语言层面无法界定需要限制多少，毕竟程序跑在不同性能的环境，在并发规模不太大的场景做限制甚至会降低性能，原生支持限制goroutine数量无疑是得不偿失的。如果只是中等规模和比较小规模的并发场景其实pool的性能并没有优势
+需求场景与目标  限制并发goroutine的数量 复用goroutine，减轻runtime调度压力，提升程序性能 规避过多的goroutine创建侵占系统资源，cpu&amp;内存  代码实现 pool.go package go_pool import ( &#34;errors&#34; &#34;sync&#34; &#34;sync/atomic&#34; &#34;time&#34; ) const( OPEN = iota CLOSED ) var ( ErrPoolClosed = errors.New(&#34;this pool has been closed&#34;) ErrPoolOverload = errors.New(&#34;too many goroutines blocked on submit or Nonblocking is set&#34;) ErrInvalidExpiryTime = errors.New(&#34;invalid expiration time&#34;) ErrInvalidPoolCapacity = errors.New(&#34;invalid pool capacity&#34;) DefaultScanInterval = time.Second ) type Pool struct { capacity int32 running int32 lock sync.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 30, 2020</span>
+        <a href="/posts/golang/goroutine-pool/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/golang/memory-leak/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Possible Memory Leak</h5>
+        <p class="card-text post-summary"> 实际上对于一个有GC的语言，我们不必太多关心内存泄漏的问题，因为程序的runtime帮我们很好地额回收不再使用的内存。但是，我们还是得了解一些特殊的场景，这些场景会产生暂时性或者永久性的内存泄漏。
+子字符串造成的暂时性内存泄漏 </p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 25, 2020</span>
+        <a href="/posts/golang/memory-leak/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/golang/channel-graceful/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -837,65 +882,6 @@ package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;sync&#34; &#34;log
       <div class="card-footer">
         <span class="float-left">December 24, 2020</span>
         <a href="/posts/golang/channel-graceful/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/golang/channels/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Channels Concurrency Work-Around</h5>
-        <p class="card-text post-summary"> 记录了一些channels常见的场景，以及自己的一些感受：
-  使用通道进行异步和并发编程是简单和惬意的；
-  通道同步技术比被很多其它语言采用的其它同步方案（比如角色模型和async/await模式）有着更多的应用场景和更多的使用变种。
-通道作为同步手段，并非在任何情况下都是最佳的同步技术，本文也会补充原子操作和sync包内其他的技术作为参考。
-  将通道用做future/promise 很多其它流行语言支持future/promise来实现异步（并发）编程。 Future/promise常常用在请求/回应场合。
-返回单向接收通道做为函数返回结果 在下面这个例子中，sumSquares函数调用的两个实参请求并发进行。 每个通道读取操作将阻塞到请求返回结果为止。 两个实参总共需要大约3秒钟（而不是6秒钟）准备完毕（以较慢的一个为准）。
-package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;fmt&#34; ) func longTimeRequest() &lt;-chan int32 { r := make(chan int32) go func() { time.Sleep(time.Second * 3) // 模拟一个工作负载 	r &lt;- rand.Int31n(100) }() return r } func sumSquares(a, b int32) int32 { return a*a + b*b } func main() { rand.Seed(time.Now().UnixNano()) a, b := longTimeRequest(), longTimeRequest() fmt.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 22, 2020</span>
-        <a href="/posts/golang/channels/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/black-magic/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/hero-google.svg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Black Magic</h5>
-        <p class="card-text post-summary"> 阅读到的一些方便、有趣的技巧或者ideas的随手记录，后续考虑对相关话题专门开坑
-一行代码画出专业的论文图 SciencePlots
-计算机专业向来不缺少专业的绘图软件，从Excel到PPT，从最近沸沸扬扬的Matlab到Matplotlib、pyplot、ggplot，乃至其他更为专业的软件，着实丰富了我们的画图生活。
-但是，这些软件或工具的背后，常常需要我们付出更多的努力：调色、统一格式、展示要高大上，等等。
-现在，一款开源的软件工具包问世了：SciencePlots。它让你用一行代码画出天然高端且美观的论文图。
-SciencePlots是一个依附于Matplotlib的扩展包，可以通过pip一键安装：
-pip install SciencePlots 然后我们在画图时，只需要一句with.plt.style.context(['science']):，就可以画出非常美观且专业的图：
-你还可以加一个选项with.plt.style.context(['science','ieee']):，就能画出IEEE格式的图：
-甚至是超美的散点图：
-还有很多自定义的图像风格，保证节约我们的画图时间
- 这个包默认会调用latex来画图，如果不想用latex（也不是完全需要），可以在context里写一个属性&rsquo;nolatex&rsquo;即可。不然如果没有安装latex或latex路径配置有问题，则会报错。
- </p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 20, 2020</span>
-        <a href="/posts/black-magic/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>

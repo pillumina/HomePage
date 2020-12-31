@@ -8,6 +8,27 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Nov 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>[自建轮]高性能Goroutine Pool</title>
+      <link>https://pillumina.github.io/posts/golang/goroutine-pool/</link>
+      <pubDate>Wed, 30 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/goroutine-pool/</guid>
+      <description>高性能Goroutine Pool go调度器没有限制对goroutine的数量，在goroutine瞬时大规模爆发的场景下来不及复用goroutine从而导致大量goroutine被创建，会导致大量的系统资源占用，尝试池化。
+go调度器本身不应该对goroutine数量有限制，因为语言层面无法界定需要限制多少，毕竟程序跑在不同性能的环境，在并发规模不太大的场景做限制甚至会降低性能，原生支持限制goroutine数量无疑是得不偿失的。如果只是中等规模和比较小规模的并发场景其实pool的性能并没有优势
+需求场景与目标  限制并发goroutine的数量 复用goroutine，减轻runtime调度压力，提升程序性能 规避过多的goroutine创建侵占系统资源，cpu&amp;amp;内存  代码实现 pool.go package go_pool import ( &amp;#34;errors&amp;#34; &amp;#34;sync&amp;#34; &amp;#34;sync/atomic&amp;#34; &amp;#34;time&amp;#34; ) const( OPEN = iota CLOSED ) var ( ErrPoolClosed = errors.New(&amp;#34;this pool has been closed&amp;#34;) ErrPoolOverload = errors.New(&amp;#34;too many goroutines blocked on submit or Nonblocking is set&amp;#34;) ErrInvalidExpiryTime = errors.New(&amp;#34;invalid expiration time&amp;#34;) ErrInvalidPoolCapacity = errors.New(&amp;#34;invalid pool capacity&amp;#34;) DefaultScanInterval = time.Second ) type Pool struct { capacity int32 running int32 lock sync.</description>
+    </item>
+    
+    <item>
+      <title>Possible Memory Leak</title>
+      <link>https://pillumina.github.io/posts/golang/memory-leak/</link>
+      <pubDate>Fri, 25 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/memory-leak/</guid>
+      <description>实际上对于一个有GC的语言，我们不必太多关心内存泄漏的问题，因为程序的runtime帮我们很好地额回收不再使用的内存。但是，我们还是得了解一些特殊的场景，这些场景会产生暂时性或者永久性的内存泄漏。
+子字符串造成的暂时性内存泄漏 </description>
+    </item>
+    
+    <item>
       <title>Close Channels Gracefully</title>
       <link>https://pillumina.github.io/posts/golang/channel-graceful/</link>
       <pubDate>Thu, 24 Dec 2020 11:22:18 +0800</pubDate>
