@@ -29,8 +29,8 @@ go调度器没有限制对goroutine的数量，在goroutine瞬时大规模爆发
 
 ## 关键技术
 
-1. 锁同步
-2. LIFO/FIFO队列
+1. 锁同步: golang有CAS机制，用spin-lock替代mutex [原理](https://ofstack.com/Golang/27085/implementation-of-golang-spin-lock.html)
+2. LIFO/FIFO队列: LIFO队列能直接有时间排序功能，方便对需要关联入队时间的操作进行处理
 3. Pool容量限制和弹性伸缩
 
 ## 代码实现
