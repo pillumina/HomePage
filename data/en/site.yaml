@@ -7,11 +7,11 @@ description: Portfolio and personal blog of Calvin Albert.
 # specify the list of custom menus that you want to show in the top navbar.
 # they will be separated by a divider from the main menus.
 customMenus:
-- name: Notes
+- name: Other Notes
   url: https://hossainemruz.gitbook.io/
-- name: Golang
+- name: Go Mojotv
   url: https://mojotv.cn
 - name: Graham's Essay
   url: http://www.paulgraham.com/articles.html
-- name: SICP
+- name: SICP Source
   url: https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html

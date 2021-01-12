@@ -214,6 +214,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
   
 
@@ -224,6 +233,15 @@ if (!doNotTrack) {
   
     
     <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/asm/">汇编Plan9</a></li>
   
 
 
@@ -321,6 +339,52 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/golang/asm/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Golang Plan9</h5>
+        <p class="card-text post-summary"></p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">January 8, 2021</span>
+        <a
+        href="/posts/golang/asm/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/golang/sync-pool/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">[源码分析]sync pool</h5>
+        <p class="card-text post-summary">- 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环 - 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有） </p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">January 1, 2021</span>
+        <a
+        href="/posts/golang/sync-pool/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/golang/goroutine-pool/" class="post-card-link">

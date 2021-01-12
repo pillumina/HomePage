@@ -223,7 +223,17 @@ func main(){
 
 
 
-## 案例总结
+## 总结与深入本质
+
+```
+变量的逃逸，本质由于对于stack栈帧的内存分配，对于函数的调用将开辟一个栈帧frame，在这个栈帧内定义局部变量，当传出栈帧内创建的变量引用到前一个栈帧离去，如果函数结束，那么原来这块栈帧有可能被其他覆盖，这个传出去的引用就有问题。所以编译器把这种函数返回的变量可能在后续被引用的情况，将变量逃逸到堆上是一个非常合理的策略。
+GopherCon SG 2019
+1. When a value could possibly be reference after the function that constructed the value returns.
+2. When the compiler determines a value is too large to fit on the stack.
+3. When the compiler doesn't know the size of a value at compile time.
+```
+
+
 
 我们得出指针**必然逃逸**的情况：
 
@@ -242,7 +252,53 @@ func main(){
 
 ***因此，对于文章开头的问题，我们不能仅仅依据使用值引用作为函数入参可能因为copy导致额外内存开销而放弃这种值引用类型入参的写法。因为如果函数内有造成变量逃逸的操作情形，gc可能会成为程序效率不高的瓶颈。***
 
+## 对io.Reader的解释
 
+```go
+type Reader struct{
+  Read(p []byte) (n int, err error)
+}
+
+// Instead of 
+type Reader struct{
+  Read(n int) (b []byte, err error)
+}
+```
+
+对于一个Reader来说当然第二种写法更为贴近逻辑，但是根据逃逸分析，第二种写法明显在不断的Read时在堆上产生过多的垃圾。
+
+```go
+// escape to heap
+func main(){
+  b := read()
+  // use b
+}
+
+func read() []byte{
+  // return a new slice
+  b := make([]byte, 32)
+  return b
+}
+
+// stay on stack
+func main(){
+  b := make([]byte, 32)
+  read(b)
+  // use b
+}
+
+func read(b []byte){
+  // write into slice
+}
+```
+
+## 几点强调
+
+- Optimize for correctness, not performance.
+- Go only puts function variables on the stakc if it can prove a variable is not used after the function returned.
+- Sharing down typically stay on the stack (传递指针给函数)
+- Sharing up typically escapes to the heap (返回指针，不过不必须，都加了typically，比如内联可能会让情形不太一样)
+- Ask the compiler to find out
 
 ## 深入逃逸和内联
 

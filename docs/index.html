@@ -182,11 +182,11 @@ if (!doNotTrack) {
         
         
           <li class="nav-item">
-            <a class="nav-link" href="https://hossainemruz.gitbook.io/">Notes</a>
+            <a class="nav-link" href="https://hossainemruz.gitbook.io/">Other Notes</a>
           </li>
         
           <li class="nav-item">
-            <a class="nav-link" href="https://mojotv.cn">Golang</a>
+            <a class="nav-link" href="https://mojotv.cn">Go Mojotv</a>
           </li>
         
           <li class="nav-item">
@@ -194,7 +194,7 @@ if (!doNotTrack) {
           </li>
         
           <li class="nav-item">
-            <a class="nav-link" href="https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html">SICP</a>
+            <a class="nav-link" href="https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html">SICP Source</a>
           </li>
         
         
@@ -822,6 +822,48 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/golang/asm/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Golang Plan9</h5>
+        <p class="card-text post-summary"> </p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">January 8, 2021</span>
+        <a href="/posts/golang/asm/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/golang/sync-pool/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">[源码分析]sync pool</h5>
+        <p class="card-text post-summary"> - 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环 - 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有） </p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">January 1, 2021</span>
+        <a href="/posts/golang/sync-pool/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/golang/goroutine-pool/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -839,50 +881,6 @@ go调度器本身不应该对goroutine数量有限制，因为语言层面无法
       <div class="card-footer">
         <span class="float-left">December 30, 2020</span>
         <a href="/posts/golang/goroutine-pool/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/golang/memory-leak/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Possible Memory Leak</h5>
-        <p class="card-text post-summary"> 实际上对于一个有GC的语言，我们不必太多关心内存泄漏的问题，因为程序的runtime帮我们很好地额回收不再使用的内存。但是，我们还是得了解一些特殊的场景，这些场景会产生暂时性或者永久性的内存泄漏。
-子字符串造成的暂时性内存泄漏 </p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 25, 2020</span>
-        <a href="/posts/golang/memory-leak/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/golang/channel-graceful/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Close Channels Gracefully</h5>
-        <p class="card-text post-summary"> 优雅地关闭通道 场景一：M个接收者和一个发送者。发送者通过关闭用来传输数据的通道来传递发送结束信号 这是最简单的一种情形。当发送者欲结束发送，让它关闭用来传输数据的通道即可。
-package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;sync&#34; &#34;log&#34; ) func main() { rand.Seed(time.Now().UnixNano()) log.SetFlags(0) // ... 	const Max = 100000 const NumReceivers = 100 wgReceivers := sync.WaitGroup{} wgReceivers.Add(NumReceivers) // ... 	dataCh := make(chan int) // 发送者 	go func() { for { if value := rand.Intn(Max); value == 0 { // 此唯一的发送者可以安全地关闭此数据通道。 	close(dataCh) return } else { dataCh &lt;- value } } }() // 接收者 	for i := 0; i &lt; NumReceivers; i++ { go func() { defer wgReceivers.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 24, 2020</span>
-        <a href="/posts/golang/channel-graceful/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>

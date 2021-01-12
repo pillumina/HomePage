@@ -6,7 +6,25 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Dec 2020 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jan 2021 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang Plan9</title>
+      <link>https://pillumina.github.io/posts/golang/asm/</link>
+      <pubDate>Fri, 08 Jan 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/asm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[源码分析]sync pool</title>
+      <link>https://pillumina.github.io/posts/golang/sync-pool/</link>
+      <pubDate>Fri, 01 Jan 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/sync-pool/</guid>
+      <description>- 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环 - 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有） </description>
+    </item>
+    
     <item>
       <title>[自建轮]高性能Goroutine Pool</title>
       <link>https://pillumina.github.io/posts/golang/goroutine-pool/</link>
@@ -85,7 +103,7 @@ Russ Cox正则表达式系列 You should not be permitted to write production co
 Regular Expression Matching Can Be Simple And Fast
 编译器词法分析:正则语言和正则表达式
 Go内存原理与调度模型 正在整理专栏
-Crafting Interpreter 时常看PL和Compiler的基础
+Bound Checking Elimination Crafting Interpreter 时常看PL和Compiler的基础
 crafting interpreters
 Kosaraju&amp;rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
 Heilmeier问题系列 思考某篇paper的选题

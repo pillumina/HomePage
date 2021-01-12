@@ -38,7 +38,7 @@ Russ Cox正则表达式系列 You should not be permitted to write production co
 Regular Expression Matching Can Be Simple And Fast
 编译器词法分析:正则语言和正则表达式
 Go内存原理与调度模型 正在整理专栏
-Crafting Interpreter 时常看PL和Compiler的基础
+Bound Checking Elimination Crafting Interpreter 时常看PL和Compiler的基础
 crafting interpreters
 Kosaraju&amp;rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
 Heilmeier问题系列 思考某篇paper的选题
