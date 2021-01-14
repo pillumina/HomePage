@@ -26,21 +26,21 @@ socialLinks:
   url: "https://github.com/pillumina"
 
 softSkills:
-- name: LeaderShip
-  percentage: 80
+- name: Self-Driven Learner
+  percentage: 95
   color: blue
 - name: Team Work
-  percentage: 90
+  percentage: 95
   color: yellow
 - name: Communication
-  percentage: 85
+  percentage: 95
   color: pink
 - name: Hard Working
   percentage: 95
   color: green
 - name: Fast Learner
-  percentage: 90
+  percentage: 95
   color: sky
 - name: Problem Solving
-  percentage: 90
+  percentage: 95
   color: orange
