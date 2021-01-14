@@ -15,3 +15,5 @@ customMenus:
   url: http://www.paulgraham.com/articles.html
 - name: SICP Source
   url: https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html
+- name: Flower's Blog
+  url: https://martinfowler.com/testing/

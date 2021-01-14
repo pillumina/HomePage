@@ -13,7 +13,7 @@
       <pubDate>Fri, 08 Jan 2021 11:22:18 +0800</pubDate>
       
       <guid>https://pillumina.github.io/posts/golang/asm/</guid>
-      <description></description>
+      <description>待开坑...</description>
     </item>
     
     <item>
@@ -44,7 +44,7 @@ go调度器本身不应该对goroutine数量有限制，因为语言层面无法
       
       <guid>https://pillumina.github.io/posts/golang/memory-leak/</guid>
       <description>实际上对于一个有GC的语言，我们不必太多关心内存泄漏的问题，因为程序的runtime帮我们很好地额回收不再使用的内存。但是，我们还是得了解一些特殊的场景，这些场景会产生暂时性或者永久性的内存泄漏。
-子字符串造成的暂时性内存泄漏 </description>
+待开坑...</description>
     </item>
     
     <item>
