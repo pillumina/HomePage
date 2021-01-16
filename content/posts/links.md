@@ -12,6 +12,14 @@ draft: false
 
 `这个post为记录目前正在阅读与研究的section`
 
+## pprof对服务端性能影响的研究
+
+考虑一些极端场景，比如极度追求性能，压榨系统资源以及技术栈必须是Go的业务场景下，是否能自己构建Reactor网络模型
+
+## GRPC框架对服务侧性能的影响
+
+
+
 ## Russ Cox正则表达式系列
 
 *You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. -- Rob Pike*
@@ -29,8 +37,6 @@ draft: false
 
 
 ## Bound Checking Elimination
-
-
 
 
 

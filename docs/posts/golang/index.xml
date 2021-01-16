@@ -8,12 +8,14 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Nov 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Golang Plan9</title>
-      <link>https://pillumina.github.io/posts/golang/asm/</link>
-      <pubDate>Fri, 08 Jan 2021 11:22:18 +0800</pubDate>
+      <title>fasthttp对性能的优化压榨</title>
+      <link>https://pillumina.github.io/posts/golang/fasthttp/</link>
+      <pubDate>Sun, 10 Jan 2021 11:22:18 +0800</pubDate>
       
-      <guid>https://pillumina.github.io/posts/golang/asm/</guid>
-      <description>待开坑...</description>
+      <guid>https://pillumina.github.io/posts/golang/fasthttp/</guid>
+      <description>最近在看网络模型和go net的源码，以及各web框架例如fasthttp, weaver, gnet(更轻量)源码。fasthttp在github上已经写上了一个go开发的best practices examples,这里我也记录一些在源码中看到的一些技巧
+[]byte buffer的tricks 下面的一些tricks在fasthttp中被使用，自己的代码也可以用
+ 标准Go函数能够处理nil buffer  var ( // both buffers are uninitialized 	dst []byte src []byte ) dst = append(dst, src...) // is legal if dst is nil and/or src is nil copy(dst, src) // is legal if dst is nil and/or src is nil (string(src) == &amp;#34;&amp;#34;) // is true if src is nil (len(src) == 0) // is true if src is nil src = src[:0] // works like a charm with nil src  // this for loop doesn&amp;#39;t panic if src is nil for i, ch := range src { doSomething(i, ch) } 所以可以去掉一些对[]bytebuffer的nil校验:</description>
     </item>
     
     <item>

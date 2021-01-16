@@ -6,14 +6,16 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 Jan 2021 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 10 Jan 2021 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Golang Plan9</title>
-      <link>https://pillumina.github.io/posts/golang/asm/</link>
-      <pubDate>Fri, 08 Jan 2021 11:22:18 +0800</pubDate>
+      <title>fasthttp对性能的优化压榨</title>
+      <link>https://pillumina.github.io/posts/golang/fasthttp/</link>
+      <pubDate>Sun, 10 Jan 2021 11:22:18 +0800</pubDate>
       
-      <guid>https://pillumina.github.io/posts/golang/asm/</guid>
-      <description>待开坑...</description>
+      <guid>https://pillumina.github.io/posts/golang/fasthttp/</guid>
+      <description>最近在看网络模型和go net的源码，以及各web框架例如fasthttp, weaver, gnet(更轻量)源码。fasthttp在github上已经写上了一个go开发的best practices examples,这里我也记录一些在源码中看到的一些技巧
+[]byte buffer的tricks 下面的一些tricks在fasthttp中被使用，自己的代码也可以用
+ 标准Go函数能够处理nil buffer  var ( // both buffers are uninitialized 	dst []byte src []byte ) dst = append(dst, src...) // is legal if dst is nil and/or src is nil copy(dst, src) // is legal if dst is nil and/or src is nil (string(src) == &amp;#34;&amp;#34;) // is true if src is nil (len(src) == 0) // is true if src is nil src = src[:0] // works like a charm with nil src  // this for loop doesn&amp;#39;t panic if src is nil for i, ch := range src { doSomething(i, ch) } 所以可以去掉一些对[]bytebuffer的nil校验:</description>
     </item>
     
     <item>
@@ -99,7 +101,8 @@ pip install SciencePlots 然后我们在画图时，只需要一句with.plt.styl
       
       <guid>https://pillumina.github.io/posts/links/</guid>
       <description>这个post为记录目前正在阅读与研究的section
-Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &amp;ndash; Rob Pike
+pprof对服务端性能影响的研究 考虑一些极端场景，比如极度追求性能，压榨系统资源以及技术栈必须是Go的业务场景下，是否能自己构建Reactor网络模型
+GRPC框架对服务侧性能的影响 Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &amp;ndash; Rob Pike
 Regular Expression Matching Can Be Simple And Fast
 编译器词法分析:正则语言和正则表达式
 Go内存原理与调度模型 正在整理专栏
@@ -107,7 +110,7 @@ Bound Checking Elimination Crafting Interpreter 时常看PL和Compiler的基础
 crafting interpreters
 Kosaraju&amp;rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
 Heilmeier问题系列 思考某篇paper的选题
- What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice?</description>
+ What are you trying to do? Articulate your objectives using absolutely no jargon.</description>
     </item>
     
     <item>

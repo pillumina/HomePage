@@ -160,6 +160,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
   
 
@@ -233,15 +242,6 @@ if (!doNotTrack) {
   
     
     <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
-  
-
-  
-  
-  
-  
-  
-    
-    <li><a class="" href="/posts/golang/asm/">汇编Plan9</a></li>
   
 
 
@@ -341,19 +341,21 @@ if (!doNotTrack) {
       
       
         <div class="post-card">
-  <a href="/posts/golang/asm/" class="post-card-link">
+  <a href="/posts/golang/fasthttp/" class="post-card-link">
     <div class="card">
       <div class="card-head">
         <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Golang Plan9</h5>
-        <p class="card-text post-summary">待开坑...</p>
+        <h5 class="card-title">fasthttp对性能的优化压榨</h5>
+        <p class="card-text post-summary">最近在看网络模型和go net的源码，以及各web框架例如fasthttp, weaver, gnet(更轻量)源码。fasthttp在github上已经写上了一个go开发的best practices examples,这里我也记录一些在源码中看到的一些技巧
+[]byte buffer的tricks 下面的一些tricks在fasthttp中被使用，自己的代码也可以用
+ 标准Go函数能够处理nil buffer  var ( // both buffers are uninitialized 	dst []byte src []byte ) dst = append(dst, src...) // is legal if dst is nil and/or src is nil copy(dst, src) // is legal if dst is nil and/or src is nil (string(src) == &#34;&#34;) // is true if src is nil (len(src) == 0) // is true if src is nil src = src[:0] // works like a charm with nil src  // this for loop doesn&#39;t panic if src is nil for i, ch := range src { doSomething(i, ch) } 所以可以去掉一些对[]bytebuffer的nil校验:</p>
       </div>
       <div class="card-footer">
-        <span class="float-left">January 8, 2021</span>
+        <span class="float-left">January 10, 2021</span>
         <a
-        href="/posts/golang/asm/"
+        href="/posts/golang/fasthttp/"
         class="float-right btn btn-outline-info btn-sm"
         >Read</a
         >
