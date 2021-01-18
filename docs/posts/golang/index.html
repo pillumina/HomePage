@@ -223,6 +223,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
   
 
@@ -339,6 +348,36 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/golang/websocket/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">A Million WebSocket and Go</h5>
+        <p class="card-text post-summary">这篇文章是我研究高负载网络服务器架构看到的的一个有趣的story，添加了我自身学习websocket的感受和记录，希望我能在飞机落地前写完:-)
+Preface 我们先描述一个问题作为讨论的中心：用户邮件的存储方法。
+对于这种主题，有很多种方式在系统内对邮件状态进行持续的追踪，比如系统事件是一个方式，另一种方式可以通过定期的系统轮询有关状态变化。
+这两种方式各有利弊，不过当我们讨论到邮件的时候，用户希望收到新邮件的速度越快越好。邮件轮询每秒约有50000个HTTP请求，其中60%返回304状态，也就是邮箱内没有任何修改。
+因此，为了减少服务器的负载并加快向用户传递邮件的速度，我们决定通过编写publisher-subscriber服务器(即bus, message broker, event channel)来重新发明轮子。一方面接受有关状态变更的通知，另外一个方面接受此类通知的订阅。
+改进前：
++--------------+ (2) +-------------+ (1) +-----------+ | | &lt;--------+ | | &lt;--------+ | | | Storage | | API | HTTP | Browser | | | +--------&gt; | | +--------&gt; | | +--------------+ (3) +-------------+ (4) +-----------+ 改进后:
++--------------+ +-------------+ WebSocket +-----------+ | Storage | | API | +----------&gt; | Browser | +--------------+ +-------------+ (3) +-----------+ + ^ | (1) | (2) v + +-----------------------------------------+ | Bus | +-----------------------------------------+ 改进前的方案也就是browser定期去查询api并访问存储更改</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">January 16, 2021</span>
+        <a
+        href="/posts/golang/websocket/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/golang/fasthttp/" class="post-card-link">
@@ -637,32 +676,29 @@ public void test(){ List&lt;Integer&gt; a = new ArrayList&lt;&gt;(); a.add(1); /
 </div>
 
       
-        <div class="post-card">
-  <a href="/posts/golang/design-pattern/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Design Pattern</h5>
-        <p class="card-text post-summary">Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;builder{ once: &amp;sync.Once{}, msg: &amp;Message{Header: &amp;Header{}, Body: &amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">November 11, 2020</span>
-        <a
-        href="/posts/golang/design-pattern/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
     </div>
     <div class="paginator">
       
+<ul class="pagination">
+  <li class="page-item">
+    <a href="/posts/golang/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item disabled">
+    <a  class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/posts/golang/">1</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/posts/golang/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/golang/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/golang/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
+</ul>
 
 
     </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tracking</title>
+    <title>Golang</title>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -23,13 +23,8 @@
 <link rel="stylesheet" href="/assets/css/style.css"/>
 
     
-<meta name="description" content="Tracking" />
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
-/>
-<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
-<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/layouts/list.css">
+    <link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
 
 
     
@@ -88,6 +83,9 @@ if (!doNotTrack) {
 
       
       
+  
+  
+
   <section class="sidebar-section" id="sidebar-section">
     <div class="sidebar-holder">
       <div class="sidebar" id="sidebar">
@@ -110,12 +108,9 @@ if (!doNotTrack) {
   
   
   
-    
-    
-  
   
     
-    <li><a class="active" href="/posts/links/">Tracking</a></li>
+    <li><a class="" href="/posts/links/">Tracking</a></li>
   
 
   
@@ -131,12 +126,15 @@ if (!doNotTrack) {
   
   
   
+    
+    
+  
   
     
     <li>
-      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
       
-      <ul class="">
+      <ul class="active">
         
   
   
@@ -347,201 +345,65 @@ if (!doNotTrack) {
       
       
 <section class="content-section" id="content-section">
-  <div class="content">
-    <div class="container p-0 read-area">
+  <div class="content container-fluid" id="content">
+    <div class="container-fluid post-card-holder" id="post-card-holder">
       
-      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/hero-google.svg);'>
+      
+        <div class="post-card">
+  <a href="/posts/golang/design-pattern/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
       </div>
-
-      
-      <div class="page-content">
-        <div class="author-profile ml-auto align-self-lg-center">
-          <img class="rounded-circle" src='/images/photo.jpeg'/>
-          <h5 class="author-name"></h5>
-          <p>December 19, 2020</p>
-        </div>
-
-        <div class="title">
-          <h1>Tracking</h1>
-        </div>
-
-        <div class="post-content" id="post-content">
-          <p><code>这个post为记录目前正在阅读与研究的section</code></p>
-<h2 id="pprof对服务端性能影响的研究">pprof对服务端性能影响的研究</h2>
-<p>考虑一些极端场景，比如极度追求性能，压榨系统资源以及技术栈必须是Go的业务场景下，是否能自己构建Reactor网络模型</p>
-<h2 id="grpc框架对服务侧性能的影响">GRPC框架对服务侧性能的影响</h2>
-<h2 id="russ-cox正则表达式系列">Russ Cox正则表达式系列</h2>
-<p><em>You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &ndash; Rob Pike</em></p>
-<p><a href="https://swtch.com/~rsc/regexp/regexp1.html">Regular Expression Matching Can Be Simple And Fast</a></p>
-<p><a href="https://www.cnblogs.com/Ninputer/archive/2011/06/08/2075714.html">编译器词法分析:正则语言和正则表达式</a></p>
-<h2 id="go内存原理与调度模型">Go内存原理与调度模型</h2>
-<p>正在整理专栏</p>
-<h2 id="bound-checking-elimination">Bound Checking Elimination</h2>
-<h2 id="crafting-interpreter">Crafting Interpreter</h2>
-<p>时常看PL和Compiler的基础</p>
-<p><a href="https://craftinginterpreters.com/contents.html">crafting interpreters</a></p>
-<h2 id="kosarajus-algorithm">Kosaraju&rsquo;s Algorithm</h2>
-<p>看William Lin的coding interview觉得用来处理树和图很好，算法4里也有</p>
-<h2 id="heilmeier问题系列">Heilmeier问题系列</h2>
-<p>思考某篇paper的选题</p>
-<ol>
-<li><strong>What are you trying to do?</strong> Articulate your objectives using absolutely no jargon.</li>
-<li><strong>How is it done today, and what are the limits of current practice?</strong></li>
-<li><strong>Who cares?</strong> [Support other’s research? Shape research landscape? Power applications in industry?]</li>
-<li><strong>What&rsquo;s new in your approach</strong> and why do you think it will be successful?</li>
-<li>If you&rsquo;re successful, <strong>what difference will it make?</strong> [e.g. Contributions in theory/modeling? Improve accuracy by 5% on dataset A, B, C…?]</li>
-<li><strong>What are the risks and the payoffs?</strong> [Further, how would you mitigate the risks? If your proposed method does not work, what could be alternative design? These can end up as discussions such as ablation studies in your paper.]</li>
-<li><strong>How much will it cost?</strong> [e.g. How many GPUs do your experiments require? How long is each training process? How about data storage?]</li>
-<li><strong>How long will it take?</strong> [How many hours are you going to work on this per week? When is the submission DDL? Can you make it?]</li>
-<li><strong>What are the midterm and final &ldquo;exams&rdquo; to check for success?</strong></li>
-</ol>
-
-        </div>
-
-        
-        
-          <div class="btn-improve-page">
-              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/links.md">
-                <i class="fas fa-code-branch"></i>
-                Improve This Page
-              </a>
-          </div>
-        
-
-        
-      <hr />
-        <div class="row next-prev-navigator">
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-      <div class="col-md-6 previous-article">
-        <a href="/posts/black-magic/" class="btn btn-outline-info">
-          <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
-          <br />
-          <span>Black Magic</span>
-        </a>
+      <div class="card-body">
+        <h5 class="card-title">Design Pattern</h5>
+        <p class="card-text post-summary">Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;builder{ once: &amp;sync.Once{}, msg: &amp;Message{Header: &amp;Header{}, Body: &amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</p>
       </div>
-      
-    
-    
-      
-        
-        
-          
-              
-          
-        
-        <div class="col-md-6 next-article">
-          <a href="/posts/golang/go-testing/" class="btn btn-outline-info">
-            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
-            <br />
-            <span>Golang TDD</span>
-          </a>
-        </div>
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-</div>
-
-      <hr />
-      
-      
-          <div id="disqus_thread"></div>
-<script type="text/javascript">
-  (function () {
-    
-    
-    if (window.location.hostname == "localhost") return;
-
-    var dsq = document.createElement("script");
-    dsq.type = "text/javascript";
-    dsq.async = true;
-    var disqus_shortname = "does-not-exist";
-    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
-    (
-      document.getElementsByTagName("head")[0] ||
-      document.getElementsByTagName("body")[0]
-    ).appendChild(dsq);
-  })();
-</script>
-<noscript
-  >Please enable JavaScript to view the
-  <a href="https://disqus.com/?ref_noscript"
-    >comments powered by Disqus.</a
-  ></noscript
->
-<a href="https://disqus.com/" class="dsq-brlink"
-  >comments powered by <span class="logo-disqus">Disqus</span></a
->
-
-      
+      <div class="card-footer">
+        <span class="float-left">November 11, 2020</span>
+        <a
+        href="/posts/golang/design-pattern/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
       </div>
     </div>
+  </a>
+</div>
+
+      
+    </div>
+    <div class="paginator">
+      
+<ul class="pagination">
+  <li class="page-item">
+    <a href="/posts/golang/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/golang/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/posts/golang/">1</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/posts/golang/page/2/">2</a>
+  </li>
+  <li class="page-item disabled">
+    <a  class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/golang/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
+</ul>
+
+
+    </div>
   </div>
-  
 </section>
 
 
       
-      
-  <section class="toc-section" id="toc-section">
-    
-    <div class="toc-holder">
-      <h5 class="text-center pl-3">Table of Contents</h5>
-      <hr>
-      <div class="toc">
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#pprof对服务端性能影响的研究">pprof对服务端性能影响的研究</a></li>
-    <li><a href="#grpc框架对服务侧性能的影响">GRPC框架对服务侧性能的影响</a></li>
-    <li><a href="#russ-cox正则表达式系列">Russ Cox正则表达式系列</a></li>
-    <li><a href="#go内存原理与调度模型">Go内存原理与调度模型</a></li>
-    <li><a href="#bound-checking-elimination">Bound Checking Elimination</a></li>
-    <li><a href="#crafting-interpreter">Crafting Interpreter</a></li>
-    <li><a href="#kosarajus-algorithm">Kosaraju&rsquo;s Algorithm</a></li>
-    <li><a href="#heilmeier问题系列">Heilmeier问题系列</a></li>
-  </ul>
-</nav>
-      </div>
-    </div>
-    
-  </section>
-
+       
     </div>
 
     
@@ -657,12 +519,7 @@ if (!doNotTrack) {
 
     
     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
-<script src="/assets/js/single.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
+    <script src="/assets/js/list.js"></script>
 
   </body>
 </html>

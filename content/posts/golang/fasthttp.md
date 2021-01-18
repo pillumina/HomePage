@@ -402,7 +402,3 @@ fasthttp [github](https://github.com/valyala/fasthttp#fasthttp-best-practices)�
 
 总结下来一些要点就是:
 
-1. fasthttp避免绝大部分多余的内存分配行为，能复用绝不分配。
-2. 善用sync.Pool。
-3. 尽量避免[]byte与string之间转换带来的开销。
-4. 巧用[]byte相关的[特性](https://link.zhihu.com/?target=https%3A//github.com/valyala/fasthttp%23tricks-with-byte-buffers)。

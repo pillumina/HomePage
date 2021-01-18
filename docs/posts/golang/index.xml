@@ -8,6 +8,22 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Nov 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>A Million WebSocket and Go</title>
+      <link>https://pillumina.github.io/posts/golang/websocket/</link>
+      <pubDate>Sat, 16 Jan 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/websocket/</guid>
+      <description>这篇文章是我研究高负载网络服务器架构看到的的一个有趣的story，添加了我自身学习websocket的感受和记录，希望我能在飞机落地前写完:-)
+Preface 我们先描述一个问题作为讨论的中心：用户邮件的存储方法。
+对于这种主题，有很多种方式在系统内对邮件状态进行持续的追踪，比如系统事件是一个方式，另一种方式可以通过定期的系统轮询有关状态变化。
+这两种方式各有利弊，不过当我们讨论到邮件的时候，用户希望收到新邮件的速度越快越好。邮件轮询每秒约有50000个HTTP请求，其中60%返回304状态，也就是邮箱内没有任何修改。
+因此，为了减少服务器的负载并加快向用户传递邮件的速度，我们决定通过编写publisher-subscriber服务器(即bus, message broker, event channel)来重新发明轮子。一方面接受有关状态变更的通知，另外一个方面接受此类通知的订阅。
+改进前：
++--------------+ (2) +-------------+ (1) +-----------+ | | &amp;lt;--------+ | | &amp;lt;--------+ | | | Storage | | API | HTTP | Browser | | | +--------&amp;gt; | | +--------&amp;gt; | | +--------------+ (3) +-------------+ (4) +-----------+ 改进后:
++--------------+ +-------------+ WebSocket +-----------+ | Storage | | API | +----------&amp;gt; | Browser | +--------------+ +-------------+ (3) +-----------+ + ^ | (1) | (2) v + +-----------------------------------------+ | Bus | +-----------------------------------------+ 改进前的方案也就是browser定期去查询api并访问存储更改</description>
+    </item>
+    
+    <item>
       <title>fasthttp对性能的优化压榨</title>
       <link>https://pillumina.github.io/posts/golang/fasthttp/</link>
       <pubDate>Sun, 10 Jan 2021 11:22:18 +0800</pubDate>

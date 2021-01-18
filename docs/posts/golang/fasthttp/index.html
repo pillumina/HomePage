@@ -228,6 +228,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
   
 
@@ -674,12 +683,6 @@ if (!doNotTrack) {
 <li>Prefer <a href="https://github.com/valyala/quicktemplate">quicktemplate</a> instead of <a href="https://golang.org/pkg/html/template/">html/template</a> in your webserver.</li>
 </ul>
 <p>总结下来一些要点就是:</p>
-<ol>
-<li>fasthttp避免绝大部分多余的内存分配行为，能复用绝不分配。</li>
-<li>善用sync.Pool。</li>
-<li>尽量避免[]byte与string之间转换带来的开销。</li>
-<li>巧用[]byte相关的<a href="https://link.zhihu.com/?target=https%3A//github.com/valyala/fasthttp%23tricks-with-byte-buffers">特性</a>。</li>
-</ol>
 
         </div>
 
@@ -730,11 +733,25 @@ if (!doNotTrack) {
 
   
     
+      
+      <div class="col-md-6 previous-article">
+        <a href="/posts/golang/websocket/" class="btn btn-outline-info">
+          <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
+          <br />
+          <span>A Million WebSocket and Go</span>
+        </a>
+      </div>
+      
+    
     
       
         
         
-        <div class="col-md-12 next-article">
+          
+              
+          
+        
+        <div class="col-md-6 next-article">
           <a href="/posts/golang/sync-pool/" class="btn btn-outline-info">
             <span>Next <i class="fas fa-chevron-circle-right"></i></span>
             <br />
@@ -743,6 +760,8 @@ if (!doNotTrack) {
         </div>
       
     
+  
+
   
 
 </div>
