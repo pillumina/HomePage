@@ -599,7 +599,61 @@ Benchmark_TimeConsumingFunction-4            500000000	      7.80 ns/op	     224
 PASS
 ok  	gotest	9.364s
 </code></pre><p>上面的结果显示我们没有执行任何<code>TestXXX</code>的单元测试函数，显示的结果只执行了压力测试函数，第一条显示了<code>Benchmark_Division</code>执行了500000000次，每次的执行平均时间是7.76纳秒，第二条显示了<code>Benchmark_TimeConsumingFunction</code>执行了500000000，每次的平均执行时间是7.80纳秒。最后一条显示总共的执行时间。</p>
-<h2 id="mocking">Mocking</h2>
+<h2 id="性能测试进阶benchstat">性能测试进阶(benchstat)</h2>
+<h3 id="syncmap优化例子">sync.Map优化例子</h3>
+<p>在sync.Map中存储一个值，然后再并发删除该值:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkDeleteCollision</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>){
+  <span style="color:#a6e22e">benchMap</span>(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">bench</span>{
+    <span style="color:#a6e22e">setup</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">_</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">mapInterface</span>){<span style="color:#a6e22e">m</span>,<span style="color:#a6e22e">LoadOrStore</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)},
+    <span style="color:#a6e22e">perG</span>: <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>, <span style="color:#a6e22e">pb</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">PB</span>, <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">m</span> <span style="color:#a6e22e">mapInterface</span>){
+      <span style="color:#66d9ef">for</span>; <span style="color:#a6e22e">pb</span>.<span style="color:#a6e22e">Next</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Delete</span>(<span style="color:#ae81ff">0</span>)}
+    }
+  })
+}
+</code></pre></div><pre><code>优化 src/sync/map.go
+275 -delete(m.dirty, key)
+275 +e, ok = m.dirty[key]
+276 +m.misslocked()
+</code></pre><pre><code>$ git stash
+$ git test -run=none -bench=BenchmarkDeleteCollision -count=20 | tee old.txt
+$ git stash pop
+$ git test -run=none -bench=BenchmarkDeleteCollision -count=20 | tee new.txt
+$ benchstat old.txt new.ext
+</code></pre><h3 id="编译器优化例子">编译器优化例子</h3>
+<p>查看编译器优化，测试函数被编译成了什么</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">compile</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">comp1</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span> []<span style="color:#66d9ef">byte</span>)<span style="color:#66d9ef">bool</span>{
+  <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">s1</span>) <span style="color:#f92672">==</span> string(<span style="color:#a6e22e">s2</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">comp2</span>(<span style="color:#a6e22e">s1</span>, <span style="color:#a6e22e">s2</span> []<span style="color:#66d9ef">byte</span>)<span style="color:#66d9ef">bool</span>{
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">conv</span>(<span style="color:#a6e22e">s1</span>) <span style="color:#f92672">==</span> <span style="color:#a6e22e">conv</span>(<span style="color:#a6e22e">s2</span>)
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">conv</span>(<span style="color:#a6e22e">s</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">string</span>{
+  <span style="color:#66d9ef">return</span> string(<span style="color:#a6e22e">s</span>)
+}
+</code></pre></div><pre><code>$GOSSAFUNC=com1 go build 
+// 会生成ssa.html，open它即可看到comp1函数编译后的代码
+</code></pre><h3 id="假设性检验">假设性检验</h3>
+<ul>
+<li>统计是一套在总体分布函数完全未知或者只知道形式、不知道参数的情况下，为了由样本推断总体的某些未知特性，形成的一套方法论。</li>
+<li>多次抽样：对同一个性能基准测试运行多次，根据中心极限定理，如果理论均值存在，则抽样噪声服从正态分布。</li>
+<li>当重复执行完某个性能基准测试后，benchstat先帮我们剔除掉了一些异常值，我们得到了关于某段代码在可控的环境条件E下的性能分布的一组样本。</li>
+<li>T检验：参数检验，假设数据服从正态分布，且方差相同 (最严格)</li>
+<li>Welch T检验(ttest)： 参数检验，假设服从正态分布，但方差不一定相同</li>
+<li>Mann-Whitney U检验(utest， benchstat的default):  非参数检验，假设最少，最通用，值假设两组样本来自于同一个总体（例如两个性能测试是否在同一个机器跑的），只有均值的差异。当对数据的假设减少时，结论的不确定性增大，p值会因此增大，进而使得性能基准测试的条件更加严格。</li>
+</ul>
+<h3 id="局限和应对">局限和应对</h3>
+<p><code>perflock</code>降低系统噪音，作用是限制CPU时钟频率，从而一定程度上消除系统对性能测试程序的影响，仅支持Linux。</p>
+<pre><code>$ go get github.com/aclements/perflock/cmd/perflock
+$ sudo install $GOPATH/bin/perflock /usr/bin/perflock
+$ sudo -b perflock -daemon
+$ perflock
+
+$ perflock -governer 70% go test -test=none -bench=.
+</code></pre><h2 id="mocking">Mocking</h2>
 <h3 id="gomock">GoMock</h3>
 <p>GoMock为很常用的测试mock框架，虽然我自己不常用:0（因为我自身并不非常喜欢mock), 并且对在生产开发环境使用mock有点意见，代码增长（和Injection类似），以及如果不单独部署一个mock server很多修改并不能很好得share。</p>
 <p>虽然如此，这里还是记录一下GoMock的quick start。</p>
@@ -1533,6 +1587,14 @@ ok      github.com/gypsydave5/learn-go-with-tests/concurrency/v2        2.377s
       </ul>
     </li>
     <li><a href="#压力测试基础">压力测试基础</a></li>
+    <li><a href="#性能测试进阶benchstat">性能测试进阶(benchstat)</a>
+      <ul>
+        <li><a href="#syncmap优化例子">sync.Map优化例子</a></li>
+        <li><a href="#编译器优化例子">编译器优化例子</a></li>
+        <li><a href="#假设性检验">假设性检验</a></li>
+        <li><a href="#局限和应对">局限和应对</a></li>
+      </ul>
+    </li>
     <li><a href="#mocking">Mocking</a>
       <ul>
         <li><a href="#gomock">GoMock</a>

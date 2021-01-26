@@ -12,6 +12,20 @@ draft: false
 
 `这个post为记录目前正在阅读与研究的section`
 
+### Go语言设计
+
+[Go语言设计与实现](https://draveness.me/golang/)
+
+[Go Under The Hood](https://golang.design/under-the-hood/)
+
+```
+这两本在写作目的和内容规划都是一致的，不过第二个原本不再维护内容，作者开了下面的新的项目，把撰写原本而积累的与Go相关的资源进行了重新的整理。
+```
+
+[Go设计历史]([golang.design/history](https://changkun.de/s/go-history))
+
+
+
 ## pprof对服务端性能影响的研究
 
 考虑一些极端场景，比如极度追求性能，压榨系统资源以及技术栈必须是Go的业务场景下，是否能自己构建Reactor网络模型

@@ -34,6 +34,9 @@ pip install SciencePlots 然后我们在画图时，只需要一句with.plt.styl
       
       <guid>https://pillumina.github.io/posts/links/</guid>
       <description>这个post为记录目前正在阅读与研究的section
+Go语言设计 Go语言设计与实现
+Go Under The Hood
+这两本在写作目的和内容规划都是一致的，不过第二个原本不再维护内容，作者开了下面的新的项目，把撰写原本而积累的与Go相关的资源进行了重新的整理。 Go设计历史
 pprof对服务端性能影响的研究 考虑一些极端场景，比如极度追求性能，压榨系统资源以及技术栈必须是Go的业务场景下，是否能自己构建Reactor网络模型
 GRPC框架对服务侧性能的影响 Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &amp;ndash; Rob Pike
 Regular Expression Matching Can Be Simple And Fast
@@ -43,7 +46,7 @@ Bound Checking Elimination Crafting Interpreter 时常看PL和Compiler的基础
 crafting interpreters
 Kosaraju&amp;rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
 Heilmeier问题系列 思考某篇paper的选题
- What are you trying to do? Articulate your objectives using absolutely no jargon.</description>
+ What are you trying to do?</description>
     </item>
     
   </channel>

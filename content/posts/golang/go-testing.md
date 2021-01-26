@@ -350,6 +350,93 @@ ok  	gotest	9.364s
 
 
 
+## 性能测试进阶(benchstat)
+
+### sync.Map优化例子
+
+在sync.Map中存储一个值，然后再并发删除该值:
+
+```go
+func BenchmarkDeleteCollision(b *testing.B){
+  benchMap(b, bench{
+    setup: func(_ *testing.B, m mapInterface){m,LoadOrStore(0, 0)},
+    perG: func(b *testing.B, pb *testing.PB, i int, m mapInterface){
+      for; pb.Next(); i++ {m.Delete(0)}
+    }
+  })
+}
+```
+
+```
+优化 src/sync/map.go
+275 -delete(m.dirty, key)
+275 +e, ok = m.dirty[key]
+276 +m.misslocked()
+```
+
+```
+$ git stash
+$ git test -run=none -bench=BenchmarkDeleteCollision -count=20 | tee old.txt
+$ git stash pop
+$ git test -run=none -bench=BenchmarkDeleteCollision -count=20 | tee new.txt
+$ benchstat old.txt new.ext
+```
+
+
+
+### 编译器优化例子
+
+查看编译器优化，测试函数被编译成了什么
+
+```go
+package compile
+
+func comp1(s1, s2 []byte)bool{
+  return string(s1) == string(s2)
+}
+
+func comp2(s1, s2 []byte)bool{
+  return conv(s1) == conv(s2)
+}
+
+func conv(s []byte) string{
+  return string(s)
+}
+```
+
+```
+$GOSSAFUNC=com1 go build 
+// 会生成ssa.html，open它即可看到comp1函数编译后的代码
+```
+
+
+
+### 假设性检验
+
+- 统计是一套在总体分布函数完全未知或者只知道形式、不知道参数的情况下，为了由样本推断总体的某些未知特性，形成的一套方法论。
+- 多次抽样：对同一个性能基准测试运行多次，根据中心极限定理，如果理论均值存在，则抽样噪声服从正态分布。
+- 当重复执行完某个性能基准测试后，benchstat先帮我们剔除掉了一些异常值，我们得到了关于某段代码在可控的环境条件E下的性能分布的一组样本。
+- T检验：参数检验，假设数据服从正态分布，且方差相同 (最严格)
+- Welch T检验(ttest)： 参数检验，假设服从正态分布，但方差不一定相同
+- Mann-Whitney U检验(utest， benchstat的default):  非参数检验，假设最少，最通用，值假设两组样本来自于同一个总体（例如两个性能测试是否在同一个机器跑的），只有均值的差异。当对数据的假设减少时，结论的不确定性增大，p值会因此增大，进而使得性能基准测试的条件更加严格。
+
+
+
+### 局限和应对
+
+`perflock`降低系统噪音，作用是限制CPU时钟频率，从而一定程度上消除系统对性能测试程序的影响，仅支持Linux。
+
+```
+$ go get github.com/aclements/perflock/cmd/perflock
+$ sudo install $GOPATH/bin/perflock /usr/bin/perflock
+$ sudo -b perflock -daemon
+$ perflock
+
+$ perflock -governer 70% go test -test=none -bench=.
+```
+
+
+
 
 
 ## Mocking
