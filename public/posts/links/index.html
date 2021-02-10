@@ -124,6 +124,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/how-to-learn/">工程师应该如何高效学习</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
   
 
@@ -144,7 +153,7 @@ if (!doNotTrack) {
   
   
     
-    <li><a class="" href="/posts/golang/bdd-testing-framework/">Behavior Driven Testing</a></li>
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
   
 
   
@@ -153,7 +162,7 @@ if (!doNotTrack) {
   
   
     
-    <li><a class="" href="/posts/golang/channels/">Channels Concurrency Work-Around</a></li>
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
   
 
   
@@ -162,7 +171,7 @@ if (!doNotTrack) {
   
   
     
-    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern</a></li>
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
   
 
   
@@ -199,6 +208,51 @@ if (!doNotTrack) {
   
     
     <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/goroutine-pool/">Goroutine Pool</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
   
 
 
@@ -263,6 +317,40 @@ if (!doNotTrack) {
   
     
     <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/design-pattern/">Programming Pattern</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/design-pattern/">Design Pattern Overview</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
       <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
       
       <ul class="">
@@ -313,12 +401,21 @@ if (!doNotTrack) {
 
         <div class="post-content" id="post-content">
           <p><code>这个post为记录目前正在阅读与研究的section</code></p>
+<h3 id="go语言设计">Go语言设计</h3>
+<p><a href="https://draveness.me/golang/">Go语言设计与实现</a></p>
+<p><a href="https://golang.design/under-the-hood/">Go Under The Hood</a></p>
+<pre><code>这两本在写作目的和内容规划都是一致的，不过第二个原本不再维护内容，作者开了下面的新的项目，把撰写原本而积累的与Go相关的资源进行了重新的整理。
+</code></pre><p><a href="%5Bgolang.design/history%5D(https://changkun.de/s/go-history)">Go设计历史</a></p>
+<h2 id="pprof对服务端性能影响的研究">pprof对服务端性能影响的研究</h2>
+<p>考虑一些极端场景，比如极度追求性能，压榨系统资源以及技术栈必须是Go的业务场景下，是否能自己构建Reactor网络模型</p>
+<h2 id="grpc框架对服务侧性能的影响">GRPC框架对服务侧性能的影响</h2>
 <h2 id="russ-cox正则表达式系列">Russ Cox正则表达式系列</h2>
 <p><em>You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &ndash; Rob Pike</em></p>
 <p><a href="https://swtch.com/~rsc/regexp/regexp1.html">Regular Expression Matching Can Be Simple And Fast</a></p>
 <p><a href="https://www.cnblogs.com/Ninputer/archive/2011/06/08/2075714.html">编译器词法分析:正则语言和正则表达式</a></p>
 <h2 id="go内存原理与调度模型">Go内存原理与调度模型</h2>
 <p>正在整理专栏</p>
+<h2 id="bound-checking-elimination">Bound Checking Elimination</h2>
 <h2 id="crafting-interpreter">Crafting Interpreter</h2>
 <p>时常看PL和Compiler的基础</p>
 <p><a href="https://craftinginterpreters.com/contents.html">crafting interpreters</a></p>
@@ -406,6 +503,22 @@ if (!doNotTrack) {
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 </div>
 
       <hr />
@@ -457,8 +570,16 @@ if (!doNotTrack) {
       <div class="toc">
         <nav id="TableOfContents">
   <ul>
+    <li>
+      <ul>
+        <li><a href="#go语言设计">Go语言设计</a></li>
+      </ul>
+    </li>
+    <li><a href="#pprof对服务端性能影响的研究">pprof对服务端性能影响的研究</a></li>
+    <li><a href="#grpc框架对服务侧性能的影响">GRPC框架对服务侧性能的影响</a></li>
     <li><a href="#russ-cox正则表达式系列">Russ Cox正则表达式系列</a></li>
     <li><a href="#go内存原理与调度模型">Go内存原理与调度模型</a></li>
+    <li><a href="#bound-checking-elimination">Bound Checking Elimination</a></li>
     <li><a href="#crafting-interpreter">Crafting Interpreter</a></li>
     <li><a href="#kosarajus-algorithm">Kosaraju&rsquo;s Algorithm</a></li>
     <li><a href="#heilmeier问题系列">Heilmeier问题系列</a></li>

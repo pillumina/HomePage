@@ -8,12 +8,86 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Nov 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Channels Concurrency</title>
+      <title>A Million WebSocket and Go</title>
+      <link>https://pillumina.github.io/posts/golang/websocket/</link>
+      <pubDate>Sat, 16 Jan 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/websocket/</guid>
+      <description>这篇文章是我研究高负载网络服务器架构看到的的一个有趣的story，添加了我自身学习websocket的感受和记录，希望我能在飞机落地前写完:-)
+Preface 我们先描述一个问题作为讨论的中心：用户邮件的存储方法。
+对于这种主题，有很多种方式在系统内对邮件状态进行持续的追踪，比如系统事件是一个方式，另一种方式可以通过定期的系统轮询有关状态变化。
+这两种方式各有利弊，不过当我们讨论到邮件的时候，用户希望收到新邮件的速度越快越好。邮件轮询每秒约有50000个HTTP请求，其中60%返回304状态，也就是邮箱内没有任何修改。
+因此，为了减少服务器的负载并加快向用户传递邮件的速度，我们决定通过编写publisher-subscriber服务器(即bus, message broker, event channel)来重新发明轮子。一方面接受有关状态变更的通知，另外一个方面接受此类通知的订阅。
+改进前：
++--------------+ (2) +-------------+ (1) +-----------+ | | &amp;lt;--------+ | | &amp;lt;--------+ | | | Storage | | API | HTTP | Browser | | | +--------&amp;gt; | | +--------&amp;gt; | | +--------------+ (3) +-------------+ (4) +-----------+ 改进后:
++--------------+ +-------------+ WebSocket +-----------+ | Storage | | API | +----------&amp;gt; | Browser | +--------------+ +-------------+ (3) +-----------+ + ^ | (1) | (2) v + +-----------------------------------------+ | Bus | +-----------------------------------------+ 改进前的方案也就是browser定期去查询api并访问存储更改</description>
+    </item>
+    
+    <item>
+      <title>fasthttp对性能的优化压榨</title>
+      <link>https://pillumina.github.io/posts/golang/fasthttp/</link>
+      <pubDate>Sun, 10 Jan 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/fasthttp/</guid>
+      <description>最近在看网络模型和go net的源码，以及各web框架例如fasthttp, weaver, gnet(更轻量)源码。fasthttp在github上已经写上了一个go开发的best practices examples,这里我也记录一些在源码中看到的一些技巧
+[]byte buffer的tricks 下面的一些tricks在fasthttp中被使用，自己的代码也可以用
+ 标准Go函数能够处理nil buffer  var ( // both buffers are uninitialized 	dst []byte src []byte ) dst = append(dst, src...) // is legal if dst is nil and/or src is nil copy(dst, src) // is legal if dst is nil and/or src is nil (string(src) == &amp;#34;&amp;#34;) // is true if src is nil (len(src) == 0) // is true if src is nil src = src[:0] // works like a charm with nil src  // this for loop doesn&amp;#39;t panic if src is nil for i, ch := range src { doSomething(i, ch) } 所以可以去掉一些对[]bytebuffer的nil校验:</description>
+    </item>
+    
+    <item>
+      <title>[源码分析]sync pool</title>
+      <link>https://pillumina.github.io/posts/golang/sync-pool/</link>
+      <pubDate>Fri, 01 Jan 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/sync-pool/</guid>
+      <description>- 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环 - 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有） </description>
+    </item>
+    
+    <item>
+      <title>[自建轮]高性能Goroutine Pool</title>
+      <link>https://pillumina.github.io/posts/golang/goroutine-pool/</link>
+      <pubDate>Wed, 30 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/goroutine-pool/</guid>
+      <description>高性能Goroutine Pool go调度器没有限制对goroutine的数量，在goroutine瞬时大规模爆发的场景下来不及复用goroutine从而导致大量goroutine被创建，会导致大量的系统资源占用，尝试池化。
+go调度器本身不应该对goroutine数量有限制，因为语言层面无法界定需要限制多少，毕竟程序跑在不同性能的环境，在并发规模不太大的场景做限制甚至会降低性能，原生支持限制goroutine数量无疑是得不偿失的。如果只是中等规模和比较小规模的并发场景其实pool的性能并没有优势
+目前设计上还需要加上周期性对空闲队列的prune，等写完再加看看benchmark会提升多少。目前来说对大规模goroutine异步并发的场景(1M, 10M)内存优化(10倍往上)和吞吐量优化效果(2-6倍)非常好。
+需求场景与目标  限制并发goroutine的数量 复用goroutine，减轻runtime调度压力，提升程序性能 规避过多的goroutine创建侵占系统资源，cpu&amp;amp;内存  关键技术  锁同步: golang有CAS机制，用spin-lock替代mutex 原理， 讨论 LIFO/FIFO队列: LIFO队列能直接有时间排序功能，方便对需要关联入队时间的操作进行处理 Pool容量限制和弹性伸缩  代码实现 pool.go package go_pool import ( &amp;#34;errors&amp;#34; &amp;#34;sync&amp;#34; &amp;#34;sync/atomic&amp;#34; &amp;#34;time&amp;#34; ) const( OPEN = iota CLOSED ) var ( ErrPoolClosed = errors.New(&amp;#34;this pool has been closed&amp;#34;) ErrPoolOverload = errors.New(&amp;#34;too many goroutines blocked on submit or Nonblocking is set&amp;#34;) ErrInvalidExpiryTime = errors.New(&amp;#34;invalid expiration time&amp;#34;) ErrInvalidPoolCapacity = errors.New(&amp;#34;invalid pool capacity&amp;#34;) DefaultScanInterval = time.</description>
+    </item>
+    
+    <item>
+      <title>Possible Memory Leak</title>
+      <link>https://pillumina.github.io/posts/golang/memory-leak/</link>
+      <pubDate>Fri, 25 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/memory-leak/</guid>
+      <description>实际上对于一个有GC的语言，我们不必太多关心内存泄漏的问题，因为程序的runtime帮我们很好地额回收不再使用的内存。但是，我们还是得了解一些特殊的场景，这些场景会产生暂时性或者永久性的内存泄漏。
+待开坑...</description>
+    </item>
+    
+    <item>
+      <title>Close Channels Gracefully</title>
+      <link>https://pillumina.github.io/posts/golang/channel-graceful/</link>
+      <pubDate>Thu, 24 Dec 2020 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/channel-graceful/</guid>
+      <description>优雅地关闭通道 场景一：M个接收者和一个发送者。发送者通过关闭用来传输数据的通道来传递发送结束信号 这是最简单的一种情形。当发送者欲结束发送，让它关闭用来传输数据的通道即可。
+package main import ( &amp;#34;time&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;sync&amp;#34; &amp;#34;log&amp;#34; ) func main() { rand.Seed(time.Now().UnixNano()) log.SetFlags(0) // ... 	const Max = 100000 const NumReceivers = 100 wgReceivers := sync.WaitGroup{} wgReceivers.Add(NumReceivers) // ... 	dataCh := make(chan int) // 发送者 	go func() { for { if value := rand.Intn(Max); value == 0 { // 此唯一的发送者可以安全地关闭此数据通道。 	close(dataCh) return } else { dataCh &amp;lt;- value } } }() // 接收者 	for i := 0; i &amp;lt; NumReceivers; i++ { go func() { defer wgReceivers.</description>
+    </item>
+    
+    <item>
+      <title>Channels Concurrency Work-Around</title>
       <link>https://pillumina.github.io/posts/golang/channels/</link>
       <pubDate>Tue, 22 Dec 2020 11:22:18 +0800</pubDate>
       
       <guid>https://pillumina.github.io/posts/golang/channels/</guid>
-      <description></description>
+      <description>记录了一些channels常见的场景，以及自己的一些感受：
+  使用通道进行异步和并发编程是简单和惬意的；
+  通道同步技术比被很多其它语言采用的其它同步方案（比如角色模型和async/await模式）有着更多的应用场景和更多的使用变种。
+通道作为同步手段，并非在任何情况下都是最佳的同步技术，本文也会补充原子操作和sync包内其他的技术作为参考。
+  将通道用做future/promise 很多其它流行语言支持future/promise来实现异步（并发）编程。 Future/promise常常用在请求/回应场合。
+返回单向接收通道做为函数返回结果 在下面这个例子中，sumSquares函数调用的两个实参请求并发进行。 每个通道读取操作将阻塞到请求返回结果为止。 两个实参总共需要大约3秒钟（而不是6秒钟）准备完毕（以较慢的一个为准）。
+package main import ( &amp;#34;time&amp;#34; &amp;#34;math/rand&amp;#34; &amp;#34;fmt&amp;#34; ) func longTimeRequest() &amp;lt;-chan int32 { r := make(chan int32) go func() { time.Sleep(time.Second * 3) // 模拟一个工作负载 	r &amp;lt;- rand.Int31n(100) }() return r } func sumSquares(a, b int32) int32 { return a*a + b*b } func main() { rand.Seed(time.Now().UnixNano()) a, b := longTimeRequest(), longTimeRequest() fmt.</description>
     </item>
     
     <item>
@@ -90,15 +164,6 @@ public void test(){ List&amp;lt;Integer&amp;gt; a = new ArrayList&amp;lt;&amp;gt
   go tool compile -S xxxx.go | grep runtime.newobject（汇编代码中搜newobject指令，这个指令用于生成堆对象）
   备注： 关于-gcflags &amp;ldquo;-m -l&amp;quot;的输出，有两种情况：
  Moved to heap: xxx xxx escapes to heap  二者都表示发生了逃逸，当xxx变量为指针的时候，出现第二种；当xxx变量为值类型时，为上一种，测试代码：</description>
-    </item>
-    
-    <item>
-      <title>Design Pattern</title>
-      <link>https://pillumina.github.io/posts/golang/design-pattern/</link>
-      <pubDate>Wed, 11 Nov 2020 11:22:18 +0800</pubDate>
-      
-      <guid>https://pillumina.github.io/posts/golang/design-pattern/</guid>
-      <description>Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;amp;builder{ once: &amp;amp;sync.Once{}, msg: &amp;amp;Message{Header: &amp;amp;Header{}, Body: &amp;amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</description>
     </item>
     
   </channel>

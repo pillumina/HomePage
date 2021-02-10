@@ -119,6 +119,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/how-to-learn/">工程师应该如何高效学习</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
   
 
@@ -139,7 +148,7 @@ if (!doNotTrack) {
   
   
     
-    <li><a class="" href="/posts/golang/bdd-testing-framework/">Behavior Driven Testing</a></li>
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
   
 
   
@@ -148,7 +157,7 @@ if (!doNotTrack) {
   
   
     
-    <li><a class="" href="/posts/golang/channels/">Channels Concurrency Work-Around</a></li>
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
   
 
   
@@ -157,7 +166,7 @@ if (!doNotTrack) {
   
   
     
-    <li><a class="" href="/posts/golang/design-pattern/">Design Pattern</a></li>
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
   
 
   
@@ -194,6 +203,51 @@ if (!doNotTrack) {
   
     
     <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/goroutine-pool/">Goroutine Pool</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
   
 
 
@@ -258,6 +312,40 @@ if (!doNotTrack) {
   
     
     <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/design-pattern/">Programming Pattern</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/design-pattern/">Design Pattern Overview</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
       <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
       
       <ul class="">
@@ -293,14 +381,231 @@ if (!doNotTrack) {
       
       
         <div class="post-card">
+  <a href="/posts/design-pattern/go-pipeline/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang-banner-2.png'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Go编程模式：Pipeline</h5>
+        <p class="card-text post-summary">概述 这篇文章介绍Go编程里的Pipeline模式。如果是对Unix/Linux命令行熟悉的人会知道，Pipeline其实就是把每个命令拼接起来完成一个组合功能的技术。当下诸如流式处理，函数式编程，以及应用Gateway对微服务进行简单API编排，其实都受pipeline技术方式的影响。换句话说，这种技术能够很容易得把代码按照单一职责的原则拆分成多个高内聚低耦合的小模块，然后拼装起来去完成比较复杂的功能。
+​</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">February 3, 2021</span>
+        <a
+        href="/posts/design-pattern/go-pipeline/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/how-to-learn/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/hero-google.svg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">工程师应该如何高效学习</h5>
+        <p class="card-text post-summary">此文转自曹春晖blog，也用于自己学习的一些参考
+博客地址
+阅读书籍 对于工程师来说，从书籍得来的知识是必不可少的。现在很多年轻的程序员会从网络博客来学习技术，但博客内容大多缺乏体系(主要说总结性质的博客内容)，不系统。很多博主为了掩饰自己的未知，遇到不知道的关键点就一笔带过，进而导致缺失。即使原作者非常努力，内容上没有缺失，你能从中获取的也只是别人总结好的知识，没有自己的主动思考，这中间便缺少过程式的沉淀，一味地满足于背诵别人总结好的知识，最后也只不过沦为他人的复读机而已。
+对于工程师来说，书籍依然是最重要的知识获取媒介。即使只是通过目录概览，也能获取某个领域的大致蓝图。
+目前大部分优秀的技术书籍依然以英文为主，能够读懂英文技术书籍是工程师的硬实力。英语阅读能力怎么训练呢？如果不是为了应试，可以尝试逼迫自己去翻译一些英文文档/文章来进行专门训练。举个例子，为了学习 Go，笔者曾经和社区的小伙伴合作翻译过《The Go Programming Language》，后来为了深入学习 es，参与了社区的 《es 权威指南》 的翻译和校对工作。如果某篇技术文档你从生理上很厌恶它，但是又觉得内容不得不学习的话，那你就逼迫自己去翻译它。千字以内的文档，周末抽一个下午就可以搞定。这里已经说是逼迫了，自然可以想见这个过程并不像打游戏那么轻松愉快，但只要熬过了这个阶段，阅读技术相关的英文文档可以显著提升速度。
+具备一定的英语能力之后，接下来就是从什么渠道去获取内容。如果对电子书不排斥的话，目前比较经济的选择是申请一个国内的 ACM 会员，并且用该会员去注册oreily 在线书店。一年大概 20 美元，可以及时地阅读到大部分出版社的技术出版物。因为现在出版社的网站大多还支持 early preview，所以你甚至可以在书籍还没有上市之前就预先学习内容，第一时间获取整个业界的一线情报，能够帮助你站在时代的潮头。等两年后同事拿到翻译生涩的中文版的时候，你已经可以从容地 diss 他在信息源上落后了自己整整两年。(当然，如果你有兴趣，国内的出版社一般在英文新书出版的时候会招募翻译志愿者，如果你对一个领域特别感兴趣，关注出版社的这些招募消息也可以去参与。这里要指出，不要对做翻译这件事情抱太高期望，重在提升自己的能力。想赚钱的话就算了。)
+如果喜欢一边阅读一边在页边写写画画，电子书还是稍微困难点，当然这个问题你也可以用 ipad pro + apple pencil 来解决。但有些人比较喜欢实体书捧在手上的实感，国外有些书甚至是个人出版物，例如笔者之前购入的《timeless law of software development》，这些书在互联网上正盗均无，只能考虑通过海淘渠道入手。前些年淘宝的海淘服务也可以用来淘书，书籍大多比较重，运费不菲。有些老书运费可能会到书费的一半让人格外肉疼。又因为国内对出版物管制比较严格，所以为了避险，这两年这些海淘服务商基本上都不帮忙代购出版物了。对于个人用户来说，也就只剩下了直邮和转运两种选择。直邮虽然比较便宜，但是万国联盟的 EMS 一走到中国可能就上了牛车，速度慢到突破极限。基本脑子稍微正常的都会选择转运。除了速度之外，有些出版社的书籍是只在美帝本土销售的，不支持 global delivery。
+走转运的话，需要办一张 visa 或者 mastercard 的多币种信用卡，这样才能在海外网站进行支付 。
+上面这些问题都解决了以后，书籍的获取就不再是问题。
+信息源 虽然文章开头对于传统的书籍大赞特赞，但书籍的缺点也是显而易见的。在技术领域，这个缺点就尤为明显：时效问题。如果我们所学习的是相对比较老的领域知识，那只要读书基本上就够了。
+但技术的发展日新月异，如果你想要成为知晓领域内所有新技术的那个人。你还是需要关注一些书籍以外的新闻源，下面是一些例子：
+Github Trending Github Trending 代表的是一种风向，一般一个项目能上 trending 的话，可能是作者自己去 hacker news、reddit 做了宣传，也可能是被某个业界大佬带了流量。因为现在 Github 上的国人越来越多，很多国人学习技术比较显著的诉求其实只是面试(汗，一旦什么 xx interview/xx road to 架构师之类的仓库开了就会吸引一大批国人点星，近两年 trending 的质量有下跌趋势。
+不过最近 Github Trending 增加了按照 Spoken Language 筛选功能，所以你可以过滤特定的语言，相对比之前还是好多了。</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">February 1, 2021</span>
+        <a
+        href="/posts/how-to-learn/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/golang/websocket/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">A Million WebSocket and Go</h5>
+        <p class="card-text post-summary">这篇文章是我研究高负载网络服务器架构看到的的一个有趣的story，添加了我自身学习websocket的感受和记录，希望我能在飞机落地前写完:-)
+Preface 我们先描述一个问题作为讨论的中心：用户邮件的存储方法。
+对于这种主题，有很多种方式在系统内对邮件状态进行持续的追踪，比如系统事件是一个方式，另一种方式可以通过定期的系统轮询有关状态变化。
+这两种方式各有利弊，不过当我们讨论到邮件的时候，用户希望收到新邮件的速度越快越好。邮件轮询每秒约有50000个HTTP请求，其中60%返回304状态，也就是邮箱内没有任何修改。
+因此，为了减少服务器的负载并加快向用户传递邮件的速度，我们决定通过编写publisher-subscriber服务器(即bus, message broker, event channel)来重新发明轮子。一方面接受有关状态变更的通知，另外一个方面接受此类通知的订阅。
+改进前：
++--------------+ (2) +-------------+ (1) +-----------+ | | &lt;--------+ | | &lt;--------+ | | | Storage | | API | HTTP | Browser | | | +--------&gt; | | +--------&gt; | | +--------------+ (3) +-------------+ (4) +-----------+ 改进后:
++--------------+ +-------------+ WebSocket +-----------+ | Storage | | API | +----------&gt; | Browser | +--------------+ +-------------+ (3) +-----------+ + ^ | (1) | (2) v + +-----------------------------------------+ | Bus | +-----------------------------------------+ 改进前的方案也就是browser定期去查询api并访问存储更改</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">January 16, 2021</span>
+        <a
+        href="/posts/golang/websocket/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/golang/fasthttp/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">fasthttp对性能的优化压榨</h5>
+        <p class="card-text post-summary">最近在看网络模型和go net的源码，以及各web框架例如fasthttp, weaver, gnet(更轻量)源码。fasthttp在github上已经写上了一个go开发的best practices examples,这里我也记录一些在源码中看到的一些技巧
+[]byte buffer的tricks 下面的一些tricks在fasthttp中被使用，自己的代码也可以用
+ 标准Go函数能够处理nil buffer  var ( // both buffers are uninitialized 	dst []byte src []byte ) dst = append(dst, src...) // is legal if dst is nil and/or src is nil copy(dst, src) // is legal if dst is nil and/or src is nil (string(src) == &#34;&#34;) // is true if src is nil (len(src) == 0) // is true if src is nil src = src[:0] // works like a charm with nil src  // this for loop doesn&#39;t panic if src is nil for i, ch := range src { doSomething(i, ch) } 所以可以去掉一些对[]bytebuffer的nil校验:</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">January 10, 2021</span>
+        <a
+        href="/posts/golang/fasthttp/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/golang/sync-pool/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">[源码分析]sync pool</h5>
+        <p class="card-text post-summary">- 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环 - 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有） </p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">January 1, 2021</span>
+        <a
+        href="/posts/golang/sync-pool/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/golang/goroutine-pool/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">[自建轮]高性能Goroutine Pool</h5>
+        <p class="card-text post-summary">高性能Goroutine Pool go调度器没有限制对goroutine的数量，在goroutine瞬时大规模爆发的场景下来不及复用goroutine从而导致大量goroutine被创建，会导致大量的系统资源占用，尝试池化。
+go调度器本身不应该对goroutine数量有限制，因为语言层面无法界定需要限制多少，毕竟程序跑在不同性能的环境，在并发规模不太大的场景做限制甚至会降低性能，原生支持限制goroutine数量无疑是得不偿失的。如果只是中等规模和比较小规模的并发场景其实pool的性能并没有优势
+目前设计上还需要加上周期性对空闲队列的prune，等写完再加看看benchmark会提升多少。目前来说对大规模goroutine异步并发的场景(1M, 10M)内存优化(10倍往上)和吞吐量优化效果(2-6倍)非常好。
+需求场景与目标  限制并发goroutine的数量 复用goroutine，减轻runtime调度压力，提升程序性能 规避过多的goroutine创建侵占系统资源，cpu&amp;内存  关键技术  锁同步: golang有CAS机制，用spin-lock替代mutex 原理， 讨论 LIFO/FIFO队列: LIFO队列能直接有时间排序功能，方便对需要关联入队时间的操作进行处理 Pool容量限制和弹性伸缩  代码实现 pool.go package go_pool import ( &#34;errors&#34; &#34;sync&#34; &#34;sync/atomic&#34; &#34;time&#34; ) const( OPEN = iota CLOSED ) var ( ErrPoolClosed = errors.New(&#34;this pool has been closed&#34;) ErrPoolOverload = errors.New(&#34;too many goroutines blocked on submit or Nonblocking is set&#34;) ErrInvalidExpiryTime = errors.New(&#34;invalid expiration time&#34;) ErrInvalidPoolCapacity = errors.New(&#34;invalid pool capacity&#34;) DefaultScanInterval = time.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 30, 2020</span>
+        <a
+        href="/posts/golang/goroutine-pool/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/golang/memory-leak/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Possible Memory Leak</h5>
+        <p class="card-text post-summary">实际上对于一个有GC的语言，我们不必太多关心内存泄漏的问题，因为程序的runtime帮我们很好地额回收不再使用的内存。但是，我们还是得了解一些特殊的场景，这些场景会产生暂时性或者永久性的内存泄漏。
+待开坑...</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 25, 2020</span>
+        <a
+        href="/posts/golang/memory-leak/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/golang/channel-graceful/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Close Channels Gracefully</h5>
+        <p class="card-text post-summary">优雅地关闭通道 场景一：M个接收者和一个发送者。发送者通过关闭用来传输数据的通道来传递发送结束信号 这是最简单的一种情形。当发送者欲结束发送，让它关闭用来传输数据的通道即可。
+package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;sync&#34; &#34;log&#34; ) func main() { rand.Seed(time.Now().UnixNano()) log.SetFlags(0) // ... 	const Max = 100000 const NumReceivers = 100 wgReceivers := sync.WaitGroup{} wgReceivers.Add(NumReceivers) // ... 	dataCh := make(chan int) // 发送者 	go func() { for { if value := rand.Intn(Max); value == 0 { // 此唯一的发送者可以安全地关闭此数据通道。 	close(dataCh) return } else { dataCh &lt;- value } } }() // 接收者 	for i := 0; i &lt; NumReceivers; i++ { go func() { defer wgReceivers.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 24, 2020</span>
+        <a
+        href="/posts/golang/channel-graceful/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
   <a href="/posts/golang/channels/" class="post-card-link">
     <div class="card">
       <div class="card-head">
         <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Channels Concurrency</h5>
-        <p class="card-text post-summary"></p>
+        <h5 class="card-title">Channels Concurrency Work-Around</h5>
+        <p class="card-text post-summary">记录了一些channels常见的场景，以及自己的一些感受：
+  使用通道进行异步和并发编程是简单和惬意的；
+  通道同步技术比被很多其它语言采用的其它同步方案（比如角色模型和async/await模式）有着更多的应用场景和更多的使用变种。
+通道作为同步手段，并非在任何情况下都是最佳的同步技术，本文也会补充原子操作和sync包内其他的技术作为参考。
+  将通道用做future/promise 很多其它流行语言支持future/promise来实现异步（并发）编程。 Future/promise常常用在请求/回应场合。
+返回单向接收通道做为函数返回结果 在下面这个例子中，sumSquares函数调用的两个实参请求并发进行。 每个通道读取操作将阻塞到请求返回结果为止。 两个实参总共需要大约3秒钟（而不是6秒钟）准备完毕（以较慢的一个为准）。
+package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;fmt&#34; ) func longTimeRequest() &lt;-chan int32 { r := make(chan int32) go func() { time.Sleep(time.Second * 3) // 模拟一个工作负载 	r &lt;- rand.Int31n(100) }() return r } func sumSquares(a, b int32) int32 { return a*a + b*b } func main() { rand.Seed(time.Now().UnixNano()) a, b := longTimeRequest(), longTimeRequest() fmt.</p>
       </div>
       <div class="card-footer">
         <span class="float-left">December 22, 2020</span>
@@ -358,15 +663,19 @@ pip install SciencePlots 然后我们在画图时，只需要一句with.plt.styl
       <div class="card-body">
         <h5 class="card-title">Tracking</h5>
         <p class="card-text post-summary">这个post为记录目前正在阅读与研究的section
-Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &ndash; Rob Pike
+Go语言设计 Go语言设计与实现
+Go Under The Hood
+这两本在写作目的和内容规划都是一致的，不过第二个原本不再维护内容，作者开了下面的新的项目，把撰写原本而积累的与Go相关的资源进行了重新的整理。 Go设计历史
+pprof对服务端性能影响的研究 考虑一些极端场景，比如极度追求性能，压榨系统资源以及技术栈必须是Go的业务场景下，是否能自己构建Reactor网络模型
+GRPC框架对服务侧性能的影响 Russ Cox正则表达式系列 You should not be permitted to write production code if you do not have an journeyman license in regular expressions or floating point math. &ndash; Rob Pike
 Regular Expression Matching Can Be Simple And Fast
 编译器词法分析:正则语言和正则表达式
 Go内存原理与调度模型 正在整理专栏
-Crafting Interpreter 时常看PL和Compiler的基础
+Bound Checking Elimination Crafting Interpreter 时常看PL和Compiler的基础
 crafting interpreters
 Kosaraju&rsquo;s Algorithm 看William Lin的coding interview觉得用来处理树和图很好，算法4里也有
 Heilmeier问题系列 思考某篇paper的选题
- What are you trying to do? Articulate your objectives using absolutely no jargon. How is it done today, and what are the limits of current practice?</p>
+ What are you trying to do?</p>
       </div>
       <div class="card-footer">
         <span class="float-left">December 19, 2020</span>
@@ -407,224 +716,29 @@ func TestFib(t *testing.T) { var fibTests = []struct { in int // input  expected
 </div>
 
       
-        <div class="post-card">
-  <a href="/posts/golang/schedualing/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Golang并发调度</h5>
-        <p class="card-text post-summary">性能提升不会凭空出现，它总是伴随着代码复杂度的上升。 The performance improvement does not materialize from the air, it comes with code complexity increase.
-&ndash; Dmitry Vyukov
-Go 语言的调度器我认为应该是整个运行时最有趣的组件了。对于Go本身，它的设计和实现直接牵动了Go运行时的其他组件，也是和用户态代码直接打交道的部分；对于Go用户而言，调度器将其极为复杂的运行机制隐藏在了简单的关键字go下。为了保证高性能，调度器必须有效得利用计算的并行性和局部性原理；为了保证用户态的简洁，调度器必须高效得对调度用户态不可见的网络轮训器、垃圾回收器进行调度；为了保证代码执行的正确性，必须严格实现用户态代码的内存顺序等。总而言之，调度器的设计直接决定了Go运行时源码的表现形式。
-设计原理 数据结构: MPG 调度器启动 创建Goroutine 调度循环 触发调度 线程管理 总结 </p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 17, 2020</span>
-        <a
-        href="/posts/golang/schedualing/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/python/python-functionality/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/python-coder.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Python类自定义</h5>
-        <p class="card-text post-summary">python类关键字 __init__ vs __new__ __init__为初始化方法，__new__为真正的构造函数。
-描述符Descriptor __contains__ __slots__ 定制类 type() python作为动态语言，和静态语言最大的不同，即函数和类的定义，不是编译的时候创建的而是动态创建的。我们常见的对类的定义:
-class Hello(object): def hello(self, name=&#39;world&#39;): print(&#39;Hello, %s.&#39; % name) &gt;&gt;&gt; from hello import Hello &gt;&gt;&gt; h = Hello() &gt;&gt;&gt; h.hello() Hello, world. &gt;&gt;&gt; print(type(Hello)) &lt;class 'type'&gt; &gt;&gt;&gt; print(type(h)) &lt;class 'hello.Hello'&gt; type()函数可以查看一类类型或者变量的类型，Hello是一个class， 它的类型是个type，而h是一个instance, 它的类型就是class Hello。
-同时有一个概念，就是type()不仅可以返回对象的类型，还可以创建出新的类型。我们可以不用定义class Hello() ...而动态创建出Hello类。
-&gt;&gt;&gt; def fn(self, name='world'): # 先定义函数 ... print('Hello, %s.' % name) ... &gt;&gt;&gt; Hello = type('Hello', (object,), dict(hello=fn)) # 创建Hello class &gt;&gt;&gt; h = Hello() &gt;&gt;&gt; h.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 14, 2020</span>
-        <a
-        href="/posts/python/python-functionality/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/golang/bdd-testing-framework/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">BDD: Ginkgo测试框架</h5>
-        <p class="card-text post-summary">Preface BDD和TDD都是test case first的实现，无非是把后者的test改成前者的behavior。在TDD中，关注的核心点是function，即认为程序最基本单元是function，其test case可以认为是unit test，TDD和unit test的区别是TDD强调测试和开发结合而成的工作流: 写test case -&gt; 写代码 -&gt; 通过测试，继续写更多测试，写一次循环。
-而BDD比TDD更关注高层的行为，而不是函数级别的行为，也就是在BDD中，不会强调函数的功能正确，这是unit test应该做的事。BDD更关注user story，即用户在特定场景，与软件交互发生的行为，这个behavior指的就是高层模块的行为。
-如何区分BDD和TDD，简单理解，TDD是给programmer的，用来验证开发者的最基本模块的功能：在什么输入，应该产生什么输出，保证实现的边界，健全性。而BDD，其test case描述的是更高级的模块行为，脱离了具体的实现，容易用自然语言去描述，也就是BDD是给product manager的，告诉其系统的行为。
-BDD in golang ​	实现的时候，我们需要把Given-When-Then这种story格式组织test case翻译为测试代码，通过一系列的assertion来检查实现是否符合test case的预期，我们完全可以直接通过golang自带的testing模块来实现，不过testing的功能有时候比较简陋，本文记录了用Ginkgo+Gomega来组织test case，让我们的测试语言更加接近自然语言。
-二者结合的目的是，ginkgo实现了test case的组织，并加入了其他方便的功能: 初始化，后续处理，异步等等。而gomega设计的目的是与ginkgo一起工作，实现易读的assertion(ginkgo中称为match)功能。
-Gomega is ginkgo's preferred matcher library 初始化 ginkgo依托golang原生testing框架，即可以用go test ./.. 执行，也可以通过ginkgo binrary安装go install github.com/onsi/ginkgo，封装了ginkgo测试框架的各种feature。
-初始化首先进入待测试的package:
-cd /path/to/package 执行初始化:
-ginkgo bootstrap 生成以suite_test.go文件，接下来向suite添加测试specs，生成比如ginkgo_cart package测试文件。
-ginkgo generate ginkgo_cart 运行 生成ginkgo_cart_test.go，注意测试文件在ginkgo_cart_testpackage， 需要import package ginkgo_cart，即BDD层级高于unit test, 不应该了解package内部的具体实现，测试package的外部接口即可。编写测试代码，运行go test ./..即可。
-Ginkgo Keyword Ginkgo测试代码骨架由一系列keyword关联的闭包组成，常用的有：
- Describe/Context/When: 测试逻辑块 BeforeEach/AfterEach/JustBeforeEach/JustAfterEach: 初始化测试用例块 It: 单一Spec，测试case  keyword的声明均为传入Body参数，比如Describe:</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 4, 2020</span>
-        <a
-        href="/posts/golang/bdd-testing-framework/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/golang/memory-management/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Golang内存管理</h5>
-        <p class="card-text post-summary">设计原则 现在我们来看 Go 中另一重要的关键组件：内存分配器。
-Go 的内存分配器基于 Thread-Cache Malloc (tcmalloc) ，tcmalloc 为每个线程实现了一个本地缓存， 区分了小对象（小于 32kb）和大对象分配两种分配类型，其管理的内存单元称为 span。
-我们不再介绍更多 tcmalloc 的具体细节，因为 Go 的内存分配器与 tcmalloc 存在一定差异。 这个差异来源于 Go 语言被设计为没有显式的内存分配与释放， 完全依靠编译器与运行时的配合来自动处理，因此也就造就了内存分配器、垃圾回收器两大组件。
-我们知道，在计算机领域中，无外乎时间换空间、空间换时间。统一管理内存会提前分配或一次性释放一大块内存， 进而减少与操作系统沟通造成的开销，进而提高程序的运行性能。 支持内存管理另一个优势就是能够更好的支持垃圾回收，这一点我们留到垃圾回收器的章节中进行讨论。
-主要结构 Go 的内存分配器主要包含以下几个核心组件：
- heapArena: 保留整个虚拟地址空间 mheap：分配的堆，在页大小为 8KB 的粒度上进行管理 mspan：是 mheap 上管理的一连串的页 mcentral：收集了给定大小等级的所有 span mcache：为 per-P 的缓存。  其中页是向操作系统申请内存的最小单位，目前设计为 8KB。
-每一个结构虽然不都像是调度器 M/P/G 结构那样的大部头，但初次阅读这些结构时想要理清他们之间的关系还是比较麻烦的。 传统意义上的栈被 Go 的运行时霸占，不开放给用户态代码；而传统意义上的堆内存，又被 Go 运行时划分为了两个部分， 一个是 Go 运行时自身所需的堆内存，即堆外内存；另一部分则用于 Go 用户态代码所使用的堆内存，也叫做 Go 堆。 Go 堆负责了用户态对象的存放以及 goroutine 的执行栈。
-Arena heapArena Go 堆被视为由多个 arena 组成，每个 arena 在 64 位机器上为 64MB，且起始地址与 arena 的大小对齐， 所有的 arena 覆盖了整个 Go 堆的地址空间。</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 2, 2020</span>
-        <a
-        href="/posts/golang/memory-management/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/golang/golang-escape-analysis/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Golang逃逸分析</h5>
-        <p class="card-text post-summary">问题： golang函数传参是不是应该和c一样，尽量不要直接传结构体，而是要传结构体指针？
-逃逸分析 逃逸分析指的是，在计算机语言编译器优化原理中，分析指针动态范围的方法，和编译器优化原理的指针分析和外形分析相关联。当变量（或者对象）在方法中被分配后，其指针有可能被返回或者被全局引用，这种现象就是指针（或引用）的逃逸（Escape）。
-其实在java概念中有一个误解 &mdash; new出来的东西都在堆上，栈上存的是它的引用。 这句话在现代JVM上有问题，就是因为逃逸分析机制。简单来说，就是JVM的逃逸分析会在运行时(runtime)检测当前方法栈帧(frame)内new出来的对象的引用，是否被传出当前的栈帧。如果传出，就会发生逃逸，没有传出则不会。对于未发生逃逸的变量，则会直接在栈上分配内存。因为栈上内存由在函数返回时自动回收，而堆上的的内存需要gc去回收，如果程序中有大量逃逸的对象，那么势必会增加gc的压力。
-public void test(){ List&lt;Integer&gt; a = new ArrayList&lt;&gt;(); a.add(1); // a 未逃逸，在栈上分配 } public List&lt;Integer&gt; test1(){ List&lt;Integer&gt; a = new ArrayList&lt;&gt;(); a.add(1); return a // 发生逃逸，因此分配在堆上 } 区别  不同于JVM运行时的逃逸分析，Golang的逃逸分析是在编译期完成。 golang的逃逸分析只针对指针。一个值引用变量如果没有被取址，那么它永远不可能逃逸。  go version go1.13.4 darwin/amd64 验证某个函数的变量是否发生逃逸的方法：
-  go run -gcflags &ldquo;-m -l&rdquo; (-m打印逃逸分析信息，-l禁止内联编译)
-  go tool compile -S xxxx.go | grep runtime.newobject（汇编代码中搜newobject指令，这个指令用于生成堆对象）
-  备注： 关于-gcflags &ldquo;-m -l&quot;的输出，有两种情况：
- Moved to heap: xxx xxx escapes to heap  二者都表示发生了逃逸，当xxx变量为指针的时候，出现第二种；当xxx变量为值类型时，为上一种，测试代码：</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">November 23, 2020</span>
-        <a
-        href="/posts/golang/golang-escape-analysis/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/golang/design-pattern/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang_banner.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Design Pattern</h5>
-        <p class="card-text post-summary">Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;builder{ once: &amp;sync.Once{}, msg: &amp;Message{Header: &amp;Header{}, Body: &amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">November 11, 2020</span>
-        <a
-        href="/posts/golang/design-pattern/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/java/java-fundamentals/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/java-dev.png'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Java Fundamentals</h5>
-        <p class="card-text post-summary">JAVA对象的equals方法和hashCode方法是这样规定的   相等（相同）的对象必须有相等的哈希码
-  如果两个对象的哈希吗相同，它们不一定相同
-  Java集合判断两个对象是否相等的规则：   判断两个对象的哈希码是否相等
-  判断两个对象用equals是否相等
-  所以重写其中一个方法，必须重写另一个方法
-让对象可拷贝：
- 实现java.lang.Cloneable 2. 重写Object的clone()方法  由于GC的自动回收机制，并不能保证finalize方法被及时的执行，因为对象的回收时机具有不确定性，或者要么没有触发垃圾回收。这个方法被禁止调用，应该用显式的close()方法。 Collection类的选择 Set:
-排序吗？
-是： TreeSet / LinkedHashSet
-否： HashSet
-List
-要安全吗？
-是： Vector
-否： ArrayList或者LinkedList &mdash; 查询多ArrayList，增删多LinkedList
-Map常用子类：HashMap, HashTable, TreeMap, ConcurrentHashMap HashMap: 非线程安全，性能高，基于数组和链表实现。
-TreeMap：有序键值对，按key排序
-HashTable: 线程安全, 性能低
-ConcurrentHashMap: 线程安全且性能较好。Java1.7采取分段锁，1.8采用CAS+synchronized保证并发安全。
-LinkedHashMap 为HashMap的子类，内部还有一个双向链表维护键值对的顺序。支持插入顺序、访问顺序
-  插入顺序：先添加在前，后添加在后
-  访问顺序：即get/put操作，对一个键执行get/put操作后，对应的键值被移动到链表的末尾，所以最末尾的是最近访问的，最开始的是最久没有被访问的。
-  有5种构造方法，4个是插入顺序，只有一个按照指定访问顺序，可以用于实现LRUCache
-  集合初始化、大小和扩容 建议在集合初始化时指定集合容量大小 如果没有设置，元素增加，resize表会重建hash，影响性能</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">October 26, 2020</span>
-        <a
-        href="/posts/java/java-fundamentals/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
     </div>
     <div class="paginator">
       
+<ul class="pagination">
+  <li class="page-item">
+    <a href="/posts/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item disabled">
+    <a  class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/posts/">1</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/posts/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
+</ul>
 
 
     </div>

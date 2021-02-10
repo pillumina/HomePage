@@ -1,12 +1,12 @@
 ---
 title: "Design Pattern"
 date: 2020-11-11T11:22:18+08:00
-hero: /images/posts/golang_banner.jpg
+hero: /images/posts/golang-banner-2.png
 menu:
   sidebar:
-    name: Design Pattern Golang
+    name: Design Pattern Overview
     identifier: design-pattern
-    parent: golang odyssey
+    parent: programming pattern
     weight: 10
 draft: false
 ---
