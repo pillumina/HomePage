@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Possible Memory Leak</title>
+    <title>IaaS vs PaaS vs SaaS</title>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/assets/css/style.css"/>
 
     
-<meta name="description" content="Possible Memory Leak" />
+<meta name="description" content="IaaS vs PaaS vs SaaS" />
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
@@ -110,9 +110,12 @@ if (!doNotTrack) {
   
   
   
+    
+    
+  
   
     
-    <li><a class="" href="/posts/iaas-paas-diff/">IaaS vs PaaS vs SaaS</a></li>
+    <li><a class="active" href="/posts/iaas-paas-diff/">IaaS vs PaaS vs SaaS</a></li>
   
 
   
@@ -164,15 +167,12 @@ if (!doNotTrack) {
   
   
   
-    
-    
-  
   
     
     <li>
-      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
       
-      <ul class="active">
+      <ul class="">
         
   
   
@@ -277,12 +277,9 @@ if (!doNotTrack) {
   
   
   
-    
-    
-  
   
     
-    <li><a class="active" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
   
 
 
@@ -414,7 +411,7 @@ if (!doNotTrack) {
   <div class="content">
     <div class="container p-0 read-area">
       
-      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang_banner.jpg);'>
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/hero-google.svg);'>
       </div>
 
       
@@ -422,23 +419,131 @@ if (!doNotTrack) {
         <div class="author-profile ml-auto align-self-lg-center">
           <img class="rounded-circle" src='/images/photo.jpeg'/>
           <h5 class="author-name"></h5>
-          <p>December 25, 2020</p>
+          <p>February 15, 2021</p>
         </div>
 
         <div class="title">
-          <h1>Possible Memory Leak</h1>
+          <h1>IaaS vs PaaS vs SaaS</h1>
         </div>
 
         <div class="post-content" id="post-content">
-          <p>实际上对于一个有GC的语言，我们不必太多关心内存泄漏的问题，因为程序的runtime帮我们很好地额回收不再使用的内存。但是，我们还是得了解一些特殊的场景，这些场景会产生暂时性或者永久性的内存泄漏。</p>
-<p><code>待开坑...</code></p>
+          <p>如果你在考虑将你的在线电子业务转移到云上，下面三个名词会经常遇到：</p>
+<ol>
+<li>IaaS</li>
+<li>PaaS</li>
+<li>SaaS</li>
+</ol>
+<p>这些是<a href="https://www.bigcommerce.com/ecommerce-answers/what-is-cloud-computing/">云计算领域的三个主要类别</a></p>
+<p>你很可能早就听说过它们，在各种各样的业务转移到云上的趋势下，它们各自占据的不同的比例：</p>
+<ol>
+<li>SaaS占据大概24%的企业负载</li>
+<li>IaaS在12%左右波动</li>
+<li>PaaS是近年来最流行的模型，大概占据32%，且当下和未来会有更多的增长</li>
+</ol>
+<h3 id="on-premise-saas-paas-iaas的关键区别">On-Premise, SaaS, PaaS, IaaS的关键区别</h3>
+<p><code>on-premise这里理解成本地部署的含义，比如企业内部部署的CRM软件系统，其反义词即为云端</code></p>
+<p>不久以前，所有公司的IT系统都是on-premise的，云的概念比较模糊和遥远。</p>
+<p>SaaS, PaaS, IaaS只是三种简单描述你如何为你的业务使用云设施的方式：</p>
+<ol>
+<li><strong>IaaS</strong>:  cloud-based services, 为存储、网络以及虚拟化等服务提供pay-as-you-go</li>
+<li><strong>PaaS</strong>: 通过internet提供硬件和软件工具</li>
+<li><strong>SaaS</strong>: 完全由第三方提供的软件服务</li>
+<li><strong>On-Premise</strong>: 企业内部部署</li>
+</ol>
+<p>下面是一个图解：</p>
+<p><img src="https://www.bigcommerce.com/blog/wp-content/uploads/2018/10/saas-vs-paas-vs-iaas-breakdown.jpg" alt="breakdown"></p>
+<h3 id="saas-paas-iaas-举例">SaaS, PaaS, IaaS 举例</h3>
+<p>大多数的业务一般使用SaaS以及IaaS云计算服务模型的组合，此外有很多业务会鼓励开发者使用PaaS去构建应用。</p>
+<p><strong>SaaS举例</strong>： BigCommerce, Google Apps, Salesforce, Dropbox, MailChimp, ZenDesk, DocuSign, Slack, Hubspot.</p>
+<p><strong>PaaS举例</strong>： AWS Elastic Beanstalk, Heroku, Windows Azure (mostly used as PaaS), Force.com, OpenShift, Apache Stratos, Magento Commerce Cloud.</p>
+<p><strong>IaaS举例</strong>： AWS EC2, Rackspace, Google Compute Engine (GCE), Digital Ocean, Magento 1 Enterprise Edition*.</p>
+<h3 id="三类云计算服务模型解释">三类云计算服务模型解释</h3>
+<h4 id="iaas-infrastructure-as-a-service">IaaS (Infrastructure as a Service)</h4>
+<p>IaaS业务提供诸如存储、网络和虚拟化的pay-as-you-go服务，也是对on-premise基础设施的替代。因此业务可以避免对庞大的on-site资源的投入。</p>
+<p>传统on-premise IT基础设施的维护是耗时耗力且耗费资金的，通常这种基础设施需要大量的初始投资在物理硬件，而且你经常也需要额外的IT运营去维护硬件以及维持更新。</p>
+<p><code>With IaaS, you can buy what you need, as you need it, and purchase more as your business grows.</code></p>
+<p>IaaS解决方案非常灵活且便于扩展，使用者能够轻易得进行方案替代，并且使用方能对基础设施进行全面掌控，其特征为：</p>
+<ul>
+<li>
+<p>Highly flexible and highly scalable.</p>
+</li>
+<li>
+<p>Accessible by multiple users.</p>
+</li>
+<li>
+<p>Cost-effective.</p>
+<p><strong>使用IaaS的时机</strong>：</p>
+<p>IaaS适用于所有体量的业务，因为它能让你对基础设施进行全面掌控，同时因为其工作模式为pay-as-you-use，因此任何的预算都能够很好cover。</p>
+</li>
+</ul>
+<h4 id="paas-platform-as-a-service">PaaS (Platform as a Service)</h4>
+<p>PaaS供应商通过网络提供软硬件工具，用户基于此去开发应用，所以PaaS使用者倾向于开发者。</p>
+<p><code>A PaaS solution provides the platform for developers to create unique, customizable software.</code></p>
+<p>这意味着开发者不需要在开发应用时从零开始，也就意味着帮助他们节省资金和精力。因此PaaS对于那些目标为创建独特应用的同时避免承担所有责任的人是一个流行的选择。</p>
+<p>PaaS平台的特征为：</p>
+<ul>
+<li>
+<p>Accessible by multiple users.</p>
+</li>
+<li>
+<p>Scalable – you can choose from various tiers of resources to suit the size of your business.</p>
+</li>
+<li>
+<p>Built on virtualization technology.</p>
+</li>
+<li>
+<p>Easy to run without extensive system administration knowledge.</p>
+<p><strong>使用PaaS的时机</strong>：</p>
+<p>开发者只需要投入app的开发、测试和部署，而不用关注其他细节比如软件更新维护、安全补丁等等。</p>
+<p><strong>PaaS 的Non-Ecommerce例子</strong>：</p>
+<p>一个很好的例子就是<a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html">AWS Elastic Beanstalk</a>.</p>
+<p>AWS提供超过100个云计算服务比如EC2，RDS和S3。大多数这些服务可以被作为IaaS使用，而且大多数使用AWS的公司会选择他们想要的服务。</p>
+<p>然而，对于用户来说，管理很多不同的服务会很快变得艰难和耗时，所以AWS Elatsic Beanstalk的作用就在于：其工作为基础设施上面的一层，能够自动解决很多底层细节例如容量预测、负载均衡、扩缩容以及应用健康监控。</p>
+<p><strong>PaaS的Ecommerce例子</strong>：</p>
+<p>Magento Commerce Cloud (also known as Magento Enterprise Cloud Edition) 便是最常见的例子。</p>
+</li>
+</ul>
+<h4 id="saas-software-as-a-service">SaaS （Software as a Service）</h4>
+<p>SaaS平台让用户能够通过网络使用软件，收费方式通常为月度订阅计费。</p>
+<p>其优势为，使用SaaS意味着你不需要在自身的计算机中运行软件应用，只需要登录账户即可。只要有网络连接，你就能在任何设备上访问你的软件。例如你的员工能够有个人的登录账户，对应着不同的访问权限。</p>
+<p><code>You no longer need to engage an IT specialist to download the software onto multiple computers throughout your office or worry about keeping the software on every computer up-to-date.</code></p>
+<p>大部分订阅包含维护、编译以及安全服务，这些服务在on-premise中是非常费时费力的。</p>
+<p>SaaS平台的特征:</p>
+<ul>
+<li>
+<p>Available over the internet.</p>
+</li>
+<li>
+<p>Hosted on a remote server by a third-party provider.</p>
+</li>
+<li>
+<p>Scalable, with different tiers for small, medium, and enterprise-level businesses.</p>
+</li>
+<li>
+<p>Inclusive, offering security, compliance, and maintenance as part of the cost.</p>
+<p><strong>使用SaaS的时机</strong>：</p>
+<p><code>SaaS platforms are ideal for when you want an application to run smoothly and reliably with minimal input from you.</code></p>
+<p><strong>SaaS Ecommerce举例</strong>：</p>
+<p>BigCommerce是一个典型。</p>
+</li>
+</ul>
+<p><code>BigCommerce provides complete shopping cart software, as well as hosting infrastructure to the user, allowing businesses to create an online shop within minutes without worrying about coding, hosting, or software.</code></p>
+<h3 id="executive-summary">Executive Summary</h3>
+<p>基本上三种云计算服务模型的流行也削减了on-premise的部署形式，可以用pizza再去总结刚开始的图:</p>
+<p><img src="https://www.bigcommerce.com/blog/wp-content/uploads/2018/10/saas-vs-paas-vs-iaas-Pizza-example.jpg" alt="pizza"></p>
+<p>总结来看，具体的区别如下：</p>
+<ol>
+<li>IaaS is there to provide you with maximum flexibility when it comes to hosting custom-built apps, as well as a providing a general data center for data storage.</li>
+<li>PaaS is most often built on top of an IaaS platform to reduce the need for system administration. It allows you to focus on app development instead of infrastructure management.</li>
+<li>SaaS offers ready-to-use, out-of-the-box solutions that meet a particular business need (such as website or email). Most modern SaaS platforms are built on IaaS or PaaS platforms.</li>
+</ol>
 
         </div>
 
         
         
           <div class="btn-improve-page">
-              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/memory-leak.md">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/iaas-paas-diff.md">
                 <i class="fas fa-code-branch"></i>
                 Improve This Page
               </a>
@@ -475,52 +580,38 @@ if (!doNotTrack) {
   
 
   
-    
-      
-      <div class="col-md-6 previous-article">
-        <a href="/posts/golang/goroutine-pool/" class="btn btn-outline-info">
-          <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
-          <br />
-          <span>[自建轮]高性能Goroutine Pool</span>
-        </a>
-      </div>
-      
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     
     
       
         
         
-          
-              
-          
-        
-        <div class="col-md-6 next-article">
-          <a href="/posts/golang/channel-graceful/" class="btn btn-outline-info">
+        <div class="col-md-12 next-article">
+          <a href="/posts/design-pattern/go-pipeline/" class="btn btn-outline-info">
             <span>Next <i class="fas fa-chevron-circle-right"></i></span>
             <br />
-            <span>Close Channels Gracefully</span>
+            <span>Go编程模式：Pipeline</span>
           </a>
         </div>
       
     
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
   
 
 </div>
@@ -572,7 +663,24 @@ if (!doNotTrack) {
       <h5 class="text-center pl-3">Table of Contents</h5>
       <hr>
       <div class="toc">
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#on-premise-saas-paas-iaas的关键区别">On-Premise, SaaS, PaaS, IaaS的关键区别</a></li>
+        <li><a href="#saas-paas-iaas-举例">SaaS, PaaS, IaaS 举例</a></li>
+        <li><a href="#三类云计算服务模型解释">三类云计算服务模型解释</a>
+          <ul>
+            <li><a href="#iaas-infrastructure-as-a-service">IaaS (Infrastructure as a Service)</a></li>
+            <li><a href="#paas-platform-as-a-service">PaaS (Platform as a Service)</a></li>
+            <li><a href="#saas-software-as-a-service">SaaS （Software as a Service）</a></li>
+          </ul>
+        </li>
+        <li><a href="#executive-summary">Executive Summary</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
       </div>
     </div>
     
