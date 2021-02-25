@@ -8,6 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 11 Nov 2020 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Life of an HTTP request in a Go server</title>
+      <link>https://pillumina.github.io/posts/golang/lifecycle-of-http/</link>
+      <pubDate>Sat, 20 Feb 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/lifecycle-of-http/</guid>
+      <description>这篇文章的启发是我在阅读Go的http源码时获得的，之前对这块缺乏深入的了解，这篇文章会结合源码讨论包括典型http request的路由，还会涉及到一些并发和中间件的issue。
+我们先从一个简单的go server谈起，下面的代码从https://gobyexample.com/http-servers 截取：
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;net/http&amp;#34; ) func hello(w http.ResponseWriter, req *http.Request) { fmt.Fprintf(w, &amp;#34;hello\n&amp;#34;) } func headers(w http.ResponseWriter, req *http.Request) { for name, headers := range req.Header { for _, h := range headers { fmt.Fprintf(w, &amp;#34;%v: %v\n&amp;#34;, name, h) } } } func main() { http.HandleFunc(&amp;#34;/hello&amp;#34;, hello) http.HandleFunc(&amp;#34;/headers&amp;#34;, headers) http.ListenAndServe(&amp;#34;:8090&amp;#34;, nil) } 追踪请求的生命周期我们从http.ListenAndServe这个方法开始，下面的图示说明了这一层的调用关系:
+这里实际上inlined了一些代码，因为初始的代码有很多其他的细节不好追踪。
+主要的flow其实和我们预期的一致：ListenAndServe方法对你一个目标地址监听一个TCP端口，而后循环不断接受新的连接。每一个连接，它会起一个新的goroutine去serve，serve的具体操作是:
+ 从连接里解析HTTP请求： 产生http.Request 将http.Request传给用户自定义的handler  一个handler实际上就是实现了http.Handler接口：
+type Handler interface { ServeHTTP(ResponseWriter, *Request) } 默认Handler 在我们上述的代码中，ListenAndServe方法的第二个参数为nil，实际上应该是用户自定义的handler, 这是为何？我们的图解中省去了很多细节，实际上当HTTP包serve一个请求的时候，它并没有直接调用用户的handlers而是使用一个adaptor：</description>
+    </item>
+    
+    <item>
       <title>A Million WebSocket and Go</title>
       <link>https://pillumina.github.io/posts/golang/websocket/</link>
       <pubDate>Sat, 16 Jan 2021 11:22:18 +0800</pubDate>
