@@ -1,7 +1,7 @@
 ---
 title: "Possible Memory Leak"
 date: 2020-12-25T11:22:18+08:00
-hero: /images/posts/golang_banner.jpg
+hero: /images/posts/golang2.jpg
 menu:
   sidebar:
     name: 可能的内存泄漏场景

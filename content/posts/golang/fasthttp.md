@@ -1,7 +1,7 @@
 ---
 title: "fasthttp对性能的优化压榨"
 date: 2021-01-10T11:22:18+08:00
-hero: /images/posts/golang_banner.jpg
+hero: /images/posts/golang2.jpg
 menu:
   sidebar:
     name: fasthttp对性能的优化研究

@@ -1,7 +1,7 @@
 ---
 title: "Golang TDD"
 date: 2020-12-19T11:22:18+08:00
-hero: /images/posts/golang_banner.jpg
+hero: /images/posts/golang2.jpg
 menu:
   sidebar:
     name: Golang Testing Kits

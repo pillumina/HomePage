@@ -1,7 +1,7 @@
 ---
 title: "Channels Concurrency Work-Around"
 date: 2020-12-22T11:22:18+08:00
-hero: /images/posts/golang_banner.jpg
+hero: /images/posts/golang2.jpg
 menu:
   sidebar:
     name: Channels Concurrency

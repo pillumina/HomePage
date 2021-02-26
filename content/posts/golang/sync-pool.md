@@ -1,7 +1,7 @@
 ---
 title: "[源码分析]sync pool"
 date: 2021-01-01T11:22:18+08:00
-hero: /images/posts/golang_banner.jpg
+hero: /images/posts/golang2.jpg
 menu:
   sidebar:
     name: Sync Pool源码分析

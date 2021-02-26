@@ -1,7 +1,7 @@
 ---
 title: "[自建轮]高性能Goroutine Pool"
 date: 2020-12-30T11:22:18+08:00
-hero: /images/posts/golang_banner.jpg
+hero: /images/posts/golang2.jpg
 menu:
   sidebar:
     name: Goroutine Pool
