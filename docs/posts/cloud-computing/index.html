@@ -348,6 +348,15 @@ if (!doNotTrack) {
     <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
   
 
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
+  
+
 
       </ul>
     </li>
@@ -452,6 +461,32 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/cloud-computing/k8s-basic/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Kubernetes Handbook (Start &amp; Pod)</h5>
+        <p class="card-text post-summary">使用minikube构建本地单节点k8s集群  minikube ssh kubectl cluster-info kubectl get nodes #查看节点信息 kubectl describe node minikube #详细信息  多节点k8s集群，使用Google K8s Engine 构建方式看GKE官网即可
+k8s初步使用 kubectl run kubia &ndash;image=derios/kubia &ndash;port=8080 &ndash;generator=run/v1
+ --image=derios/kubia代表要运行的容器镜像 这里的--generator会被废弃，其含义指代的是创建一个ReplicationController而不是Deployment。 kubectl apply -f 更常用 kubectl get pods kubectl get pods -o wide 显示pod ip和pod的节点 如果使用GWE，可以访问集群的dashborad: kubectl clusert-info获取地址 gcloud container clusters describe kubia | grep -E &ldquo;(username|password):&ldquo;获取用户名和密码 如果仅仅使用minikube，则如下不需要任何凭证即可访问:  minikube dashboard 创建服务对象，访问Web应用 如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http
+  kubectl expose rc/po/svc kubia &ndash;type=LoadBalancer &ndash;name kubia-http创建出的service介于pod和node之间, kubectl get services可以查看</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">March 31, 2021</span>
+        <a
+        href="/posts/cloud-computing/k8s-basic/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/cloud-computing/docker-basic/" class="post-card-link">

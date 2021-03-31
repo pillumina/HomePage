@@ -345,6 +345,15 @@ if (!doNotTrack) {
     <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
   
 
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
+  
+
 
       </ul>
     </li>
@@ -449,6 +458,32 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/cloud-computing/k8s-basic/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Kubernetes Handbook (Start &amp; Pod)</h5>
+        <p class="card-text post-summary">使用minikube构建本地单节点k8s集群  minikube ssh kubectl cluster-info kubectl get nodes #查看节点信息 kubectl describe node minikube #详细信息  多节点k8s集群，使用Google K8s Engine 构建方式看GKE官网即可
+k8s初步使用 kubectl run kubia &ndash;image=derios/kubia &ndash;port=8080 &ndash;generator=run/v1
+ --image=derios/kubia代表要运行的容器镜像 这里的--generator会被废弃，其含义指代的是创建一个ReplicationController而不是Deployment。 kubectl apply -f 更常用 kubectl get pods kubectl get pods -o wide 显示pod ip和pod的节点 如果使用GWE，可以访问集群的dashborad: kubectl clusert-info获取地址 gcloud container clusters describe kubia | grep -E &ldquo;(username|password):&ldquo;获取用户名和密码 如果仅仅使用minikube，则如下不需要任何凭证即可访问:  minikube dashboard 创建服务对象，访问Web应用 如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http
+  kubectl expose rc/po/svc kubia &ndash;type=LoadBalancer &ndash;name kubia-http创建出的service介于pod和node之间, kubectl get services可以查看</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">March 31, 2021</span>
+        <a
+        href="/posts/cloud-computing/k8s-basic/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/cloud-computing/docker-basic/" class="post-card-link">
@@ -774,32 +809,6 @@ Preface 我们先描述一个问题作为讨论的中心：用户邮件的存储
         <span class="float-left">January 1, 2021</span>
         <a
         href="/posts/golang/sync-pool/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/golang/goroutine-pool/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang2.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">[自建轮]高性能Goroutine Pool</h5>
-        <p class="card-text post-summary">高性能Goroutine Pool go调度器没有限制对goroutine的数量，在goroutine瞬时大规模爆发的场景下来不及复用goroutine从而导致大量goroutine被创建，会导致大量的系统资源占用，尝试池化。
-go调度器本身不应该对goroutine数量有限制，因为语言层面无法界定需要限制多少，毕竟程序跑在不同性能的环境，在并发规模不太大的场景做限制甚至会降低性能，原生支持限制goroutine数量无疑是得不偿失的。如果只是中等规模和比较小规模的并发场景其实pool的性能并没有优势
-目前设计上还需要加上周期性对空闲队列的prune，等写完再加看看benchmark会提升多少。目前来说对大规模goroutine异步并发的场景(1M, 10M)内存优化(10倍往上)和吞吐量优化效果(2-6倍)非常好。
-需求场景与目标  限制并发goroutine的数量 复用goroutine，减轻runtime调度压力，提升程序性能 规避过多的goroutine创建侵占系统资源，cpu&amp;内存  关键技术  锁同步: golang有CAS机制，用spin-lock替代mutex 原理， 讨论 LIFO/FIFO队列: LIFO队列能直接有时间排序功能，方便对需要关联入队时间的操作进行处理 Pool容量限制和弹性伸缩  代码实现 pool.go package go_pool import ( &#34;errors&#34; &#34;sync&#34; &#34;sync/atomic&#34; &#34;time&#34; ) const( OPEN = iota CLOSED ) var ( ErrPoolClosed = errors.New(&#34;this pool has been closed&#34;) ErrPoolOverload = errors.New(&#34;too many goroutines blocked on submit or Nonblocking is set&#34;) ErrInvalidExpiryTime = errors.New(&#34;invalid expiration time&#34;) ErrInvalidPoolCapacity = errors.New(&#34;invalid pool capacity&#34;) DefaultScanInterval = time.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">December 30, 2020</span>
-        <a
-        href="/posts/golang/goroutine-pool/"
         class="float-right btn btn-outline-info btn-sm"
         >Read</a
         >
