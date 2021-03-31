@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Docker Cheat Sheet</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Docker Cheat Sheet" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-190574896-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/iaas-paas-diff/">IaaS vs PaaS vs SaaS</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/do-not-wall/">别让自己墙了自己</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/how-to-learn/">工程师应该如何高效学习</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/programmer-career/">程序员如何把控自己的职业</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/lifecycle-of-http/">Go server中http请求的生命周期</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/goroutine-pool/">Goroutine Pool</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/cloud-computing/">Kubernetes &amp; Docker</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/design-pattern/">Programming Pattern</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/design-pattern/">Design Pattern Overview</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/k8s-docker.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>March 29, 2021</p>
+        </div>
+
+        <div class="title">
+          <h1>Docker Cheat Sheet</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h2 id="速查">速查</h2>
+<p><a href="https://github.com/wsargent/docker-cheat-sheet/tree/master/zh-cn">Docker Cheat Sheet</a></p>
+<h3 id="全量cli">全量CLI</h3>
+<p><img src="https://raw.githubusercontent.com/sangam14/dockercheatsheets/master/dockercheatsheet8.png" alt="docker cheat sheet"></p>
+<h3 id="容器管理cli">容器管理CLI</h3>
+<p><img src="https://raw.githubusercontent.com/sangam14/dockercheatsheets/master/dockercheatsheet1.png" alt="container management commands"></p>
+<h3 id="查看容器cli">查看容器CLI</h3>
+<p><img src="https://raw.githubusercontent.com/sangam14/dockercheatsheets/master/dockercheatsheet3.png" alt="inspect container commands"></p>
+<h3 id="容器交互cli">容器交互CLI</h3>
+<p><img src="https://raw.githubusercontent.com/sangam14/dockercheatsheets/master/dockercheatsheet4.png" alt="interact with container commands"></p>
+<h3 id="镜像管理cli">镜像管理CLI</h3>
+<p><img src="https://raw.githubusercontent.com/sangam14/dockercheatsheets/master/dockercheatsheet5.png" alt="image management commands"></p>
+<h3 id="镜像传输cli">镜像传输CLI</h3>
+<p><img src="https://raw.githubusercontent.com/sangam14/dockercheatsheets/master/dockercheatsheet6.png" alt="image transfer commands"></p>
+<h3 id="dockerfile主要命令">DOCKERFILE主要命令</h3>
+<p><img src="https://raw.githubusercontent.com/sangam14/dockercheatsheets/master/dockercheatsheet7.png" alt="builder main commands"></p>
+<h2 id="dockerfile">Dockerfile</h2>
+<h3 id="基底">基底</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> ruby:2.2.2</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="变量">变量</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">ENV</span> APP_HOME/myapp<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> mkdir $APP_HOME<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="初始化">初始化</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">RUN</span> bundle install<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /myapp</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">VOLUME</span> [<span style="color:#e6db74">&#34;/data&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Specification for mount point</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">ADD</span> file.xyz /file.xyz<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> --chown<span style="color:#f92672">=</span>user:group host_file.xyz /path/container_file.xyz<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="onbuild">Onbuild</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">ONBUILD</span> <span style="color:#66d9ef">RUN</span> bundle install<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># when used with another file</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="命令">命令</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 5900</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;bundle&#34;</span>, <span style="color:#e6db74">&#34;exec&#34;</span>, <span style="color:#e6db74">&#34;rails&#34;</span>, <span style="color:#e6db74">&#34;server&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="entrypoint">Entrypoint</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">ENTRYPOINT</span> exec top -b<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="metadata">Metadata</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">LABEL</span> version<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">LABEL</span> <span style="color:#e6db74">&#34;com.example.vendor&#34;</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ACME Incorporated&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">LABEL</span> com.example.label-with-value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;foo&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">LABEL</span> description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;This text illustrates \
+</span><span style="color:#e6db74">that label-values can span multiple lines.&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h2 id="docker-compose">Docker Compose</h2>
+<h3 id="基本用法">基本用法</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># docker-compose.yml</span>
+<span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;2&#39;</span>
+
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">build</span>: <span style="color:#ae81ff">.</span>
+    <span style="color:#75715e"># build from Dockerfile</span>
+    <span style="color:#f92672">context</span>: <span style="color:#ae81ff">./Path</span>
+    <span style="color:#f92672">dockerfile</span>: <span style="color:#ae81ff">Dockerfile</span>
+    <span style="color:#f92672">ports</span>:
+     - <span style="color:#e6db74">&#34;5000:5000&#34;</span>
+    <span style="color:#f92672">volumes</span>:
+     - <span style="color:#ae81ff">.:/code</span>
+  <span style="color:#f92672">redis</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis</span>
+</code></pre></div><h3 id="指令">指令</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker-compose start
+docker-compose stop
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker-compose pause
+docker-compose unpause
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker-compose ps
+docker-compose up
+docker-compose down
+</code></pre></div><h2 id="reference例子">Reference(例子)</h2>
+<h3 id="构建">构建</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">web</span>:
+  <span style="color:#75715e"># build from Dockerfile</span>
+  <span style="color:#f92672">build</span>: <span style="color:#ae81ff">.</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># build from custom Dockerfile</span>
+  <span style="color:#f92672">build</span>:
+    <span style="color:#f92672">context</span>: <span style="color:#ae81ff">./dir</span>
+    <span style="color:#f92672">dockerfile</span>: <span style="color:#ae81ff">Dockerfile.dev</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"> <span style="color:#75715e"># build from image</span>
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ubuntu</span>
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ubuntu:14.04</span>
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">tutum/influxdb</span>
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">example-registry:4000/postgresql</span>
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">a4bc65fd</span>
+</code></pre></div><h3 id="端口">端口</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#f92672">ports</span>:
+    - <span style="color:#e6db74">&#34;3000&#34;</span>
+    - <span style="color:#e6db74">&#34;8000:80&#34;</span>  <span style="color:#75715e"># guest:host</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># expose ports to linked services (not to host)</span>
+  <span style="color:#f92672">expose</span>: [<span style="color:#e6db74">&#34;3000&#34;</span>]
+</code></pre></div><h3 id="指令-1">指令</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># command to execute</span>
+  <span style="color:#f92672">command</span>: <span style="color:#ae81ff">bundle exec thin -p 3000</span>
+  <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">bundle, exec, thin, -p, 3000]</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># override the entrypoint</span>
+  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">/app/start.sh</span>
+  <span style="color:#f92672">entrypoint</span>: [<span style="color:#ae81ff">php, -d, vendor/bin/phpunit]</span>
+</code></pre></div><h3 id="环境变量">环境变量</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># environment vars</span>
+  <span style="color:#f92672">environment</span>:
+    <span style="color:#f92672">RACK_ENV</span>: <span style="color:#ae81ff">development</span>
+  <span style="color:#f92672">environment</span>:
+    - <span style="color:#ae81ff">RACK_ENV=development</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># environment vars from file</span>
+  <span style="color:#f92672">env_file</span>: <span style="color:#ae81ff">.env</span>
+  <span style="color:#f92672">env_file</span>: [<span style="color:#ae81ff">.env, .development.env]</span>
+</code></pre></div><h3 id="依赖">依赖</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># makes the `db` service available as the hostname `database`</span>
+  <span style="color:#75715e"># (implies depends_on)</span>
+  <span style="color:#f92672">links</span>:
+    - <span style="color:#ae81ff">db:database</span>
+    - <span style="color:#ae81ff">redis</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># make sure `db` is alive before starting</span>
+  <span style="color:#f92672">depends_on</span>:
+    - <span style="color:#ae81ff">db</span>
+</code></pre></div><h3 id="其他选项">其他选项</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#75715e"># make this service extend another</span>
+  <span style="color:#f92672">extends</span>:
+    <span style="color:#f92672">file</span>: <span style="color:#ae81ff">common.yml </span> <span style="color:#75715e"># optional</span>
+    <span style="color:#f92672">service</span>: <span style="color:#ae81ff">webapp</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#f92672">volumes</span>:
+    - <span style="color:#ae81ff">/var/lib/mysql</span>
+    - <span style="color:#ae81ff">./_data:/var/lib/mysql</span>
+</code></pre></div><h2 id="高级特性">高级特性</h2>
+<h3 id="打标签">打标签</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">services</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">labels</span>:
+      <span style="color:#f92672">com.example.description</span>: <span style="color:#e6db74">&#34;Accounting web app&#34;</span>
+</code></pre></div><h3 id="dns服务器">DNS服务器</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">services</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">dns</span>: <span style="color:#ae81ff">8.8.8.8</span>
+    <span style="color:#f92672">dns</span>:
+      - <span style="color:#ae81ff">8.8.8.8</span>
+      - <span style="color:#ae81ff">8.8.4.4</span>
+</code></pre></div><h3 id="设备绑定">设备绑定</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">services</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">devices</span>:
+    - <span style="color:#e6db74">&#34;/dev/ttyUSB0:/dev/ttyUSB0&#34;</span>
+</code></pre></div><h3 id="外部链接">外部链接</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">services</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">external_links</span>:
+      - <span style="color:#ae81ff">redis_1</span>
+      - <span style="color:#ae81ff">project_db_1:mysql</span>
+</code></pre></div><h3 id="主机设置">主机设置</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">services</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">extra_hosts</span>:
+      - <span style="color:#e6db74">&#34;somehost:192.168.1.100&#34;</span>
+</code></pre></div><h3 id="ervices">ervices</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># To view list of all the services runnning in swarm</span>
+docker service ls 
+
+<span style="color:#75715e"># To see all running services</span>
+docker stack services stack_name
+
+<span style="color:#75715e"># to see all services logs</span>
+docker service logs stack_name service_name 
+
+<span style="color:#75715e"># To scale services quickly across qualified node</span>
+docker service scale stack_name_service_name<span style="color:#f92672">=</span>replicas
+</code></pre></div><h2 id="clean-up">Clean up</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># To clean or prune unused (dangling) images</span>
+docker image prune 
+
+<span style="color:#75715e"># To remove all images which are not in use containers , add - a</span>
+docker image prune -a 
+
+<span style="color:#75715e"># To Purne your entire system</span>
+docker system prune 
+
+<span style="color:#75715e"># To leave swarm</span>
+docker swarm leave
+
+<span style="color:#75715e"># To remove swarm ( deletes all volume data and database info)</span>
+docker stack rm stack_name 
+
+<span style="color:#75715e"># To kill all running containers</span>
+docker kill <span style="color:#66d9ef">$(</span>docekr ps -q <span style="color:#66d9ef">)</span> 
+</code></pre></div>
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/cloud-computing/docker-basic.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/golang/go-profiling/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Profiling a Go Service in Production</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "pillumina";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#速查">速查</a>
+      <ul>
+        <li><a href="#全量cli">全量CLI</a></li>
+        <li><a href="#容器管理cli">容器管理CLI</a></li>
+        <li><a href="#查看容器cli">查看容器CLI</a></li>
+        <li><a href="#容器交互cli">容器交互CLI</a></li>
+        <li><a href="#镜像管理cli">镜像管理CLI</a></li>
+        <li><a href="#镜像传输cli">镜像传输CLI</a></li>
+        <li><a href="#dockerfile主要命令">DOCKERFILE主要命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#dockerfile">Dockerfile</a>
+      <ul>
+        <li><a href="#基底">基底</a></li>
+        <li><a href="#变量">变量</a></li>
+        <li><a href="#初始化">初始化</a></li>
+        <li><a href="#onbuild">Onbuild</a></li>
+        <li><a href="#命令">命令</a></li>
+        <li><a href="#entrypoint">Entrypoint</a></li>
+        <li><a href="#metadata">Metadata</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-compose">Docker Compose</a>
+      <ul>
+        <li><a href="#基本用法">基本用法</a></li>
+        <li><a href="#指令">指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference例子">Reference(例子)</a>
+      <ul>
+        <li><a href="#构建">构建</a></li>
+        <li><a href="#端口">端口</a></li>
+        <li><a href="#指令-1">指令</a></li>
+        <li><a href="#环境变量">环境变量</a></li>
+        <li><a href="#依赖">依赖</a></li>
+        <li><a href="#其他选项">其他选项</a></li>
+      </ul>
+    </li>
+    <li><a href="#高级特性">高级特性</a>
+      <ul>
+        <li><a href="#打标签">打标签</a></li>
+        <li><a href="#dns服务器">DNS服务器</a></li>
+        <li><a href="#设备绑定">设备绑定</a></li>
+        <li><a href="#外部链接">外部链接</a></li>
+        <li><a href="#主机设置">主机设置</a></li>
+        <li><a href="#ervices">ervices</a></li>
+      </ul>
+    </li>
+    <li><a href="#clean-up">Clean up</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

@@ -268,6 +268,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
   
 
@@ -312,6 +321,31 @@ if (!doNotTrack) {
   
     
     <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/cloud-computing/">Kubernetes &amp; Docker</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
   
 
 
@@ -418,6 +452,36 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/golang/memory-management/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang2.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Golang内存管理</h5>
+        <p class="card-text post-summary">设计原则 现在我们来看 Go 中另一重要的关键组件：内存分配器。
+Go 的内存分配器基于 Thread-Cache Malloc (tcmalloc) ，tcmalloc 为每个线程实现了一个本地缓存， 区分了小对象（小于 32kb）和大对象分配两种分配类型，其管理的内存单元称为 span。
+我们不再介绍更多 tcmalloc 的具体细节，因为 Go 的内存分配器与 tcmalloc 存在一定差异。 这个差异来源于 Go 语言被设计为没有显式的内存分配与释放， 完全依靠编译器与运行时的配合来自动处理，因此也就造就了内存分配器、垃圾回收器两大组件。
+我们知道，在计算机领域中，无外乎时间换空间、空间换时间。统一管理内存会提前分配或一次性释放一大块内存， 进而减少与操作系统沟通造成的开销，进而提高程序的运行性能。 支持内存管理另一个优势就是能够更好的支持垃圾回收，这一点我们留到垃圾回收器的章节中进行讨论。
+主要结构 Go 的内存分配器主要包含以下几个核心组件：
+ heapArena: 保留整个虚拟地址空间 mheap：分配的堆，在页大小为 8KB 的粒度上进行管理 mspan：是 mheap 上管理的一连串的页 mcentral：收集了给定大小等级的所有 span mcache：为 per-P 的缓存。  其中页是向操作系统申请内存的最小单位，目前设计为 8KB。
+每一个结构虽然不都像是调度器 M/P/G 结构那样的大部头，但初次阅读这些结构时想要理清他们之间的关系还是比较麻烦的。 传统意义上的栈被 Go 的运行时霸占，不开放给用户态代码；而传统意义上的堆内存，又被 Go 运行时划分为了两个部分， 一个是 Go 运行时自身所需的堆内存，即堆外内存；另一部分则用于 Go 用户态代码所使用的堆内存，也叫做 Go 堆。 Go 堆负责了用户态对象的存放以及 goroutine 的执行栈。
+Arena heapArena Go 堆被视为由多个 arena 组成，每个 arena 在 64 位机器上为 64MB，且起始地址与 arena 的大小对齐， 所有的 arena 覆盖了整个 Go 堆的地址空间。</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 2, 2020</span>
+        <a
+        href="/posts/golang/memory-management/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/golang/golang-escape-analysis/" class="post-card-link">

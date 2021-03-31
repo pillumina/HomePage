@@ -265,6 +265,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
   
 
@@ -309,6 +318,31 @@ if (!doNotTrack) {
   
     
     <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/cloud-computing/">Kubernetes &amp; Docker</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
   
 
 
@@ -415,6 +449,54 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/golang/memory-leak/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang2.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Possible Memory Leak</h5>
+        <p class="card-text post-summary">实际上对于一个有GC的语言，我们不必太多关心内存泄漏的问题，因为程序的runtime帮我们很好地额回收不再使用的内存。但是，我们还是得了解一些特殊的场景，这些场景会产生暂时性或者永久性的内存泄漏。
+待开坑...</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 25, 2020</span>
+        <a
+        href="/posts/golang/memory-leak/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
+  <a href="/posts/golang/channel-graceful/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang2.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Close Channels Gracefully</h5>
+        <p class="card-text post-summary">优雅地关闭通道 场景一：M个接收者和一个发送者。发送者通过关闭用来传输数据的通道来传递发送结束信号 这是最简单的一种情形。当发送者欲结束发送，让它关闭用来传输数据的通道即可。
+package main import ( &#34;time&#34; &#34;math/rand&#34; &#34;sync&#34; &#34;log&#34; ) func main() { rand.Seed(time.Now().UnixNano()) log.SetFlags(0) // ... 	const Max = 100000 const NumReceivers = 100 wgReceivers := sync.WaitGroup{} wgReceivers.Add(NumReceivers) // ... 	dataCh := make(chan int) // 发送者 	go func() { for { if value := rand.Intn(Max); value == 0 { // 此唯一的发送者可以安全地关闭此数据通道。 	close(dataCh) return } else { dataCh &lt;- value } } }() // 接收者 	for i := 0; i &lt; NumReceivers; i++ { go func() { defer wgReceivers.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">December 24, 2020</span>
+        <a
+        href="/posts/golang/channel-graceful/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/golang/channels/" class="post-card-link">
@@ -711,51 +793,6 @@ public void test(){ List&lt;Integer&gt; a = new ArrayList&lt;&gt;(); a.add(1); /
 </div>
 
       
-        <div class="post-card">
-  <a href="/posts/java/java-fundamentals/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/java-dev.png'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Java Fundamentals</h5>
-        <p class="card-text post-summary">JAVA对象的equals方法和hashCode方法是这样规定的   相等（相同）的对象必须有相等的哈希码
-  如果两个对象的哈希吗相同，它们不一定相同
-  Java集合判断两个对象是否相等的规则：   判断两个对象的哈希码是否相等
-  判断两个对象用equals是否相等
-  所以重写其中一个方法，必须重写另一个方法
-让对象可拷贝：
- 实现java.lang.Cloneable 2. 重写Object的clone()方法  由于GC的自动回收机制，并不能保证finalize方法被及时的执行，因为对象的回收时机具有不确定性，或者要么没有触发垃圾回收。这个方法被禁止调用，应该用显式的close()方法。 Collection类的选择 Set:
-排序吗？
-是： TreeSet / LinkedHashSet
-否： HashSet
-List
-要安全吗？
-是： Vector
-否： ArrayList或者LinkedList &mdash; 查询多ArrayList，增删多LinkedList
-Map常用子类：HashMap, HashTable, TreeMap, ConcurrentHashMap HashMap: 非线程安全，性能高，基于数组和链表实现。
-TreeMap：有序键值对，按key排序
-HashTable: 线程安全, 性能低
-ConcurrentHashMap: 线程安全且性能较好。Java1.7采取分段锁，1.8采用CAS+synchronized保证并发安全。
-LinkedHashMap 为HashMap的子类，内部还有一个双向链表维护键值对的顺序。支持插入顺序、访问顺序
-  插入顺序：先添加在前，后添加在后
-  访问顺序：即get/put操作，对一个键执行get/put操作后，对应的键值被移动到链表的末尾，所以最末尾的是最近访问的，最开始的是最久没有被访问的。
-  有5种构造方法，4个是插入顺序，只有一个按照指定访问顺序，可以用于实现LRUCache
-  集合初始化、大小和扩容 建议在集合初始化时指定集合容量大小 如果没有设置，元素增加，resize表会重建hash，影响性能</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">October 26, 2020</span>
-        <a
-        href="/posts/java/java-fundamentals/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
     </div>
     <div class="paginator">
       
@@ -772,11 +809,14 @@ LinkedHashMap 为HashMap的子类，内部还有一个双向链表维护键值�
   <li class="page-item active">
     <a class="page-link" href="/posts/page/2/">2</a>
   </li>
-  <li class="page-item disabled">
-    <a  class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  <li class="page-item">
+    <a class="page-link" href="/posts/page/3/">3</a>
   </li>
   <li class="page-item">
-    <a href="/posts/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    <a href="/posts/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/page/3/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
   </li>
 </ul>
 

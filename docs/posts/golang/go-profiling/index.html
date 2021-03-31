@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>[源码分析]sync pool</title>
+    <title>Profiling a Go Service in Production</title>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/assets/css/style.css"/>
 
     
-<meta name="description" content="[源码分析]sync pool" />
+<meta name="description" content="Profiling a Go Service in Production" />
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
@@ -268,21 +268,21 @@ if (!doNotTrack) {
   
   
   
+    
+    
+  
   
     
-    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+    <li><a class="active" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
   
 
   
   
   
   
-    
-    
-  
   
     
-    <li><a class="active" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
   
 
   
@@ -465,23 +465,22 @@ if (!doNotTrack) {
         <div class="author-profile ml-auto align-self-lg-center">
           <img class="rounded-circle" src='/images/photo.jpeg'/>
           <h5 class="author-name"></h5>
-          <p>January 1, 2021</p>
+          <p>March 4, 2021</p>
         </div>
 
         <div class="title">
-          <h1>[源码分析]sync pool</h1>
+          <h1>Profiling a Go Service in Production</h1>
         </div>
 
         <div class="post-content" id="post-content">
-          <pre><code>- 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环
-- 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有）
-</code></pre>
+          <p>Pro</p>
+
         </div>
 
         
         
           <div class="btn-improve-page">
-              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/sync-pool.md">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/go-profiling.md">
                 <i class="fas fa-code-branch"></i>
                 Improve This Page
               </a>
@@ -522,13 +521,31 @@ if (!doNotTrack) {
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     
       
       <div class="col-md-6 previous-article">
-        <a href="/posts/golang/fasthttp/" class="btn btn-outline-info">
+        <a href="/posts/cloud-computing/docker-basic/" class="btn btn-outline-info">
           <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
           <br />
-          <span>fasthttp对性能的优化压榨</span>
+          <span>Docker Cheat Sheet</span>
         </a>
       </div>
       
@@ -542,32 +559,14 @@ if (!doNotTrack) {
           
         
         <div class="col-md-6 next-article">
-          <a href="/posts/golang/goroutine-pool/" class="btn btn-outline-info">
+          <a href="/posts/golang/lifecycle-of-http/" class="btn btn-outline-info">
             <span>Next <i class="fas fa-chevron-circle-right"></i></span>
             <br />
-            <span>[自建轮]高性能Goroutine Pool</span>
+            <span>Life of an HTTP request in a Go server</span>
           </a>
         </div>
       
     
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
   
 
   

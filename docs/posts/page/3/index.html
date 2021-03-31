@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>[源码分析]sync pool</title>
+    <title>Posts</title>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -23,13 +23,8 @@
 <link rel="stylesheet" href="/assets/css/style.css"/>
 
     
-<meta name="description" content="[源码分析]sync pool" />
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
-/>
-<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
-<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/layouts/list.css">
+    <link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
 
 
     
@@ -88,6 +83,9 @@ if (!doNotTrack) {
 
       
       
+  
+  
+
   <section class="sidebar-section" id="sidebar-section">
     <div class="sidebar-holder">
       <div class="sidebar" id="sidebar">
@@ -164,15 +162,12 @@ if (!doNotTrack) {
   
   
   
-    
-    
-  
   
     
     <li>
-      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
       
-      <ul class="active">
+      <ul class="">
         
   
   
@@ -277,12 +272,9 @@ if (!doNotTrack) {
   
   
   
-    
-    
-  
   
     
-    <li><a class="active" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
   
 
   
@@ -454,179 +446,90 @@ if (!doNotTrack) {
       
       
 <section class="content-section" id="content-section">
-  <div class="content">
-    <div class="container p-0 read-area">
+  <div class="content container-fluid" id="content">
+    <div class="container-fluid post-card-holder" id="post-card-holder">
       
-      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang2.jpg);'>
+      
+        <div class="post-card">
+  <a href="/posts/java/java-fundamentals/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/java-dev.png'/>
       </div>
-
-      
-      <div class="page-content">
-        <div class="author-profile ml-auto align-self-lg-center">
-          <img class="rounded-circle" src='/images/photo.jpeg'/>
-          <h5 class="author-name"></h5>
-          <p>January 1, 2021</p>
-        </div>
-
-        <div class="title">
-          <h1>[源码分析]sync pool</h1>
-        </div>
-
-        <div class="post-content" id="post-content">
-          <pre><code>- 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环
-- 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有）
-</code></pre>
-        </div>
-
-        
-        
-          <div class="btn-improve-page">
-              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/sync-pool.md">
-                <i class="fas fa-code-branch"></i>
-                Improve This Page
-              </a>
-          </div>
-        
-
-        
-      <hr />
-        <div class="row next-prev-navigator">
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-      <div class="col-md-6 previous-article">
-        <a href="/posts/golang/fasthttp/" class="btn btn-outline-info">
-          <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
-          <br />
-          <span>fasthttp对性能的优化压榨</span>
-        </a>
+      <div class="card-body">
+        <h5 class="card-title">Java Fundamentals</h5>
+        <p class="card-text post-summary">JAVA对象的equals方法和hashCode方法是这样规定的   相等（相同）的对象必须有相等的哈希码
+  如果两个对象的哈希吗相同，它们不一定相同
+  Java集合判断两个对象是否相等的规则：   判断两个对象的哈希码是否相等
+  判断两个对象用equals是否相等
+  所以重写其中一个方法，必须重写另一个方法
+让对象可拷贝：
+ 实现java.lang.Cloneable 2. 重写Object的clone()方法  由于GC的自动回收机制，并不能保证finalize方法被及时的执行，因为对象的回收时机具有不确定性，或者要么没有触发垃圾回收。这个方法被禁止调用，应该用显式的close()方法。 Collection类的选择 Set:
+排序吗？
+是： TreeSet / LinkedHashSet
+否： HashSet
+List
+要安全吗？
+是： Vector
+否： ArrayList或者LinkedList &mdash; 查询多ArrayList，增删多LinkedList
+Map常用子类：HashMap, HashTable, TreeMap, ConcurrentHashMap HashMap: 非线程安全，性能高，基于数组和链表实现。
+TreeMap：有序键值对，按key排序
+HashTable: 线程安全, 性能低
+ConcurrentHashMap: 线程安全且性能较好。Java1.7采取分段锁，1.8采用CAS+synchronized保证并发安全。
+LinkedHashMap 为HashMap的子类，内部还有一个双向链表维护键值对的顺序。支持插入顺序、访问顺序
+  插入顺序：先添加在前，后添加在后
+  访问顺序：即get/put操作，对一个键执行get/put操作后，对应的键值被移动到链表的末尾，所以最末尾的是最近访问的，最开始的是最久没有被访问的。
+  有5种构造方法，4个是插入顺序，只有一个按照指定访问顺序，可以用于实现LRUCache
+  集合初始化、大小和扩容 建议在集合初始化时指定集合容量大小 如果没有设置，元素增加，resize表会重建hash，影响性能</p>
       </div>
-      
-    
-    
-      
-        
-        
-          
-              
-          
-        
-        <div class="col-md-6 next-article">
-          <a href="/posts/golang/goroutine-pool/" class="btn btn-outline-info">
-            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
-            <br />
-            <span>[自建轮]高性能Goroutine Pool</span>
-          </a>
-        </div>
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-</div>
-
-      <hr />
-      
-      
-          <div id="disqus_thread"></div>
-<script type="text/javascript">
-  (function () {
-    
-    
-    if (window.location.hostname == "localhost") return;
-
-    var dsq = document.createElement("script");
-    dsq.type = "text/javascript";
-    dsq.async = true;
-    var disqus_shortname = "pillumina";
-    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
-    (
-      document.getElementsByTagName("head")[0] ||
-      document.getElementsByTagName("body")[0]
-    ).appendChild(dsq);
-  })();
-</script>
-<noscript
-  >Please enable JavaScript to view the
-  <a href="https://disqus.com/?ref_noscript"
-    >comments powered by Disqus.</a
-  ></noscript
->
-<a href="https://disqus.com/" class="dsq-brlink"
-  >comments powered by <span class="logo-disqus">Disqus</span></a
->
-
-      
+      <div class="card-footer">
+        <span class="float-left">October 26, 2020</span>
+        <a
+        href="/posts/java/java-fundamentals/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
       </div>
     </div>
+  </a>
+</div>
+
+      
+    </div>
+    <div class="paginator">
+      
+<ul class="pagination">
+  <li class="page-item">
+    <a href="/posts/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/page/2/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/posts/">1</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/posts/page/2/">2</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/posts/page/3/">3</a>
+  </li>
+  <li class="page-item disabled">
+    <a  class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+  </li>
+  <li class="page-item">
+    <a href="/posts/page/3/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
+</ul>
+
+
+    </div>
   </div>
-  
 </section>
 
 
       
-      
-  <section class="toc-section" id="toc-section">
-    
-    <div class="toc-holder">
-      <h5 class="text-center pl-3">Table of Contents</h5>
-      <hr>
-      <div class="toc">
-        <nav id="TableOfContents"></nav>
-      </div>
-    </div>
-    
-  </section>
-
+       
     </div>
 
     
@@ -742,12 +645,7 @@ if (!doNotTrack) {
 
     
     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
-<script src="/assets/js/single.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
+    <script src="/assets/js/list.js"></script>
 
   </body>
 </html>
