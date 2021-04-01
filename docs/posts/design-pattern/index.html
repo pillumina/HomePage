@@ -416,6 +416,15 @@ if (!doNotTrack) {
     <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
   
 
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-visitor/">Go Visitor Pattern (k8s)</a></li>
+  
+
 
       </ul>
     </li>
@@ -463,6 +472,32 @@ if (!doNotTrack) {
       
       
         <div class="post-card">
+  <a href="/posts/design-pattern/go-visitor/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang-banner-2.png'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Go编程模式：Visitor（k8s）</h5>
+        <p class="card-text post-summary">概述 最近在看kubernetes的kubectl部分源码，记录一下其中用到的visitor编程模式(实际上kubectl主要用到了builder和visitor)。visitor模式是将算法和操作对象结构分离的一种方法。换句话说，这样的分离能够在不修改对象结构的情况下向原有对象新增操作，是符合开闭原则的。这个文章以一些例子去讨论kubectl中到底如何玩的。
+从一个例子出发 写一个简单的Visitor模式示例：
+ 我们的代码中有一个Visitor的函数定义，还有一个Shape接口，其需要使用 Visitor函数做为参数 我们的实例的对象 Circle和 Rectangle实现了 Shape 的接口的 accept() 方法，这个方法就是等外面给我传递一个Visitor。  package main import ( &#34;encoding/json&#34; &#34;encoding/xml&#34; &#34;fmt&#34; ) type Visitor func(shape Shape) type Shape interface { accept(Visitor) } type Circle struct { Radius int } func (c Circle) accept(v Visitor) { v(c) } type Rectangle struct { Width, Heigh int } func (r Rectangle) accept(v Visitor) { v(r) } 然后，我们实现两个Visitor，一个是用来做JSON序列化的，另一个是用来做XML序列化的:
+func JsonVisitor(shape Shape) { bytes, err := json.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">March 31, 2021</span>
+        <a
+        href="/posts/design-pattern/go-visitor/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
   <a href="/posts/design-pattern/go-pipeline/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -493,7 +528,7 @@ if (!doNotTrack) {
         <img class="card-img-top" src='/images/posts/golang-banner-2.png'/>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Design Pattern</h5>
+        <h5 class="card-title">Design Pattern: Overview</h5>
         <p class="card-text post-summary">Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;builder{ once: &amp;sync.Once{}, msg: &amp;Message{Header: &amp;Header{}, Body: &amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</p>
       </div>
       <div class="card-footer">

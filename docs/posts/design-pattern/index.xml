@@ -8,6 +8,18 @@
     <language>en-us</language>
     <lastBuildDate>Mon, 01 Feb 2021 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/design-pattern/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Go编程模式：Visitor（k8s）</title>
+      <link>https://pillumina.github.io/posts/design-pattern/go-visitor/</link>
+      <pubDate>Wed, 31 Mar 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/design-pattern/go-visitor/</guid>
+      <description>概述 最近在看kubernetes的kubectl部分源码，记录一下其中用到的visitor编程模式(实际上kubectl主要用到了builder和visitor)。visitor模式是将算法和操作对象结构分离的一种方法。换句话说，这样的分离能够在不修改对象结构的情况下向原有对象新增操作，是符合开闭原则的。这个文章以一些例子去讨论kubectl中到底如何玩的。
+从一个例子出发 写一个简单的Visitor模式示例：
+ 我们的代码中有一个Visitor的函数定义，还有一个Shape接口，其需要使用 Visitor函数做为参数 我们的实例的对象 Circle和 Rectangle实现了 Shape 的接口的 accept() 方法，这个方法就是等外面给我传递一个Visitor。  package main import ( &amp;#34;encoding/json&amp;#34; &amp;#34;encoding/xml&amp;#34; &amp;#34;fmt&amp;#34; ) type Visitor func(shape Shape) type Shape interface { accept(Visitor) } type Circle struct { Radius int } func (c Circle) accept(v Visitor) { v(c) } type Rectangle struct { Width, Heigh int } func (r Rectangle) accept(v Visitor) { v(r) } 然后，我们实现两个Visitor，一个是用来做JSON序列化的，另一个是用来做XML序列化的:
+func JsonVisitor(shape Shape) { bytes, err := json.</description>
+    </item>
+    
+    <item>
       <title>Go编程模式：Pipeline</title>
       <link>https://pillumina.github.io/posts/design-pattern/go-pipeline/</link>
       <pubDate>Wed, 03 Feb 2021 11:22:18 +0800</pubDate>
@@ -18,7 +30,7 @@
     </item>
     
     <item>
-      <title>Design Pattern</title>
+      <title>Design Pattern: Overview</title>
       <link>https://pillumina.github.io/posts/design-pattern/design-pattern/</link>
       <pubDate>Wed, 11 Nov 2020 11:22:18 +0800</pubDate>
       

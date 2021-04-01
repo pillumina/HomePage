@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Go编程模式：Visitor（k8s）</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Go编程模式：Visitor（k8s）" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-190574896-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/iaas-paas-diff/">IaaS vs PaaS vs SaaS</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/do-not-wall/">别让自己墙了自己</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/how-to-learn/">工程师应该如何高效学习</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/programmer-career/">程序员如何把控自己的职业</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/lifecycle-of-http/">Go server中http请求的生命周期</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/goroutine-pool/">Goroutine Pool</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/cloud-computing/">Kubernetes &amp; Docker</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/design-pattern/">Programming Pattern</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/design-pattern/">Design Pattern Overview</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/design-pattern/go-visitor/">Go Visitor Pattern (k8s)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang-banner-2.png);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>March 31, 2021</p>
+        </div>
+
+        <div class="title">
+          <h1>Go编程模式：Visitor（k8s）</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h2 id="概述">概述</h2>
+<p>最近在看kubernetes的<code>kubectl</code>部分源码，记录一下其中用到的visitor编程模式(实际上<code>kubectl</code>主要用到了builder和visitor)。visitor模式是将<strong>算法和操作对象结构分离</strong>的一种方法。换句话说，这样的分离能够在不修改对象结构的情况下向原有对象新增操作，是符合开闭原则的。这个文章以一些例子去讨论<code>kubectl</code>中到底如何玩的。</p>
+<h2 id="从一个例子出发">从一个例子出发</h2>
+<p>写一个简单的Visitor模式示例：</p>
+<ul>
+<li>我们的代码中有一个<code>Visitor</code>的函数定义，还有一个<code>Shape</code>接口，其需要使用 <code>Visitor</code>函数做为参数</li>
+<li>我们的实例的对象 <code>Circle</code>和 <code>Rectangle</code>实现了 <code>Shape</code> 的接口的 <code>accept()</code> 方法，这个方法就是等外面给我传递一个Visitor。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;encoding/json&#34;</span>
+    <span style="color:#e6db74">&#34;encoding/xml&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Visitor</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">shape</span> <span style="color:#a6e22e">Shape</span>)
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Shape</span> <span style="color:#66d9ef">interface</span> {
+    <span style="color:#a6e22e">accept</span>(<span style="color:#a6e22e">Visitor</span>)
+}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Circle</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Radius</span> <span style="color:#66d9ef">int</span>
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">Circle</span>) <span style="color:#a6e22e">accept</span>(<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Visitor</span>) {
+    <span style="color:#a6e22e">v</span>(<span style="color:#a6e22e">c</span>)
+}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Rectangle</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Width</span>, <span style="color:#a6e22e">Heigh</span> <span style="color:#66d9ef">int</span>
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#a6e22e">Rectangle</span>) <span style="color:#a6e22e">accept</span>(<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Visitor</span>) {
+    <span style="color:#a6e22e">v</span>(<span style="color:#a6e22e">r</span>)
+}
+</code></pre></div><p>然后，我们实现两个Visitor，一个是用来做JSON序列化的，另一个是用来做XML序列化的:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">func JsonVisitor(shape Shape) {
+    bytes, err :<span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>Marshal(shape)
+    <span style="color:#66d9ef">if</span> err <span style="color:#f92672">!=</span> nil {
+        panic(err)
+    }
+    fmt<span style="color:#f92672">.</span>Println(string(bytes))
+}
+func XmlVisitor(shape Shape) {
+    bytes, err :<span style="color:#f92672">=</span> xml<span style="color:#f92672">.</span>Marshal(shape)
+    <span style="color:#66d9ef">if</span> err <span style="color:#f92672">!=</span> nil {
+        panic(err)
+    }
+    fmt<span style="color:#f92672">.</span>Println(string(bytes))
+}
+</code></pre></div><p>下面是我们的使用Visitor这个模式的代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">func main() {
+  c :<span style="color:#f92672">=</span> Circle{<span style="color:#ae81ff">10</span>}
+  r :<span style="color:#f92672">=</span>  Rectangle{<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>}
+  shapes :<span style="color:#f92672">=</span> []Shape{c, r}
+  <span style="color:#66d9ef">for</span> _, s :<span style="color:#f92672">=</span> range shapes {
+    s<span style="color:#f92672">.</span>accept(JsonVisitor)
+    s<span style="color:#f92672">.</span>accept(XmlVisitor)
+  }
+}
+</code></pre></div><p>写这些代码的目的是为了解耦数据结构和算法，其实用<code>Strategy</code>模式也可以做到，在模式上也更简单点。但是需要注意的一点：<strong>在有些情况下，多个Visitor是来访问一个数据结构的不同部分，这种情况下，数据结构有点像一个数据库，而各个Visitor会成为一个个小应用</strong>。那么<code>kubectl</code>无疑是这样的场景。</p>
+<h2 id="k8s一些背景">k8s一些背景</h2>
+<ul>
+<li>
+<p>在博客的<code>kubernetes &amp; docker</code>的专栏里，介绍了k8s的一些基本知识。其实对于k8s来说，其抽象出了很多资源Resource：Pod，ReplicaSet，ConfigMap，Volumes，Namespace, Roles&hellip;等等。而这些构成了k8s的数据模型( <a href="https://github.com/kubernauts/practical-kubernetes-problems/blob/master/images/k8s-resources-map.png">Kubernetes Resources 地图</a>)</p>
+</li>
+<li>
+<p><code>kubectl</code>为k8s的客户端命令，其对接Kubernetes API Server，开发和运维通过此去和k8s进行交互。而API Server则联系到每个节点的<code>kubelet</code>控制每个节点。</p>
+</li>
+<li>
+<p><code>kubectl</code>主要的工作就是处理用户提交的例如：命令行参数、yaml/json文件等。将用户提交的这些组织成数据结构体，发送给API Server。</p>
+</li>
+<li>
+<p>源码：<code>src/k8s.io/cli-runtime/pkg/resource/visitor.go</code> (<a href="https://github.com/kubernetes/kubernetes/blob/cea1d4e20b4a7886d8ff65f34c6d4f95efcb4742/staging/src/k8s.io/cli-runtime/pkg/resource/visitor.go">链接</a>)</p>
+</li>
+</ul>
+<p>当然<code>kubectl</code>的源码复杂，用简单的话阐述其基本原理就是：<strong>它从命令行和yaml文件中获取信息，通过Builder模式并把其转成一系列的资源，最后用 Visitor 模式模式来迭代处理这些Reources</strong>。</p>
+<p>我先用一个小的例子来说明，忽略掉很多复杂的代码逻辑</p>
+<h2 id="kubectl的实现"><code>kubectl</code>的实现</h2>
+<h3 id="visitor模式的定义">Visitor模式的定义</h3>
+<p>首先，<code>kubectl</code> 主要是用来处理 <code>Info</code>结构体，下面是相关的定义：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">VisitorFunc</span> <span style="color:#66d9ef">func</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">Info</span>, <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span>
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Visitor</span> <span style="color:#66d9ef">interface</span> {
+    <span style="color:#a6e22e">Visit</span>(<span style="color:#a6e22e">VisitorFunc</span>) <span style="color:#66d9ef">error</span>
+}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Info</span> <span style="color:#66d9ef">struct</span> {
+    <span style="color:#a6e22e">Namespace</span>   <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">Name</span>        <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">OtherThings</span> <span style="color:#66d9ef">string</span>
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">info</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Info</span>) <span style="color:#a6e22e">Visit</span>(<span style="color:#a6e22e">fn</span> <span style="color:#a6e22e">VisitorFunc</span>) <span style="color:#66d9ef">error</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">info</span>, <span style="color:#66d9ef">nil</span>)
+}
+</code></pre></div><p>上述拆解一下：</p>
+<ul>
+<li>有一个<code>VisitorFunc</code>函数类型的定义</li>
+<li><code>Visitor</code>接口，需要实现一个<code>Visit(VisitorFunc) error</code>的方法</li>
+<li>最后，为<code>Info</code>实现<code>Visitor</code>接口中的<code>Visit()</code>方法，其就是直接调用传进来的<code>fn</code></li>
+</ul>
+<p>接下来再定义几种不同类型的Visitor</p>
+<h3 id="name-visitor">Name Visitor</h3>
+<p>这个Visitor 主要是用来访问 <code>Info</code> 结构中的 <code>Name</code> 和 <code>NameSpace</code> 成员</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NameVisitor</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">visitor</span> <span style="color:#a6e22e">Visitor</span>
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">NameVisitor</span>) <span style="color:#a6e22e">Visit</span>(<span style="color:#a6e22e">fn</span> <span style="color:#a6e22e">VisitorFunc</span>) <span style="color:#66d9ef">error</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">visitor</span>.<span style="color:#a6e22e">Visit</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">info</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Info</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span> {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;NameVisitor() before call function&#34;</span>)
+    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">info</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;==&gt; Name=%s, NameSpace=%s\n&#34;</span>, <span style="color:#a6e22e">info</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">info</span>.<span style="color:#a6e22e">Namespace</span>)
+    }
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;NameVisitor() after call function&#34;</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+  })
+}
+</code></pre></div><p>拆解代码，可以看到:</p>
+<ul>
+<li>声明了一个<code>NameVistor</code>结构体，多态得加了一个<code>Visitor</code>接口成员</li>
+<li>实现<code>Visit()</code>方法时，调用内部<code>Visitor</code>的<code>Visit()</code>方法，这也是一种修饰器模式。</li>
+</ul>
+<h3 id="other-visitor">Other Visitor</h3>
+<p>这个Visitor主要用来访问 <code>Info</code> 结构中的 <code>OtherThings</code> 成员</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">OtherThingsVisitor</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">visitor</span> <span style="color:#a6e22e">Visitor</span>
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">OtherThingsVisitor</span>) <span style="color:#a6e22e">Visit</span>(<span style="color:#a6e22e">fn</span> <span style="color:#a6e22e">VisitorFunc</span>) <span style="color:#66d9ef">error</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">visitor</span>.<span style="color:#a6e22e">Visit</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">info</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Info</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span> {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;OtherThingsVisitor() before call function&#34;</span>)
+    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">info</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;==&gt; OtherThings=%s\n&#34;</span>, <span style="color:#a6e22e">info</span>.<span style="color:#a6e22e">OtherThings</span>)
+    }
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;OtherThingsVisitor() after call function&#34;</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+  })
+}
+</code></pre></div><h3 id="log-visitor">Log Visitor</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LogVisitor</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">visitor</span> <span style="color:#a6e22e">Visitor</span>
+}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">LogVisitor</span>) <span style="color:#a6e22e">Visit</span>(<span style="color:#a6e22e">fn</span> <span style="color:#a6e22e">VisitorFunc</span>) <span style="color:#66d9ef">error</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">visitor</span>.<span style="color:#a6e22e">Visit</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">info</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Info</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span> {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;LogVisitor() before call function&#34;</span>)
+    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">info</span>, <span style="color:#a6e22e">err</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;LogVisitor() after call function&#34;</span>)
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+  })
+}
+</code></pre></div><h3 id="如何使用">如何使用</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">info</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Info</span>{}
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Visitor</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">info</span>
+  <span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">LogVisitor</span>{<span style="color:#a6e22e">v</span>}
+  <span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">NameVisitor</span>{<span style="color:#a6e22e">v</span>}
+  <span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">OtherThingsVisitor</span>{<span style="color:#a6e22e">v</span>}
+  <span style="color:#a6e22e">loadFile</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">info</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Info</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span> {
+    <span style="color:#a6e22e">info</span>.<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;Hao Chen&#34;</span>
+    <span style="color:#a6e22e">info</span>.<span style="color:#a6e22e">Namespace</span> = <span style="color:#e6db74">&#34;MegaEase&#34;</span>
+    <span style="color:#a6e22e">info</span>.<span style="color:#a6e22e">OtherThings</span> = <span style="color:#e6db74">&#34;We are running as remote team.&#34;</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+  }
+  <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Visit</span>(<span style="color:#a6e22e">loadFile</span>)
+}
+
+</code></pre></div><p>拆解上述代码：</p>
+<ul>
+<li>Visitor为嵌套式的</li>
+<li><code>LoadFile</code>模拟读取文件数据</li>
+<li>最后一条<code>v.Visit()</code>激活上述流程</li>
+</ul>
+<p>上述的代码输出如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">LogVisitor<span style="color:#f92672">()</span> before call <span style="color:#66d9ef">function</span>
+NameVisitor<span style="color:#f92672">()</span> before call <span style="color:#66d9ef">function</span>
+OtherThingsVisitor<span style="color:#f92672">()</span> before call <span style="color:#66d9ef">function</span>
+<span style="color:#f92672">==</span>&gt; OtherThings<span style="color:#f92672">=</span>We are running as remote team.
+OtherThingsVisitor<span style="color:#f92672">()</span> after call <span style="color:#66d9ef">function</span>
+<span style="color:#f92672">==</span>&gt; Name<span style="color:#f92672">=</span>Hao Chen, NameSpace<span style="color:#f92672">=</span>MegaEase
+NameVisitor<span style="color:#f92672">()</span> after call <span style="color:#66d9ef">function</span>
+LogVisitor<span style="color:#f92672">()</span> after call <span style="color:#66d9ef">function</span>
+</code></pre></div><p>我们可以看到，这种做法实现了几点功能：</p>
+<ol>
+<li>解耦了数据和算法程序</li>
+<li>使用修饰器模式</li>
+<li>有pipeline模式的味道</li>
+</ol>
+<p>我们接下来再以修饰器模式重构下上述代码</p>
+<h3 id="visitor修饰器">Visitor修饰器</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">DecoratedVisitor</span> <span style="color:#66d9ef">struct</span> {
+  <span style="color:#a6e22e">visitor</span>    <span style="color:#a6e22e">Visitor</span>
+  <span style="color:#a6e22e">decorators</span> []<span style="color:#a6e22e">VisitorFunc</span>
+}
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewDecoratedVisitor</span>(<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Visitor</span>, <span style="color:#a6e22e">fn</span> <span style="color:#f92672">...</span><span style="color:#a6e22e">VisitorFunc</span>) <span style="color:#a6e22e">Visitor</span> {
+  <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">fn</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">DecoratedVisitor</span>{<span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">fn</span>}
+}
+<span style="color:#75715e">// Visit implements Visitor
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">DecoratedVisitor</span>) <span style="color:#a6e22e">Visit</span>(<span style="color:#a6e22e">fn</span> <span style="color:#a6e22e">VisitorFunc</span>) <span style="color:#66d9ef">error</span> {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">visitor</span>.<span style="color:#a6e22e">Visit</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">info</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Info</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) <span style="color:#66d9ef">error</span> {
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+    }
+    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">info</span>, <span style="color:#66d9ef">nil</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+    }
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">decorators</span> {
+      <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">decorators</span>[<span style="color:#a6e22e">i</span>](<span style="color:#a6e22e">info</span>, <span style="color:#66d9ef">nil</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">err</span>
+      }
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+  })
+}
+</code></pre></div><p>上述代码，实际上做了以下几点事情:</p>
+<ul>
+<li>以<code>DecoratedVisitor</code>结构存放所有的<code>VisitorFunc</code></li>
+<li><code>NewDecoratedVisitor</code>把所有的<code>VisitorFunc</code>传进去，构造<code>DecoratedVisitor</code>对象</li>
+<li><code>DecoratedVisitor</code>实现了<code>Visit()</code>方法，里面实际上就是个for-loop，以非嵌套的方式调用所有的<code>VisitorFunc</code></li>
+</ul>
+<p>所以我们可以这么使用这个重构：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">info</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Info</span>{}
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Visitor</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">info</span>
+<span style="color:#a6e22e">v</span> = <span style="color:#a6e22e">NewDecoratedVisitor</span>(<span style="color:#a6e22e">v</span>, <span style="color:#a6e22e">NameVisitor</span>, <span style="color:#a6e22e">OtherVisitor</span>)
+<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">Visit</span>(<span style="color:#a6e22e">LoadFile</span>)
+</code></pre></div><p>这样看上去能简单很多。</p>
+<p>基本上如果读懂了上述的逻辑，<code>kubectl</code>的代码也差不多能看明白。</p>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/design-pattern/go-visitor.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/cloud-computing/k8s-basic/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Kubernetes Handbook (Start &amp; Pod)</span>
+          </a>
+        </div>
+      
+    
+  
+
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "pillumina";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#从一个例子出发">从一个例子出发</a></li>
+    <li><a href="#k8s一些背景">k8s一些背景</a></li>
+    <li><a href="#kubectl的实现"><code>kubectl</code>的实现</a>
+      <ul>
+        <li><a href="#visitor模式的定义">Visitor模式的定义</a></li>
+        <li><a href="#name-visitor">Name Visitor</a></li>
+        <li><a href="#other-visitor">Other Visitor</a></li>
+        <li><a href="#log-visitor">Log Visitor</a></li>
+        <li><a href="#如何使用">如何使用</a></li>
+        <li><a href="#visitor修饰器">Visitor修饰器</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

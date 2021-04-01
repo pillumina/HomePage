@@ -413,6 +413,15 @@ if (!doNotTrack) {
     <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
   
 
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-visitor/">Go Visitor Pattern (k8s)</a></li>
+  
+
 
       </ul>
     </li>
@@ -460,13 +469,43 @@ if (!doNotTrack) {
       
       
         <div class="post-card">
+  <a href="/posts/golang/golang-escape-analysis/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang2.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Golang逃逸分析</h5>
+        <p class="card-text post-summary">问题： golang函数传参是不是应该和c一样，尽量不要直接传结构体，而是要传结构体指针？
+逃逸分析 逃逸分析指的是，在计算机语言编译器优化原理中，分析指针动态范围的方法，和编译器优化原理的指针分析和外形分析相关联。当变量（或者对象）在方法中被分配后，其指针有可能被返回或者被全局引用，这种现象就是指针（或引用）的逃逸（Escape）。
+其实在java概念中有一个误解 &mdash; new出来的东西都在堆上，栈上存的是它的引用。 这句话在现代JVM上有问题，就是因为逃逸分析机制。简单来说，就是JVM的逃逸分析会在运行时(runtime)检测当前方法栈帧(frame)内new出来的对象的引用，是否被传出当前的栈帧。如果传出，就会发生逃逸，没有传出则不会。对于未发生逃逸的变量，则会直接在栈上分配内存。因为栈上内存由在函数返回时自动回收，而堆上的的内存需要gc去回收，如果程序中有大量逃逸的对象，那么势必会增加gc的压力。
+public void test(){ List&lt;Integer&gt; a = new ArrayList&lt;&gt;(); a.add(1); // a 未逃逸，在栈上分配 } public List&lt;Integer&gt; test1(){ List&lt;Integer&gt; a = new ArrayList&lt;&gt;(); a.add(1); return a // 发生逃逸，因此分配在堆上 } 区别  不同于JVM运行时的逃逸分析，Golang的逃逸分析是在编译期完成。 golang的逃逸分析只针对指针。一个值引用变量如果没有被取址，那么它永远不可能逃逸。  go version go1.13.4 darwin/amd64 验证某个函数的变量是否发生逃逸的方法：
+  go run -gcflags &ldquo;-m -l&rdquo; (-m打印逃逸分析信息，-l禁止内联编译)
+  go tool compile -S xxxx.go | grep runtime.newobject（汇编代码中搜newobject指令，这个指令用于生成堆对象）
+  备注： 关于-gcflags &ldquo;-m -l&quot;的输出，有两种情况：
+ Moved to heap: xxx xxx escapes to heap  二者都表示发生了逃逸，当xxx变量为指针的时候，出现第二种；当xxx变量为值类型时，为上一种，测试代码：</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">November 23, 2020</span>
+        <a
+        href="/posts/golang/golang-escape-analysis/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="post-card">
   <a href="/posts/design-pattern/design-pattern/" class="post-card-link">
     <div class="card">
       <div class="card-head">
         <img class="card-img-top" src='/images/posts/golang-banner-2.png'/>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Design Pattern</h5>
+        <h5 class="card-title">Design Pattern: Overview</h5>
         <p class="card-text post-summary">Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;builder{ once: &amp;sync.Once{}, msg: &amp;Message{Header: &amp;Header{}, Body: &amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</p>
       </div>
       <div class="card-footer">

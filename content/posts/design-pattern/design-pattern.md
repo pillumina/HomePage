@@ -1,5 +1,5 @@
 ---
-title: "Design Pattern"
+title: "Design Pattern: Overview"
 date: 2020-11-11T11:22:18+08:00
 hero: /images/posts/golang-banner-2.png
 menu:

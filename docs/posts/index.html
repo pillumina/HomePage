@@ -413,6 +413,15 @@ if (!doNotTrack) {
     <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
   
 
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-visitor/">Go Visitor Pattern (k8s)</a></li>
+  
+
 
       </ul>
     </li>
@@ -458,6 +467,32 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/design-pattern/go-visitor/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/golang-banner-2.png'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Go编程模式：Visitor（k8s）</h5>
+        <p class="card-text post-summary">概述 最近在看kubernetes的kubectl部分源码，记录一下其中用到的visitor编程模式(实际上kubectl主要用到了builder和visitor)。visitor模式是将算法和操作对象结构分离的一种方法。换句话说，这样的分离能够在不修改对象结构的情况下向原有对象新增操作，是符合开闭原则的。这个文章以一些例子去讨论kubectl中到底如何玩的。
+从一个例子出发 写一个简单的Visitor模式示例：
+ 我们的代码中有一个Visitor的函数定义，还有一个Shape接口，其需要使用 Visitor函数做为参数 我们的实例的对象 Circle和 Rectangle实现了 Shape 的接口的 accept() 方法，这个方法就是等外面给我传递一个Visitor。  package main import ( &#34;encoding/json&#34; &#34;encoding/xml&#34; &#34;fmt&#34; ) type Visitor func(shape Shape) type Shape interface { accept(Visitor) } type Circle struct { Radius int } func (c Circle) accept(v Visitor) { v(c) } type Rectangle struct { Width, Heigh int } func (r Rectangle) accept(v Visitor) { v(r) } 然后，我们实现两个Visitor，一个是用来做JSON序列化的，另一个是用来做XML序列化的:
+func JsonVisitor(shape Shape) { bytes, err := json.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">March 31, 2021</span>
+        <a
+        href="/posts/design-pattern/go-visitor/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/cloud-computing/k8s-basic/" class="post-card-link">
@@ -786,29 +821,6 @@ Preface 我们先描述一个问题作为讨论的中心：用户邮件的存储
         <span class="float-left">January 10, 2021</span>
         <a
         href="/posts/golang/fasthttp/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/golang/sync-pool/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang2.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">[源码分析]sync pool</h5>
-        <p class="card-text post-summary">- 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环 - 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有） </p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">January 1, 2021</span>
-        <a
-        href="/posts/golang/sync-pool/"
         class="float-right btn btn-outline-info btn-sm"
         >Read</a
         >
