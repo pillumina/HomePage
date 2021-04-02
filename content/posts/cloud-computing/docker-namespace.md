@@ -19,6 +19,14 @@ draft: false
 
 
 
+## 参考
+
+[Namespace in operation](https://lwn.net/Articles/531114/)
+
+[Linux namespace man page](https://man7.org/linux/man-pages/man7/namespaces.7.html)
+
+[Introduction to linux namespace](https://blog.jtlebi.fr/2013/12/22/introduction-to-linux-namespaces-part-1-uts/)
+
 ## 什么是Namespace
 
 简单来说，linux namespace是Linux提供的一种内核级别环境隔离的方法。在早期的Unix中，提供了一种叫做chroot的系统调用：通过修改root目录把用户关到一个特定的目录下面。这种就是简单的隔离方式，也就是chroot内部的file system无法访问外部的内容。Linux Namespace在此基础之上，提供了对UTS、IPC、mount、network、PID、User等隔离机制。
@@ -475,4 +483,221 @@ chgrp  cp     gzip  kill      ls    mountpoint  netstat  pwd   sh   tac    tee  
 /usr/bin:
 awk  env  groups  head  id  mesg  sort  strace  tail  top  uniq  vi  wc  xargs
 ```
+
+
+
+## User Namespace
+
+User Namespace 主要用到了`CLONE_NEWUSER`参数，当我们使用这个参数以后，在内部看到的UID和GID和外部就不一样了，默认为65534。因为容器找不到其真正的UID，因此设置成了最大的UID（`/proc/sys/kernel/overflowuid`）。
+
+要把容器中的uid和真实系统的uid给映射在一起，需要修改 **/proc/<pid>/uid_map** 和 **/proc/<pid>/gid_map** 这两个文件。这两个文件的格式为：
+
+`ID-inside-ns ID-outside-ns length`
+
+- 第一个字段ID-inside-ns表示在容器显示的UID或GID，
+- 第二个字段ID-outside-ns表示容器外映射的真实的UID或GID。
+- 第三个字段表示映射的范围，一般填1，表示一一对应。
+
+比如，把真实的uid=1000映射成容器内的uid=0
+
+```shell
+$ cat /proc/2465/uid_map
+         0       1000          1
+```
+
+再比如下面的示例：表示把namespace内部从0开始的uid映射到外部从0开始的uid，其最大范围是无符号32位整形：
+
+```shell
+$ cat /proc/$$/uid_map
+         0          0          4294967295
+```
+
+- 写这两个文件的进程需要这个namespace中的CAP_SETUID (CAP_SETGID)权限（可参看[Capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html)）
+- 写入的进程必须是此user namespace的父或子的user namespace进程。
+- 另外需要满如下条件之一：1）父进程将effective uid/gid映射到子进程的user namespace中，2）父进程如果有CAP_SETUID/CAP_SETGID权限，那么它将可以映射到父进程中的任一uid/gid。
+
+
+
+User Namespace是以普通用户运行，但是别的Namespace需要root权限，那么，如果我要同时使用多个Namespace，该怎么办呢？一般来说，我们先用一般用户创建User Namespace，然后把这个一般用户映射成root，在容器内用root来创建其它的Namesapce。
+
+
+
+## Network Namespace
+
+在linux中，一般用`ip`命令创建network namespace。不过在docker源码中并没有使用`ip`，而是自己实现了ip命令的一些内容。在这还是用`ip`命令描述一下做了啥。
+
+首先我们来看一个图，这个图是Docker在host主机上的网络示意图
+
+![host network](https://coolshell.cn/wp-content/uploads/2015/04/network.namespace.jpg)
+
+
+
+实际上图还是有问题的，因为Docker也可以运行在虚拟机中，所以所谓的物理网卡其实也就是一个有能够路由的IP的网卡。
+
+图中Docker用了一个私有的网段: 172.40.1.0，此外docker还会使用10.0.0.0以及192.168.0.0两个私有网段。如果你机器的路由表配置了(占用)所有的私有网段，那么docker就会无法启动。
+
+启动docker以后，可以使用`ip link show`和`ip addr show`来查看目前宿主机的网络情况。这里我在`minikube`容器里执行了指令:
+
+```shell
+root@minikube:/# ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: tunl0@NONE: <NOARP> mtu 1480 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ipip 0.0.0.0 brd 0.0.0.0
+3: ip6tnl0@NONE: <NOARP> mtu 1452 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/tunnel6 :: brd ::
+4: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default
+    link/ether 02:42:2e:11:a4:ae brd ff:ff:ff:ff:ff:ff
+6: vetha68cfee@if5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
+    link/ether 46:2d:cf:22:79:9f brd ff:ff:ff:ff:ff:ff link-netnsid 1
+12: veth8b65072@if11: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
+    link/ether 3e:fb:54:6d:ae:1e brd ff:ff:ff:ff:ff:ff link-netnsid 3
+14: veth61918b0@if13: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
+    link/ether d2:68:38:76:73:c9 brd ff:ff:ff:ff:ff:ff link-netnsid 4
+18: vethd7fa219@if17: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
+    link/ether 1e:14:79:68:f1:50 brd ff:ff:ff:ff:ff:ff link-netnsid 5
+20: eth0@if21: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default
+    link/ether 02:42:c0:a8:31:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+21: veth3b477c9@if19: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
+    link/ether 7e:b1:5d:53:00:ff brd ff:ff:ff:ff:ff:ff link-netnsid 2
+23: veth265059d@if22: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
+    link/ether 4a:22:a4:05:79:e1 brd ff:ff:ff:ff:ff:ff link-netnsid 6
+```
+
+可以看到有`docker0`还有一些虚拟网卡。
+
+为了能够做成这样，我又google了一段代码:
+
+```shell
+## 首先，我们先增加一个网桥lxcbr0，模仿docker0
+brctl addbr lxcbr0
+brctl stp lxcbr0 off
+ifconfig lxcbr0 192.168.10.1/24 up #为网桥设置IP地址
+
+## 接下来，我们要创建一个network namespace - ns1
+
+# 增加一个namesapce 命令为 ns1 （使用ip netns add命令）
+ip netns add ns1 
+
+# 激活namespace中的loopback，即127.0.0.1（使用ip netns exec ns1来操作ns1中的命令）
+ip netns exec ns1   ip link set dev lo up 
+
+## 然后，我们需要增加一对虚拟网卡
+
+# 增加一个pair虚拟网卡，注意其中的veth类型，其中一个网卡要按进容器中
+ip link add veth-ns1 type veth peer name lxcbr0.1
+
+# 把 veth-ns1 按到namespace ns1中，这样容器中就会有一个新的网卡了
+ip link set veth-ns1 netns ns1
+
+# 把容器里的 veth-ns1改名为 eth0 （容器外会冲突，容器内就不会了）
+ip netns exec ns1  ip link set dev veth-ns1 name eth0 
+
+# 为容器中的网卡分配一个IP地址，并激活它
+ip netns exec ns1 ifconfig eth0 192.168.10.11/24 up
+
+
+# 上面我们把veth-ns1这个网卡按到了容器中，然后我们要把lxcbr0.1添加上网桥上
+brctl addif lxcbr0 lxcbr0.1
+
+# 为容器增加一个路由规则，让容器可以访问外面的网络
+ip netns exec ns1     ip route add default via 192.168.10.1
+
+# 在/etc/netns下创建network namespce名称为ns1的目录，
+# 然后为这个namespace设置resolv.conf，这样，容器内就可以访问域名了
+mkdir -p /etc/netns/ns1
+echo "nameserver 8.8.8.8" > /etc/netns/ns1/resolv.conf
+```
+
+上述就是docker网络的原理，但是有几点要注意的
+
+1. docker的resolv.conf（配置系统DNS解析器）没有采取这样的方式，而是采取类似上述`mount namespace`的方式
+2. 另外，docker采用进程的PID来做network namepspace的名称
+
+我们原理了解了，甚至可以给正在运行的docker容器新增网卡:
+
+```shell
+ip link add peerA type veth peer name peerB 
+brctl addif docker0 peerA 
+ip link set peerA up 
+ip link set peerB netns ${container-pid} 
+ip netns exec ${container-pid} ip link set dev peerB name eth1 
+ip netns exec ${container-pid} ip link set eth1 up ; 
+ip netns exec ${container-pid} ip addr add ${ROUTEABLE_IP} dev eth1 ;
+```
+
+上述指令即为一个正在运行的docker容器新增一个`eth1`网卡，以及给了一个可以被外部访问到的IP静态IP地址。
+
+这种做法，需要把外部的`物理网卡`设置为混杂模式([Promiscuous Model](https://cloud.tencent.com/developer/article/1439013))，也就是网卡接受所有流过网卡的帧(数据包)，包括那些不是发给本机的包，不验证MAC地址。这样这个`eth1`网卡就会向外部通过[ARP地址解析协议](https://zh.wikipedia.org/wiki/%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE)发送自己的MAC地址，然后外部的交换机就会把这个IP地址的包转到`物理网卡`上。因为网卡工作在混杂模式，因此`eth1`就能收到相关的数据。如果发现是自己的数据，那么就接受，这样Docker容器的网络就与外部相通。
+
+其实不管是Docker的NAT模式，还是混杂模式都会存在性能问题。NAT很明显转发(NAT转换)就有开销，而混杂模式下，网卡收到的负载都会完全交给所有的虚拟网卡，所以想想哪怕一个网卡没有数据，也会被其他网卡的数据影响。
+
+因此这两种方式都不算完美，真正解决这样网络问题的是[VLAN技术](https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E5%B1%80%E5%9F%9F%E7%BD%91)。因此Google的开发者为linux内核实现了一个[IPVLAN驱动](https://lwn.net/Articles/620087/)，基本为Docker量身定制。
+
+
+
+## Namespace文件
+
+整理完了linux namespace的玩法，在看一下ns的文件。
+
+我们再运行一遍PID Namepace篇章中的`pid.mnt`程序(mount proc)，然后不退出:
+
+```shell
+$ sudo ./pid.mnt 
+[sudo] password for derios: 
+Parent [ 4599] - start a container!
+Container [    1] - inside the container!
+```
+
+打开另外一个shell看一下父子进程的PID:
+
+```shell
+derios@ubuntu:~$ pstree -p 4599
+pid.mnt(4599)───bash(4600)
+```
+
+我们可以到proc下（/proc//ns）查看进程的各个namespace的id（内核版本需要3.8以上），下面是父进程的：
+
+```shell
+derios@ubuntu:~$ sudo ls -l /proc/4599/ns
+total 0
+lrwxrwxrwx 1 root root 0  4月  7 22:01 ipc -> ipc:[4026531839]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 mnt -> mnt:[4026531840]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 net -> net:[4026531956]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 pid -> pid:[4026531836]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 user -> user:[4026531837]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 uts -> uts:[4026531838]
+```
+
+下面是子进程的:
+
+```shell
+derios@ubuntu:~$ sudo ls -l /proc/4600/ns
+total 0
+lrwxrwxrwx 1 root root 0  4月  7 22:01 ipc -> ipc:[4026531839]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 mnt -> mnt:[4026532520]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 net -> net:[4026531956]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 pid -> pid:[4026532522]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 user -> user:[4026531837]
+lrwxrwxrwx 1 root root 0  4月  7 22:01 uts -> uts:[4026532521]
+```
+
+仔细看一下区别，发现ipc, net, user为相同ID，而mnt, pid, uts都不同。如果两个进程指向的namespace编号相同，则说明它俩在同一个namespace下，否则就不在。（如果读者你想验证，`docker exec -it <container name> bash`到一个容器里，top找两个进程，然后cat一下proc中对应PID的ns即可）
+
+这些文件还有另一个作用，那就是，一旦这些文件被打开，只要其fd被占用着，那么就算PID所属的所有进程都已经结束，创建的namespace也会一直存在。比如：我们可以通过：mount –bind /proc/4600/ns/uts ~/uts 来hold这个namespace。
+
+我们在最开始点了一下`setns`系统调用，函数声明如下:
+
+```c++
+int setns(int fd, int nstype);
+```
+
+其中第一个参数就是一个fd，也就是一个open()系统调用打开了上述文件后返回的fd，比如：
+
+```c++
+fd = open("/proc/4600/ns/nts", O_RDONLY);  // 获取namespace文件描述符
+setns(fd, 0); // 加入新的namespace
+```
+
+
 

@@ -487,10 +487,13 @@ if (!doNotTrack) {
         <h5 class="card-title">Docker Fundamentals: Namespace</h5>
         <p class="card-text post-summary">容器技术出现已经很久，只不过Docker容器平台的出现它变火了。Docker是第一个让容器能在不同机器之间移植的系统，它简化了打包应用的流程，也简化了打包应用的库和各种依赖。思考下整个OS的file system能直接被打包成一个简单的可移植的包，一开始的时候概念上还是很有趣的。
 有时候我认为自己的阅读比较碎片化(short-term memory越来越少)，所以我想把之前学习容器知识的一些基础技术再整理出来，也算是给自己学习的反馈。这个基础系列从Linux Namespace开始，后续会陆续介绍比如cgroup、aufs、devicemapper等技术。
+参考 Namespace in operation
+Linux namespace man page
+Introduction to linux namespace
 什么是Namespace 简单来说，linux namespace是Linux提供的一种内核级别环境隔离的方法。在早期的Unix中，提供了一种叫做chroot的系统调用：通过修改root目录把用户关到一个特定的目录下面。这种就是简单的隔离方式，也就是chroot内部的file system无法访问外部的内容。Linux Namespace在此基础之上，提供了对UTS、IPC、mount、network、PID、User等隔离机制。
 这里可以简单举例，比如Linux的超级父进程的PID为1，如果我们可以把用户的进程空间关到某个进程分支之下，并且像chroot那样能够让下面的进程看到那个超级父进程的PID为1，而不同PID Namespace中的进程无法看到彼此，这样就能达到进程隔离。
 Linux Namespace有以下的种类，供给后续参考（刚看有个印象就行）：
-   分类 系统调用参数 相关内核版本     Mount namespaces CLONE_NEWNS Linux 2.4.19   UTS namespaces CLONE_NEWUTS Linux 2.6.19   IPC namespaces CLONE_NEWIPC Linux 2.6.19   PID namespaces CLONE_NEWPID Linux 2.6.24   Network namespaces CLONE_NEWNET 始于Linux 2.6.24 完成于 Linux 2.6.29   User namespaces CLONE_NEWUSER 始于 Linux 2.6.23 完成于 Linux 3.</p>
+   分类 系统调用参数 相关内核版本     Mount namespaces CLONE_NEWNS Linux 2.4.19   UTS namespaces CLONE_NEWUTS Linux 2.6.19   IPC namespaces CLONE_NEWIPC Linux 2.6.19   PID namespaces CLONE_NEWPID Linux 2.6.24   Network namespaces CLONE_NEWNET 始于Linux 2.6.24 完成于 Linux 2.</p>
       </div>
       <div class="card-footer">
         <span class="float-left">April 1, 2021</span>
