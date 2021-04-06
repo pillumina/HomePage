@@ -350,7 +350,7 @@ services:
 
 
 
-### ervices
+### Services
 
 ```shell
 # To view list of all the services runnning in swarm
