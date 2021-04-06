@@ -824,6 +824,40 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/cloud-computing/docker-cgroup/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Docker Fundamentals: Cgroup</h5>
+        <p class="card-text post-summary"> Linux Namespace的技术解决了环境隔离的问题，不过这是虚拟化最基本的一步，我们另外需要解决对计算机资源使用上的隔离。说人话，就是虽然Namespace把我关到一个特定的环境，但是里面进程使用的CPU、内存、磁盘等计算资源实际上没有被限制。这个问题的解决，就要用到CGroup技术。
+Linux CGroup全称是Linux Control Group，也是其内核的一个功能，用于限制、控制和分离一个进程group的资源。最早这个项目是2006年由谷歌的工程师发起的，最开始名称是process containers（工程容器），后面觉得内核中容器这个名词被用烂了，就改名为cgroup。
+CGroup可以让你对系统中运行的进程的用户组分配资源-CPU时间、系统内存、网络带宽亦或者是这些的组合。同时，也可以监控你配置的cgroup，拒绝cgroup访问某些资源。主要提供的功能如下：
+  Resource Limitation： 限制资源使用
+  Prioritization: 优先级控制，例如CPU使用和磁盘IO吞吐
+  Accounting：审计统计，主要用于计费
+  Control：挂起进程，恢复执行进程
+在真正的实践当中，system admin一般会利用CGroup做以下的事：
+  对进程集合进行隔离，限制他们所消费的资源，例如绑定CPU core
+  为这组进程分配足够使用的内存
+  为这组进程分配响应的网络带宽和磁盘存储限制
+  限制访问某些设备（白名单）
+Linux实际上把CGroup实现成了一个文件系统，你可以mount。在linux环境输入下面的可以看到cgroup已经为你mount好：
+  derios@ubuntu:~$ mount -t cgroup cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,relatime,cpuset) cgroup on /sys/fs/cgroup/cpu type cgroup (rw,relatime,cpu) cgroup on /sys/fs/cgroup/cpuacct type cgroup (rw,relatime,cpuacct) cgroup on /sys/fs/cgroup/memory type cgroup (rw,relatime,memory) cgroup on /sys/fs/cgroup/devices type cgroup (rw,relatime,devices) cgroup on /sys/fs/cgroup/freezer type cgroup (rw,relatime,freezer) cgroup on /sys/fs/cgroup/blkio type cgroup (rw,relatime,blkio) cgroup on /sys/fs/cgroup/net_prio type cgroup (rw,net_prio) cgroup on /sys/fs/cgroup/net_cls type cgroup (rw,net_cls) cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,relatime,perf_event) cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,relatime,hugetlb) 可以看到，在/sys/fs下有cgroup目录，这个目录下面有各种子目录：cpu，cpuset，memory&hellip;。这些都是cgroup的子系统，分别用来干不同的事。</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 5, 2021</span>
+        <a href="/posts/cloud-computing/docker-cgroup/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/cloud-computing/docker-namespace/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -870,30 +904,6 @@ k8s初步使用 kubectl run kubia &ndash;image=derios/kubia &ndash;port=8080 &nd
       <div class="card-footer">
         <span class="float-left">March 31, 2021</span>
         <a href="/posts/cloud-computing/k8s-basic/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/design-pattern/go-visitor/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang-banner-2.png'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Go编程模式：Visitor（k8s）</h5>
-        <p class="card-text post-summary"> 概述 最近在看kubernetes的kubectl部分源码，记录一下其中用到的visitor编程模式(实际上kubectl主要用到了builder和visitor)。visitor模式是将算法和操作对象结构分离的一种方法。换句话说，这样的分离能够在不修改对象结构的情况下向原有对象新增操作，是符合开闭原则的。这个文章以一些例子去讨论kubectl中到底如何玩的。
-从一个例子出发 写一个简单的Visitor模式示例：
- 我们的代码中有一个Visitor的函数定义，还有一个Shape接口，其需要使用 Visitor函数做为参数 我们的实例的对象 Circle和 Rectangle实现了 Shape 的接口的 accept() 方法，这个方法就是等外面给我传递一个Visitor。  package main import ( &#34;encoding/json&#34; &#34;encoding/xml&#34; &#34;fmt&#34; ) type Visitor func(shape Shape) type Shape interface { accept(Visitor) } type Circle struct { Radius int } func (c Circle) accept(v Visitor) { v(c) } type Rectangle struct { Width, Heigh int } func (r Rectangle) accept(v Visitor) { v(r) } 然后，我们实现两个Visitor，一个是用来做JSON序列化的，另一个是用来做XML序列化的:
-func JsonVisitor(shape Shape) { bytes, err := json.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">March 31, 2021</span>
-        <a href="/posts/design-pattern/go-visitor/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>

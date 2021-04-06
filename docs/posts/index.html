@@ -351,6 +351,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/cloud-computing/docker-cgroup/">Docker Fundamentals (Cgroup)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/cloud-computing/docker-namespace/">Docker Fundamentals (Namespace)</a></li>
   
 
@@ -476,6 +485,42 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/cloud-computing/docker-cgroup/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Docker Fundamentals: Cgroup</h5>
+        <p class="card-text post-summary">Linux Namespace的技术解决了环境隔离的问题，不过这是虚拟化最基本的一步，我们另外需要解决对计算机资源使用上的隔离。说人话，就是虽然Namespace把我关到一个特定的环境，但是里面进程使用的CPU、内存、磁盘等计算资源实际上没有被限制。这个问题的解决，就要用到CGroup技术。
+Linux CGroup全称是Linux Control Group，也是其内核的一个功能，用于限制、控制和分离一个进程group的资源。最早这个项目是2006年由谷歌的工程师发起的，最开始名称是process containers（工程容器），后面觉得内核中容器这个名词被用烂了，就改名为cgroup。
+CGroup可以让你对系统中运行的进程的用户组分配资源-CPU时间、系统内存、网络带宽亦或者是这些的组合。同时，也可以监控你配置的cgroup，拒绝cgroup访问某些资源。主要提供的功能如下：
+  Resource Limitation： 限制资源使用
+  Prioritization: 优先级控制，例如CPU使用和磁盘IO吞吐
+  Accounting：审计统计，主要用于计费
+  Control：挂起进程，恢复执行进程
+在真正的实践当中，system admin一般会利用CGroup做以下的事：
+  对进程集合进行隔离，限制他们所消费的资源，例如绑定CPU core
+  为这组进程分配足够使用的内存
+  为这组进程分配响应的网络带宽和磁盘存储限制
+  限制访问某些设备（白名单）
+Linux实际上把CGroup实现成了一个文件系统，你可以mount。在linux环境输入下面的可以看到cgroup已经为你mount好：
+  derios@ubuntu:~$ mount -t cgroup cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,relatime,cpuset) cgroup on /sys/fs/cgroup/cpu type cgroup (rw,relatime,cpu) cgroup on /sys/fs/cgroup/cpuacct type cgroup (rw,relatime,cpuacct) cgroup on /sys/fs/cgroup/memory type cgroup (rw,relatime,memory) cgroup on /sys/fs/cgroup/devices type cgroup (rw,relatime,devices) cgroup on /sys/fs/cgroup/freezer type cgroup (rw,relatime,freezer) cgroup on /sys/fs/cgroup/blkio type cgroup (rw,relatime,blkio) cgroup on /sys/fs/cgroup/net_prio type cgroup (rw,net_prio) cgroup on /sys/fs/cgroup/net_cls type cgroup (rw,net_cls) cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,relatime,perf_event) cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,relatime,hugetlb) 可以看到，在/sys/fs下有cgroup目录，这个目录下面有各种子目录：cpu，cpuset，memory&hellip;。这些都是cgroup的子系统，分别用来干不同的事。</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 5, 2021</span>
+        <a
+        href="/posts/cloud-computing/docker-cgroup/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/cloud-computing/docker-namespace/" class="post-card-link">
@@ -806,36 +851,6 @@ Google 评分卡 接下来，我们再来看看Google的SRE的自我评分卡：
         <span class="float-left">February 1, 2021</span>
         <a
         href="/posts/programmer-career/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/golang/websocket/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang2.jpg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">A Million WebSocket and Go</h5>
-        <p class="card-text post-summary">这篇文章是我研究高负载网络服务器架构看到的的一个有趣的story，添加了我自身学习websocket的感受和记录，希望我能在飞机落地前写完:-)
-Preface 我们先描述一个问题作为讨论的中心：用户邮件的存储方法。
-对于这种主题，有很多种方式在系统内对邮件状态进行持续的追踪，比如系统事件是一个方式，另一种方式可以通过定期的系统轮询有关状态变化。
-这两种方式各有利弊，不过当我们讨论到邮件的时候，用户希望收到新邮件的速度越快越好。邮件轮询每秒约有50000个HTTP请求，其中60%返回304状态，也就是邮箱内没有任何修改。
-因此，为了减少服务器的负载并加快向用户传递邮件的速度，我们决定通过编写publisher-subscriber服务器(即bus, message broker, event channel)来重新发明轮子。一方面接受有关状态变更的通知，另外一个方面接受此类通知的订阅。
-改进前：
-+--------------+ (2) +-------------+ (1) +-----------+ | | &lt;--------+ | | &lt;--------+ | | | Storage | | API | HTTP | Browser | | | +--------&gt; | | +--------&gt; | | +--------------+ (3) +-------------+ (4) +-----------+ 改进后:
-+--------------+ +-------------+ WebSocket +-----------+ | Storage | | API | +----------&gt; | Browser | +--------------+ +-------------+ (3) +-----------+ + ^ | (1) | (2) v + +-----------------------------------------+ | Bus | +-----------------------------------------+ 改进前的方案也就是browser定期去查询api并访问存储更改</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">January 16, 2021</span>
-        <a
-        href="/posts/golang/websocket/"
         class="float-right btn btn-outline-info btn-sm"
         >Read</a
         >

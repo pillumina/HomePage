@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Docker Fundamentals: Cgroup</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Docker Fundamentals: Cgroup" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-190574896-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/iaas-paas-diff/">IaaS vs PaaS vs SaaS</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/do-not-wall/">别让自己墙了自己</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/how-to-learn/">工程师应该如何高效学习</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/programmer-career/">程序员如何把控自己的职业</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/">FX算法笔记</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/lifecycle-of-http/">Go server中http请求的生命周期</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/goroutine-pool/">Goroutine Pool</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/cloud-computing/">Kubernetes &amp; Docker</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/cloud-computing/docker-cgroup/">Docker Fundamentals (Cgroup)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-namespace/">Docker Fundamentals (Namespace)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/notes/">Notes</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/notes/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/design-pattern/">Programming Pattern</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/design-pattern/">Design Pattern Overview</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-visitor/">Go Visitor Pattern (k8s)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/k8s-docker.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>April 5, 2021</p>
+        </div>
+
+        <div class="title">
+          <h1>Docker Fundamentals: Cgroup</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <p>Linux Namespace的技术解决了环境隔离的问题，不过这是虚拟化最基本的一步，我们另外需要解决<strong>对计算机资源使用上的隔离</strong>。说人话，就是虽然Namespace把我关到一个特定的环境，但是里面进程使用的CPU、内存、磁盘等计算资源实际上没有被限制。这个问题的解决，就要用到CGroup技术。</p>
+<p>Linux CGroup全称是Linux Control Group，也是其内核的一个功能，用于限制、控制和分离一个进程group的资源。最早这个项目是2006年由谷歌的工程师发起的，最开始名称是process containers（工程容器），后面觉得内核中容器这个名词被用烂了，就改名为cgroup。</p>
+<p>CGroup可以让你对系统中运行的进程的用户组分配资源-CPU时间、系统内存、网络带宽亦或者是这些的组合。同时，也可以监控你配置的cgroup，拒绝cgroup访问某些资源。主要提供的功能如下：</p>
+<ul>
+<li>
+<p><code>Resource Limitation</code>： 限制资源使用</p>
+</li>
+<li>
+<p><code>Prioritization</code>: 优先级控制，例如CPU使用和磁盘IO吞吐</p>
+</li>
+<li>
+<p><code>Accounting</code>：审计统计，主要用于计费</p>
+</li>
+<li>
+<p><code>Control</code>：挂起进程，恢复执行进程</p>
+<p>在真正的实践当中，system admin一般会利用CGroup做以下的事：</p>
+</li>
+<li>
+<p>对进程集合进行隔离，限制他们所消费的资源，例如绑定CPU core</p>
+</li>
+<li>
+<p>为这组进程分配足够使用的内存</p>
+</li>
+<li>
+<p>为这组进程分配响应的网络带宽和磁盘存储限制</p>
+</li>
+<li>
+<p>限制访问某些设备（白名单）</p>
+<p>Linux实际上把CGroup实现成了一个文件系统，你可以mount。在linux环境输入下面的可以看到cgroup已经为你mount好：</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">derios@ubuntu:~$ mount -t cgroup
+cgroup on /sys/fs/cgroup/cpuset type cgroup <span style="color:#f92672">(</span>rw,relatime,cpuset<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/cpu type cgroup <span style="color:#f92672">(</span>rw,relatime,cpu<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/cpuacct type cgroup <span style="color:#f92672">(</span>rw,relatime,cpuacct<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/memory type cgroup <span style="color:#f92672">(</span>rw,relatime,memory<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/devices type cgroup <span style="color:#f92672">(</span>rw,relatime,devices<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/freezer type cgroup <span style="color:#f92672">(</span>rw,relatime,freezer<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/blkio type cgroup <span style="color:#f92672">(</span>rw,relatime,blkio<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/net_prio type cgroup <span style="color:#f92672">(</span>rw,net_prio<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/net_cls type cgroup <span style="color:#f92672">(</span>rw,net_cls<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/perf_event type cgroup <span style="color:#f92672">(</span>rw,relatime,perf_event<span style="color:#f92672">)</span>
+cgroup on /sys/fs/cgroup/hugetlb type cgroup <span style="color:#f92672">(</span>rw,relatime,hugetlb<span style="color:#f92672">)</span>
+</code></pre></div><p>可以看到，在<code>/sys/fs</code>下有<code>cgroup</code>目录，这个目录下面有各种子目录：<code>cpu</code>，<code>cpuset</code>，<code>memory</code>&hellip;。这些都是cgroup的子系统，分别用来干不同的事。</p>
+<p>如果没有看到上面的目录，你可以自己mount:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir cgroup
+mount -t tmpfs cgroup_root ./cgroup
+mkdir cgroup/cpuset
+mount -t cgroup -ocpuset cpuset ./cgroup/cpuset/
+mkdir cgroup/cpu
+mount -t cgroup -ocpu cpu ./cgroup/cpu/
+mkdir cgroup/memory
+mount -t cgroup -omemory memory ./cgroup/memory/
+</code></pre></div><p>mount成功以后，你会看见这些目录下有文件，比如下面展现的cpu和cpuset子系统:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">derios@ubuntu:~$ ls /sys/fs/cgroup/cpu /sys/fs/cgroup/cpuset/ 
+/sys/fs/cgroup/cpu:
+cgroup.clone_children  cgroup.sane_behavior  cpu.shares         release_agent
+cgroup.event_control   cpu.cfs_period_us     cpu.stat           tasks
+cgroup.procs           cpu.cfs_quota_us      notify_on_release  user
+/sys/fs/cgroup/cpuset/:
+cgroup.clone_children  cpuset.mem_hardwall             cpuset.sched_load_balance
+cgroup.event_control   cpuset.memory_migrate           cpuset.sched_relax_domain_level
+cgroup.procs           cpuset.memory_pressure          notify_on_release
+cgroup.sane_behavior   cpuset.memory_pressure_enabled  release_agent
+cpuset.cpu_exclusive   cpuset.memory_spread_page       tasks
+cpuset.cpus            cpuset.memory_spread_slab       user
+cpuset.mem_exclusive   cpuset.mems
+</code></pre></div><p>你可以进入<code>/sys/fs/cgroup</code>的各个目录下去创建个dir，你会发现一旦你创建了，这个子目录下又有很多文件：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">derios@ubuntu:/sys/fs/cgroup/cpu$ sudo mkdir haoel
+<span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span> derios: 
+derios@ubuntu:/sys/fs/cgroup/cpu$ ls ./haoel
+cgroup.clone_children  cgroup.procs       cpu.cfs_quota_us  cpu.stat           tasks
+cgroup.event_control   cpu.cfs_period_us  cpu.shares        notify_on_release
+</code></pre></div><h2 id="cpu限制">CPU限制</h2>
+<p>假设我们写了个吃CPU的程序：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">for</span>(;;) i<span style="color:#f92672">++</span>;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>用sudo执行毫无疑问cpu飚到100%：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND     
+ <span style="color:#ae81ff">3529</span> root      <span style="color:#ae81ff">20</span>   <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">4196</span>    <span style="color:#ae81ff">736</span>    <span style="color:#ae81ff">656</span> R 99.6  0.1   0:23.13 deadloop   
+</code></pre></div><p>在上面我们在<code>/sys/fs/cgroup/cpu</code>下面创建了<code>haoel</code>的group，我们首先设置下cpu限制</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">derios@ubuntu:~# cat /sys/fs/cgroup/cpu/haoel/cpu.cfs_quota_us 
+-1
+root@ubuntu:~# echo <span style="color:#ae81ff">20000</span> &gt; /sys/fs/cgroup/cpu/haoel/cpu.cfs_quota_us
+</code></pre></div><p>我们top出来看到这个线程的pid是3529，我们加到这个cgroup中:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># echo 3529 &gt;&gt; /sys/fs/cgroup/cpu/haoel/tasks</span>
+</code></pre></div><p>然后再看top，可以发现CPU使用率一下降成了20%（设置的20000代表着20%）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND     
+ <span style="color:#ae81ff">3529</span> root      <span style="color:#ae81ff">20</span>   <span style="color:#ae81ff">0</span>    <span style="color:#ae81ff">4196</span>    <span style="color:#ae81ff">736</span>    <span style="color:#ae81ff">656</span> R 19.9  0.1   8:06.11 deadloop    
+</code></pre></div><p>下面贴一个我google的代码示例，用于参考看看注释:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#define _GNU_SOURCE         </span><span style="color:#75715e">/* See feature_test_macros(7) */</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;pthread.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/syscall.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> NUM_THREADS <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+
+<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">thread_main</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>threadid)
+{
+    <span style="color:#75715e">/* 把自己加入cgroup中（syscall(SYS_gettid)为得到线程的系统tid） */</span>
+    <span style="color:#66d9ef">char</span> cmd[<span style="color:#ae81ff">128</span>];
+    sprintf(cmd, <span style="color:#e6db74">&#34;echo %ld &gt;&gt; /sys/fs/cgroup/cpu/haoel/tasks&#34;</span>, syscall(SYS_gettid));
+    system(cmd); 
+    sprintf(cmd, <span style="color:#e6db74">&#34;echo %ld &gt;&gt; /sys/fs/cgroup/cpuset/haoel/tasks&#34;</span>, syscall(SYS_gettid));
+    system(cmd);
+
+    <span style="color:#66d9ef">long</span> tid;
+    tid <span style="color:#f92672">=</span> (<span style="color:#66d9ef">long</span>)threadid;
+    printf(<span style="color:#e6db74">&#34;Hello World! It&#39;s me, thread #%ld, pid #%ld!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, tid, syscall(SYS_gettid));
+    
+    <span style="color:#66d9ef">int</span> a<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; 
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>) {
+        a<span style="color:#f92672">++</span>;
+    }
+    pthread_exit(NULL);
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span> (<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[])
+{
+    <span style="color:#66d9ef">int</span> num_threads;
+    <span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>){
+        num_threads <span style="color:#f92672">=</span> atoi(argv[<span style="color:#ae81ff">1</span>]);
+    }
+    <span style="color:#66d9ef">if</span> (num_threads<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> num_threads<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">100</span>){
+        num_threads <span style="color:#f92672">=</span> NUM_THREADS;
+    }
+
+    <span style="color:#75715e">/* 设置CPU利用率为50% */</span>
+    mkdir(<span style="color:#e6db74">&#34;/sys/fs/cgroup/cpu/haoel&#34;</span>, <span style="color:#ae81ff">755</span>);
+    system(<span style="color:#e6db74">&#34;echo 50000 &gt; /sys/fs/cgroup/cpu/haoel/cpu.cfs_quota_us&#34;</span>);
+
+    mkdir(<span style="color:#e6db74">&#34;/sys/fs/cgroup/cpuset/haoel&#34;</span>, <span style="color:#ae81ff">755</span>);
+    <span style="color:#75715e">/* 限制CPU只能使用#2核和#3核 */</span>
+    system(<span style="color:#e6db74">&#34;echo </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">2,3</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> &gt; /sys/fs/cgroup/cpuset/haoel/cpuset.cpus&#34;</span>);
+
+    pthread_t<span style="color:#f92672">*</span> threads <span style="color:#f92672">=</span> (pthread_t<span style="color:#f92672">*</span>) malloc (<span style="color:#66d9ef">sizeof</span>(pthread_t)<span style="color:#f92672">*</span>num_threads);
+    <span style="color:#66d9ef">int</span> rc;
+    <span style="color:#66d9ef">long</span> t;
+    <span style="color:#66d9ef">for</span>(t<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; t<span style="color:#f92672">&lt;</span>num_threads; t<span style="color:#f92672">++</span>){
+        printf(<span style="color:#e6db74">&#34;In main: creating thread %ld</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+        rc <span style="color:#f92672">=</span> pthread_create(<span style="color:#f92672">&amp;</span>threads[t], NULL, thread_main, (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)t);
+        <span style="color:#66d9ef">if</span> (rc){
+            printf(<span style="color:#e6db74">&#34;ERROR; return code from pthread_create() is %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, rc);
+            exit(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+        }
+    }
+
+    <span style="color:#75715e">/* Last thing that main() should do */</span>
+    pthread_exit(NULL);
+    free(threads);
+}
+</code></pre></div><h2 id="内存使用限制">内存使用限制</h2>
+<p>我们构造一下无限分配内存的例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+{
+    <span style="color:#66d9ef">int</span> size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> chunk_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span>;
+    <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> NULL;
+
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>) {
+
+        <span style="color:#66d9ef">if</span> ((p <span style="color:#f92672">=</span> malloc(p, chunk_size)) <span style="color:#f92672">==</span> NULL) {
+            printf(<span style="color:#e6db74">&#34;out of memory!!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+            <span style="color:#66d9ef">break</span>;
+        }
+        memset(p, <span style="color:#ae81ff">1</span>, chunk_size);
+        size <span style="color:#f92672">+=</span> chunk_size;
+        printf(<span style="color:#e6db74">&#34;[%d] - memory is allocated [%8d] bytes </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, getpid(), size);
+        sleep(<span style="color:#ae81ff">1</span>);
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>这个代码是个dead loop，每隔1秒会分配512字节的内存。然后我们再cgroup搞事情：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 创建memory cgroup</span>
+$ mkdir /sys/fs/cgroup/memory/haoel
+$ echo 64k &gt; /sys/fs/cgroup/memory/haoel/memory.limit_in_bytes
+
+<span style="color:#75715e"># 把上面的进程的pid加入这个cgroup</span>
+$ echo <span style="color:#f92672">[</span>pid<span style="color:#f92672">]</span> &gt; /sys/fs/cgroup/memory/haoel/tasks 
+</code></pre></div><p>可以看到上面的进程会因为内存oom被kill。</p>
+<h2 id="磁盘io限制">磁盘IO限制</h2>
+<p>我们先查看下磁盘IO，模拟一下（从/dev/sda1读取数据，输出到/dev/null上）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/sda1 of<span style="color:#f92672">=</span>/dev/null
+</code></pre></div><p>通过<code>iotop</code>命令可以看到相关的io速度为55MB/s：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN     IO&gt;    COMMAND          
+ <span style="color:#ae81ff">8128</span> be/4 root       55.74 M/s    0.00 B/s  0.00 % 85.65 % dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/de~<span style="color:#f92672">=</span>/dev/null...
+</code></pre></div><p>然后，我们先创建一个blkio（块设备IO）的cgroup:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir /sys/fs/cgroup/blkio/haoel
+</code></pre></div><p>并把读IO限制到1MB/s，并把前面那个dd命令的pid放进去（注：8:0 是设备号，你可以通过ls -l /dev/sda1获得）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">root@ubuntu:~# echo <span style="color:#e6db74">&#39;8:0 1048576&#39;</span>  &gt; /sys/fs/cgroup/blkio/haoel/blkio.throttle.read_bps_device 
+root@ubuntu:~# echo <span style="color:#ae81ff">8128</span> &gt; /sys/fs/cgroup/blkio/haoel/tasks
+</code></pre></div><p>再用iotop命令，你马上就能看到读速度被限制到了1MB/s左右:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">  TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN     IO&gt;    COMMAND          
+ <span style="color:#ae81ff">8128</span> be/4 root      973.20 K/s    0.00 B/s  0.00 % 94.41 % dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/de~<span style="color:#f92672">=</span>/dev/null...
+</code></pre></div><h2 id="cgroup的子系统">CGroup的子系统</h2>
+<p>OK，有了以上比较感性的认识，我们来看看control group到底有哪些子系统：</p>
+<ul>
+<li>
+<p>blkio — 这个子系统为块设备设定输入/输出限制，比如物理设备（磁盘，固态硬盘，USB 等等）。</p>
+</li>
+<li>
+<p>cpu — 这个子系统使用调度程序提供对 CPU 的 cgroup 任务访问。</p>
+</li>
+<li>
+<p>cpuacct — 这个子系统自动生成 cgroup 中任务所使用的 CPU 报告。</p>
+</li>
+<li>
+<p>cpuset — 这个子系统为 cgroup 中的任务分配独立 CPU（在多核系统）和内存节点。</p>
+</li>
+<li>
+<p>devices — 这个子系统可允许或者拒绝 cgroup 中的任务访问设备。</p>
+</li>
+<li>
+<p>freezer — 这个子系统挂起或者恢复 cgroup 中的任务。</p>
+</li>
+<li>
+<p>memory — 这个子系统设定 cgroup 中任务使用的内存限制，并自动生成内存资源使用报告。</p>
+</li>
+<li>
+<p>net_cls — 这个子系统使用等级识别符（classid）标记网络数据包，可允许 Linux 流量控制程序（tc）识别从具体 cgroup 中生成的数据包。</p>
+</li>
+<li>
+<p>net_prio — 这个子系统用来设计网络流量的优先级</p>
+</li>
+<li>
+<p>hugetlb — 这个子系统主要针对于HugeTLB系统进行限制，这是一个大页文件系统。</p>
+<p>在我的Ubuntu14.04虚拟机下看不到net_cls和net_prio这两个cgroup，需要手动mount：</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo modprobe cls_cgroup
+$ sudo mkdir /sys/fs/cgroup/net_cls
+$ sudo mount -t cgroup -o net_cls none /sys/fs/cgroup/net_cls
+
+$ sudo modprobe netprio_cgroup
+$ sudo mkdir /sys/fs/cgroup/net_prio
+$ sudo mount -t cgroup -o net_prio none /sys/fs/cgroup/net_prio
+</code></pre></div><h2 id="cgroup术语">CGroup术语</h2>
+<p>CGroup有下述术语：</p>
+<ul>
+<li><strong>任务（Tasks）</strong>：就是系统的一个进程。</li>
+<li><strong>控制组（Control Group）</strong>：一组按照某种标准划分的进程，比如官方文档中的Professor和Student，或是WWW和System之类的，其表示了某进程组。Cgroups中的资源控制都是以控制组为单位实现。一个进程可以加入到某个控制组。而资源的限制是定义在这个组上，就像上面示例中我用的haoel一样。简单点说，cgroup的呈现就是一个目录带一系列的可配置文件。</li>
+<li><strong>层级（Hierarchy）</strong>：控制组可以组织成hierarchical的形式，既一颗控制组的树（目录结构）。控制组树上的子节点继承父结点的属性。简单点说，hierarchy就是在一个或多个子系统上的cgroups目录树。</li>
+<li><strong>子系统（Subsystem）</strong>：一个子系统就是一个资源控制器，比如CPU子系统就是控制CPU时间分配的一个控制器。子系统必须附加到一个层级上才能起作用，一个子系统附加到某个层级以后，这个层级上的所有控制族群都受到这个子系统的控制。Cgroup的子系统可以有很多，也在不断增加中。</li>
+</ul>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/cloud-computing/docker-cgroup.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/cloud-computing/docker-namespace/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Docker Fundamentals: Namespace</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "pillumina";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#cpu限制">CPU限制</a></li>
+    <li><a href="#内存使用限制">内存使用限制</a></li>
+    <li><a href="#磁盘io限制">磁盘IO限制</a></li>
+    <li><a href="#cgroup的子系统">CGroup的子系统</a></li>
+    <li><a href="#cgroup术语">CGroup术语</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

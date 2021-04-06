@@ -8,6 +8,28 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 30 Mar 2021 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/cloud-computing/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Docker Fundamentals: Cgroup</title>
+      <link>https://pillumina.github.io/posts/cloud-computing/docker-cgroup/</link>
+      <pubDate>Mon, 05 Apr 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/cloud-computing/docker-cgroup/</guid>
+      <description>Linux Namespace的技术解决了环境隔离的问题，不过这是虚拟化最基本的一步，我们另外需要解决对计算机资源使用上的隔离。说人话，就是虽然Namespace把我关到一个特定的环境，但是里面进程使用的CPU、内存、磁盘等计算资源实际上没有被限制。这个问题的解决，就要用到CGroup技术。
+Linux CGroup全称是Linux Control Group，也是其内核的一个功能，用于限制、控制和分离一个进程group的资源。最早这个项目是2006年由谷歌的工程师发起的，最开始名称是process containers（工程容器），后面觉得内核中容器这个名词被用烂了，就改名为cgroup。
+CGroup可以让你对系统中运行的进程的用户组分配资源-CPU时间、系统内存、网络带宽亦或者是这些的组合。同时，也可以监控你配置的cgroup，拒绝cgroup访问某些资源。主要提供的功能如下：
+  Resource Limitation： 限制资源使用
+  Prioritization: 优先级控制，例如CPU使用和磁盘IO吞吐
+  Accounting：审计统计，主要用于计费
+  Control：挂起进程，恢复执行进程
+在真正的实践当中，system admin一般会利用CGroup做以下的事：
+  对进程集合进行隔离，限制他们所消费的资源，例如绑定CPU core
+  为这组进程分配足够使用的内存
+  为这组进程分配响应的网络带宽和磁盘存储限制
+  限制访问某些设备（白名单）
+Linux实际上把CGroup实现成了一个文件系统，你可以mount。在linux环境输入下面的可以看到cgroup已经为你mount好：
+  derios@ubuntu:~$ mount -t cgroup cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,relatime,cpuset) cgroup on /sys/fs/cgroup/cpu type cgroup (rw,relatime,cpu) cgroup on /sys/fs/cgroup/cpuacct type cgroup (rw,relatime,cpuacct) cgroup on /sys/fs/cgroup/memory type cgroup (rw,relatime,memory) cgroup on /sys/fs/cgroup/devices type cgroup (rw,relatime,devices) cgroup on /sys/fs/cgroup/freezer type cgroup (rw,relatime,freezer) cgroup on /sys/fs/cgroup/blkio type cgroup (rw,relatime,blkio) cgroup on /sys/fs/cgroup/net_prio type cgroup (rw,net_prio) cgroup on /sys/fs/cgroup/net_cls type cgroup (rw,net_cls) cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,relatime,perf_event) cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,relatime,hugetlb) 可以看到，在/sys/fs下有cgroup目录，这个目录下面有各种子目录：cpu，cpuset，memory&amp;hellip;。这些都是cgroup的子系统，分别用来干不同的事。</description>
+    </item>
+    
+    <item>
       <title>Docker Fundamentals: Namespace</title>
       <link>https://pillumina.github.io/posts/cloud-computing/docker-namespace/</link>
       <pubDate>Thu, 01 Apr 2021 11:22:18 +0800</pubDate>
