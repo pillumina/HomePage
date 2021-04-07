@@ -11,7 +11,19 @@ menu:
 draft: false
 ---
 
-Pro
+
+
+## 参考
+
+[Julia Evans: Profiling Go programs with pprof](https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/)
+
+[How I investigated memory leaks in Go using pprof on a large codebase](https://www.freecodecamp.org/news/how-i-investigated-memory-leaks-in-go-using-pprof-on-a-large-codebase-4bec4325e192/)
+
+[Memory Profiling a Go Service](https://medium.com/compass-true-north/memory-profiling-a-go-service-cd62b90619f9)
+
+[Russ Cox: Profling Go Programs](https://blog.golang.org/pprof)
+
+[Package pprof overview](https://golang.org/pkg/net/http/pprof/)
 
 
 

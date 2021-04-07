@@ -103,7 +103,11 @@ Docker入门到实践(中文)
       <pubDate>Thu, 04 Mar 2021 11:22:18 +0800</pubDate>
       
       <guid>https://pillumina.github.io/posts/golang/go-profiling/</guid>
-      <description>Pro</description>
+      <description>参考 Julia Evans: Profiling Go programs with pprof
+How I investigated memory leaks in Go using pprof on a large codebase
+Memory Profiling a Go Service
+Russ Cox: Profling Go Programs
+Package pprof overview</description>
     </item>
     
     <item>
