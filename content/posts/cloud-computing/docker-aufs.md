@@ -263,3 +263,13 @@ carrots  tomato
 
   这里有一份IBM做的Docker性能报告《[An Updated Performance Comparison of Virtual Machinesand Linux Containers](http://domino.research.ibm.com/library/cyberdig.nsf/papers/0929052195DD819C85257D2300681E7B/$File/rc25482.pdf)》。
 
+
+
+## 资料
+
+- [Introduce UnionFS](http://www.linuxjournal.com/article/7714)
+- [Union file systems: Implementations, part I](http://lwn.net/Articles/325369/)
+- [Union file systems: Implementations, part 2](http://lwn.net/Articles/327738/)
+- [Another union filesystem approach](http://lwn.net/Articles/403012/)
+- [Unioning file systems: Architecture, features, and design choices](http://lwn.net/Articles/324291/)
+

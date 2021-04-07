@@ -712,6 +712,14 @@ derios$ tree
 <p>AUFS把所有的分支mount起来，所以在查找文件上是慢一些。因为它要遍历所有的分支，O(N)复杂度的算法。因此分支越多，查找文件的性能也就越慢。但是一旦AUFS找到了这个文件的inode，那之后的读写和操作源文件基本是一样的。</p>
 <p>所以如果程序跑在AUFS下，那么<code>open</code>和<code>stat</code>操作会有明显的性能下降，分支越多性能就越差。但在<code>write/read</code>操作上性能没有什么变化。</p>
 <p>这里有一份IBM做的Docker性能报告《<a href="http://domino.research.ibm.com/library/cyberdig.nsf/papers/0929052195DD819C85257D2300681E7B/$File/rc25482.pdf">An Updated Performance Comparison of Virtual Machinesand Linux Containers</a>》。</p>
+<h2 id="资料">资料</h2>
+<ul>
+<li><a href="http://www.linuxjournal.com/article/7714">Introduce UnionFS</a></li>
+<li><a href="http://lwn.net/Articles/325369/">Union file systems: Implementations, part I</a></li>
+<li><a href="http://lwn.net/Articles/327738/">Union file systems: Implementations, part 2</a></li>
+<li><a href="http://lwn.net/Articles/403012/">Another union filesystem approach</a></li>
+<li><a href="http://lwn.net/Articles/324291/">Unioning file systems: Architecture, features, and design choices</a></li>
+</ul>
 
         </div>
 
@@ -864,6 +872,7 @@ derios$ tree
       </ul>
     </li>
     <li><a href="#aufs的性能">AUFS的性能</a></li>
+    <li><a href="#资料">资料</a></li>
   </ul>
 </nav>
       </div>
