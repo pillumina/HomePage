@@ -6,7 +6,22 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Apr 2021 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Apr 2021 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Fundamentals: AUFS</title>
+      <link>https://pillumina.github.io/posts/cloud-computing/docker-aufs/</link>
+      <pubDate>Tue, 06 Apr 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/cloud-computing/docker-aufs/</guid>
+      <description>AUFS是一种Union File System，所谓的UnionFS实际上就是把不同物理位置的目录合并mount到同一个目录当中。一种典型的UnionFS的应用，就是把一张CD/DVD和一个硬盘目录联合mount在一起，然后你就可以对这个只读的CD/DVD上的文件进行修改。
+AUFS又叫做Another UnionFS，后面改成Alternative UnionFS，然后又变成Advance UnionFS&amp;hellip;..当然名字的改变叫啥不重要，本质还是没变的。2006年Junjiro Okajima开发了AUFS，完全重写了早期的UnionFS 1.X，主要目的是为了可靠性和性能，再引入一些新的功能，例如可写分支的负载均衡。不过很有意思的是，AUFS的性能比UnionFS 1.X好很多，后面UnionFS 2.x就抄AUFS的功能，而AUFS本身却没有合入到Linux主线，因为代码量太大质量也不好。虽然后面Junjiro不断提升代码质量，不断提交但是还是被Linus拒绝了。所以哪怕是今天AUFS也没进到Linux里，虽然质量已经可以了。
+不过一些发行版比如：Ubuntu 10.04，Debian6.0都支持AUFS，所以也还好。我在Ubuntu 14.04演示一下例子。
+首先，我们建立两个水果和蔬菜的目录，在这个目录上放一些文件，水果里有苹果和番茄，蔬菜有胡萝卜和番茄:
+$ tree . ├── fruits │ ├── apple │ └── tomato └── vegetables ├── carrots └── tomato 然后输入:
+# 创建一个mount目录 $ mkdir mnt # 把水果目录和蔬菜目录union mount到 ./mnt目录中 $ sudo mount -t aufs -o dirs=./fruits:./vegetables none ./mnt # 查看./mnt目录 $ tree ./mnt ./mnt ├── apple ├── carrots └── tomato 可以看到mnt目录下有三个文件，水果和蔬菜的目录被合并起来了。如果我们修改一下文件内容:
+$ echo mnt &amp;gt; ./mnt/apple $ cat .</description>
+    </item>
+    
     <item>
       <title>Docker Fundamentals: Cgroup</title>
       <link>https://pillumina.github.io/posts/cloud-computing/docker-cgroup/</link>

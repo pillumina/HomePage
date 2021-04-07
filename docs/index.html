@@ -824,6 +824,33 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/cloud-computing/docker-aufs/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Docker Fundamentals: AUFS</h5>
+        <p class="card-text post-summary"> AUFS是一种Union File System，所谓的UnionFS实际上就是把不同物理位置的目录合并mount到同一个目录当中。一种典型的UnionFS的应用，就是把一张CD/DVD和一个硬盘目录联合mount在一起，然后你就可以对这个只读的CD/DVD上的文件进行修改。
+AUFS又叫做Another UnionFS，后面改成Alternative UnionFS，然后又变成Advance UnionFS&hellip;..当然名字的改变叫啥不重要，本质还是没变的。2006年Junjiro Okajima开发了AUFS，完全重写了早期的UnionFS 1.X，主要目的是为了可靠性和性能，再引入一些新的功能，例如可写分支的负载均衡。不过很有意思的是，AUFS的性能比UnionFS 1.X好很多，后面UnionFS 2.x就抄AUFS的功能，而AUFS本身却没有合入到Linux主线，因为代码量太大质量也不好。虽然后面Junjiro不断提升代码质量，不断提交但是还是被Linus拒绝了。所以哪怕是今天AUFS也没进到Linux里，虽然质量已经可以了。
+不过一些发行版比如：Ubuntu 10.04，Debian6.0都支持AUFS，所以也还好。我在Ubuntu 14.04演示一下例子。
+首先，我们建立两个水果和蔬菜的目录，在这个目录上放一些文件，水果里有苹果和番茄，蔬菜有胡萝卜和番茄:
+$ tree . ├── fruits │ ├── apple │ └── tomato └── vegetables ├── carrots └── tomato 然后输入:
+# 创建一个mount目录 $ mkdir mnt # 把水果目录和蔬菜目录union mount到 ./mnt目录中 $ sudo mount -t aufs -o dirs=./fruits:./vegetables none ./mnt # 查看./mnt目录 $ tree ./mnt ./mnt ├── apple ├── carrots └── tomato 可以看到mnt目录下有三个文件，水果和蔬菜的目录被合并起来了。如果我们修改一下文件内容:
+$ echo mnt &gt; ./mnt/apple $ cat .</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 6, 2021</span>
+        <a href="/posts/cloud-computing/docker-aufs/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/cloud-computing/docker-cgroup/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -880,30 +907,6 @@ Linux Namespace有以下的种类，供给后续参考（刚看有个印象就�
       <div class="card-footer">
         <span class="float-left">April 1, 2021</span>
         <a href="/posts/cloud-computing/docker-namespace/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/cloud-computing/k8s-basic/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Kubernetes Handbook (Start &amp; Pod)</h5>
-        <p class="card-text post-summary"> 使用minikube构建本地单节点k8s集群  minikube ssh kubectl cluster-info kubectl get nodes #查看节点信息 kubectl describe node minikube #详细信息  多节点k8s集群，使用Google K8s Engine 构建方式看GKE官网即可
-k8s初步使用 kubectl run kubia &ndash;image=derios/kubia &ndash;port=8080 &ndash;generator=run/v1
- --image=derios/kubia代表要运行的容器镜像 这里的--generator会被废弃，其含义指代的是创建一个ReplicationController而不是Deployment。 kubectl apply -f 更常用 kubectl get pods kubectl get pods -o wide 显示pod ip和pod的节点 如果使用GWE，可以访问集群的dashborad: kubectl clusert-info获取地址 gcloud container clusters describe kubia | grep -E &ldquo;(username|password):&ldquo;获取用户名和密码 如果仅仅使用minikube，则如下不需要任何凭证即可访问:  minikube dashboard 创建服务对象，访问Web应用 如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http
-  kubectl expose rc/po/svc kubia &ndash;type=LoadBalancer &ndash;name kubia-http创建出的service介于pod和node之间, kubectl get services可以查看</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">March 31, 2021</span>
-        <a href="/posts/cloud-computing/k8s-basic/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>
