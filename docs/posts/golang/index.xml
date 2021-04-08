@@ -10,7 +10,7 @@
     <item>
       <title>Profiling a Go Service in Production</title>
       <link>https://pillumina.github.io/posts/golang/go-profiling/</link>
-      <pubDate>Thu, 04 Mar 2021 11:22:18 +0800</pubDate>
+      <pubDate>Wed, 07 Apr 2021 11:25:18 +0800</pubDate>
       
       <guid>https://pillumina.github.io/posts/golang/go-profiling/</guid>
       <description>参考 Julia Evans: Profiling Go programs with pprof
@@ -18,7 +18,11 @@ How I investigated memory leaks in Go using pprof on a large codebase
 Memory Profiling a Go Service
 Russ Cox: Profling Go Programs
 Package pprof overview
-github: pprof</description>
+github: pprof
+Issue: Why &amp;lsquo;Total MB&amp;rsquo; in golang heap profile is less than &amp;lsquo;RES&amp;rsquo; in top?
+Issue: Cannot free memory once occupied by bytes.Buffer
+Issue: FreeOSMemory() in production
+Issue: Is this an idiomatic worker thread pool in Go?</description>
     </item>
     
     <item>

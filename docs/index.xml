@@ -6,7 +6,25 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Apr 2021 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Apr 2021 11:25:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Profiling a Go Service in Production</title>
+      <link>https://pillumina.github.io/posts/golang/go-profiling/</link>
+      <pubDate>Wed, 07 Apr 2021 11:25:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/golang/go-profiling/</guid>
+      <description>参考 Julia Evans: Profiling Go programs with pprof
+How I investigated memory leaks in Go using pprof on a large codebase
+Memory Profiling a Go Service
+Russ Cox: Profling Go Programs
+Package pprof overview
+github: pprof
+Issue: Why &amp;lsquo;Total MB&amp;rsquo; in golang heap profile is less than &amp;lsquo;RES&amp;rsquo; in top?
+Issue: Cannot free memory once occupied by bytes.Buffer
+Issue: FreeOSMemory() in production
+Issue: Is this an idiomatic worker thread pool in Go?</description>
+    </item>
+    
     <item>
       <title>Docker Fundamentals: AUFS</title>
       <link>https://pillumina.github.io/posts/cloud-computing/docker-aufs/</link>
@@ -95,20 +113,6 @@ k8s初步使用 kubectl run kubia &amp;ndash;image=derios/kubia &amp;ndash;port=
 Docker入门到实践(中文)
 速查 Docker Cheat Sheet
 全量CLI 容器管理CLI 查看容器CLI 容器交互CLI 镜像管理CLI 镜像传输CLI DOCKERFILE主要命令 Dockerfile 基底 FROMruby:2.2.2变量 ENV APP_HOME/myappRUN mkdir $APP_HOME初始化 RUN bundle installWORKDIR/myappVOLUME [&amp;#34;/data&amp;#34;]# Specification for mount pointADD file.xyz /file.xyzCOPY --chown=user:group host_file.xyz /path/container_file.xyzOnbuild ONBUILD RUN bundle install# when used with another file命令 EXPOSE5900CMD [&amp;#34;bundle&amp;#34;, &amp;#34;exec&amp;#34;, &amp;#34;rails&amp;#34;, &amp;#34;server&amp;#34;]Entrypoint ENTRYPOINT exec top -bMetadata LABEL version=&amp;#34;1.0&amp;#34;LABEL &amp;#34;com.example.vendor&amp;#34;=&amp;#34;ACME Incorporated&amp;#34;LABEL com.example.label-with-value=&amp;#34;foo&amp;#34;LABEL description=&amp;#34;This text illustrates \ that label-values can span multiple lines.</description>
-    </item>
-    
-    <item>
-      <title>Profiling a Go Service in Production</title>
-      <link>https://pillumina.github.io/posts/golang/go-profiling/</link>
-      <pubDate>Thu, 04 Mar 2021 11:22:18 +0800</pubDate>
-      
-      <guid>https://pillumina.github.io/posts/golang/go-profiling/</guid>
-      <description>参考 Julia Evans: Profiling Go programs with pprof
-How I investigated memory leaks in Go using pprof on a large codebase
-Memory Profiling a Go Service
-Russ Cox: Profling Go Programs
-Package pprof overview
-github: pprof</description>
     </item>
     
     <item>

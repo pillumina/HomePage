@@ -1,6 +1,6 @@
 ---
 title: "Profiling a Go Service in Production"
-date: 2021-03-04T11:22:18+08:00
+date: 2021-04-07T11:25:18+08:00
 hero: /images/posts/golang2.jpg
 menu:
   sidebar:
@@ -27,3 +27,12 @@ draft: false
 
 [github: pprof](https://github.com/google/pprof)
 
+
+
+[Issue: Why 'Total MB' in golang heap profile is less than 'RES' in top?](https://stackoverflow.com/questions/16516189/why-total-mb-in-golang-heap-profile-is-less-than-res-in-top)
+
+[Issue: Cannot free memory once occupied by bytes.Buffer](https://stackoverflow.com/questions/37382600/cannot-free-memory-once-occupied-by-bytes-buffer)
+
+[Issue: FreeOSMemory() in production](https://stackoverflow.com/questions/42345060/freeosmemory-in-production)
+
+[Issue: Is this an idiomatic worker thread pool in Go?](https://stackoverflow.com/questions/38170852/is-this-an-idiomatic-worker-thread-pool-in-go)
