@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kubernetes Handbook (Schedule)</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Kubernetes Handbook (Schedule)" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-190574896-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/iaas-paas-diff/">IaaS vs PaaS vs SaaS</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/do-not-wall/">别让自己墙了自己</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/how-to-learn/">工程师应该如何高效学习</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/programmer-career/">程序员如何把控自己的职业</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/lifecycle-of-http/">Go server中http请求的生命周期</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/goroutine-pool/">Goroutine Pool</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/cloud-computing/">Kubernetes &amp; Docker</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-aufs/">Docker Fundamentals (AUFS)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-cgroup/">Docker Fundamentals (Cgroup)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-namespace/">Docker Fundamentals (Namespace)</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/cloud-computing/k8s-advance-schedule/">Kubernetes Handbook (Schedule)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/algo/">LC/CF刷题笔记</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/string/">字符串专题</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/open_courses/">Open Courses</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/open_courses/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/design-pattern/">Programming Pattern</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/design-pattern/">Design Pattern Overview</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-visitor/">Go Visitor Pattern (k8s)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/k8s-docker.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>April 9, 2021</p>
+        </div>
+
+        <div class="title">
+          <h1>Kubernetes Handbook (Schedule)</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h2 id="内容涵盖">内容涵盖</h2>
+<ul>
+<li>使用节点污点和pod容忍度阻止pod调度到特定节点</li>
+<li>将节点亲缘性规则作为节点选择器的一种替代</li>
+<li>使用节点亲缘性进行多个pod的共同调度</li>
+<li>使用节点非亲缘性来分离多个pod</li>
+</ul>
+<h2 id="高级调度">高级调度</h2>
+<p>在pod介绍的文章中可以看到，k8s可以通过在pod spec里面指定节点选择器，而这篇文章介绍的是后面其他逐渐加入的机制。</p>
+<h3 id="使用污点和容忍度阻止节点调度到特定节点">使用污点和容忍度阻止节点调度到特定节点</h3>
+<p>新特性： <code>节点污点</code>、<code>pod对于污点的容忍度</code></p>
+<p>这些特性用于限制哪些pod可以被调度到某一个节点，也就是说只有当一个pod容忍某个节点的污点，这个pod才能被调度到该节点。</p>
+<p>节点选择器和节点亲缘性规则，是<code>明确</code>在pod中添加的信息，来觉得一个pod可以或者不可以被调度到某个节点。而污点不一样，是在不修改已有pod信息的前提下，通过在节点上新增污点信息，来拒绝pod在这个节点的部署。</p>
+<h4 id="简单介绍污点和容忍度">简单介绍污点和容忍度</h4>
+<p>我在自己的机器用minikube创建了k8s单点集群，用<code>kubectl describe node minikube</code>可以看到:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">k describe node minikube
+Name:               minikube
+Roles:              master
+Labels:             beta.kubernetes.io/arch<span style="color:#f92672">=</span>amd64
+                    beta.kubernetes.io/os<span style="color:#f92672">=</span>linux
+                    deploy<span style="color:#f92672">=</span>test
+                    kubernetes.io/arch<span style="color:#f92672">=</span>amd64
+                    kubernetes.io/hostname<span style="color:#f92672">=</span>minikube
+                    kubernetes.io/os<span style="color:#f92672">=</span>linux
+                    minikube.k8s.io/commit<span style="color:#f92672">=</span>b09ee50ec047410326a85435f4d99026f9c4f5c4
+                    minikube.k8s.io/name<span style="color:#f92672">=</span>minikube
+                    minikube.k8s.io/updated_at<span style="color:#f92672">=</span>2021_03_30T20_15_58_0700
+                    minikube.k8s.io/version<span style="color:#f92672">=</span>v1.14.0
+                    node-role.kubernetes.io/master<span style="color:#f92672">=</span>
+Annotations:        kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock
+                    node.alpha.kubernetes.io/ttl: <span style="color:#ae81ff">0</span>
+                    volumes.kubernetes.io/controller-managed-attach-detach: true
+CreationTimestamp:  Tue, <span style="color:#ae81ff">30</span> Mar <span style="color:#ae81ff">2021</span> 20:15:55 +0800
+Taints:             &lt;none&gt;                  <span style="color:#75715e"># -----&gt; 主节点暂时没有污点</span>
+Unschedulable:      false
+Lease:
+  HolderIdentity:  minikube
+  AcquireTime:     &lt;unset&gt;
+  RenewTime:       Fri, <span style="color:#ae81ff">09</span> Apr <span style="color:#ae81ff">2021</span> 14:48:12 +0800
+</code></pre></div><p>可以看到<code>Taints</code>属性，表示目前这个主节点没有污点。不过这里可以举个例子：</p>
+<pre><code>Taints:  node-role.kubernetes.io/master:NoSchedule
+</code></pre><p>污点包含了一个key, value以及一个effect&ndash;&gt; <code>&lt;key&gt;=&lt;value&gt;:&lt;effect&gt;</code>。上面这个例子里，key是node-role.kubernetes.io/master，空的value，effect是NoSchedule。</p>
+<p>这个污点能阻止pod调度到这个节点上，除非有pod能够容忍这个污点，而通过容忍这个污点的pod都是<strong>系统级别的pod</strong>。</p>
+<pre><code>Toleration: node-role.kubernetes.io/master:NoSchedule
+</code></pre><p>如果pod包含容忍度能匹配节点的污点，那么就可能被调度到这个节点上。</p>
+<h5 id="显示pod的污点容忍度">显示pod的污点容忍度</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">huangyuxiao@CctoctoFX  /usr/local/var/log $ k describe po nginx-r4hdr
+Name:         nginx-r4hdr
+... <span style="color:#75715e"># 省略中间其他属性</span>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op<span style="color:#f92672">=</span>Exists <span style="color:#66d9ef">for</span> 300s
+                 node.kubernetes.io/unreachable:NoExecute op<span style="color:#f92672">=</span>Exists <span style="color:#66d9ef">for</span> 300s
+...
+</code></pre></div><p>可以看到，我describe了一个在集群中的pod。</p>
+<h5 id="污点的效果">污点的效果</h5>
+<p>在上述的例子中，可以看到对于这个nginx的pod，其定义了当节点状态是<code>not-ready</code>或者<code>unreachable</code>的时候，这个pod允许运行在这个节点300秒。这两个容忍度使用的是<code>NoExecute</code>而不是<code>NoSchedule</code>。</p>
+<p>每个污点可以关联一个效果，包含如下三种:</p>
+<ol>
+<li><code>NoSchedule</code>：如果pod没有容忍这些污点，pod则不能被调度到包含这些污点的节点上</li>
+<li><code>PreferNoSchedule</code>： 一个比较loose的NoSchedule，表示尽量阻止调度到这里。但是如果实在没其他地方能调度了，还是可以调度到这边的。</li>
+<li><code>NoExecute</code>：这个和上述两者不同，前两种只是影响调度。而NoExecute也会影响在节点上运行着的pod。如果在某个节点上添加了NoExecute，如果节点上运行着的pod没有容忍这个污点，就会被从这个节点删除。</li>
+</ol>
+<h4 id="在节点上添加custom污点">在节点上添加Custom污点</h4>
+<p>一个很简单的诉求：一个k8s集群上面同时有生产环境和非生产环境的流量。最重要的一点是，非生产环境的pod不能运行在生产环境的节点上，就可以在生产环境的节点上添加污点来满足要求:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl taint node node.k8s node-type<span style="color:#f92672">=</span>production:NoSchedule
+</code></pre></div><p>这里新增了一个污点，key是node-type，value是production，效果是NoSchedule。所以这个时候你再去部署常规的pod，是不会部署到添加了这些污点的节点上去的。</p>
+<h4 id="往pod新增污点容忍度">往pod新增污点容忍度</h4>
+<p>还是上面的诉求，现在为了把生产环境的pod部署到生产环境节点上，pod需要容忍刚才我们添加的污点，那么我们修改下pod的资源yaml：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">extensions/v1beta1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pod</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">5</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#ae81ff">...</span>
+      <span style="color:#f92672">tolerations</span>:
+      - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">node-type</span>
+        <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">Equal</span>
+        <span style="color:#f92672">value</span>: <span style="color:#ae81ff">production</span>
+        <span style="color:#f92672">effect</span>: <span style="color:#ae81ff">NoSchedule</span>
+</code></pre></div><p>新增tolerations描述即可 <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">官方文档</a></p>
+<p>如果又不想把这个pod调度到非生产环境，则需要类似在非生产环境打上污点</p>
+<h4 id="污点和容忍度的使用场景">污点和容忍度的使用场景</h4>
+<p>污点可以只有一个key和一个effect，而不必有value。容忍度可以通过设置<code>Equal</code> operator来指定匹配的value（default）。或者可以设置<code>Exists</code> operator来匹配污点的key。</p>
+<h5 id="调度的时候使用污点和容忍度">调度的时候使用污点和容忍度</h5>
+<p>就如从最开始介绍的这样，用<code>NoSchedule</code>或者定义非优先调度节点<code>PreferNoSchedule</code>，或者把已有的pod从当前节点删除。</p>
+<p>比如可以把一个集群分为几个部分，部分节点可能提供了特殊影响比如GPU，TPU之类的，而且只有部分pod需要使用到这些硬件的时候，也可以通过污点和容忍度实现。</p>
+<h5 id="节点unreachable之后pod重新调度的等待时长设置">节点unreachable之后pod重新调度的等待时长设置</h5>
+<p>和前面的例子一样:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">huangyuxiao@CctoctoFX  /usr/local/var/log $ k describe po nginx-r4hdr
+Name:         nginx-r4hdr
+... <span style="color:#75715e"># 省略中间其他属性</span>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute op<span style="color:#f92672">=</span>Exists <span style="color:#66d9ef">for</span> 300s
+                 node.kubernetes.io/unreachable:NoExecute op<span style="color:#f92672">=</span>Exists <span style="color:#66d9ef">for</span> 300s
+...
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">  <span style="color:#f92672">tolerations</span>:
+  - <span style="color:#f92672">effect</span>: <span style="color:#ae81ff">NoExecute</span>
+    <span style="color:#f92672">key</span>: <span style="color:#ae81ff">node.kubernetes.io/not-ready</span>
+    <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">Exists</span>
+    <span style="color:#f92672">tolerationSeconds</span>: <span style="color:#ae81ff">300</span>
+  - <span style="color:#f92672">effect</span>: <span style="color:#ae81ff">NoExecute</span>
+    <span style="color:#f92672">key</span>: <span style="color:#ae81ff">node.kubernetes.io/unreachable</span>
+    <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">Exists</span>
+    <span style="color:#f92672">tolerationSeconds</span>: <span style="color:#ae81ff">300</span>
+</code></pre></div><p>当k8s的controller检测到有节点处于not-ready或者unreachable状态的时候，会等待300秒，如果状态持续，才把pod调度到其他节点上。这两个容忍度是你没有配的时候自动加给pod的，如果觉得300太长了也可以显式得去改变。</p>
+<h3 id="使用节点亲缘性将pod调度到特定节点">使用节点亲缘性将pod调度到特定节点</h3>
+<p><code>节点亲缘性(node affinity)：允许pod尽量调度到某些节点子集。</code></p>
+<p>早期的k8s中，初始的节点亲缘性机制就是pod描述中的<code>nodeSelector</code>字段。节点必须包含所有pod对应字段中的指定label，才能成为调度的目标节点。</p>
+<p>节点选择器很简单，但是不能满足所有需求，所以更强大的亲缘性机制才会被引入。</p>
+<p>和节点选择器类似，每个pod可以定义自己的节点亲缘性规则，这些规则可以允许你指定硬件限制或者偏好。当你指定一种偏好后，k8s会把pod尽量调度到这些节点上面，如果没法实现，则调度到其他节点。</p>
+<p>如果使用谷歌的k8s引擎(GKE)，可以<code>kubectl describe node xxxx</code>查到节点Labels，这里面包含了默认的和亲缘性有关的标签。</p>
+<h4 id="指定强制性节点亲缘性规则">指定强制性节点亲缘性规则</h4>
+<p>在介绍Pod的文章中，我们利用节点选择器将那些需要GPU的pod只被调度到有GPU的节点上:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVesion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubia-gpu</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">nodeSelector</span>:
+    <span style="color:#f92672">gpu</span>: <span style="color:#e6db74">&#34;true&#34;</span>
+...
+</code></pre></div><p>这样这个pod会被调度到包含<code>gpu=true</code>标签的节点。如果我们用节点亲缘性规则去替换：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVesion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubia-gpu</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">affinity</span>:
+    <span style="color:#f92672">nodeAffinity</span>:
+      <span style="color:#f92672">requiredDuringSchedulingIgnoreDuringExecption</span>:
+        <span style="color:#f92672">nodeSelectorTerms</span>:
+        - <span style="color:#f92672">matchExpressions</span>:
+          - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">gpu</span>
+            <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+            <span style="color:#f92672">values</span>:
+            - <span style="color:#e6db74">&#34;true&#34;</span>
+</code></pre></div><p>这种写法貌似比上面的复杂了很多，但是表达能力更强了。</p>
+<h5 id="较长的节点亲缘性属性名的意义">较长的节点亲缘性属性名的意义</h5>
+<p>上面的写法里，spec里有affinity，affinity里有nodeAffinity，下面还有个非常长的名字，我们拆解一下：</p>
+<ul>
+<li>
+<p><code>requiredDuringScheduling...</code>：说明该字段下定义的规则，为了让pod能调度到该节点上，明确指出了这个节点必须含有的标签。</p>
+</li>
+<li>
+<p><code>...IgnoreDuringException</code>: 表明该字段下定义的规则，不会影响已经在节点上运行的pod。</p>
+<p>所以这个含义就是：<em><strong>当前的亲缘性规则只会影响正在被调度的pod, 而不会导致正在运行的pod被删除</strong></em>。所以一般来说目前的规则都是以<code>IgnoredDuringException</code>作为结尾。</p>
+</li>
+</ul>
+<p><em>注：<code>RequiredDuringException</code>就表示如果去掉某节点上的标签，那么含有这些标签的pod会被删除，这个特性目前的k8s应该还没有。</em></p>
+<h5 id="了解节点选择器的条件">了解节点选择器的条件</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">      <span style="color:#f92672">nodeSelectorTerms</span>:
+      - <span style="color:#f92672">matchExpressions</span>:
+        - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">gpu</span>
+          <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+          <span style="color:#f92672">values</span>:
+          - <span style="color:#e6db74">&#34;true&#34;</span>
+</code></pre></div><p>现在这几个字段应该比较好了解。也就是表示这个pod只会被调度到gpu=true的节点上。</p>
+<p>更有趣的是，节点亲缘性可以在调度的时候指定节点的优先级。</p>
+<h4 id="调度pod时的节点优先级">调度pod时的节点优先级</h4>
+<p><code>preferredDuringSchedulingIgnoredDuringException</code> 来实现优先考虑哪些节点。</p>
+<p>思考一个场景：你有一个跨越多个国家的多个数据中心，每个数据中心代表了一个单独的可用性区域。在每个区域中，你有一些特定的机器，只提供给你自己或者合作的公司使用。现在你想部署一些pod，希望吧pod优先部署在区域zone1，并且是为你公司部署预留的机器上。如果你的机器没有足够的空间给这些pod使用，或者处于其他的一些原因不希望这些pod被调度到这些机器上，那么就要调度到其他区域的其他机器上面，这种情况你也是可以接受的。那么节点亲缘性就可以实现这样的功能。</p>
+<h5 id="给节点加标签">给节点加标签</h5>
+<p>每个节点需要包含两个标签:</p>
+<ol>
+<li><code>表示所在的这个节点所归属的可用性区域</code></li>
+<li><code>表示这是一个独占的节点还是共享的节点</code></li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl label node node1.k8s availability-zone<span style="color:#f92672">=</span>zone1
+$ kubectl label node node1.k8s share-type<span style="color:#f92672">=</span>dedicated
+$ kubectl label node node2.k8s availability-zone<span style="color:#f92672">=</span>zone2
+$ kubectl label node node2.k8s share-type<span style="color:#f92672">=</span>shared
+</code></pre></div><h5 id="指定优先级节点亲缘性规则">指定优先级节点亲缘性规则</h5>
+<p>把节点的标签打好以后，创建一个Deployment，其中优先选择zone1中的的dedicated节点，下面是描述:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVesion</span>: <span style="color:#ae81ff">extension/v1beta1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pref</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">template</span>:
+    <span style="color:#ae81ff">...</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">affinity</span>:
+        <span style="color:#f92672">nodeAffinity</span>:
+        <span style="color:#f92672">preferredDuringSchedualingIgnoredDuringException</span>:
+        - <span style="color:#f92672">weight</span>: <span style="color:#ae81ff">80</span>
+          <span style="color:#f92672">preference</span>:
+            <span style="color:#f92672">matchExpressions</span>:
+            - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">availability-zone</span>
+              <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+              <span style="color:#f92672">values</span>:
+              - <span style="color:#ae81ff">zone1</span>
+        - <span style="color:#f92672">wight</span>: <span style="color:#ae81ff">20</span>
+          <span style="color:#f92672">preference</span>:
+            <span style="color:#f92672">matchExpressions</span>:
+            - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">share-type</span>
+              <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+              <span style="color:#f92672">values</span>:
+              - <span style="color:#ae81ff">dedicated</span>
+</code></pre></div><p>可见，节点优先调度到zone1，这是最重要的偏好; 同时优先调度pod到独占(dedicated)节点，但是这个优先级是zone优先级的1/4。</p>
+<h5 id="节点优先级是如何工作的">节点优先级是如何工作的</h5>
+<p><code>核心是把节点根据标签分组，然后排序。</code></p>
+<p>比如把包含<code>availability-zone</code>以及<code>share-type</code>标签，并且匹配pod亲缘性的节点(zone1, dedicated)排在前面。然后，根据pod设置的亲缘性规则的权重，接下来是zone1和shared节点，然后是其他区域的dedicated节点，优先级最低的是其他的节点。</p>
+<h3 id="使用pod亲缘性和非亲缘性对pod进行协同部署">使用pod亲缘性和非亲缘性对pod进行协同部署</h3>
+<p>上面我们了解了pod和节点间的亲缘性规则能够影响pod能够调度到哪个节点。我们再来研究研究如何制定pod自身之间的亲缘性。</p>
+<p>想象一下：如果你有一个前端的pod和一个后端pod，把这些节点部署得比较靠近，可以降低延时，提高应用的性能。可以使用节点亲缘性规则来确保这两个pod被调度到同一个节点、同一个rack、同一个数据中心。但是这样后续又要指定调度到确切的位置，明显是违背k8s设计哲学的。所以更好的做法应该是定义pod之间的亲缘性规则，让k8s去把pod部署在它觉得合适的地方，同时确保2个pod是靠近的。</p>
+<h4 id="使用pod间亲缘关系将多个pod部署在同一个节点">使用pod间亲缘关系将多个pod部署在同一个节点</h4>
+<p>&hellip;</p>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/cloud-computing/k8s-advance-schedule.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/algo/string/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>LC刷题: 字符串专题</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "pillumina";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#内容涵盖">内容涵盖</a></li>
+    <li><a href="#高级调度">高级调度</a>
+      <ul>
+        <li><a href="#使用污点和容忍度阻止节点调度到特定节点">使用污点和容忍度阻止节点调度到特定节点</a>
+          <ul>
+            <li><a href="#简单介绍污点和容忍度">简单介绍污点和容忍度</a>
+              <ul>
+                <li><a href="#显示pod的污点容忍度">显示pod的污点容忍度</a></li>
+                <li><a href="#污点的效果">污点的效果</a></li>
+              </ul>
+            </li>
+            <li><a href="#在节点上添加custom污点">在节点上添加Custom污点</a></li>
+            <li><a href="#往pod新增污点容忍度">往pod新增污点容忍度</a></li>
+            <li><a href="#污点和容忍度的使用场景">污点和容忍度的使用场景</a>
+              <ul>
+                <li><a href="#调度的时候使用污点和容忍度">调度的时候使用污点和容忍度</a></li>
+                <li><a href="#节点unreachable之后pod重新调度的等待时长设置">节点unreachable之后pod重新调度的等待时长设置</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#使用节点亲缘性将pod调度到特定节点">使用节点亲缘性将pod调度到特定节点</a>
+          <ul>
+            <li><a href="#指定强制性节点亲缘性规则">指定强制性节点亲缘性规则</a>
+              <ul>
+                <li><a href="#较长的节点亲缘性属性名的意义">较长的节点亲缘性属性名的意义</a></li>
+                <li><a href="#了解节点选择器的条件">了解节点选择器的条件</a></li>
+              </ul>
+            </li>
+            <li><a href="#调度pod时的节点优先级">调度pod时的节点优先级</a>
+              <ul>
+                <li><a href="#给节点加标签">给节点加标签</a></li>
+                <li><a href="#指定优先级节点亲缘性规则">指定优先级节点亲缘性规则</a></li>
+                <li><a href="#节点优先级是如何工作的">节点优先级是如何工作的</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#使用pod亲缘性和非亲缘性对pod进行协同部署">使用pod亲缘性和非亲缘性对pod进行协同部署</a>
+          <ul>
+            <li><a href="#使用pod间亲缘关系将多个pod部署在同一个节点">使用pod间亲缘关系将多个pod部署在同一个节点</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

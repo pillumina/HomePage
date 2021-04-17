@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>[源码分析]sync pool</title>
+    <title>LC刷题: 字符串专题</title>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/assets/css/style.css"/>
 
     
-<meta name="description" content="[源码分析]sync pool" />
+<meta name="description" content="LC刷题: 字符串专题" />
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
@@ -155,15 +155,12 @@ if (!doNotTrack) {
   
   
   
-    
-    
-  
   
     
     <li>
-      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/golang/">Golang Odyssey</a>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
       
-      <ul class="active">
+      <ul class="">
         
   
   
@@ -268,12 +265,9 @@ if (!doNotTrack) {
   
   
   
-    
-    
-  
   
     
-    <li><a class="active" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
   
 
   
@@ -398,20 +392,26 @@ if (!doNotTrack) {
   
   
   
+    
+    
+  
   
     
     <li>
-      <i class="fas fa-plus-circle"></i><a class="" href="/posts/algo/">LC/CF刷题笔记</a>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/algo/">LC/CF刷题笔记</a>
       
-      <ul class="">
+      <ul class="active">
         
   
   
   
   
+    
+    
+  
   
     
-    <li><a class="" href="/posts/algo/string/">字符串专题</a></li>
+    <li><a class="active" href="/posts/algo/string/">字符串专题</a></li>
   
 
 
@@ -527,7 +527,7 @@ if (!doNotTrack) {
   <div class="content">
     <div class="container p-0 read-area">
       
-      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/golang2.jpg);'>
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/leetcode.png);'>
       </div>
 
       
@@ -535,23 +535,61 @@ if (!doNotTrack) {
         <div class="author-profile ml-auto align-self-lg-center">
           <img class="rounded-circle" src='/images/photo.jpeg'/>
           <h5 class="author-name"></h5>
-          <p>January 1, 2021</p>
+          <p>April 8, 2021</p>
         </div>
 
         <div class="title">
-          <h1>[源码分析]sync pool</h1>
+          <h1>LC刷题: 字符串专题</h1>
         </div>
 
         <div class="post-content" id="post-content">
-          <pre><code>- 当多个goroutine都需要创建同一个对象，如果gorountine数过多，导致对象的创建数目剧增，进而导致GC压力增大，形成“并发大-占用内存大-GC缓慢-并发处理能力弱-并发更大”这样的恶性循环
-- 在这个时候，需要一个对象池，每个goroutine不再自己单独创建对象，而是从对象池中取出一个对象（如果池中已有）
-</code></pre>
+          <h3 id="14-longest-common-prefix">14. Longest Common Prefix</h3>
+<p>返回最长公共前缀子串。<a href="https://leetcode.com/problems/longest-common-prefix/description/">原题</a></p>
+<pre><code>Input: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]
+Output: &quot;fl&quot;
+</code></pre><p><strong>水平扫描</strong>：</p>
+<p><img src="https://leetcode.com/media/original_images/14_basic.png" alt="horizontal scanning"></p>
+<p>从头开始遍历整个数组，并且两两比较LCP。如果第i次比较的结果是空，则停止迭代返回空字符串；否则就直到遍历结束:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">longestCommonPrefix</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> strs<span style="color:#f92672">){</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>str<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+  String prefix <span style="color:#f92672">=</span> strs<span style="color:#f92672">[</span>0<span style="color:#f92672">];</span>
+  <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> strs<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++){</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>strs<span style="color:#f92672">[</span>i<span style="color:#f92672">].</span><span style="color:#a6e22e">indexOf</span><span style="color:#f92672">(</span>prefix<span style="color:#f92672">)</span> <span style="color:#f92672">!=</span> 0<span style="color:#f92672">){</span>
+      prefix <span style="color:#f92672">=</span> prefix<span style="color:#f92672">.</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> prefix<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">-</span> 1<span style="color:#f92672">);</span>
+      <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>prefix<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+  <span style="color:#66d9ef">return</span> prefix<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>时间复杂度：O(S)</li>
+<li>空间复杂度：O(1)</li>
+</ul>
+<p><strong>2. 垂直扫描</strong>：</p>
+<p>水平扫描有个缺点，就是如果很短的string处于数组末尾，那么还是会进行S次比较，性能上差一点。垂直扫描能解决这个问题，也就是比较同一列(每个字符串的每个字符为一列)：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">longestCommonPrefix</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> strs<span style="color:#f92672">){</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>strs <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">||</span> strs<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+  <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> strs<span style="color:#f92672">[</span>0<span style="color:#f92672">].</span><span style="color:#a6e22e">length</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++){</span>
+    <span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> strs<span style="color:#f92672">[</span>0<span style="color:#f92672">].</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span> j <span style="color:#f92672">&lt;</span> strs<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> j<span style="color:#f92672">++){</span>
+      <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>i <span style="color:#f92672">==</span> strs<span style="color:#f92672">[</span>j<span style="color:#f92672">].</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">||</span> strs<span style="color:#f92672">[</span>j<span style="color:#f92672">].</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>j<span style="color:#f92672">)</span> <span style="color:#f92672">!=</span> c<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">return</span> strs<span style="color:#f92672">[</span>0<span style="color:#f92672">].</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>0<span style="color:#f92672">,</span> i<span style="color:#f92672">);</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+  <span style="color:#66d9ef">return</span> strs<span style="color:#f92672">[</span>0<span style="color:#f92672">];</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>时间复杂度：O(S)</li>
+<li>空间复杂度：O(1)</li>
+</ul>
+
         </div>
 
         
         
           <div class="btn-improve-page">
-              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/golang/sync-pool.md">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/algo/String.md">
                 <i class="fas fa-code-branch"></i>
                 Improve This Page
               </a>
@@ -592,13 +630,45 @@ if (!doNotTrack) {
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     
       
       <div class="col-md-6 previous-article">
-        <a href="/posts/golang/fasthttp/" class="btn btn-outline-info">
+        <a href="/posts/cloud-computing/k8s-advance-schedule/" class="btn btn-outline-info">
           <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
           <br />
-          <span>fasthttp对性能的优化压榨</span>
+          <span>Kubernetes Handbook (Schedule)</span>
         </a>
       </div>
       
@@ -612,46 +682,14 @@ if (!doNotTrack) {
           
         
         <div class="col-md-6 next-article">
-          <a href="/posts/golang/goroutine-pool/" class="btn btn-outline-info">
+          <a href="/posts/golang/go-profiling/" class="btn btn-outline-info">
             <span>Next <i class="fas fa-chevron-circle-right"></i></span>
             <br />
-            <span>[自建轮]高性能Goroutine Pool</span>
+            <span>Profiling a Go Service in Production</span>
           </a>
         </div>
       
     
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
   
 
   
@@ -705,7 +743,15 @@ if (!doNotTrack) {
       <h5 class="text-center pl-3">Table of Contents</h5>
       <hr>
       <div class="toc">
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#14-longest-common-prefix">14. Longest Common Prefix</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
       </div>
     </div>
     

@@ -8,6 +8,20 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 30 Mar 2021 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/cloud-computing/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Kubernetes Handbook (Schedule)</title>
+      <link>https://pillumina.github.io/posts/cloud-computing/k8s-advance-schedule/</link>
+      <pubDate>Fri, 09 Apr 2021 10:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/cloud-computing/k8s-advance-schedule/</guid>
+      <description>内容涵盖  使用节点污点和pod容忍度阻止pod调度到特定节点 将节点亲缘性规则作为节点选择器的一种替代 使用节点亲缘性进行多个pod的共同调度 使用节点非亲缘性来分离多个pod  高级调度 在pod介绍的文章中可以看到，k8s可以通过在pod spec里面指定节点选择器，而这篇文章介绍的是后面其他逐渐加入的机制。
+使用污点和容忍度阻止节点调度到特定节点 新特性： 节点污点、pod对于污点的容忍度
+这些特性用于限制哪些pod可以被调度到某一个节点，也就是说只有当一个pod容忍某个节点的污点，这个pod才能被调度到该节点。
+节点选择器和节点亲缘性规则，是明确在pod中添加的信息，来觉得一个pod可以或者不可以被调度到某个节点。而污点不一样，是在不修改已有pod信息的前提下，通过在节点上新增污点信息，来拒绝pod在这个节点的部署。
+简单介绍污点和容忍度 我在自己的机器用minikube创建了k8s单点集群，用kubectl describe node minikube可以看到:
+k describe node minikube Name: minikube Roles: master Labels: beta.kubernetes.io/arch=amd64 beta.kubernetes.io/os=linux deploy=test kubernetes.io/arch=amd64 kubernetes.io/hostname=minikube kubernetes.io/os=linux minikube.k8s.io/commit=b09ee50ec047410326a85435f4d99026f9c4f5c4 minikube.k8s.io/name=minikube minikube.k8s.io/updated_at=2021_03_30T20_15_58_0700 minikube.k8s.io/version=v1.14.0 node-role.kubernetes.io/master= Annotations: kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock node.alpha.kubernetes.io/ttl: 0 volumes.kubernetes.io/controller-managed-attach-detach: true CreationTimestamp: Tue, 30 Mar 2021 20:15:55 +0800 Taints: &amp;lt;none&amp;gt; # -----&amp;gt; 主节点暂时没有污点 Unschedulable: false Lease: HolderIdentity: minikube AcquireTime: &amp;lt;unset&amp;gt; RenewTime: Fri, 09 Apr 2021 14:48:12 +0800 可以看到Taints属性，表示目前这个主节点没有污点。不过这里可以举个例子：</description>
+    </item>
+    
+    <item>
       <title>Docker Fundamentals: AUFS</title>
       <link>https://pillumina.github.io/posts/cloud-computing/docker-aufs/</link>
       <pubDate>Tue, 06 Apr 2021 11:22:18 +0800</pubDate>
