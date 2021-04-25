@@ -404,7 +404,6 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "zenith-operator"
-
 ```
 
 
