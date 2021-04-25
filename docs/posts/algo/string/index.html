@@ -371,6 +371,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/cloud-computing/k8s-template/">Kubernetes Development</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/cloud-computing/k8s-advance-schedule/">Kubernetes Handbook (Schedule)</a></li>
   
 
@@ -583,7 +592,34 @@ Output: &quot;fl&quot;
 <li>时间复杂度：O(S)</li>
 <li>空间复杂度：O(1)</li>
 </ul>
-
+<h3 id="921minimum-add-to-make-prentheses-valid">921.Minimum Add to Make Prentheses Valid</h3>
+<p>给定只包含小括号的字符串，返回需要多少个<code>(</code>或<code>)</code>使其成为完整的括号表达式。<a href="https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/">原题</a></p>
+<pre><code>Input: &quot;())&quot;
+Output: 1
+Input: &quot;()))((&quot;
+Output: 4
+Input: &quot;()&quot;
+Output: 0
+Input: &quot;(((&quot;
+Output: 3
+</code></pre><p>题目很简单，注意<code>)</code>不能被<code>(</code>关闭，所有有两个pointer:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">var minAddToMakeValid <span style="color:#f92672">=</span> function(<span style="color:#66d9ef">str</span>) {
+    <span style="color:#66d9ef">let</span> left <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">let</span> right <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, n <span style="color:#f92672">=</span> <span style="color:#66d9ef">str</span>.length; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">str</span>.charAt(i) <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;)&#39;</span>) {
+            <span style="color:#66d9ef">if</span> (left <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>) {
+                right<span style="color:#f92672">++</span>;
+            } <span style="color:#66d9ef">else</span> {
+                left<span style="color:#f92672">--</span>;
+            }
+        } <span style="color:#66d9ef">else</span> {
+            left<span style="color:#f92672">++</span>;
+        }
+    }
+    <span style="color:#66d9ef">return</span> left <span style="color:#f92672">+</span> right;
+};
+</code></pre></div>
         </div>
 
         
@@ -694,6 +730,8 @@ Output: &quot;fl&quot;
 
   
 
+  
+
 </div>
 
       <hr />
@@ -748,6 +786,7 @@ Output: &quot;fl&quot;
     <li>
       <ul>
         <li><a href="#14-longest-common-prefix">14. Longest Common Prefix</a></li>
+        <li><a href="#921minimum-add-to-make-prentheses-valid">921.Minimum Add to Make Prentheses Valid</a></li>
       </ul>
     </li>
   </ul>

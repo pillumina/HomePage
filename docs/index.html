@@ -824,6 +824,27 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/cloud-computing/k8s-template/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Kubernetes Developement</h5>
+        <p class="card-text post-summary"> 资源模板 statefulset举例 apiVersion: apps/v1beta1 kind: StatefulSet metadata: name: kubia spec: serviceName: kubia replicas: 2 template: metadata: labels: app: kubia spec: containers: - name: kubia image: derios/kubia ports: - name: http containerPort: 8080 volumeMounts: - name: data mountPath: /var/data volumeClaimTemplates: - metadata: name: data spec: resources: requests: storage: 1Mi accessModes: - ReadWriteOnce headless service举例 apiVersion: v1 kind: Service metadata: name: kubia spec: clusterIP: None selector: app: kubia ports: - name: http port: 80 storage class local PV kind: StorageClass apiVersion: storage.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 21, 2021</span>
+        <a href="/posts/cloud-computing/k8s-template/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/cloud-computing/k8s-advance-schedule/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -869,36 +890,6 @@ public String longestCommonPrefix(String[] strs){ if (strs == null || strs.lengt
       <div class="card-footer">
         <span class="float-left">April 8, 2021</span>
         <a href="/posts/algo/string/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/golang/go-profiling/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang2.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Profiling a Go Service in Production</h5>
-        <p class="card-text post-summary"> 参考 Julia Evans: Profiling Go programs with pprof
-How I investigated memory leaks in Go using pprof on a large codebase
-Memory Profiling a Go Service
-Russ Cox: Profling Go Programs
-Package pprof overview
-github: pprof
-Issue: Why &lsquo;Total MB&rsquo; in golang heap profile is less than &lsquo;RES&rsquo; in top?
-Issue: Cannot free memory once occupied by bytes.Buffer
-Issue: FreeOSMemory() in production
-Issue: Is this an idiomatic worker thread pool in Go?</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">April 7, 2021</span>
-        <a href="/posts/golang/go-profiling/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>

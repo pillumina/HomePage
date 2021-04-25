@@ -369,6 +369,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/cloud-computing/k8s-template/">Kubernetes Development</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/cloud-computing/k8s-advance-schedule/">Kubernetes Handbook (Schedule)</a></li>
   
 
@@ -519,6 +528,29 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/cloud-computing/k8s-template/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Kubernetes Developement</h5>
+        <p class="card-text post-summary">资源模板 statefulset举例 apiVersion: apps/v1beta1 kind: StatefulSet metadata: name: kubia spec: serviceName: kubia replicas: 2 template: metadata: labels: app: kubia spec: containers: - name: kubia image: derios/kubia ports: - name: http containerPort: 8080 volumeMounts: - name: data mountPath: /var/data volumeClaimTemplates: - metadata: name: data spec: resources: requests: storage: 1Mi accessModes: - ReadWriteOnce headless service举例 apiVersion: v1 kind: Service metadata: name: kubia spec: clusterIP: None selector: app: kubia ports: - name: http port: 80 storage class local PV kind: StorageClass apiVersion: storage.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 21, 2021</span>
+        <a
+        href="/posts/cloud-computing/k8s-template/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/cloud-computing/k8s-advance-schedule/" class="post-card-link">
@@ -740,8 +772,7 @@ func JsonVisitor(shape Shape) { bytes, err := json.</p>
         <h5 class="card-title">Kubernetes Handbook (Start &amp; Pod)</h5>
         <p class="card-text post-summary">使用minikube构建本地单节点k8s集群  minikube ssh kubectl cluster-info kubectl get nodes #查看节点信息 kubectl describe node minikube #详细信息  多节点k8s集群，使用Google K8s Engine 构建方式看GKE官网即可
 k8s初步使用 kubectl run kubia &ndash;image=derios/kubia &ndash;port=8080 &ndash;generator=run/v1
- --image=derios/kubia代表要运行的容器镜像 这里的--generator会被废弃，其含义指代的是创建一个ReplicationController而不是Deployment。 kubectl apply -f 更常用 kubectl get pods kubectl get pods -o wide 显示pod ip和pod的节点 如果使用GWE，可以访问集群的dashborad: kubectl clusert-info获取地址 gcloud container clusters describe kubia | grep -E &ldquo;(username|password):&ldquo;获取用户名和密码 如果仅仅使用minikube，则如下不需要任何凭证即可访问:  minikube dashboard 创建服务对象，访问Web应用 如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http
-  kubectl expose rc/po/svc kubia &ndash;type=LoadBalancer &ndash;name kubia-http创建出的service介于pod和node之间, kubectl get services可以查看</p>
+ --image=derios/kubia代表要运行的容器镜像 这里的--generator会被废弃，其含义指代的是创建一个ReplicationController而不是Deployment。 kubectl apply -f 更常用 kubectl get pods kubectl get pods -o wide 显示pod ip和pod的节点 如果使用GWE，可以访问集群的dashborad: kubectl clusert-info获取地址 gcloud container clusters describe kubia | grep -E &ldquo;(username|password):&ldquo;获取用户名和密码 如果仅仅使用minikube，则如下不需要任何凭证即可访问:  minikube dashboard Namespace相关操作 kubectl config set-context --current --namespace=my-namespace 创建服务对象，访问Web应用 如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http</p>
       </div>
       <div class="card-footer">
         <span class="float-left">March 31, 2021</span>
@@ -835,30 +866,6 @@ IaaS举例： AWS EC2, Rackspace, Google Compute Engine (GCE), Digital Ocean, Ma
         <span class="float-left">February 16, 2021</span>
         <a
         href="/posts/iaas-paas-diff/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/design-pattern/go-pipeline/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/golang-banner-2.png'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Go编程模式：Pipeline</h5>
-        <p class="card-text post-summary">概述 这篇文章介绍Go编程里的Pipeline模式。如果是对Unix/Linux命令行熟悉的人会知道，Pipeline其实就是把每个命令拼接起来完成一个组合功能的技术。当下诸如流式处理，函数式编程，以及应用Gateway对微服务进行简单API编排，其实都受pipeline技术方式的影响。换句话说，这种技术能够很容易得把代码按照单一职责的原则拆分成多个高内聚低耦合的小模块，然后拼装起来去完成比较复杂的功能。
-​</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">February 3, 2021</span>
-        <a
-        href="/posts/design-pattern/go-pipeline/"
         class="float-right btn btn-outline-info btn-sm"
         >Read</a
         >

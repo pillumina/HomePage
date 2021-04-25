@@ -37,8 +37,16 @@ kubectl run kubia --image=derios/kubia --port=8080 --generator=run/v1
 minikube dashboard
 ```
 
+### Namespace相关操作
+
+```yaml
+kubectl config set-context --current --namespace=my-namespace
+```
+
+
 
 ### 创建服务对象，访问Web应用
+
 `如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http`
 
 - kubectl expose rc/po/svc kubia --type=LoadBalancer --name kubia-http创建出的service介于pod和node之间, kubectl get services可以查看

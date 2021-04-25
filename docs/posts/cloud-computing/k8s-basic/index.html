@@ -374,6 +374,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/cloud-computing/k8s-template/">Kubernetes Development</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/cloud-computing/k8s-advance-schedule/">Kubernetes Handbook (Schedule)</a></li>
   
 
@@ -566,6 +575,8 @@ if (!doNotTrack) {
 如果仅仅使用minikube，则如下不需要任何凭证即可访问:</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">minikube dashboard
+</code></pre></div><h3 id="namespace相关操作">Namespace相关操作</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">kubectl config set-context --current --namespace=my-namespace</span>
 </code></pre></div><h3 id="创建服务对象访问web应用">创建服务对象，访问Web应用</h3>
 <p><code>如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http</code></p>
 <ul>
@@ -1066,6 +1077,8 @@ minikube   Ready    master   20h   v1.19.2
 
   
 
+  
+
 </div>
 
       <hr />
@@ -1121,6 +1134,7 @@ minikube   Ready    master   20h   v1.19.2
     <li><a href="#多节点k8s集群使用google-k8s-engine">多节点k8s集群，使用Google K8s Engine</a></li>
     <li><a href="#k8s初步使用">k8s初步使用</a>
       <ul>
+        <li><a href="#namespace相关操作">Namespace相关操作</a></li>
         <li><a href="#创建服务对象访问web应用">创建服务对象，访问Web应用</a></li>
         <li><a href="#replicationcontroller的角色">ReplicationController的角色</a></li>
         <li><a href="#为何需要service">为何需要service</a></li>

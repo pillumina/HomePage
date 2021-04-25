@@ -8,6 +8,15 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 30 Mar 2021 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/cloud-computing/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Kubernetes Developement</title>
+      <link>https://pillumina.github.io/posts/cloud-computing/k8s-template/</link>
+      <pubDate>Wed, 21 Apr 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/cloud-computing/k8s-template/</guid>
+      <description>资源模板 statefulset举例 apiVersion: apps/v1beta1 kind: StatefulSet metadata: name: kubia spec: serviceName: kubia replicas: 2 template: metadata: labels: app: kubia spec: containers: - name: kubia image: derios/kubia ports: - name: http containerPort: 8080 volumeMounts: - name: data mountPath: /var/data volumeClaimTemplates: - metadata: name: data spec: resources: requests: storage: 1Mi accessModes: - ReadWriteOnce headless service举例 apiVersion: v1 kind: Service metadata: name: kubia spec: clusterIP: None selector: app: kubia ports: - name: http port: 80 storage class local PV kind: StorageClass apiVersion: storage.</description>
+    </item>
+    
+    <item>
       <title>Kubernetes Handbook (Schedule)</title>
       <link>https://pillumina.github.io/posts/cloud-computing/k8s-advance-schedule/</link>
       <pubDate>Fri, 09 Apr 2021 10:22:18 +0800</pubDate>
@@ -83,8 +92,7 @@ Linux Namespace有以下的种类，供给后续参考（刚看有个印象就�
       <guid>https://pillumina.github.io/posts/cloud-computing/k8s-basic/</guid>
       <description>使用minikube构建本地单节点k8s集群  minikube ssh kubectl cluster-info kubectl get nodes #查看节点信息 kubectl describe node minikube #详细信息  多节点k8s集群，使用Google K8s Engine 构建方式看GKE官网即可
 k8s初步使用 kubectl run kubia &amp;ndash;image=derios/kubia &amp;ndash;port=8080 &amp;ndash;generator=run/v1
- --image=derios/kubia代表要运行的容器镜像 这里的--generator会被废弃，其含义指代的是创建一个ReplicationController而不是Deployment。 kubectl apply -f 更常用 kubectl get pods kubectl get pods -o wide 显示pod ip和pod的节点 如果使用GWE，可以访问集群的dashborad: kubectl clusert-info获取地址 gcloud container clusters describe kubia | grep -E &amp;ldquo;(username|password):&amp;ldquo;获取用户名和密码 如果仅仅使用minikube，则如下不需要任何凭证即可访问:  minikube dashboard 创建服务对象，访问Web应用 如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http
-  kubectl expose rc/po/svc kubia &amp;ndash;type=LoadBalancer &amp;ndash;name kubia-http创建出的service介于pod和node之间, kubectl get services可以查看</description>
+ --image=derios/kubia代表要运行的容器镜像 这里的--generator会被废弃，其含义指代的是创建一个ReplicationController而不是Deployment。 kubectl apply -f 更常用 kubectl get pods kubectl get pods -o wide 显示pod ip和pod的节点 如果使用GWE，可以访问集群的dashborad: kubectl clusert-info获取地址 gcloud container clusters describe kubia | grep -E &amp;ldquo;(username|password):&amp;ldquo;获取用户名和密码 如果仅仅使用minikube，则如下不需要任何凭证即可访问:  minikube dashboard Namespace相关操作 kubectl config set-context --current --namespace=my-namespace 创建服务对象，访问Web应用 如果使用minikube或者kubeadm等自定义k8s，loadbalancer是没有集成的，需要AWS或者Google Cloud。最好使用NodePort或者Ingress Controller。如果真要用minikube, 可以使用minikube tunnel解决, 或者minikube service kubia-http</description>
     </item>
     
     <item>

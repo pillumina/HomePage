@@ -69,3 +69,41 @@ public String longestCommonPrefix(String[] strs){
 
 
 
+### 921.Minimum Add to Make Prentheses Valid
+
+给定只包含小括号的字符串，返回需要多少个`(`或`)`使其成为完整的括号表达式。[原题](https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/)
+
+```
+Input: "())"
+Output: 1
+Input: "()))(("
+Output: 4
+Input: "()"
+Output: 0
+Input: "((("
+Output: 3
+```
+
+题目很简单，注意`)`不能被`(`关闭，所有有两个pointer:
+
+```rust
+var minAddToMakeValid = function(str) {
+    let left = 0;
+    let right = 0;
+    for (let i = 0, n = str.length; i < n; i++) {
+        if (str.charAt(i) === ')') {
+            if (left === 0) {
+                right++;
+            } else {
+                left--;
+            }
+        } else {
+            left++;
+        }
+    }
+    return left + right;
+};
+```
+
+
+

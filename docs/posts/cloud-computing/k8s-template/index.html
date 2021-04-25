@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kubernetes Developement</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Kubernetes Developement" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-190574896-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/iaas-paas-diff/">IaaS vs PaaS vs SaaS</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/do-not-wall/">别让自己墙了自己</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/how-to-learn/">工程师应该如何高效学习</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/programmer-career/">程序员如何把控自己的职业</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/lifecycle-of-http/">Go server中http请求的生命周期</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/goroutine-pool/">Goroutine Pool</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/cloud-computing/">Kubernetes &amp; Docker</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-aufs/">Docker Fundamentals (AUFS)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-cgroup/">Docker Fundamentals (Cgroup)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-namespace/">Docker Fundamentals (Namespace)</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/cloud-computing/k8s-template/">Kubernetes Development</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-advance-schedule/">Kubernetes Handbook (Schedule)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/algo/">LC/CF刷题笔记</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/string/">字符串专题</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/open_courses/">Open Courses</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/open_courses/my-first-note/">MIT distributed system courses</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/design-pattern/">Programming Pattern</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/design-pattern/">Design Pattern Overview</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-visitor/">Go Visitor Pattern (k8s)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/k8s-docker.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>April 21, 2021</p>
+        </div>
+
+        <div class="title">
+          <h1>Kubernetes Developement</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <h2 id="资源模板">资源模板</h2>
+<h3 id="statefulset举例"><code>statefulset</code>举例</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1beta1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">StatefulSet</span>
+<span style="color:#f92672">metadata</span>: 
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubia</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">serviceName</span>: <span style="color:#ae81ff">kubia</span>
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">2</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">kubia</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubia</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">derios/kubia</span>
+        <span style="color:#f92672">ports</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http</span>
+          <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">8080</span>
+        <span style="color:#f92672">volumeMounts</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">data</span>
+          <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/var/data</span>
+   <span style="color:#f92672">volumeClaimTemplates</span>:
+   - <span style="color:#f92672">metadata</span>:
+       <span style="color:#f92672">name</span>: <span style="color:#ae81ff">data</span>
+     <span style="color:#f92672">spec</span>:
+       <span style="color:#f92672">resources</span>:
+         <span style="color:#f92672">requests</span>:
+           <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">1Mi</span>
+       <span style="color:#f92672">accessModes</span>:
+       - <span style="color:#ae81ff">ReadWriteOnce</span>
+       
+</code></pre></div><h3 id="headless-service举例"><code>headless service</code>举例</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubia</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">clusterIP</span>: <span style="color:#ae81ff">None</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">kubia</span>
+  <span style="color:#f92672">ports</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http</span>
+    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><h3 id="storage-class-local-pv"><code>storage class</code> local PV</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">StorageClass</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">storage.k8s.io/v1</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">local-storage</span>
+<span style="color:#f92672">provisioner</span>: <span style="color:#ae81ff">kubernetes.io/no-provisioner</span>
+<span style="color:#f92672">volumeBindingMode</span>: <span style="color:#ae81ff">WaitForFirstConsumer</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">StatefulSet</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">local-test</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">serviceName</span>: <span style="color:#e6db74">&#34;local-service&#34;</span>
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">matchLabels</span>:
+      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">local-test</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">local-test</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test-container</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">k8s.gcr.io/busybox</span>
+        <span style="color:#f92672">command</span>:
+        - <span style="color:#e6db74">&#34;/bin/sh&#34;</span>
+        <span style="color:#f92672">args</span>:
+        - <span style="color:#e6db74">&#34;-c&#34;</span>
+        - <span style="color:#e6db74">&#34;sleep 100000&#34;</span>
+        <span style="color:#f92672">volumeMounts</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">local-vol</span>
+          <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/usr/test-pod</span>
+  <span style="color:#f92672">volumeClaimTemplates</span>:
+  - <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">local-vol</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">accessModes</span>: [ <span style="color:#e6db74">&#34;ReadWriteOnce&#34;</span> ]
+      <span style="color:#f92672">storageClassName</span>: <span style="color:#e6db74">&#34;local-storage&#34;</span>
+      <span style="color:#f92672">resources</span>:
+        <span style="color:#f92672">requests</span>:
+          <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">368Gi</span>
+</code></pre></div><h2 id="key-point">Key Point</h2>
+<h3 id="使用local-pv的实际场景">使用Local PV的实际场景</h3>
+<ul>
+<li>使用本地磁盘作为缓存的系统</li>
+<li>CI/CD中用于存储构建中的系统</li>
+<li>一些允许丢失和不需要保证可靠的数据(session, token)</li>
+</ul>
+<h3 id="local-pv与hostpath的对比">Local PV与HostPath的对比</h3>
+<p><code>hostpath</code>:</p>
+<ul>
+<li>绑定在pod的生命周期上,pod结束,pv则被删除.</li>
+<li>可以通过pvc引用,也可以直接使用pv</li>
+<li>使用node的磁盘,不经过网络,开销非常小</li>
+</ul>
+<p><code>本地持久卷</code>:</p>
+<ul>
+<li>生命周期和node绑定,Kubernetes调度程序始终确保使用本地永久卷的Pod安排到同一节点</li>
+<li>无法通过storageclass动态创建.</li>
+<li>使用node磁盘,不经过网络,开销非常小.</li>
+</ul>
+<pre><code>The biggest difference is that the Kubernetes scheduler understands which node a Local Persistent Volume belongs to. With HostPath volumes, a pod referencing a HostPath volume may be moved by the scheduler to a different node resulting in data loss. But with Local Persistent Volumes, the Kubernetes scheduler ensures that a pod using a Local Persistent Volume is always scheduled to the same node.
+</code></pre><h3 id="使用local-pv的几个注意的问题">使用Local PV的几个注意的问题</h3>
+<ul>
+<li>本地持久卷依然会丢失数据,例如node本身出了问题.</li>
+<li>本地持久卷需要提供<code>volumeBindingMode:WaitForFirstConsumer</code>支持</li>
+<li>不支持动态卷配置,实际上需要一个外部的controller来控制,包括创建pv和销毁pv并清理磁盘</li>
+</ul>
+<h3 id="使用local-pv例子">使用Local PV例子</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">PersistentVolume</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">example-pv</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">capacity</span>:
+    <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">2Gi</span>
+  <span style="color:#f92672">volumeMode</span>: <span style="color:#ae81ff">Filesystem</span>
+  <span style="color:#f92672">accessModes</span>:
+    - <span style="color:#ae81ff">ReadWriteMany</span>
+  <span style="color:#f92672">persistentVolumeReclaimPolicy</span>: <span style="color:#ae81ff">Delete</span>
+  <span style="color:#f92672">storageClassName</span>: <span style="color:#ae81ff">local-storage</span>
+  <span style="color:#f92672">local</span>:
+    <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/home/tangxu/localpv</span>
+  <span style="color:#75715e"># 比普通的pv就多了这个亲和性调度</span>
+  <span style="color:#f92672">nodeAffinity</span>:
+    <span style="color:#f92672">required</span>:
+      <span style="color:#f92672">nodeSelectorTerms</span>:
+        - <span style="color:#f92672">matchExpressions</span>:
+            - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">kubernetes.io/hostname</span>
+              <span style="color:#f92672">operator</span>: <span style="color:#ae81ff">In</span>
+              <span style="color:#f92672">values</span>:
+                - <span style="color:#ae81ff">tangxu-pc</span>
+---
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">local-pv-service</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">local-test</span>
+  <span style="color:#f92672">clusterIP</span>: <span style="color:#ae81ff">None</span>
+  <span style="color:#f92672">ports</span>:
+    - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8090</span>
+      <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">80</span>
+      <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">tcp</span>
+---
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">StatefulSet</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">local-test</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">serviceName</span>: <span style="color:#e6db74">&#34;local-pv-service&#34;</span>
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">3</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">matchLabels</span>:
+      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">local-test</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">app</span>: <span style="color:#ae81ff">local-test</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test-container</span>
+          <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx:latest</span>
+          <span style="color:#f92672">ports</span>:
+            - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">80</span>
+              <span style="color:#f92672">protocol</span>: <span style="color:#ae81ff">tcp</span>
+              <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http</span>
+          <span style="color:#f92672">volumeMounts</span>:
+            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">local-vol</span>
+              <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/usr/test-pod</span>
+  <span style="color:#f92672">volumeClaimTemplates</span>:
+    - <span style="color:#f92672">metadata</span>:
+        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">local-vol</span>
+      <span style="color:#f92672">spec</span>:
+        <span style="color:#f92672">accessModes</span>:
+          - <span style="color:#e6db74">&#34;ReadWriteMany&#34;</span>
+        <span style="color:#f92672">storageClassName</span>: <span style="color:#e6db74">&#34;local-storage&#34;</span>
+        <span style="color:#f92672">resources</span>:
+          <span style="color:#f92672">requests</span>:
+            <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">1Gi</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl create ns test
+namespace/test created
+$ kubectl apply -f localPV.yaml
+</code></pre></div><h3 id="local-pv的清理">Local PV的清理</h3>
+<p>在使用了local pv之后,清理就不再是简单的使用命令删除了,因为kubernetes不会为我们管理local pv的创建和删除工作(并且删除是阻塞的,主要依靠<code>finalizer</code>机制)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#先删除使用pv的资源</span>
+$ kubectl delete -f localPV.yaml
+persistentvolume <span style="color:#e6db74">&#34;example-pv&#34;</span> deleted
+service <span style="color:#e6db74">&#34;local-pv-service&#34;</span> deleted
+statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
+<span style="color:#75715e">#此处应该阻塞...</span>
+</code></pre></div><p>再起一个终端:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ kubectl patch pv example-pv -p <span style="color:#e6db74">&#39;{&#34;metadata&#34;:{&#34;finalizers&#34;: []}}&#39;</span> --type<span style="color:#f92672">=</span>merge
+</code></pre></div><h3 id="k8s服务的概念"><code>k8s</code>服务的概念</h3>
+<ul>
+<li>
+<p>相同命名空间的可以用service名称作为主机名访问，可以查看<code>/etc/resolve.conf</code></p>
+</li>
+<li>
+<p>业务的数据库连接，如何规划暴露的服务，db-proxy是否需要刷新endpoints？</p>
+</li>
+<li>
+<p>需要为pod添加就绪探针，让客户端只与正常的pod交互，而不管后端是否有pod出现问题，这样在就绪探针出问题了，<code>Endpoints</code>资源会去掉这个pod。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">containers</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubia</span>
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">luksa/kubia</span>
+    <span style="color:#f92672">readinessProbe</span>:
+      <span style="color:#f92672">exec</span>:
+        <span style="color:#f92672">command</span>:
+        - <span style="color:#ae81ff">ls</span>
+        - <span style="color:#ae81ff">/var/ready</span>
+</code></pre></div></li>
+<li>
+<p>应该通过删除pod或者更改pod标签而不是手动更改探针来从服务中手动移除pod</p>
+<pre><code>如果想要从某个服务中手动添加或者删除pod的时候，把enabled=true作为标签添加到pod，以及服务的标签选择器中。当想要从服务中移除pod中，删除标签即可。
+</code></pre></li>
+</ul>
+<h3 id="数据库详细配置">数据库详细配置</h3>
+<ul>
+<li>
+<p>安装数据库时，数据库之间的路由配置从哪里来？</p>
+</li>
+<li>
+<p>业务访问数据库时的网络管道&hellip;</p>
+</li>
+<li>
+<p>数据库启停，pod的增删，以及前端服务显示形式。CRD中要定义描述数据库停止的状态信息，此时数据库存储和网络标识还在。</p>
+</li>
+<li>
+<p>数据库agent检测的状态，如何同步给CR？</p>
+<ul>
+<li>
+<p>Operator主从状态确认行为</p>
+<p><code>unreachableTimeout</code>  &mdash; <code>pollingInterval</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>主备HA，是否由controller控制？</p>
+<ul>
+<li><code>oracle times ten database是放在operator进行HA操作</code></li>
+</ul>
+</li>
+<li>
+<p>数据库软件包的下载时机和形式？</p>
+</li>
+<li>
+<p>以挂卷方式将进程在容器内启动的可行性？</p>
+</li>
+<li>
+<p>database metadata的定义形式？</p>
+<ul>
+<li>
+<p>由投射卷管理所有配置</p>
+</li>
+<li>
+<p>admin信息，密码信息</p>
+</li>
+<li>
+<p>user信息，密码信息</p>
+</li>
+<li>
+<p>TLS配置</p>
+</li>
+</ul>
+</li>
+<li>
+<p>数据库的端口问题？</p>
+</li>
+<li>
+<p>数据库集群部署state:</p>
+<ul>
+<li>
+<p>主从</p>
+<pre><code>- Initializing
+- Normal
+- ActiveDown
+- StandbyDown
+- StandbyPartiallyDown
+- StanbyPartiallyStarting
+- BothDown
+- Failed
+</code></pre></li>
+<li>
+<p>单机</p>
+<pre><code>- Intializing
+- Normal
+- ActiveDown
+- Failed
+</code></pre></li>
+</ul>
+</li>
+<li>
+<p>数据库修改</p>
+<ul>
+<li>以修改连接数为例（方案一：采用<code>configmap</code>保存实例的连接配置信息、db信息等）
+<ol>
+<li>修改<code>configmap</code>中的字段</li>
+<li><code>operator</code>删除stanby pod，并重新创建，该创建的standby pod采用新的<code>configmap</code>字段创建</li>
+<li>standby pod正常后，删除active pod进行自动倒换，<code>operator</code>再原地创建新的stanby pod，感知<code>configmap</code>中连接数字段创建。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="资源声明">资源声明</h3>
+<h4 id="operator">operator</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># operator deployment</span>
+<span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">zenith-operator</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">matchLabels</span>:
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">zenith-operator</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">zenith-operator</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">zenith-operator</span>
+      <span style="color:#75715e"># imagePullSecrets:</span>
+      <span style="color:#75715e"># - name: zenith-image-pulling-secret</span>
+      <span style="color:#f92672">packageVesion</span>: <span style="color:#ae81ff">v1.0.0</span>
+      <span style="color:#f92672">softwarePackage</span>: <span style="color:#ae81ff">zenith-operator</span>
+      <span style="color:#f92672">packageType</span>: <span style="color:#ae81ff">tar</span>
+      <span style="color:#f92672">containers</span>:
+        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">zenith-operator</span>
+          <span style="color:#75715e"># image: ....</span>
+          <span style="color:#f92672">command</span>:
+          - <span style="color:#ae81ff">zenith-operator</span>
+          <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#ae81ff">Never</span>
+          <span style="color:#f92672">env</span>:
+            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">WATCH_NAMESPACE</span>
+              <span style="color:#f92672">valueFrom</span>:
+                <span style="color:#f92672">fieldRef</span>:
+                  <span style="color:#f92672">fieldPath</span>: <span style="color:#ae81ff">metadata.namespace</span>
+            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">POD_NAME</span>
+              <span style="color:#f92672">valueFrom</span>:
+                <span style="color:#f92672">fieldRef</span>:
+                  <span style="color:#f92672">fieldPath</span>: <span style="color:#ae81ff">metadata.name</span>
+            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">OPERATOR_NAME</span>
+              <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;zenith-operator&#34;</span>
+
+</code></pre></div><h4 id="configmap-secrets">configmap /secrets</h4>
+<h4 id="db-object">DB Object</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">huawei.cloudb.com/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">zenithCluster</span>
+<span style="color:#f92672">metadata</span>: 
+  <span style="color:#f92672">annotations</span>: {}
+  <span style="color:#f92672">labels</span>: {}
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">${zenith_cluster_name}</span>
+  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">${cluster_namespace}</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">zenithSpec</span>:
+    <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">2</span>               <span style="color:#75715e"># master-slave </span>
+    <span style="color:#f92672">version: v1.0.0           # eg.</span>: <span style="color:#ae81ff">Zenith-1.0.0.tar</span>
+    <span style="color:#f92672">packageName</span>: <span style="color:#ae81ff">Zenith      </span> <span style="color:#75715e"># --- | </span>
+    <span style="color:#f92672">packageType</span>: <span style="color:#ae81ff">tar         </span> <span style="color:#75715e"># --- |</span>
+    <span style="color:#f92672">storageClassName</span>: <span style="color:#ae81ff">local  </span> <span style="color:#75715e"># PV</span>
+    <span style="color:#f92672">storageSize</span>: <span style="color:#ae81ff">5G          </span> <span style="color:#75715e"># PV</span>
+    <span style="color:#f92672">replicationSSLMandatory</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">pollingInterval</span>: <span style="color:#ae81ff">10</span>
+    <span style="color:#f92672">unreachableTimeout</span>: <span style="color:#ae81ff">30</span>
+    <span style="color:#f92672">instanceConfigMap</span>: 
+    - <span style="color:#ae81ff">zenith-instance-config</span>
+    <span style="color:#f92672">dbConfigMap</span>:
+    - <span style="color:#ae81ff">zenith-db-config</span>
+    <span style="color:#f92672">dbSecrets</span>:
+    - <span style="color:#ae81ff">zenith-db-secret</span>
+    <span style="color:#f92672">dbSpecs</span>:            
+      <span style="color:#ae81ff">... </span>
+  <span style="color:#f92672">agentSpec</span>:
+    <span style="color:#f92672">version</span>: <span style="color:#ae81ff">v1.0.0</span>
+    <span style="color:#f92672">packageName</span>: <span style="color:#ae81ff">DBAgent</span>
+    <span style="color:#f92672">packageType</span>: <span style="color:#ae81ff">tar</span>
+    <span style="color:#f92672">agentConfig</span>:
+    - <span style="color:#ae81ff">db-agent-sample-config</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">affinity</span>: 
+      <span style="color:#ae81ff">...</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">selectors</span>:
+        <span style="color:#f92672">matchLables</span>:
+          <span style="color:#ae81ff">...</span>
+      <span style="color:#f92672">initContainers</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">notify-download-package</span>
+        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">k8s.gcr.io/busybox</span>
+        <span style="color:#f92672">commands</span>:
+        - <span style="color:#ae81ff">sh</span>
+        - <span style="color:#e6db74">&#34;-c&#34;</span>
+        - |<span style="color:#e6db74">
+</span><span style="color:#e6db74">          /bin/bash &lt;&lt; &#39;EOF&#39;
+</span><span style="color:#e6db74">          This is used for notify nodeagent to download zenith software package
+</span><span style="color:#e6db74">          EOF</span>          
+      <span style="color:#f92672">containers</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">zenith-ha</span>
+        <span style="color:#f92672">resources</span>:
+          <span style="color:#f92672">requests</span>:
+            <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;2048Mi&#34;</span>
+            <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;1000m&#34;</span>
+          <span style="color:#f92672">limits</span>:
+            <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;4096Mi&#34;</span>
+            <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;2000m&#34;</span>
+        <span style="color:#f92672">volumeMounts</span>:
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">zenith-certs</span>
+            <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/etc/certificate</span>
+            <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">true</span>
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">watch-uds</span>
+            <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/etc/uds/watch-server-uds</span>
+            <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">false</span>
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">zenith-server-uds</span>
+            <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/etc/uds/zenith-server-uds</span>
+            <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">false</span>
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">agent-config</span>
+            <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/etc/DBAgent/dbagent.conf</span>
+            <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">true</span>
+        <span style="color:#f92672">env</span>:
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">POD_NAME</span>
+            <span style="color:#f92672">valueFrom</span>:
+            <span style="color:#ae81ff">...</span>
+          <span style="color:#ae81ff">...</span>
+      <span style="color:#f92672">volumes</span>:
+      - <span style="color:#f92672">name</span>: 
+  <span style="color:#f92672">volumeClaimTemplates</span>:   <span style="color:#75715e"># PVC</span>
+    <span style="color:#ae81ff">...</span>
+    
+    
+        
+        
+  
+    
+  
+</code></pre></div>
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/cloud-computing/k8s-template.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+        
+        
+        <div class="col-md-12 next-article">
+          <a href="/posts/cloud-computing/k8s-advance-schedule/" class="btn btn-outline-info">
+            <span>Next <i class="fas fa-chevron-circle-right"></i></span>
+            <br />
+            <span>Kubernetes Handbook (Schedule)</span>
+          </a>
+        </div>
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "pillumina";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#资源模板">资源模板</a>
+      <ul>
+        <li><a href="#statefulset举例"><code>statefulset</code>举例</a></li>
+        <li><a href="#headless-service举例"><code>headless service</code>举例</a></li>
+        <li><a href="#storage-class-local-pv"><code>storage class</code> local PV</a></li>
+      </ul>
+    </li>
+    <li><a href="#key-point">Key Point</a>
+      <ul>
+        <li><a href="#使用local-pv的实际场景">使用Local PV的实际场景</a></li>
+        <li><a href="#local-pv与hostpath的对比">Local PV与HostPath的对比</a></li>
+        <li><a href="#使用local-pv的几个注意的问题">使用Local PV的几个注意的问题</a></li>
+        <li><a href="#使用local-pv例子">使用Local PV例子</a></li>
+        <li><a href="#local-pv的清理">Local PV的清理</a></li>
+        <li><a href="#k8s服务的概念"><code>k8s</code>服务的概念</a></li>
+        <li><a href="#数据库详细配置">数据库详细配置</a></li>
+        <li><a href="#资源声明">资源声明</a>
+          <ul>
+            <li><a href="#operator">operator</a></li>
+            <li><a href="#configmap-secrets">configmap /secrets</a></li>
+            <li><a href="#db-object">DB Object</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>
