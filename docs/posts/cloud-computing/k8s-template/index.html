@@ -966,6 +966,11 @@ statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
           <span style="color:#f92672">limits</span>:
             <span style="color:#f92672">memory</span>: <span style="color:#e6db74">&#34;4096Mi&#34;</span>
             <span style="color:#f92672">cpu</span>: <span style="color:#e6db74">&#34;2000m&#34;</span>
+        <span style="color:#f92672">ports</span>:
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">listen-port</span>
+            <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">32080</span>
+          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">replication-port</span>
+            <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">12345</span>
         <span style="color:#f92672">volumeMounts</span>:
           - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">zenith-certs</span>
             <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/etc/certificate</span>

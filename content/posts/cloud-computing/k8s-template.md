@@ -473,6 +473,11 @@ spec:
           limits:
             memory: "4096Mi"
             cpu: "2000m"
+        ports:
+          - name: listen-port
+            containerPort: 32080
+          - name: replication-port
+            containerPort: 12345
         volumeMounts:
           - name: zenith-certs
             mountPath: /etc/certificate
