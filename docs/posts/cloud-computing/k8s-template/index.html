@@ -372,6 +372,15 @@ if (!doNotTrack) {
   
   
   
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-config-update/">Kubernetes ConfigMap Hot Update</a></li>
+  
+
+  
+  
+  
+  
     
     
   
@@ -675,13 +684,13 @@ if (!doNotTrack) {
   <span style="color:#f92672">capacity</span>:
     <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">2Gi</span>
   <span style="color:#f92672">volumeMode</span>: <span style="color:#ae81ff">Filesystem</span>
-  <span style="color:#f92672">accessModes</span>:
+  <span style="color:#ae81ff">accessModes:	</span>
     - <span style="color:#ae81ff">ReadWriteMany</span>
   <span style="color:#f92672">persistentVolumeReclaimPolicy</span>: <span style="color:#ae81ff">Delete</span>
   <span style="color:#f92672">storageClassName</span>: <span style="color:#ae81ff">local-storage</span>
   <span style="color:#f92672">local</span>:
     <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/home/tangxu/localpv</span>
-  <span style="color:#75715e"># 比普通的pv就多了这个亲和性调度</span>
+  <span style="color:#75715e"># 比普通的pv就多了这个亲和性调度, 也是必须加的</span>
   <span style="color:#f92672">nodeAffinity</span>:
     <span style="color:#f92672">required</span>:
       <span style="color:#f92672">nodeSelectorTerms</span>:
@@ -992,14 +1001,97 @@ statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
       <span style="color:#f92672">volumes</span>:
       - <span style="color:#f92672">name</span>: 
   <span style="color:#f92672">volumeClaimTemplates</span>:   <span style="color:#75715e"># PVC</span>
-    <span style="color:#ae81ff">...</span>
-    
-    
-        
-        
+    <span style="color:#ae81ff">...        </span>
   
     
   
+</code></pre></div><h3 id="用投射卷聚合配置信息">用投射卷聚合配置信息</h3>
+<p><a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md">proposal</a></p>
+<pre><code>Constraints and Assumptions
+1. The volume types must remain unchanged for backward compatibility
+2. There will be a new volume type for this proposed functionality, but no other API changes
+3. The new volume type should support atomic updates in the event of an input change
+</code></pre><pre><code>Use Cases
+1. As a user, I want to automatically populate a single volume with the keys from multiple secrets, configmaps, and with downward API information, so that I can synthesize a single directory with various sources of information
+2. As a user, I want to populate a single volume with the keys from multiple secrets, configmaps, and with downward API information, explicitly specifying paths for each item, so that I can have full control over the contents of that volume
+</code></pre><h4 id="以前的情况">以前的情况</h4>
+<p>要使用secrets, configmaps, downward APIs都要在volumeMounts里面声明不同的mount paths:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">volume-test</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">containers</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">container-test</span>
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">busybox</span>
+    <span style="color:#f92672">volumeMounts</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">mysecret</span>
+      <span style="color:#f92672">mountPath</span>: <span style="color:#e6db74">&#34;/secrets&#34;</span>
+      <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">true</span>
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">podInfo</span>
+      <span style="color:#f92672">mountPath</span>: <span style="color:#e6db74">&#34;/podinfo&#34;</span>
+      <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">true</span>
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">config-volume</span>
+      <span style="color:#f92672">mountPath</span>: <span style="color:#e6db74">&#34;/config&#34;</span>
+      <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">volumes</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">mysecret</span>
+    <span style="color:#f92672">secret</span>:
+      <span style="color:#f92672">secretName</span>: <span style="color:#ae81ff">jpeeler-db-secret</span>
+      <span style="color:#f92672">items</span>:
+        - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">username</span>
+          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">my-group/my-username</span>
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">podInfo</span>
+    <span style="color:#f92672">downwardAPI</span>:
+      <span style="color:#f92672">items</span>:
+        - <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;labels&#34;</span>
+          <span style="color:#f92672">fieldRef</span>:
+            <span style="color:#f92672">fieldPath</span>: <span style="color:#ae81ff">metadata.labels</span>
+        - <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;annotations&#34;</span>
+          <span style="color:#f92672">fieldRef</span>:
+            <span style="color:#f92672">fieldPath</span>: <span style="color:#ae81ff">metadata.annotations</span>
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">config-volume</span>
+    <span style="color:#f92672">configMap</span>:
+      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">special-config</span>
+      <span style="color:#f92672">items</span>:
+        - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">special.how</span>
+          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">path/to/special-key</span>
+</code></pre></div><h4 id="投射卷的情况">投射卷的情况</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Pod</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">volume-test</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">containers</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">container-test</span>
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">busybox</span>
+    <span style="color:#f92672">volumeMounts</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">all-in-one</span>
+      <span style="color:#f92672">mountPath</span>: <span style="color:#e6db74">&#34;/projected-volume&#34;</span>
+      <span style="color:#f92672">readOnly</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#f92672">volumes</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">all-in-one</span>
+    <span style="color:#f92672">projected</span>:
+      <span style="color:#f92672">sources</span>:
+      - <span style="color:#f92672">secret</span>:
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">mysecret</span>
+          <span style="color:#f92672">items</span>:
+            - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">user</span>
+              <span style="color:#f92672">path</span>: <span style="color:#ae81ff">my-group/my-username</span>
+      - <span style="color:#f92672">downwardAPI</span>:
+          <span style="color:#f92672">items</span>:
+            - <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;labels&#34;</span>
+              <span style="color:#f92672">fieldRef</span>:
+                <span style="color:#f92672">fieldPath</span>: <span style="color:#ae81ff">metadata.labels</span>
+            - <span style="color:#f92672">path</span>: <span style="color:#e6db74">&#34;cpu_limit&#34;</span>
+              <span style="color:#f92672">resourceFieldRef</span>:
+                <span style="color:#f92672">containerName</span>: <span style="color:#ae81ff">container-test</span>
+                <span style="color:#f92672">resource</span>: <span style="color:#ae81ff">limits.cpu</span>
+      - <span style="color:#f92672">configMap</span>:
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">myconfigmap</span>
+          <span style="color:#f92672">items</span>:
+            - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">config</span>
+              <span style="color:#f92672">path</span>: <span style="color:#ae81ff">my-group/my-config</span>
 </code></pre></div>
         </div>
 
@@ -1084,11 +1176,25 @@ statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
 
   
     
+      
+      <div class="col-md-6 previous-article">
+        <a href="/posts/cloud-computing/k8s-config-update/" class="btn btn-outline-info">
+          <span><i class="fas fa-chevron-circle-left"></i> Prev</span>
+          <br />
+          <span>Kubernetes ConfigMap 热更新</span>
+        </a>
+      </div>
+      
+    
     
       
         
         
-        <div class="col-md-12 next-article">
+          
+              
+          
+        
+        <div class="col-md-6 next-article">
           <a href="/posts/cloud-computing/k8s-advance-schedule/" class="btn btn-outline-info">
             <span>Next <i class="fas fa-chevron-circle-right"></i></span>
             <br />
@@ -1097,6 +1203,8 @@ statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
         </div>
       
     
+  
+
   
 
 </div>
@@ -1171,6 +1279,12 @@ statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
             <li><a href="#operator">operator</a></li>
             <li><a href="#configmap-secrets">configmap /secrets</a></li>
             <li><a href="#db-object">DB Object</a></li>
+          </ul>
+        </li>
+        <li><a href="#用投射卷聚合配置信息">用投射卷聚合配置信息</a>
+          <ul>
+            <li><a href="#以前的情况">以前的情况</a></li>
+            <li><a href="#投射卷的情况">投射卷的情况</a></li>
           </ul>
         </li>
       </ul>

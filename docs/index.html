@@ -824,6 +824,36 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/cloud-computing/k8s-config-update/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Kubernetes ConfigMap 热更新</h5>
+        <p class="card-text post-summary"> 注：如果对kubernetes的基本概念不太清楚，建议先过一下基本的资源类型再阅读此文
+先随便给个例子:
+apiVersion: v1 kind: ConfigMap metadata: name: test-config data: config.yml: |-start-message: &#39;Hello, World!&#39; log-level: INFO bootstrap.yml: listen-address: &#39;127.0.0.1:8080&#39; 我们定义了一个ConfigMap，data中定义了两个文件config.yml以及bootstrap.yml，当我们要引用当中的配置的时候，kubernetes提供了两种方案：
+  使用configMapKeyRef引用configMap中某个文件的内容作为Pod中容器的环境变量。
+  把所有configMap中的文件写到一个临时目录，将临时目录作为volume挂载到容器中，也就是configmap类型的volume。
+假设现在我们有一个Deployment，它的pod模板里引用了configMap，现在我们的目标是：当configmap更新的时候，这个Deployment的业务逻辑也能随之更新。那么有哪些方案？
+  最好的情况是，当configMap发生变更时，直接进行hot update，做到不影响pod的正常运行。
+  如果无法hot update或者这样完成不了需求，就要出发对应的Deployment做一次滚动更新。
+  场景一： 针对可以进行热更新的容器，进行配置热更新 如果configMap由volume挂载，比如下述的投射卷，它的内容是可以更新的：
+apiVersion: v1 kind: Pod metadata: name: volume-test spec: containers: - name: container-test image: busybox volumeMounts: - name: all-in-one mountPath: &#34;/projected-volume&#34; readOnly: true volumes: - name: all-in-one projected: sources: - configMap: name: myconfigmap items: - key: config path: my-group/my-config 为了能够比较好得理解，先说明一下configMap的volume挂载机制：</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 24, 2021</span>
+        <a href="/posts/cloud-computing/k8s-config-update/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/cloud-computing/k8s-template/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -864,32 +894,6 @@ k describe node minikube Name: minikube Roles: master Labels: beta.kubernetes.io
       <div class="card-footer">
         <span class="float-left">April 9, 2021</span>
         <a href="/posts/cloud-computing/k8s-advance-schedule/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/algo/string/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/leetcode.png'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">LC刷题: 字符串专题</h5>
-        <p class="card-text post-summary"> 14. Longest Common Prefix 返回最长公共前缀子串。原题
-Input: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;] Output: &quot;fl&quot; 水平扫描：
-从头开始遍历整个数组，并且两两比较LCP。如果第i次比较的结果是空，则停止迭代返回空字符串；否则就直到遍历结束:
-public String longestCommonPrefix(String[] strs){ if (str.length == 0) return &#34;&#34;; String prefix = strs[0]; for (int i = 1; i &lt; strs.length; i++){ while (strs[i].indexOf(prefix) != 0){ prefix = prefix.substring(0, prefix.length() - 1); if (prefix.isEmpty()) return &#34;&#34;; } } return prefix; }  时间复杂度：O(S) 空间复杂度：O(1)  2. 垂直扫描：
-水平扫描有个缺点，就是如果很短的string处于数组末尾，那么还是会进行S次比较，性能上差一点。垂直扫描能解决这个问题，也就是比较同一列(每个字符串的每个字符为一列)：
-public String longestCommonPrefix(String[] strs){ if (strs == null || strs.length == 0) return &#34;&#34;; for (int i = 0; i &lt; strs[0].</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">April 8, 2021</span>
-        <a href="/posts/algo/string/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>

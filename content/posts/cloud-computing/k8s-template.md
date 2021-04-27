@@ -170,13 +170,13 @@ spec:
   capacity:
     storage: 2Gi
   volumeMode: Filesystem
-  accessModes:
+  accessModes:	
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Delete
   storageClassName: local-storage
   local:
     path: /home/tangxu/localpv
-  # 比普通的pv就多了这个亲和性调度
+  # 比普通的pv就多了这个亲和性调度, 也是必须加的
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -499,15 +499,117 @@ spec:
       volumes:
       - name: 
   volumeClaimTemplates:   # PVC
-    ...
-    
-    
-        
-        
+    ...        
   
     
   
 ```
 
 
+
+### 用投射卷聚合配置信息
+
+[proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/all-in-one-volume.md)
+
+```
+Constraints and Assumptions
+1. The volume types must remain unchanged for backward compatibility
+2. There will be a new volume type for this proposed functionality, but no other API changes
+3. The new volume type should support atomic updates in the event of an input change
+```
+
+```
+Use Cases
+1. As a user, I want to automatically populate a single volume with the keys from multiple secrets, configmaps, and with downward API information, so that I can synthesize a single directory with various sources of information
+2. As a user, I want to populate a single volume with the keys from multiple secrets, configmaps, and with downward API information, explicitly specifying paths for each item, so that I can have full control over the contents of that volume
+```
+
+#### 以前的情况
+
+要使用secrets, configmaps, downward APIs都要在volumeMounts里面声明不同的mount paths:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: mysecret
+      mountPath: "/secrets"
+      readOnly: true
+    - name: podInfo
+      mountPath: "/podinfo"
+      readOnly: true
+    - name: config-volume
+      mountPath: "/config"
+      readOnly: true
+  volumes:
+  - name: mysecret
+    secret:
+      secretName: jpeeler-db-secret
+      items:
+        - key: username
+          path: my-group/my-username
+  - name: podInfo
+    downwardAPI:
+      items:
+        - path: "labels"
+          fieldRef:
+            fieldPath: metadata.labels
+        - path: "annotations"
+          fieldRef:
+            fieldPath: metadata.annotations
+  - name: config-volume
+    configMap:
+      name: special-config
+      items:
+        - key: special.how
+          path: path/to/special-key
+```
+
+
+
+#### 投射卷的情况
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+spec:
+  containers:
+  - name: container-test
+    image: busybox
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - secret:
+          name: mysecret
+          items:
+            - key: user
+              path: my-group/my-username
+      - downwardAPI:
+          items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
+            - path: "cpu_limit"
+              resourceFieldRef:
+                containerName: container-test
+                resource: limits.cpu
+      - configMap:
+          name: myconfigmap
+          items:
+            - key: config
+              path: my-group/my-config
+```
 

@@ -8,6 +8,24 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 30 Mar 2021 10:52:50 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/posts/cloud-computing/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Kubernetes ConfigMap 热更新</title>
+      <link>https://pillumina.github.io/posts/cloud-computing/k8s-config-update/</link>
+      <pubDate>Sat, 24 Apr 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/cloud-computing/k8s-config-update/</guid>
+      <description>注：如果对kubernetes的基本概念不太清楚，建议先过一下基本的资源类型再阅读此文
+先随便给个例子:
+apiVersion: v1 kind: ConfigMap metadata: name: test-config data: config.yml: |-start-message: &amp;#39;Hello, World!&amp;#39; log-level: INFO bootstrap.yml: listen-address: &amp;#39;127.0.0.1:8080&amp;#39; 我们定义了一个ConfigMap，data中定义了两个文件config.yml以及bootstrap.yml，当我们要引用当中的配置的时候，kubernetes提供了两种方案：
+  使用configMapKeyRef引用configMap中某个文件的内容作为Pod中容器的环境变量。
+  把所有configMap中的文件写到一个临时目录，将临时目录作为volume挂载到容器中，也就是configmap类型的volume。
+假设现在我们有一个Deployment，它的pod模板里引用了configMap，现在我们的目标是：当configmap更新的时候，这个Deployment的业务逻辑也能随之更新。那么有哪些方案？
+  最好的情况是，当configMap发生变更时，直接进行hot update，做到不影响pod的正常运行。
+  如果无法hot update或者这样完成不了需求，就要出发对应的Deployment做一次滚动更新。
+  场景一： 针对可以进行热更新的容器，进行配置热更新 如果configMap由volume挂载，比如下述的投射卷，它的内容是可以更新的：
+apiVersion: v1 kind: Pod metadata: name: volume-test spec: containers: - name: container-test image: busybox volumeMounts: - name: all-in-one mountPath: &amp;#34;/projected-volume&amp;#34; readOnly: true volumes: - name: all-in-one projected: sources: - configMap: name: myconfigmap items: - key: config path: my-group/my-config 为了能够比较好得理解，先说明一下configMap的volume挂载机制：</description>
+    </item>
+    
+    <item>
       <title>Kubernetes Developement</title>
       <link>https://pillumina.github.io/posts/cloud-computing/k8s-template/</link>
       <pubDate>Wed, 21 Apr 2021 11:22:18 +0800</pubDate>

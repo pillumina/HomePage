@@ -369,6 +369,15 @@ if (!doNotTrack) {
   
   
     
+    <li><a class="" href="/posts/cloud-computing/k8s-config-update/">Kubernetes ConfigMap Hot Update</a></li>
+  
+
+  
+  
+  
+  
+  
+    
     <li><a class="" href="/posts/cloud-computing/k8s-template/">Kubernetes Development</a></li>
   
 
@@ -528,6 +537,38 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/cloud-computing/k8s-config-update/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Kubernetes ConfigMap 热更新</h5>
+        <p class="card-text post-summary">注：如果对kubernetes的基本概念不太清楚，建议先过一下基本的资源类型再阅读此文
+先随便给个例子:
+apiVersion: v1 kind: ConfigMap metadata: name: test-config data: config.yml: |-start-message: &#39;Hello, World!&#39; log-level: INFO bootstrap.yml: listen-address: &#39;127.0.0.1:8080&#39; 我们定义了一个ConfigMap，data中定义了两个文件config.yml以及bootstrap.yml，当我们要引用当中的配置的时候，kubernetes提供了两种方案：
+  使用configMapKeyRef引用configMap中某个文件的内容作为Pod中容器的环境变量。
+  把所有configMap中的文件写到一个临时目录，将临时目录作为volume挂载到容器中，也就是configmap类型的volume。
+假设现在我们有一个Deployment，它的pod模板里引用了configMap，现在我们的目标是：当configmap更新的时候，这个Deployment的业务逻辑也能随之更新。那么有哪些方案？
+  最好的情况是，当configMap发生变更时，直接进行hot update，做到不影响pod的正常运行。
+  如果无法hot update或者这样完成不了需求，就要出发对应的Deployment做一次滚动更新。
+  场景一： 针对可以进行热更新的容器，进行配置热更新 如果configMap由volume挂载，比如下述的投射卷，它的内容是可以更新的：
+apiVersion: v1 kind: Pod metadata: name: volume-test spec: containers: - name: container-test image: busybox volumeMounts: - name: all-in-one mountPath: &#34;/projected-volume&#34; readOnly: true volumes: - name: all-in-one projected: sources: - configMap: name: myconfigmap items: - key: config path: my-group/my-config 为了能够比较好得理解，先说明一下configMap的volume挂载机制：</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 24, 2021</span>
+        <a
+        href="/posts/cloud-computing/k8s-config-update/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/cloud-computing/k8s-template/" class="post-card-link">
@@ -833,39 +874,6 @@ type Handler interface { ServeHTTP(ResponseWriter, *Request) } 默认Handler 在
         <span class="float-left">February 20, 2021</span>
         <a
         href="/posts/golang/lifecycle-of-http/"
-        class="float-right btn btn-outline-info btn-sm"
-        >Read</a
-        >
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="post-card">
-  <a href="/posts/iaas-paas-diff/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/hero-google.svg'/>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">IaaS vs PaaS vs SaaS</h5>
-        <p class="card-text post-summary">如果你在考虑将你的在线电子业务转移到云上，下面三个名词会经常遇到：
- IaaS PaaS SaaS  这些是云计算领域的三个主要类别
-你很可能早就听说过它们，在各种各样的业务转移到云上的趋势下，它们各自占据的不同的比例：
- SaaS占据大概24%的企业负载 IaaS在12%左右波动 PaaS是近年来最流行的模型，大概占据32%，且当下和未来会有更多的增长  On-Premise, SaaS, PaaS, IaaS的关键区别 on-premise这里理解成本地部署的含义，比如企业内部部署的CRM软件系统，其反义词即为云端
-不久以前，所有公司的IT系统都是on-premise的，云的概念比较模糊和遥远。
-SaaS, PaaS, IaaS只是三种简单描述你如何为你的业务使用云设施的方式：
- IaaS: cloud-based services, 为存储、网络以及虚拟化等服务提供pay-as-you-go PaaS: 通过internet提供硬件和软件工具 SaaS: 完全由第三方提供的软件服务 On-Premise: 企业内部部署  下面是一个图解：
-SaaS, PaaS, IaaS 举例 大多数的业务一般使用SaaS以及IaaS云计算服务模型的组合，此外有很多业务会鼓励开发者使用PaaS去构建应用。
-SaaS举例： BigCommerce, Google Apps, Salesforce, Dropbox, MailChimp, ZenDesk, DocuSign, Slack, Hubspot.
-PaaS举例： AWS Elastic Beanstalk, Heroku, Windows Azure (mostly used as PaaS), Force.com, OpenShift, Apache Stratos, Magento Commerce Cloud.
-IaaS举例： AWS EC2, Rackspace, Google Compute Engine (GCE), Digital Ocean, Magento 1 Enterprise Edition*.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">February 16, 2021</span>
-        <a
-        href="/posts/iaas-paas-diff/"
         class="float-right btn btn-outline-info btn-sm"
         >Read</a
         >
