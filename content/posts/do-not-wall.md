@@ -1,10 +1,10 @@
 ---
-title: "别让自己墙了自己"
+title: "(转)别让自己墙了自己"
 date: 2021-02-01T12:40:29+08:00
 hero: /images/posts/hero-google.svg
 menu:
   sidebar:
-    name: 别让自己墙了自己
+    name: (转)别让自己墙了自己
     identifier: do-not-wall-yourself
     weight: 10
 draft: false

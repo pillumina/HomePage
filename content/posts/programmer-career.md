@@ -1,10 +1,10 @@
 ---
-title: "程序员如何把控自己的职业"
+title: "(转)程序员如何把控自己的职业"
 date: 2021-02-01T12:40:29+08:00
 hero: /images/posts/hero-google.svg
 menu:
   sidebar:
-    name: 程序员如何把控自己的职业
+    name: (转)程序员如何把控自己的职业
     identifier: how-to-develop-career
     weight: 10
 draft: false

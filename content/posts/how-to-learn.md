@@ -1,10 +1,10 @@
 ---
-title: "工程师应该如何高效学习"
+title: "(转)工程师应该如何高效学习"
 date: 2021-02-01T12:40:29+08:00
 hero: /images/posts/hero-google.svg
 menu:
   sidebar:
-    name: 工程师应该如何高效学习
+    name: (转)工程师应该如何高效学习
     identifier: how-to-learn
     weight: 10
 draft: false
