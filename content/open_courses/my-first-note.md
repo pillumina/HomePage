@@ -1,11 +1,11 @@
 ---
-title: "MIT distributed system"
-date: 2020-10-27T10:40:12+08:00
-hero: /images/posts/mit-distributed-system.svg
+title: "CMU 15210"
+date: 2021-04-28T10:40:12+08:00
+hero: /images/posts/CMU.jpg
 menu:
   sidebar: 
-    name: MIT distributed system courses
-    identifier: mit-distributed-system
+    name: CMU 15210
+    identifier: cmu-15210
     parent: notes
     weight: 10
 

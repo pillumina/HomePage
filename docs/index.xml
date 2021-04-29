@@ -6,7 +6,27 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 24 Apr 2021 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Apr 2021 10:40:12 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CMU 15210</title>
+      <link>https://pillumina.github.io/open_courses/my-first-note/</link>
+      <pubDate>Wed, 28 Apr 2021 10:40:12 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/open_courses/my-first-note/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust阅读索引</title>
+      <link>https://pillumina.github.io/posts/rust/basic/</link>
+      <pubDate>Wed, 28 Apr 2021 09:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/rust/basic/</guid>
+      <description>Index Learn Rust With Entirely Too Many Linked Lists
+Rust Programming Language Handbook
+awesome-rust</description>
+    </item>
+    
     <item>
       <title>Kubernetes ConfigMap 热更新</title>
       <link>https://pillumina.github.io/posts/cloud-computing/k8s-config-update/</link>
@@ -512,15 +532,6 @@ public void test(){ List&amp;lt;Integer&amp;gt; a = new ArrayList&amp;lt;&amp;gt
       
       <guid>https://pillumina.github.io/posts/design-pattern/design-pattern/</guid>
       <description>Design pattern Builder Pattern scenario：build complicated object package msg type Message struct { Header *Header Body *Body } type Header struct { SrcAddr string SrcPort uint64 DestAddr string DestPort uint64 Items map[string]string } type Body struct { Items []string } // Message对象的复杂对象 type builder struct{ once *sync.Once msg *Message } // 返回Builder对象 func Builder() *builder{ return &amp;amp;builder{ once: &amp;amp;sync.Once{}, msg: &amp;amp;Message{Header: &amp;amp;Header{}, Body: &amp;amp;Body{}}, } } func (b *builder) WithSrcAddr(srcAddr string) *builder{ b.</description>
-    </item>
-    
-    <item>
-      <title>MIT distributed system</title>
-      <link>https://pillumina.github.io/open_courses/my-first-note/</link>
-      <pubDate>Tue, 27 Oct 2020 10:40:12 +0800</pubDate>
-      
-      <guid>https://pillumina.github.io/open_courses/my-first-note/</guid>
-      <description></description>
     </item>
     
     <item>

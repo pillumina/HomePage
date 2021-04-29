@@ -824,6 +824,29 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/rust/basic/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/rust.png'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Rust阅读索引</h5>
+        <p class="card-text post-summary"> Index Learn Rust With Entirely Too Many Linked Lists
+Rust Programming Language Handbook
+awesome-rust</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 28, 2021</span>
+        <a href="/posts/rust/basic/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/cloud-computing/k8s-config-update/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -868,32 +891,6 @@ apiVersion: v1 kind: Pod metadata: name: volume-test spec: containers: - name: c
       <div class="card-footer">
         <span class="float-left">April 21, 2021</span>
         <a href="/posts/cloud-computing/k8s-template/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/cloud-computing/k8s-advance-schedule/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Kubernetes Handbook (Schedule)</h5>
-        <p class="card-text post-summary"> 内容涵盖  使用节点污点和pod容忍度阻止pod调度到特定节点 将节点亲缘性规则作为节点选择器的一种替代 使用节点亲缘性进行多个pod的共同调度 使用节点非亲缘性来分离多个pod  高级调度 在pod介绍的文章中可以看到，k8s可以通过在pod spec里面指定节点选择器，而这篇文章介绍的是后面其他逐渐加入的机制。
-使用污点和容忍度阻止节点调度到特定节点 新特性： 节点污点、pod对于污点的容忍度
-这些特性用于限制哪些pod可以被调度到某一个节点，也就是说只有当一个pod容忍某个节点的污点，这个pod才能被调度到该节点。
-节点选择器和节点亲缘性规则，是明确在pod中添加的信息，来觉得一个pod可以或者不可以被调度到某个节点。而污点不一样，是在不修改已有pod信息的前提下，通过在节点上新增污点信息，来拒绝pod在这个节点的部署。
-简单介绍污点和容忍度 我在自己的机器用minikube创建了k8s单点集群，用kubectl describe node minikube可以看到:
-k describe node minikube Name: minikube Roles: master Labels: beta.kubernetes.io/arch=amd64 beta.kubernetes.io/os=linux deploy=test kubernetes.io/arch=amd64 kubernetes.io/hostname=minikube kubernetes.io/os=linux minikube.k8s.io/commit=b09ee50ec047410326a85435f4d99026f9c4f5c4 minikube.k8s.io/name=minikube minikube.k8s.io/updated_at=2021_03_30T20_15_58_0700 minikube.k8s.io/version=v1.14.0 node-role.kubernetes.io/master= Annotations: kubeadm.alpha.kubernetes.io/cri-socket: /var/run/dockershim.sock node.alpha.kubernetes.io/ttl: 0 volumes.kubernetes.io/controller-managed-attach-detach: true CreationTimestamp: Tue, 30 Mar 2021 20:15:55 +0800 Taints: &lt;none&gt; # -----&gt; 主节点暂时没有污点 Unschedulable: false Lease: HolderIdentity: minikube AcquireTime: &lt;unset&gt; RenewTime: Fri, 09 Apr 2021 14:48:12 +0800 可以看到Taints属性，表示目前这个主节点没有污点。不过这里可以举个例子：</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">April 9, 2021</span>
-        <a href="/posts/cloud-computing/k8s-advance-schedule/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>
