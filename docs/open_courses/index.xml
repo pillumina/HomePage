@@ -8,12 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 27 Oct 2020 10:47:11 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/open_courses/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>CMU 15351</title>
+      <link>https://pillumina.github.io/open_courses/cmu-15451/</link>
+      <pubDate>Wed, 28 Apr 2021 11:40:12 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/open_courses/cmu-15451/</guid>
+      <description>Syllabus course syllabus</description>
+    </item>
+    
+    <item>
       <title>CMU 15210</title>
-      <link>https://pillumina.github.io/open_courses/my-first-note/</link>
+      <link>https://pillumina.github.io/open_courses/cmu-15210/</link>
       <pubDate>Wed, 28 Apr 2021 10:40:12 +0800</pubDate>
       
-      <guid>https://pillumina.github.io/open_courses/my-first-note/</guid>
-      <description></description>
+      <guid>https://pillumina.github.io/open_courses/cmu-15210/</guid>
+      <description>Syllabus course syllabus</description>
     </item>
     
   </channel>
