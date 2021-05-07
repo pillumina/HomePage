@@ -508,7 +508,7 @@ func (c *pods) List(opts metav1.ListOptions) (result *v1.PodList, err error) {
 
 ### `RESTClient`
 
-  ...
+  ..
 
 
 
