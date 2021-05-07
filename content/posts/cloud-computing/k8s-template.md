@@ -613,3 +613,36 @@ spec:
               path: my-group/my-config
 ```
 
+
+
+### 简单部署`TiDB Operator`以及集群
+
+#### `crd`安装
+
+`kubectl apply -f https://raw.githubusercontent.com/pingcap/tidb-operator/v1.1.12/manifests/crd.yaml`
+
+
+
+#### 安装operator
+
+```
+helm repo add pingcap https://charts.pingcap.org/
+
+kubectl create namespace tidb-admin
+
+helm install --namespace tidb-admin tidb-operator pingcap/tidb-operator --version v1.1.12
+
+kubectl get pods --namespace tidb-admin -l app.kubernetes.io/instance=tidb-operator
+```
+
+
+
+#### 部署`TiDB`集群和监控
+
+```
+kubectl create namespace tidb-cluster && \
+    kubectl -n tidb-cluster apply -f https://raw.githubusercontent.com/pingcap/tidb-operator/master/examples/basic/tidb-cluster.yaml
+    
+kubectl -n tidb-cluster apply -f https://raw.githubusercontent.com/pingcap/tidb-operator/master/examples/basic/tidb-monitor.yaml
+```
+

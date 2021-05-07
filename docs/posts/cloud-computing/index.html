@@ -402,6 +402,15 @@ if (!doNotTrack) {
     <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
   
 
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-operator-dev/">Kubernetes Operator Development History</a></li>
+  
+
 
       </ul>
     </li>
@@ -574,6 +583,33 @@ if (!doNotTrack) {
   <div class="content container-fluid" id="content">
     <div class="container-fluid post-card-holder" id="post-card-holder">
       
+      
+        <div class="post-card">
+  <a href="/posts/cloud-computing/k8s-operator-dev/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'/>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Kubernetes Operator Development History</h5>
+        <p class="card-text post-summary">本文旨在记录对中间件、编排组件容器化部署后，实现kubernetes扩展组件Controller的过程。
+ Third-Parties kubernetes-client: javascript
+client-go
+kube-rs
+client-go源码分析 目录结构   kubernetes: contains the clientset to access Kubernetes API. discovery: discover APIs supported by a Kubernetes API server. dynamic: contains a dynamic client that can perform generic operations on arbitrary Kubernetes API objects. transport: set up auth and start a connection. tools/cache: useful for writing controllers. informers: informer group listers: lister group   代码实例 git clone https://github.com/huweihuang/client-go.git cd client-go #保证本地HOME目录有配置kubernetes集群的配置文件 go run client-go.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 29, 2021</span>
+        <a
+        href="/posts/cloud-computing/k8s-operator-dev/"
+        class="float-right btn btn-outline-info btn-sm"
+        >Read</a
+        >
+      </div>
+    </div>
+  </a>
+</div>
+
       
         <div class="post-card">
   <a href="/posts/cloud-computing/k8s-config-update/" class="post-card-link">

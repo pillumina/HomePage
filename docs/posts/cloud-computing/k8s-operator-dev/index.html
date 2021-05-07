@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kubernetes Operator Development History</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/assets/css/layouts/main.css"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/navbar.css"/>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;500;600" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+
+
+<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+
+<link rel="stylesheet" href="/assets/css/style.css"/>
+
+    
+<meta name="description" content="Kubernetes Operator Development History" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css"
+/>
+<link rel="stylesheet" href="/assets/css/layouts/single.css"/>
+<link rel="stylesheet" href="/assets/css/navigators/sidebar.css">
+
+
+    
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-190574896-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+  </head>
+
+  <body data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+  
+
+
+  
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button" onclick="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      <img src="/assets/images/main-logo.png">CctoctoFX</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button" onclick="toggleTOC()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      </ul>
+    </div>
+  </div>
+  
+  <img src="/assets/images/main-logo.png" class="d-none" id="main-logo">
+  <img src="/assets/images/inverted-logo.png" class="d-none" id="inverted-logo">
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <input type="text" value="" placeholder="Search" data-search="" id="search-box" />
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="https://pillumina.github.io/posts" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/do-not-wall/">(转)别让自己墙了自己</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/how-to-learn/">(转)工程师应该如何高效学习</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/programmer-career/">(转)程序员如何把控自己的职业</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/black-magic/">Black Magic</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/iaas-paas-diff/">IaaS vs PaaS vs SaaS</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/links/">Tracking</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/golang/">Golang Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channels/">Channels Concurrency</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/fasthttp/">fasthttp对性能的优化研究</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/bdd-testing-framework/">Ginkgo 测试框架</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/lifecycle-of-http/">Go server中http请求的生命周期</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-testing/">Golang Testing Kits</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-management/">Golang内存管理</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/schedualing/">Golang并发调度</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/golang-escape-analysis/">Golang逃逸分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/goroutine-pool/">Goroutine Pool</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/websocket/">Million WebSocket</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/go-profiling/">Profling Go Service</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/sync-pool/">Sync Pool源码分析</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/channel-graceful/">优雅关闭通道</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/golang/memory-leak/">可能的内存泄漏场景</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/java/">Java Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/java/java-fundamentals/">Java Fundamentals</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/cloud-computing/">Kubernetes &amp; Docker</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-basic/">Docker Cheat Sheet</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-aufs/">Docker Fundamentals (AUFS)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-cgroup/">Docker Fundamentals (Cgroup)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/docker-namespace/">Docker Fundamentals (Namespace)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-config-update/">Kubernetes ConfigMap Hot Update</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-template/">Kubernetes Development</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-advance-schedule/">Kubernetes Handbook (Schedule)</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
+  
+
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/cloud-computing/k8s-operator-dev/">Kubernetes Operator Development History</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/algo/">LC/CF刷题笔记</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/algo/string/">字符串专题</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/open_courses/">Open Courses</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/open_courses/cmu-15210/">CMU 15210</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/open_courses/cmu-15451/">CMU 15451</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/design-pattern/">Programming Pattern</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/design-pattern/">Design Pattern Overview</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-pipeline/">Go Pipeline Pattern</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/design-pattern/go-visitor/">Go Visitor Pattern (k8s)</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/python/">Python Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/python/python-functionality/">Python类自定义</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li>
+      <i class="fas fa-plus-circle"></i><a class="" href="/posts/rust/">Rust Odyssey</a>
+      
+      <ul class="">
+        
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/rust/basic/">Rust阅读索引集</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(https://pillumina.github.io/images/posts/k8s-docker.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/photo.jpeg'/>
+          <h5 class="author-name"></h5>
+          <p>April 29, 2021</p>
+        </div>
+
+        <div class="title">
+          <h1>Kubernetes Operator Development History</h1>
+        </div>
+
+        <div class="post-content" id="post-content">
+          <blockquote>
+<p>本文旨在记录对中间件、编排组件容器化部署后，实现kubernetes扩展组件Controller的过程。</p>
+</blockquote>
+<h2 id="third-parties">Third-Parties</h2>
+<p><a href="https://github.com/kubernetes-client/javascript">kubernetes-client: javascript</a></p>
+<p><a href="https://github.com/kubernetes/client-go">client-go</a></p>
+<p><a href="https://github.com/clux/kube-rs">kube-rs</a></p>
+<h2 id="client-go源码分析"><code>client-go</code>源码分析</h2>
+<h3 id="目录结构">目录结构</h3>
+<blockquote>
+<ul>
+<li><code>kubernetes</code>: contains the clientset to access Kubernetes API.</li>
+<li><code>discovery</code>: discover APIs supported by a Kubernetes API server.</li>
+<li><code>dynamic</code>: contains a dynamic client that can perform generic operations on arbitrary Kubernetes API objects.</li>
+<li><code>transport</code>: set up auth and start a connection.</li>
+<li><code>tools/cache</code>: useful for writing controllers.</li>
+<li><code>informers</code>:  informer group</li>
+<li><code>listers</code>:  lister group</li>
+</ul>
+</blockquote>
+<h3 id="代码实例">代码实例</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone https://github.com/huweihuang/client-go.git
+cd client-go
+<span style="color:#75715e">#保证本地HOME目录有配置kubernetes集群的配置文件</span>
+go run client-go.go
+</code></pre></div><p><code>client-go.go</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;flag&#34;</span>
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;path/filepath&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+
+	<span style="color:#a6e22e">metav1</span> <span style="color:#e6db74">&#34;k8s.io/apimachinery/pkg/apis/meta/v1&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/client-go/kubernetes&#34;</span>
+	<span style="color:#e6db74">&#34;k8s.io/client-go/tools/clientcmd&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">kubeconfig</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">home</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">homeDir</span>(); <span style="color:#a6e22e">home</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#a6e22e">kubeconfig</span> = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;kubeconfig&#34;</span>, <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">home</span>, <span style="color:#e6db74">&#34;.kube&#34;</span>, <span style="color:#e6db74">&#34;config&#34;</span>), <span style="color:#e6db74">&#34;(optional) absolute path to the kubeconfig file&#34;</span>)
+	} <span style="color:#66d9ef">else</span> {
+		<span style="color:#a6e22e">kubeconfig</span> = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;kubeconfig&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;absolute path to the kubeconfig file&#34;</span>)
+	}
+	<span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
+	<span style="color:#75715e">// uses the current context in kubeconfig
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">clientcmd</span>.<span style="color:#a6e22e">BuildConfigFromFlags</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">kubeconfig</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+	}
+	<span style="color:#75715e">// creates the clientset
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">clientset</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">kubernetes</span>.<span style="color:#a6e22e">NewForConfig</span>(<span style="color:#a6e22e">config</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		panic(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+	}
+	<span style="color:#66d9ef">for</span> {
+		<span style="color:#a6e22e">pods</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">clientset</span>.<span style="color:#a6e22e">CoreV1</span>().<span style="color:#a6e22e">Pods</span>(<span style="color:#e6db74">&#34;&#34;</span>).<span style="color:#a6e22e">List</span>(<span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ListOptions</span>{})
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			panic(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+		}
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;There are %d pods in the cluster\n&#34;</span>, len(<span style="color:#a6e22e">pods</span>.<span style="color:#a6e22e">Items</span>))
+		<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>)
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">homeDir</span>() <span style="color:#66d9ef">string</span> {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;HOME&#34;</span>); <span style="color:#a6e22e">h</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">h</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;USERPROFILE&#34;</span>) <span style="color:#75715e">// windows
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p><code>output</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">➜ go run client-go.go
+There are <span style="color:#ae81ff">9</span> pods in the cluster
+There are <span style="color:#ae81ff">7</span> pods in the cluster
+There are <span style="color:#ae81ff">7</span> pods in the cluster
+There are <span style="color:#ae81ff">7</span> pods in the cluster
+There are <span style="color:#ae81ff">7</span> pods in the cluster
+</code></pre></div><h3 id="kubeconfig"><code>kubeconfig</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">kubeconfig</span> = <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;kubeconfig&#34;</span>, <span style="color:#a6e22e">filepath</span>.<span style="color:#a6e22e">Join</span>(<span style="color:#a6e22e">home</span>, <span style="color:#e6db74">&#34;.kube&#34;</span>, <span style="color:#e6db74">&#34;config&#34;</span>), <span style="color:#e6db74">&#34;(optional) absolute path to the kubeconfig file&#34;</span>)
+</code></pre></div><p>为了获取k8s配置文件<code>kubeconfig</code>的绝对路径，一般路径为<code>$HOME/.kube/config</code>，这个文件主要用来配置本地连接的k8s集群。</p>
+<p>config的内容大概如图所示：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">clusters</span>:
+- <span style="color:#f92672">cluster</span>:
+    <span style="color:#f92672">server</span>: <span style="color:#ae81ff">http://&lt;kube-master-ip&gt;:8080</span>
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">k8s</span>
+<span style="color:#f92672">contexts</span>:
+- <span style="color:#f92672">context</span>:
+    <span style="color:#f92672">cluster</span>: <span style="color:#ae81ff">k8s</span>
+    <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">default</span>
+    <span style="color:#f92672">user</span>: <span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">default</span>
+<span style="color:#f92672">current-context</span>: <span style="color:#ae81ff">default</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Config</span>
+<span style="color:#f92672">preferences</span>: {}
+<span style="color:#f92672">users</span>: []
+</code></pre></div><h3 id="restconfig"><code>rest.config</code></h3>
+<p>通过参数和<code>BuildConfigFromFlags</code>方法获取<code>rest.Config</code>对象</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">clientcmd</span>.<span style="color:#a6e22e">BuildConfigFromFlags</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">kubeconfig</span>)
+</code></pre></div><p><a href="https://github.com/kubernetes/client-go/blob/master/tools/clientcmd/client_config.go#L522">k8s.io/client-go/tools/clientcmd/client_config.go</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// BuildConfigFromFlags is a helper function that builds configs from a master
+</span><span style="color:#75715e">// url or a kubeconfig filepath. These are passed in as command line flags for cluster
+</span><span style="color:#75715e">// components. Warnings should reflect this usage. If neither masterUrl or kubeconfigPath
+</span><span style="color:#75715e">// are passed in we fallback to inClusterConfig. If inClusterConfig fails, we fallback
+</span><span style="color:#75715e">// to the default config.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BuildConfigFromFlags</span>(<span style="color:#a6e22e">masterUrl</span>, <span style="color:#a6e22e">kubeconfigPath</span> <span style="color:#66d9ef">string</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">restclient</span>.<span style="color:#a6e22e">Config</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">kubeconfigPath</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">masterUrl</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+		<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">Warning</span>(<span style="color:#e6db74">&#34;Neither --kubeconfig nor --master was specified.  Using the inClusterConfig.  This might not work.&#34;</span>)
+		<span style="color:#a6e22e">kubeconfig</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">restclient</span>.<span style="color:#a6e22e">InClusterConfig</span>()
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">kubeconfig</span>, <span style="color:#66d9ef">nil</span>
+		}
+		<span style="color:#a6e22e">klog</span>.<span style="color:#a6e22e">Warning</span>(<span style="color:#e6db74">&#34;error creating inClusterConfig, falling back to default config: &#34;</span>, <span style="color:#a6e22e">err</span>)
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">NewNonInteractiveDeferredLoadingClientConfig</span>(
+		<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ClientConfigLoadingRules</span>{<span style="color:#a6e22e">ExplicitPath</span>: <span style="color:#a6e22e">kubeconfigPath</span>},
+		<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ConfigOverrides</span>{<span style="color:#a6e22e">ClusterInfo</span>: <span style="color:#a6e22e">clientcmdapi</span>.<span style="color:#a6e22e">Cluster</span>{<span style="color:#a6e22e">Server</span>: <span style="color:#a6e22e">masterUrl</span>}}).<span style="color:#a6e22e">ClientConfig</span>()
+}
+</code></pre></div><h3 id="clientset"><code>clientset</code></h3>
+<p>通过<code>*rest.Config</code>参数和<code>NewForConfig</code>方法来获取<code>clientset</code>对象，<code>clientset</code>是多个<code>client</code>集合，每个<code>client</code>可能包括不同版本的方法调用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">clientset</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">kubernetes</span>.<span style="color:#a6e22e">NewForConfig</span>(<span style="color:#a6e22e">config</span>)
+</code></pre></div><h4 id="newforconfig"><code>NewForConfig</code></h4>
+<p><code>NewForConfig</code>函数就是初始化<code>clientset</code>中的每个client。</p>
+<p><a href="https://github.com/kubernetes/client-go/blob/87887458218a51f3944b2f4c553eb38173458e97/kubernetes/clientset.go#L396">k8s.io/client-go/kubernetes/clientset.go</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// NewForConfig creates a new Clientset for the given config.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewForConfig</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">rest</span>.<span style="color:#a6e22e">Config</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Clientset</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">configShallowCopy</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">c</span>
+	<span style="color:#f92672">...</span>
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cs</span> <span style="color:#a6e22e">Clientset</span>
+	<span style="color:#a6e22e">cs</span>.<span style="color:#a6e22e">appsV1beta1</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">appsv1beta1</span>.<span style="color:#a6e22e">NewForConfig</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">configShallowCopy</span>)
+	<span style="color:#f92672">...</span>
+	<span style="color:#a6e22e">cs</span>.<span style="color:#a6e22e">coreV1</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">corev1</span>.<span style="color:#a6e22e">NewForConfig</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">configShallowCopy</span>)
+	<span style="color:#f92672">...</span>
+}
+</code></pre></div><h4 id="clientset的结构体"><code>clientset</code>的结构体</h4>
+<p><a href="https://github.com/kubernetes/client-go/blob/master/kubernetes/clientset.go">k8s.io/client-go/kubernetes/clientset.go</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// Clientset contains the clients for groups. Each group has exactly one
+</span><span style="color:#75715e">// version included in a Clientset.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Clientset</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#f92672">*</span><span style="color:#a6e22e">discovery</span>.<span style="color:#a6e22e">DiscoveryClient</span>
+	<span style="color:#a6e22e">admissionregistrationV1</span>      <span style="color:#f92672">*</span><span style="color:#a6e22e">admissionregistrationv1</span>.<span style="color:#a6e22e">AdmissionregistrationV1Client</span>
+	<span style="color:#a6e22e">admissionregistrationV1beta1</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">admissionregistrationv1beta1</span>.<span style="color:#a6e22e">AdmissionregistrationV1beta1Client</span>
+	<span style="color:#a6e22e">internalV1alpha1</span>             <span style="color:#f92672">*</span><span style="color:#a6e22e">internalv1alpha1</span>.<span style="color:#a6e22e">InternalV1alpha1Client</span>
+	<span style="color:#a6e22e">appsV1</span>                       <span style="color:#f92672">*</span><span style="color:#a6e22e">appsv1</span>.<span style="color:#a6e22e">AppsV1Client</span>
+	<span style="color:#a6e22e">appsV1beta1</span>                  <span style="color:#f92672">*</span><span style="color:#a6e22e">appsv1beta1</span>.<span style="color:#a6e22e">AppsV1beta1Client</span>
+	<span style="color:#a6e22e">appsV1beta2</span>                  <span style="color:#f92672">*</span><span style="color:#a6e22e">appsv1beta2</span>.<span style="color:#a6e22e">AppsV1beta2Client</span>
+	<span style="color:#a6e22e">authenticationV1</span>             <span style="color:#f92672">*</span><span style="color:#a6e22e">authenticationv1</span>.<span style="color:#a6e22e">AuthenticationV1Client</span>
+	<span style="color:#a6e22e">authenticationV1beta1</span>        <span style="color:#f92672">*</span><span style="color:#a6e22e">authenticationv1beta1</span>.<span style="color:#a6e22e">AuthenticationV1beta1Client</span>
+	<span style="color:#a6e22e">authorizationV1</span>              <span style="color:#f92672">*</span><span style="color:#a6e22e">authorizationv1</span>.<span style="color:#a6e22e">AuthorizationV1Client</span>
+	<span style="color:#a6e22e">authorizationV1beta1</span>         <span style="color:#f92672">*</span><span style="color:#a6e22e">authorizationv1beta1</span>.<span style="color:#a6e22e">AuthorizationV1beta1Client</span>
+	<span style="color:#a6e22e">autoscalingV1</span>                <span style="color:#f92672">*</span><span style="color:#a6e22e">autoscalingv1</span>.<span style="color:#a6e22e">AutoscalingV1Client</span>
+	<span style="color:#a6e22e">autoscalingV2beta1</span>           <span style="color:#f92672">*</span><span style="color:#a6e22e">autoscalingv2beta1</span>.<span style="color:#a6e22e">AutoscalingV2beta1Client</span>
+	<span style="color:#a6e22e">autoscalingV2beta2</span>           <span style="color:#f92672">*</span><span style="color:#a6e22e">autoscalingv2beta2</span>.<span style="color:#a6e22e">AutoscalingV2beta2Client</span>
+	<span style="color:#a6e22e">batchV1</span>                      <span style="color:#f92672">*</span><span style="color:#a6e22e">batchv1</span>.<span style="color:#a6e22e">BatchV1Client</span>
+	<span style="color:#a6e22e">batchV1beta1</span>                 <span style="color:#f92672">*</span><span style="color:#a6e22e">batchv1beta1</span>.<span style="color:#a6e22e">BatchV1beta1Client</span>
+	<span style="color:#a6e22e">certificatesV1</span>               <span style="color:#f92672">*</span><span style="color:#a6e22e">certificatesv1</span>.<span style="color:#a6e22e">CertificatesV1Client</span>
+	<span style="color:#a6e22e">certificatesV1beta1</span>          <span style="color:#f92672">*</span><span style="color:#a6e22e">certificatesv1beta1</span>.<span style="color:#a6e22e">CertificatesV1beta1Client</span>
+	<span style="color:#a6e22e">coordinationV1beta1</span>          <span style="color:#f92672">*</span><span style="color:#a6e22e">coordinationv1beta1</span>.<span style="color:#a6e22e">CoordinationV1beta1Client</span>
+	<span style="color:#a6e22e">coordinationV1</span>               <span style="color:#f92672">*</span><span style="color:#a6e22e">coordinationv1</span>.<span style="color:#a6e22e">CoordinationV1Client</span>
+	<span style="color:#a6e22e">coreV1</span>                       <span style="color:#f92672">*</span><span style="color:#a6e22e">corev1</span>.<span style="color:#a6e22e">CoreV1Client</span>
+	<span style="color:#a6e22e">discoveryV1</span>                  <span style="color:#f92672">*</span><span style="color:#a6e22e">discoveryv1</span>.<span style="color:#a6e22e">DiscoveryV1Client</span>
+	<span style="color:#a6e22e">discoveryV1beta1</span>             <span style="color:#f92672">*</span><span style="color:#a6e22e">discoveryv1beta1</span>.<span style="color:#a6e22e">DiscoveryV1beta1Client</span>
+	<span style="color:#a6e22e">eventsV1</span>                     <span style="color:#f92672">*</span><span style="color:#a6e22e">eventsv1</span>.<span style="color:#a6e22e">EventsV1Client</span>
+	<span style="color:#a6e22e">eventsV1beta1</span>                <span style="color:#f92672">*</span><span style="color:#a6e22e">eventsv1beta1</span>.<span style="color:#a6e22e">EventsV1beta1Client</span>
+	<span style="color:#a6e22e">extensionsV1beta1</span>            <span style="color:#f92672">*</span><span style="color:#a6e22e">extensionsv1beta1</span>.<span style="color:#a6e22e">ExtensionsV1beta1Client</span>
+	<span style="color:#a6e22e">flowcontrolV1alpha1</span>          <span style="color:#f92672">*</span><span style="color:#a6e22e">flowcontrolv1alpha1</span>.<span style="color:#a6e22e">FlowcontrolV1alpha1Client</span>
+	<span style="color:#a6e22e">flowcontrolV1beta1</span>           <span style="color:#f92672">*</span><span style="color:#a6e22e">flowcontrolv1beta1</span>.<span style="color:#a6e22e">FlowcontrolV1beta1Client</span>
+	<span style="color:#a6e22e">networkingV1</span>                 <span style="color:#f92672">*</span><span style="color:#a6e22e">networkingv1</span>.<span style="color:#a6e22e">NetworkingV1Client</span>
+	<span style="color:#a6e22e">networkingV1beta1</span>            <span style="color:#f92672">*</span><span style="color:#a6e22e">networkingv1beta1</span>.<span style="color:#a6e22e">NetworkingV1beta1Client</span>
+	<span style="color:#a6e22e">nodeV1</span>                       <span style="color:#f92672">*</span><span style="color:#a6e22e">nodev1</span>.<span style="color:#a6e22e">NodeV1Client</span>
+	<span style="color:#a6e22e">nodeV1alpha1</span>                 <span style="color:#f92672">*</span><span style="color:#a6e22e">nodev1alpha1</span>.<span style="color:#a6e22e">NodeV1alpha1Client</span>
+	<span style="color:#a6e22e">nodeV1beta1</span>                  <span style="color:#f92672">*</span><span style="color:#a6e22e">nodev1beta1</span>.<span style="color:#a6e22e">NodeV1beta1Client</span>
+	<span style="color:#a6e22e">policyV1</span>                     <span style="color:#f92672">*</span><span style="color:#a6e22e">policyv1</span>.<span style="color:#a6e22e">PolicyV1Client</span>
+	<span style="color:#a6e22e">policyV1beta1</span>                <span style="color:#f92672">*</span><span style="color:#a6e22e">policyv1beta1</span>.<span style="color:#a6e22e">PolicyV1beta1Client</span>
+	<span style="color:#a6e22e">rbacV1</span>                       <span style="color:#f92672">*</span><span style="color:#a6e22e">rbacv1</span>.<span style="color:#a6e22e">RbacV1Client</span>
+	<span style="color:#a6e22e">rbacV1beta1</span>                  <span style="color:#f92672">*</span><span style="color:#a6e22e">rbacv1beta1</span>.<span style="color:#a6e22e">RbacV1beta1Client</span>
+	<span style="color:#a6e22e">rbacV1alpha1</span>                 <span style="color:#f92672">*</span><span style="color:#a6e22e">rbacv1alpha1</span>.<span style="color:#a6e22e">RbacV1alpha1Client</span>
+	<span style="color:#a6e22e">schedulingV1alpha1</span>           <span style="color:#f92672">*</span><span style="color:#a6e22e">schedulingv1alpha1</span>.<span style="color:#a6e22e">SchedulingV1alpha1Client</span>
+	<span style="color:#a6e22e">schedulingV1beta1</span>            <span style="color:#f92672">*</span><span style="color:#a6e22e">schedulingv1beta1</span>.<span style="color:#a6e22e">SchedulingV1beta1Client</span>
+	<span style="color:#a6e22e">schedulingV1</span>                 <span style="color:#f92672">*</span><span style="color:#a6e22e">schedulingv1</span>.<span style="color:#a6e22e">SchedulingV1Client</span>
+	<span style="color:#a6e22e">storageV1beta1</span>               <span style="color:#f92672">*</span><span style="color:#a6e22e">storagev1beta1</span>.<span style="color:#a6e22e">StorageV1beta1Client</span>
+	<span style="color:#a6e22e">storageV1</span>                    <span style="color:#f92672">*</span><span style="color:#a6e22e">storagev1</span>.<span style="color:#a6e22e">StorageV1Client</span>
+	<span style="color:#a6e22e">storageV1alpha1</span>              <span style="color:#f92672">*</span><span style="color:#a6e22e">storagev1alpha1</span>.<span style="color:#a6e22e">StorageV1alpha1Client</span>
+}
+</code></pre></div><h4 id="clientsetinterface"><code>clientset.Interface</code></h4>
+<p><code>clientset</code>实现了以下的interface，可以通过以下的方法获得具体的client，例如:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">pods</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">clientset</span>.<span style="color:#a6e22e">CoreV1</span>().<span style="color:#a6e22e">Pods</span>(<span style="color:#e6db74">&#34;&#34;</span>).<span style="color:#a6e22e">List</span>(<span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ListOptions</span>{})
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Interface</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Discovery</span>() <span style="color:#a6e22e">discovery</span>.<span style="color:#a6e22e">DiscoveryInterface</span>
+	<span style="color:#a6e22e">AdmissionregistrationV1</span>() <span style="color:#a6e22e">admissionregistrationv1</span>.<span style="color:#a6e22e">AdmissionregistrationV1Interface</span>
+	<span style="color:#a6e22e">AdmissionregistrationV1beta1</span>() <span style="color:#a6e22e">admissionregistrationv1beta1</span>.<span style="color:#a6e22e">AdmissionregistrationV1beta1Interface</span>
+	<span style="color:#a6e22e">InternalV1alpha1</span>() <span style="color:#a6e22e">internalv1alpha1</span>.<span style="color:#a6e22e">InternalV1alpha1Interface</span>
+	<span style="color:#a6e22e">AppsV1</span>() <span style="color:#a6e22e">appsv1</span>.<span style="color:#a6e22e">AppsV1Interface</span>
+	<span style="color:#a6e22e">AppsV1beta1</span>() <span style="color:#a6e22e">appsv1beta1</span>.<span style="color:#a6e22e">AppsV1beta1Interface</span>
+	<span style="color:#a6e22e">AppsV1beta2</span>() <span style="color:#a6e22e">appsv1beta2</span>.<span style="color:#a6e22e">AppsV1beta2Interface</span>
+	<span style="color:#a6e22e">AuthenticationV1</span>() <span style="color:#a6e22e">authenticationv1</span>.<span style="color:#a6e22e">AuthenticationV1Interface</span>
+	<span style="color:#a6e22e">AuthenticationV1beta1</span>() <span style="color:#a6e22e">authenticationv1beta1</span>.<span style="color:#a6e22e">AuthenticationV1beta1Interface</span>
+	<span style="color:#a6e22e">AuthorizationV1</span>() <span style="color:#a6e22e">authorizationv1</span>.<span style="color:#a6e22e">AuthorizationV1Interface</span>
+	<span style="color:#a6e22e">AuthorizationV1beta1</span>() <span style="color:#a6e22e">authorizationv1beta1</span>.<span style="color:#a6e22e">AuthorizationV1beta1Interface</span>
+	<span style="color:#a6e22e">AutoscalingV1</span>() <span style="color:#a6e22e">autoscalingv1</span>.<span style="color:#a6e22e">AutoscalingV1Interface</span>
+	<span style="color:#a6e22e">AutoscalingV2beta1</span>() <span style="color:#a6e22e">autoscalingv2beta1</span>.<span style="color:#a6e22e">AutoscalingV2beta1Interface</span>
+	<span style="color:#a6e22e">AutoscalingV2beta2</span>() <span style="color:#a6e22e">autoscalingv2beta2</span>.<span style="color:#a6e22e">AutoscalingV2beta2Interface</span>
+	<span style="color:#a6e22e">BatchV1</span>() <span style="color:#a6e22e">batchv1</span>.<span style="color:#a6e22e">BatchV1Interface</span>
+	<span style="color:#a6e22e">BatchV1beta1</span>() <span style="color:#a6e22e">batchv1beta1</span>.<span style="color:#a6e22e">BatchV1beta1Interface</span>
+	<span style="color:#a6e22e">CertificatesV1</span>() <span style="color:#a6e22e">certificatesv1</span>.<span style="color:#a6e22e">CertificatesV1Interface</span>
+	<span style="color:#a6e22e">CertificatesV1beta1</span>() <span style="color:#a6e22e">certificatesv1beta1</span>.<span style="color:#a6e22e">CertificatesV1beta1Interface</span>
+	<span style="color:#a6e22e">CoordinationV1beta1</span>() <span style="color:#a6e22e">coordinationv1beta1</span>.<span style="color:#a6e22e">CoordinationV1beta1Interface</span>
+	<span style="color:#a6e22e">CoordinationV1</span>() <span style="color:#a6e22e">coordinationv1</span>.<span style="color:#a6e22e">CoordinationV1Interface</span>
+	<span style="color:#a6e22e">CoreV1</span>() <span style="color:#a6e22e">corev1</span>.<span style="color:#a6e22e">CoreV1Interface</span>
+	<span style="color:#a6e22e">DiscoveryV1</span>() <span style="color:#a6e22e">discoveryv1</span>.<span style="color:#a6e22e">DiscoveryV1Interface</span>
+	<span style="color:#a6e22e">DiscoveryV1beta1</span>() <span style="color:#a6e22e">discoveryv1beta1</span>.<span style="color:#a6e22e">DiscoveryV1beta1Interface</span>
+	<span style="color:#a6e22e">EventsV1</span>() <span style="color:#a6e22e">eventsv1</span>.<span style="color:#a6e22e">EventsV1Interface</span>
+	<span style="color:#a6e22e">EventsV1beta1</span>() <span style="color:#a6e22e">eventsv1beta1</span>.<span style="color:#a6e22e">EventsV1beta1Interface</span>
+	<span style="color:#a6e22e">ExtensionsV1beta1</span>() <span style="color:#a6e22e">extensionsv1beta1</span>.<span style="color:#a6e22e">ExtensionsV1beta1Interface</span>
+	<span style="color:#a6e22e">FlowcontrolV1alpha1</span>() <span style="color:#a6e22e">flowcontrolv1alpha1</span>.<span style="color:#a6e22e">FlowcontrolV1alpha1Interface</span>
+	<span style="color:#a6e22e">FlowcontrolV1beta1</span>() <span style="color:#a6e22e">flowcontrolv1beta1</span>.<span style="color:#a6e22e">FlowcontrolV1beta1Interface</span>
+	<span style="color:#a6e22e">NetworkingV1</span>() <span style="color:#a6e22e">networkingv1</span>.<span style="color:#a6e22e">NetworkingV1Interface</span>
+	<span style="color:#a6e22e">NetworkingV1beta1</span>() <span style="color:#a6e22e">networkingv1beta1</span>.<span style="color:#a6e22e">NetworkingV1beta1Interface</span>
+	<span style="color:#a6e22e">NodeV1</span>() <span style="color:#a6e22e">nodev1</span>.<span style="color:#a6e22e">NodeV1Interface</span>
+	<span style="color:#a6e22e">NodeV1alpha1</span>() <span style="color:#a6e22e">nodev1alpha1</span>.<span style="color:#a6e22e">NodeV1alpha1Interface</span>
+	<span style="color:#a6e22e">NodeV1beta1</span>() <span style="color:#a6e22e">nodev1beta1</span>.<span style="color:#a6e22e">NodeV1beta1Interface</span>
+	<span style="color:#a6e22e">PolicyV1</span>() <span style="color:#a6e22e">policyv1</span>.<span style="color:#a6e22e">PolicyV1Interface</span>
+	<span style="color:#a6e22e">PolicyV1beta1</span>() <span style="color:#a6e22e">policyv1beta1</span>.<span style="color:#a6e22e">PolicyV1beta1Interface</span>
+	<span style="color:#a6e22e">RbacV1</span>() <span style="color:#a6e22e">rbacv1</span>.<span style="color:#a6e22e">RbacV1Interface</span>
+	<span style="color:#a6e22e">RbacV1beta1</span>() <span style="color:#a6e22e">rbacv1beta1</span>.<span style="color:#a6e22e">RbacV1beta1Interface</span>
+	<span style="color:#a6e22e">RbacV1alpha1</span>() <span style="color:#a6e22e">rbacv1alpha1</span>.<span style="color:#a6e22e">RbacV1alpha1Interface</span>
+	<span style="color:#a6e22e">SchedulingV1alpha1</span>() <span style="color:#a6e22e">schedulingv1alpha1</span>.<span style="color:#a6e22e">SchedulingV1alpha1Interface</span>
+	<span style="color:#a6e22e">SchedulingV1beta1</span>() <span style="color:#a6e22e">schedulingv1beta1</span>.<span style="color:#a6e22e">SchedulingV1beta1Interface</span>
+	<span style="color:#a6e22e">SchedulingV1</span>() <span style="color:#a6e22e">schedulingv1</span>.<span style="color:#a6e22e">SchedulingV1Interface</span>
+	<span style="color:#a6e22e">StorageV1beta1</span>() <span style="color:#a6e22e">storagev1beta1</span>.<span style="color:#a6e22e">StorageV1beta1Interface</span>
+	<span style="color:#a6e22e">StorageV1</span>() <span style="color:#a6e22e">storagev1</span>.<span style="color:#a6e22e">StorageV1Interface</span>
+	<span style="color:#a6e22e">StorageV1alpha1</span>() <span style="color:#a6e22e">storagev1alpha1</span>.<span style="color:#a6e22e">StorageV1alpha1Interface</span>
+}
+</code></pre></div><h3 id="corev1client"><code>CoreV1Client</code></h3>
+<p>常用的<code>CoreV1Client</code>为例子分析</p>
+<h4 id="corev1newforconfig"><code>corev1.NewForConfig</code></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// NewForConfig creates a new CoreV1Client for the given config.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">NewForConfig</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">rest</span>.<span style="color:#a6e22e">Config</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>, <span style="color:#66d9ef">error</span>) {
+	<span style="color:#a6e22e">config</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">c</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">setConfigDefaults</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">config</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rest</span>.<span style="color:#a6e22e">RESTClientFor</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">config</span>)
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">CoreV1Client</span>{<span style="color:#a6e22e">client</span>}, <span style="color:#66d9ef">nil</span>
+}
+</code></pre></div><p>通过传入配置信息<code>rest.Config</code>来实例化对象，其本质是调用了<code>rest.RESTClientFor(&amp;Config)</code>方法创建了<code>RESTClient</code>的对象，即<code>CoreV1Client</code>的本质就是一个<code>RESTClient</code>对象。</p>
+<h4 id="corev1client结构体定义"><code>CoreV1Client</code>结构体定义</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// CoreV1Client is used to interact with features provided by the  group.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CoreV1Client</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">restClient</span> <span style="color:#a6e22e">rest</span>.<span style="color:#a6e22e">Interface</span>
+}
+</code></pre></div><p><code>CoreV1Client</code>实现了<code>CoreV1Interface</code>接口，从而对k8s的资源对象进行增删改查的操作。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">//CoreV1Client的方法
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">ComponentStatuses</span>() <span style="color:#a6e22e">ComponentStatusInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#75715e">//ConfigMaps
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">ConfigMaps</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">ConfigMapInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#75715e">//Endpoints
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">Endpoints</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">EndpointsInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">Events</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">EventInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">LimitRanges</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">LimitRangeInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#75715e">//Namespaces
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">Namespaces</span>() <span style="color:#a6e22e">NamespaceInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#75715e">//Nodes
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">Nodes</span>() <span style="color:#a6e22e">NodeInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">PersistentVolumes</span>() <span style="color:#a6e22e">PersistentVolumeInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">PersistentVolumeClaims</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">PersistentVolumeClaimInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#75715e">//Pods
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">Pods</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">PodInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">PodTemplates</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">PodTemplateInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#75715e">//ReplicationControllers
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">ReplicationControllers</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">ReplicationControllerInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">ResourceQuotas</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">ResourceQuotaInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">Secrets</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">SecretInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#75715e">//Services
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">Services</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">ServiceInterface</span> {<span style="color:#f92672">...</span>}
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">ServiceAccounts</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">ServiceAccountInterface</span> {<span style="color:#f92672">...</span>}
+
+</code></pre></div><h4 id="corev1interface"><code>CoreV1Interface</code></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CoreV1Interface</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">RESTClient</span>() <span style="color:#a6e22e">rest</span>.<span style="color:#a6e22e">Interface</span>
+	<span style="color:#a6e22e">ComponentStatusesGetter</span>
+	<span style="color:#a6e22e">ConfigMapsGetter</span>
+	<span style="color:#a6e22e">EndpointsGetter</span>
+	<span style="color:#a6e22e">EventsGetter</span>
+	<span style="color:#a6e22e">LimitRangesGetter</span>
+	<span style="color:#a6e22e">NamespacesGetter</span>
+	<span style="color:#a6e22e">NodesGetter</span>
+	<span style="color:#a6e22e">PersistentVolumesGetter</span>
+	<span style="color:#a6e22e">PersistentVolumeClaimsGetter</span>
+	<span style="color:#a6e22e">PodsGetter</span>
+	<span style="color:#a6e22e">PodTemplatesGetter</span>
+	<span style="color:#a6e22e">ReplicationControllersGetter</span>
+	<span style="color:#a6e22e">ResourceQuotasGetter</span>
+	<span style="color:#a6e22e">SecretsGetter</span>
+	<span style="color:#a6e22e">ServicesGetter</span>
+	<span style="color:#a6e22e">ServiceAccountsGetter</span>
+}
+</code></pre></div><p><code>CoreV1Interface</code>中包含了各种k8s对象的调用接口，例如<code>PodsGetter</code>是对k8s中pod对象增删改查的接口。<code>ServicesGetter</code>是对service对象的操作的接口。</p>
+<h4 id="podsgetter接口举例探索"><code>PodsGetter</code>接口举例探索</h4>
+<p>可以以<code>PodsGetter</code>接口为例来研究一下<code>CoreV1Client</code>对pod对象的增删改查调用。</p>
+<p>示例中的代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">pods</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">clientset</span>.<span style="color:#a6e22e">CoreV1</span>().<span style="color:#a6e22e">Pods</span>(<span style="color:#e6db74">&#34;&#34;</span>).<span style="color:#a6e22e">List</span>(<span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ListOptions</span>{})
+</code></pre></div><p><strong>CoreV1().Pods()</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// core_client.go
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>) <span style="color:#a6e22e">Pods</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">PodInterface</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">newPods</span>(<span style="color:#a6e22e">c</span>, <span style="color:#a6e22e">namespace</span>)
+}
+
+<span style="color:#75715e">// pod.go
+</span><span style="color:#75715e">// newPods returns a Pods
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">newPods</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CoreV1Client</span>, <span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">pods</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">pods</span>{
+		<span style="color:#a6e22e">client</span>: <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">RESTClient</span>(),
+		<span style="color:#a6e22e">ns</span>:     <span style="color:#a6e22e">namespace</span>,
+	}
+}
+</code></pre></div><p><code>CoreV1().Pods()</code>方法实际上调用了<code>newPods()</code>方法，创建了一个pod对象，该对象继承了<code>rest.Interface</code>接口，即最终的实现本质是<code>RESTClient</code>的HTTP调用。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// pods implements PodInterface
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">pods</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">client</span> <span style="color:#a6e22e">rest</span>.<span style="color:#a6e22e">Interface</span>
+	<span style="color:#a6e22e">ns</span>     <span style="color:#66d9ef">string</span>
+}
+</code></pre></div><p><code>pods</code>对象实现了<code>PodInterface</code>接口：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// PodInterface has methods to work with Pod resources.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PodInterface</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Create</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">Update</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">UpdateStatus</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">Delete</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">options</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">DeleteOptions</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">DeleteCollection</span>(<span style="color:#a6e22e">options</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">DeleteOptions</span>, <span style="color:#a6e22e">listOptions</span> <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ListOptions</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">options</span> <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">GetOptions</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">List</span>(<span style="color:#a6e22e">opts</span> <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ListOptions</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">PodList</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">Watch</span>(<span style="color:#a6e22e">opts</span> <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ListOptions</span>) (<span style="color:#a6e22e">watch</span>.<span style="color:#a6e22e">Interface</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">Patch</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">pt</span> <span style="color:#a6e22e">types</span>.<span style="color:#a6e22e">PatchType</span>, <span style="color:#a6e22e">data</span> []<span style="color:#66d9ef">byte</span>, <span style="color:#a6e22e">subresources</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">result</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">Pod</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">GetEphemeralContainers</span>(<span style="color:#a6e22e">podName</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">options</span> <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">GetOptions</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">EphemeralContainers</span>, <span style="color:#66d9ef">error</span>)
+	<span style="color:#a6e22e">UpdateEphemeralContainers</span>(<span style="color:#a6e22e">podName</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">ephemeralContainers</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">EphemeralContainers</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">EphemeralContainers</span>, <span style="color:#66d9ef">error</span>)
+
+	<span style="color:#a6e22e">PodExpansion</span>
+
+</code></pre></div><p>这个interface定义了<code>pods</code>对象的增删改查等方法。</p>
+<p><code>PodsGetter</code> 继承了<code>PodInterface</code>的接口:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// PodsGetter has a method to return a PodInterface.
+</span><span style="color:#75715e">// A group&#39;s client should implement this interface.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PodsGetter</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Pods</span>(<span style="color:#a6e22e">namespace</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">PodInterface</span>
+}
+</code></pre></div><p><code>Pods().List()</code>方法通过<code>RESTClient</code>的HTTP调用来实现对k8s的pod资源的获取:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// List takes label and field selectors, and returns the list of Pods that match those selectors.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">pods</span>) <span style="color:#a6e22e">List</span>(<span style="color:#a6e22e">opts</span> <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">ListOptions</span>) (<span style="color:#a6e22e">result</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">PodList</span>, <span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">timeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">TimeoutSeconds</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">timeout</span> = <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">TimeoutSeconds</span>) <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>
+	}
+	<span style="color:#a6e22e">result</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">PodList</span>{}
+	<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Get</span>().
+		<span style="color:#a6e22e">Namespace</span>(<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">ns</span>).
+		<span style="color:#a6e22e">Resource</span>(<span style="color:#e6db74">&#34;pods&#34;</span>).
+		<span style="color:#a6e22e">VersionedParams</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">opts</span>, <span style="color:#a6e22e">scheme</span>.<span style="color:#a6e22e">ParameterCodec</span>).
+		<span style="color:#a6e22e">Timeout</span>(<span style="color:#a6e22e">timeout</span>).
+		<span style="color:#a6e22e">Do</span>().
+		<span style="color:#a6e22e">Into</span>(<span style="color:#a6e22e">result</span>)
+	<span style="color:#66d9ef">return</span>
+}
+</code></pre></div><p>以上分析了<code>clientset.CoreV1().Pods(&quot;&quot;).List(metav1.ListOptions{})</code>对pod资源获取的过程，最终是调用<code>RESTClient</code>的方法实现。</p>
+<h3 id="restclient"><code>RESTClient</code></h3>
+<p>&hellip;</p>
+<h2 id="operator-sdk"><code>Operator SDK</code></h2>
+
+        </div>
+
+        
+        
+          <div class="btn-improve-page">
+              <a href="https://github.com/pillumina/pillumina.Github.io/edit/master/content/posts/cloud-computing/k8s-operator-dev.md">
+                <i class="fas fa-code-branch"></i>
+                Improve This Page
+              </a>
+          </div>
+        
+
+        
+      <hr />
+        <div class="row next-prev-navigator">
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+      
+    
+  
+
+</div>
+
+      <hr />
+      
+      
+          <div id="disqus_thread"></div>
+<script type="text/javascript">
+  (function () {
+    
+    
+    if (window.location.hostname == "localhost") return;
+
+    var dsq = document.createElement("script");
+    dsq.type = "text/javascript";
+    dsq.async = true;
+    var disqus_shortname = "pillumina";
+    dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+    (
+      document.getElementsByTagName("head")[0] ||
+      document.getElementsByTagName("body")[0]
+    ).appendChild(dsq);
+  })();
+</script>
+<noscript
+  >Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript"
+    >comments powered by Disqus.</a
+  ></noscript
+>
+<a href="https://disqus.com/" class="dsq-brlink"
+  >comments powered by <span class="logo-disqus">Disqus</span></a
+>
+
+      
+      </div>
+    </div>
+  </div>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#third-parties">Third-Parties</a></li>
+    <li><a href="#client-go源码分析"><code>client-go</code>源码分析</a>
+      <ul>
+        <li><a href="#目录结构">目录结构</a></li>
+        <li><a href="#代码实例">代码实例</a></li>
+        <li><a href="#kubeconfig"><code>kubeconfig</code></a></li>
+        <li><a href="#restconfig"><code>rest.config</code></a></li>
+        <li><a href="#clientset"><code>clientset</code></a>
+          <ul>
+            <li><a href="#newforconfig"><code>NewForConfig</code></a></li>
+            <li><a href="#clientset的结构体"><code>clientset</code>的结构体</a></li>
+            <li><a href="#clientsetinterface"><code>clientset.Interface</code></a></li>
+          </ul>
+        </li>
+        <li><a href="#corev1client"><code>CoreV1Client</code></a>
+          <ul>
+            <li><a href="#corev1newforconfig"><code>corev1.NewForConfig</code></a></li>
+            <li><a href="#corev1client结构体定义"><code>CoreV1Client</code>结构体定义</a></li>
+            <li><a href="#corev1interface"><code>CoreV1Interface</code></a></li>
+            <li><a href="#podsgetter接口举例探索"><code>PodsGetter</code>接口举例探索</a></li>
+          </ul>
+        </li>
+        <li><a href="#restclient"><code>RESTClient</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#operator-sdk"><code>Operator SDK</code></a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+
+  
+
+
+
+
+  
+
+
+
+
+  
+  
+    
+  
+
+
+<footer class="container-fluid text-center align-content-center footer pb-2">
+  <div class="container pt-5">
+    <div class="row text-left">
+      <div class="col-md-4 col-sm-12">
+        <h5>Navigation</h5>
+        
+        <ul>
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#about">About</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#skills">Skills</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#experiences">Experiences</a>
+              </li>
+            
+            
+              
+              
+                
+              
+              <li class="nav-item">
+                <a class="smooth-scroll" href="#recent-posts">Recent Posts</a>
+              </li>
+            
+        </ul>
+        
+
+      </div>
+      
+      <div class="col-md-4 col-sm-12">
+        <h5>Contact me:</h5>
+        <ul>
+          
+          <li><span>Email: </span> <span>yxhuang@g.ucla.edu</span></li>
+          
+          <li><span>Phone: </span> <span>&#43;86-18657825298</span></li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+  </div>
+  <hr />
+  <div class="container">
+    <div class="row text-left">
+      <div class="col-md-4">
+        <a id="theme" href="https://github.com/hossainemruz/toha" target="#">
+          <img src="/assets/images/inverted-logo.png">
+          Toha
+        </a>
+      </div>
+      <div class="col-md-4 text-center">© 2020 Copyright.</div>
+      <div class="col-md-4 text-right">
+        <a id="hugo" href="https://gohugo.io/">Powered by
+        <img
+          src="/assets/images/hugo-logo-wide.svg"
+          alt="Hugo Logo"
+          height="18"
+        />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/assets/js/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<script src="/assets/js/navbar.js"></script>
+<script src="/assets/js/main.js"></script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script src="/assets/js/single.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+
+  </body>
+</html>

@@ -6,7 +6,20 @@
     <description>Recent content on CctoctoFX</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Apr 2021 11:40:12 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Apr 2021 11:22:18 +0800</lastBuildDate><atom:link href="https://pillumina.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Operator Development History</title>
+      <link>https://pillumina.github.io/posts/cloud-computing/k8s-operator-dev/</link>
+      <pubDate>Thu, 29 Apr 2021 11:22:18 +0800</pubDate>
+      
+      <guid>https://pillumina.github.io/posts/cloud-computing/k8s-operator-dev/</guid>
+      <description>本文旨在记录对中间件、编排组件容器化部署后，实现kubernetes扩展组件Controller的过程。
+ Third-Parties kubernetes-client: javascript
+client-go
+kube-rs
+client-go源码分析 目录结构   kubernetes: contains the clientset to access Kubernetes API. discovery: discover APIs supported by a Kubernetes API server. dynamic: contains a dynamic client that can perform generic operations on arbitrary Kubernetes API objects. transport: set up auth and start a connection. tools/cache: useful for writing controllers. informers: informer group listers: lister group   代码实例 git clone https://github.com/huweihuang/client-go.git cd client-go #保证本地HOME目录有配置kubernetes集群的配置文件 go run client-go.</description>
+    </item>
+    
     <item>
       <title>Algorithms Design and Analysis</title>
       <link>https://pillumina.github.io/open_courses/cmu-15451/</link>

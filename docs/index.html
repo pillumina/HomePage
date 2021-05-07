@@ -824,6 +824,31 @@ if (!doNotTrack) {
     <div class="row" id="recent-post-cards">
       
         <div class="col-lg-4 col-md-6 pt-2 post-card">
+  <a href="/posts/cloud-computing/k8s-operator-dev/" class="post-card-link">
+    <div class="card">
+      <div class="card-head">
+        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'
+          alt="Card image cap"
+        />
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Kubernetes Operator Development History</h5>
+        <p class="card-text post-summary"> 本文旨在记录对中间件、编排组件容器化部署后，实现kubernetes扩展组件Controller的过程。
+ Third-Parties kubernetes-client: javascript
+client-go
+kube-rs
+client-go源码分析 目录结构   kubernetes: contains the clientset to access Kubernetes API. discovery: discover APIs supported by a Kubernetes API server. dynamic: contains a dynamic client that can perform generic operations on arbitrary Kubernetes API objects. transport: set up auth and start a connection. tools/cache: useful for writing controllers. informers: informer group listers: lister group   代码实例 git clone https://github.com/huweihuang/client-go.git cd client-go #保证本地HOME目录有配置kubernetes集群的配置文件 go run client-go.</p>
+      </div>
+      <div class="card-footer">
+        <span class="float-left">April 29, 2021</span>
+        <a href="/posts/cloud-computing/k8s-operator-dev/" class="float-right btn btn-outline-info btn-sm">Read</a>
+      </div>
+    </div>
+  </a>
+</div>
+
+      
+        <div class="col-lg-4 col-md-6 pt-2 post-card">
   <a href="/posts/rust/basic/" class="post-card-link">
     <div class="card">
       <div class="card-head">
@@ -870,27 +895,6 @@ apiVersion: v1 kind: Pod metadata: name: volume-test spec: containers: - name: c
       <div class="card-footer">
         <span class="float-left">April 24, 2021</span>
         <a href="/posts/cloud-computing/k8s-config-update/" class="float-right btn btn-outline-info btn-sm">Read</a>
-      </div>
-    </div>
-  </a>
-</div>
-
-      
-        <div class="col-lg-4 col-md-6 pt-2 post-card">
-  <a href="/posts/cloud-computing/k8s-template/" class="post-card-link">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-img-top" src='/images/posts/k8s-docker.jpg'
-          alt="Card image cap"
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Kubernetes Developement</h5>
-        <p class="card-text post-summary"> 资源模板 statefulset举例 apiVersion: apps/v1beta1 kind: StatefulSet metadata: name: kubia spec: serviceName: kubia replicas: 2 template: metadata: labels: app: kubia spec: containers: - name: kubia image: derios/kubia ports: - name: http containerPort: 8080 volumeMounts: - name: data mountPath: /var/data volumeClaimTemplates: - metadata: name: data spec: resources: requests: storage: 1Mi accessModes: - ReadWriteOnce headless service举例 apiVersion: v1 kind: Service metadata: name: kubia spec: clusterIP: None selector: app: kubia ports: - name: http port: 80 storage class local PV kind: StorageClass apiVersion: storage.</p>
-      </div>
-      <div class="card-footer">
-        <span class="float-left">April 21, 2021</span>
-        <a href="/posts/cloud-computing/k8s-template/" class="float-right btn btn-outline-info btn-sm">Read</a>
       </div>
     </div>
   </a>

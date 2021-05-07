@@ -407,6 +407,15 @@ if (!doNotTrack) {
     <li><a class="" href="/posts/cloud-computing/k8s-basic/">Kubernetes Handbook (Start &amp; Pod)</a></li>
   
 
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/cloud-computing/k8s-operator-dev/">Kubernetes Operator Development History</a></li>
+  
+
 
       </ul>
     </li>
@@ -1126,7 +1135,23 @@ statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
           <span style="color:#f92672">items</span>:
             - <span style="color:#f92672">key</span>: <span style="color:#ae81ff">config</span>
               <span style="color:#f92672">path</span>: <span style="color:#ae81ff">my-group/my-config</span>
-</code></pre></div>
+</code></pre></div><h3 id="简单部署tidb-operator以及集群">简单部署<code>TiDB Operator</code>以及集群</h3>
+<h4 id="crd安装"><code>crd</code>安装</h4>
+<p><code>kubectl apply -f https://raw.githubusercontent.com/pingcap/tidb-operator/v1.1.12/manifests/crd.yaml</code></p>
+<h4 id="安装operator">安装operator</h4>
+<pre><code>helm repo add pingcap https://charts.pingcap.org/
+
+kubectl create namespace tidb-admin
+
+helm install --namespace tidb-admin tidb-operator pingcap/tidb-operator --version v1.1.12
+
+kubectl get pods --namespace tidb-admin -l app.kubernetes.io/instance=tidb-operator
+</code></pre><h4 id="部署tidb集群和监控">部署<code>TiDB</code>集群和监控</h4>
+<pre><code>kubectl create namespace tidb-cluster &amp;&amp; \
+    kubectl -n tidb-cluster apply -f https://raw.githubusercontent.com/pingcap/tidb-operator/master/examples/basic/tidb-cluster.yaml
+    
+kubectl -n tidb-cluster apply -f https://raw.githubusercontent.com/pingcap/tidb-operator/master/examples/basic/tidb-monitor.yaml
+</code></pre>
         </div>
 
         
@@ -1243,6 +1268,8 @@ statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
 
   
 
+  
+
 </div>
 
       <hr />
@@ -1321,6 +1348,13 @@ statefulset.apps <span style="color:#e6db74">&#34;local-test&#34;</span> deleted
           <ul>
             <li><a href="#以前的情况">以前的情况</a></li>
             <li><a href="#投射卷的情况">投射卷的情况</a></li>
+          </ul>
+        </li>
+        <li><a href="#简单部署tidb-operator以及集群">简单部署<code>TiDB Operator</code>以及集群</a>
+          <ul>
+            <li><a href="#crd安装"><code>crd</code>安装</a></li>
+            <li><a href="#安装operator">安装operator</a></li>
+            <li><a href="#部署tidb集群和监控">部署<code>TiDB</code>集群和监控</a></li>
           </ul>
         </li>
       </ul>
