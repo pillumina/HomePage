@@ -7,8 +7,8 @@ description: Portfolio and personal blog of Calvin Albert.
 # specify the list of custom menus that you want to show in the top navbar.
 # they will be separated by a divider from the main menus.
 customMenus:
-- name: Other Notes
-  url: https://hossainemruz.gitbook.io/
+- name: My Blog
+  url: https://www.cctoctofx.com
 - name: Go Mojotv
   url: https://mojotv.cn
 - name: Graham's Essay

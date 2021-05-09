@@ -976,7 +976,14 @@ There are <span style="color:#ae81ff">7</span> pods in the cluster
 }
 </code></pre></div><p>以上分析了<code>clientset.CoreV1().Pods(&quot;&quot;).List(metav1.ListOptions{})</code>对pod资源获取的过程，最终是调用<code>RESTClient</code>的方法实现。</p>
 <h3 id="restclient"><code>RESTClient</code></h3>
-<p>..</p>
+<p>待补充</p>
+<h3 id="总结">总结</h3>
+<p><code>client-go</code>对K8s资源对象的调用，需要先获取k8s的配置信息，也就是<code>$HOME/.kube/config</code>。</p>
+<p>调用顺序如下：</p>
+<blockquote>
+<p><code>kubeconfig</code> -&gt; <code>rest.config</code> -&gt; <code>clientset</code> -&gt; 具体的client(CoreV1Client) -&gt; 具体的资源对象(如pod) -&gt; <code>RESTClient</code> -&gt; <code>http.Client</code> -&gt; HTTP 请求的发送和响应</p>
+</blockquote>
+<p>常用的client有<code>CoreV1Client</code>、<code>AppsV1betaClient</code>、<code>ExtensionsV1beta1Client</code>等。</p>
 <h2 id="operator-sdk"><code>Operator SDK</code></h2>
 
         </div>
@@ -1147,6 +1154,7 @@ There are <span style="color:#ae81ff">7</span> pods in the cluster
           </ul>
         </li>
         <li><a href="#restclient"><code>RESTClient</code></a></li>
+        <li><a href="#总结">总结</a></li>
       </ul>
     </li>
     <li><a href="#operator-sdk"><code>Operator SDK</code></a></li>

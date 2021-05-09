@@ -508,7 +508,19 @@ func (c *pods) List(opts metav1.ListOptions) (result *v1.PodList, err error) {
 
 ### `RESTClient`
 
-  ..
+  待补充
+
+
+
+### 总结
+
+  `client-go`对K8s资源对象的调用，需要先获取k8s的配置信息，也就是`$HOME/.kube/config`。
+
+  调用顺序如下：
+
+>`kubeconfig` -> `rest.config` -> `clientset` -> 具体的client(CoreV1Client) -> 具体的资源对象(如pod) -> `RESTClient` -> `http.Client` -> HTTP 请求的发送和响应
+
+  常用的client有`CoreV1Client`、`AppsV1betaClient`、`ExtensionsV1beta1Client`等。
 
 
 
